@@ -4,7 +4,9 @@
   "author": "underscope@gmail.com",
   "version": "0.0.1",
   "type": "module",
-  "main": "./index.ts",
+  "scripts": {
+    "dev": "node --experimental-specifier-resolution=node --loader ts-node/esm ./boot.ts"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
