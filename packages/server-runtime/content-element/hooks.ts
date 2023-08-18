@@ -7,7 +7,10 @@ function prepareHookServices(tce) {
   };
 }
 
-export default function initHooks(hooksMap) {
+export default function initHooks(hooks) {
+  // If plain object, convert to map
+  const hooksMap = hooks?.has ? hooks : new Map(hooks);
+
   function registerHook(element, hookName, tceConfig) {
     const hook = hooksMap.get(hookName);
     return hook(element, prepareHookServices(tceConfig));
