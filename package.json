@@ -5,10 +5,7 @@
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
-  "main": "./src/index.ts",
   "scripts": {
-    "build": "unbuild",
-    "dev": "node --experimental-specifier-resolution=node --loader ts-node/esm src/index.ts",
     "lint": "eslint --cache --ext .ts,.js,.mjs,.cjs . && prettier -c src test",
     "lint:fix": "eslint --cache --ext .ts,.js,.mjs,.cjs . --fix && prettier -c src test -w",
     "prepack": "pnpm run build",
@@ -20,18 +17,9 @@
     "changelogen": "^0.5.3",
     "eslint": "^8.42.0",
     "eslint-config-unjs": "^0.2.0",
-    "nodemon": "3.0.1",
     "prettier": "^2.8.8",
-    "ts-node": "^10.9.1",
-    "typescript": "5.1.6",
     "unbuild": "^1.2.1",
     "vitest": "^0.31.4"
   },
-  "packageManager": "pnpm@7.33.0",
-  "dependencies": {
-    "boxen": "^7.1.1",
-    "concurrently": "^8.2.0",
-    "shelljs": "^0.8.5",
-    "tce-server-runtime": "workspace:^0.0.1"
-  }
+  "packageManager": "pnpm@7.33.0"
 }
