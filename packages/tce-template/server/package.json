@@ -1,0 +1,13 @@
+{
+  "name": "tce-server",
+  "description": "Content element server module",
+  "author": "ExtensionEngine <info@extensionengine.com>",
+  "version": "0.0.1",
+  "main": "./dist/server/index.js",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
