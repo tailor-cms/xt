@@ -14,5 +14,15 @@
       "require": "./packages/display/dist/display.umd.cjs"
     },
     "./server": "./packages/server/dist/index.js"
+  },
+  "devDependencies": {
+    "@npmcli/package-json": "^2.0.0",
+    "chalk": "^4.1.2",
+    "degit": "^2.8.4",
+    "enquirer": "^2.4.1",
+    "has-flag": "^5.0.1",
+    "shelljs": "^0.8.5",
+    "typescript": "^4.8.4",
+    "validate-npm-package-name": "^4.0.0"
   }
 }
