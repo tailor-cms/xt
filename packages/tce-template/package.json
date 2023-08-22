@@ -1,0 +1,18 @@
+{
+  "name": "tce-template",
+  "description": "Content element template",
+  "version": "0.0.1",
+  "author": "ExtensionEngine <info@extensionengine.com>",
+  "type": "module",
+  "exports": {
+    "./edit": {
+      "import": "./packages/edit/dist/edit.js",
+      "require": "./packages/edit/dist/edit.umd.cjs"
+    },
+    "./display": {
+      "import": "./packages/display/dist/display.js",
+      "require": "./packages/display/dist/display.umd.cjs"
+    },
+    "./server": "./packages/server/dist/index.js"
+  }
+}
