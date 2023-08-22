@@ -1,0 +1,13 @@
+{
+  "name": "tce-common",
+  "description": "Content element shared module",
+  "author": "ExtensionEngine <info@extensionengine.com>",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
