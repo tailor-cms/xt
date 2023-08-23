@@ -1,5 +1,5 @@
 {
-  "name": "tce-boot",
+  "name": "@tailor-cms/tce-boot",
   "description": "Content element runtime boot script",
   "author": "ExtensionEngine <info@extensionengine.com>",
   "version": "0.0.1",

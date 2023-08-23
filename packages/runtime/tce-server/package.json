@@ -1,5 +1,5 @@
 {
-  "name": "tce-server-runtime",
+  "name": "@tailor-cms/tce-server-runtime",
   "description": "Teaching element server runtime",
   "author": "underscope@gmail.com",
   "version": "0.0.1",

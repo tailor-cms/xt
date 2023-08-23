@@ -1,5 +1,5 @@
 {
-  "name": "tce-display-runtime",
+  "name": "@tailor-cms/tce-display-runtime",
   "description": "Content element display runtime",
   "author": "ExtensionEngine <info@extensionengine.com>",
   "version": "0.0.1",

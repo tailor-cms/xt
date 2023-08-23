@@ -1,5 +1,5 @@
 {
-  "name": "tce-edit-runtime",
+  "name": "@tailor-cms/tce-edit-runtime",
   "description": "Edit content element client side runtime",
   "author": "ExtensionEngine <info@extensionengine.com>",
   "version": "0.0.1",
