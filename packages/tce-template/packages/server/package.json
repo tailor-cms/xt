@@ -3,6 +3,7 @@
   "description": "Content element server module",
   "author": "ExtensionEngine <info@extensionengine.com>",
   "version": "0.0.1",
+  "type": "module",
   "main": "./dist/server/index.js",
   "scripts": {
     "build": "tsc --build"
