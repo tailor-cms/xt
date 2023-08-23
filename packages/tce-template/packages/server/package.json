@@ -8,6 +8,9 @@
   "scripts": {
     "build": "tsc --build"
   },
+  "dependencies": {
+    "tce-manifest": "workspace:*"
+  },
   "devDependencies": {
     "typescript": "^4.8.4"
   }

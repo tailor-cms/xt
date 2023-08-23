@@ -1,4 +1,4 @@
-import { info } from "../../index";
+import { info } from "tce-manifest";
 
 function beforeSave(element: any, services: any) {
   console.log("Before save hook", element);
