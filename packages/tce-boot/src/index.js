@@ -20,9 +20,12 @@ console.log(
   })
 );
 
-process.env.TCE_DISPLAY_DIR = `${codeDir}/display/src`;
-process.env.TCE_EDIT_DIR = `${codeDir}/edit/src`;
-process.env.TCE_SERVER_DIR = `${codeDir}/server/src`;
+const tceBootEnv = {
+  TCE_DISPLAY_DIR: `${codeDir}/display/dist/index.js`,
+  TCE_EDIT_DIR: `${codeDir}/edit/dist/index.js`,
+  TCE_SERVER_DIR: `${codeDir}/server/dist/index.js`
+}
+Object.keys(tceBootEnv).forEach((key) => (process.env[key] = tceBootEnv[key]))
 
 concurrently(
   ["tce-server-runtime", "tce-edit-runtime", "tce-display-runtime"].map(
