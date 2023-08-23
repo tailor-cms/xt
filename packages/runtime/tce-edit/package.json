@@ -38,5 +38,8 @@
     "vue-clickaway": "^2.2.2",
     "vue-template-compiler": "^2.6.11",
     "vue-tsc": "^0.38.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -22,7 +22,7 @@
     "enquirer": "^2.4.1",
     "has-flag": "^5.0.1",
     "shelljs": "^0.8.5",
-    "tce-boot": "workspace:*",
+    "@tailor-cms/tce-boot": "^0.0.1",
     "typescript": "^4.8.4",
     "validate-npm-package-name": "^4.0.0"
   },

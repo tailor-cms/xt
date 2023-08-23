@@ -36,5 +36,8 @@
     "vue-tsc": "^0.38.4",
     "vuetify": "^3.0.0-beta.11",
     "webfontloader": "^1.6.28"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

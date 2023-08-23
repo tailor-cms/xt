@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-boot",
   "description": "Content element runtime boot script",
   "author": "ExtensionEngine <info@extensionengine.com>",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "start": "node src/index.js"
@@ -10,9 +10,9 @@
   "dependencies": {
     "boxen": "^7.1.1",
     "concurrently": "^8.2.0",
-    "tce-server-runtime": "workspace:*",
-    "tce-edit-runtime": "workspace:*",
-    "tce-display-runtime": "workspace:*"
+    "@tailor-cms/tce-server-runtime": "^0.0.1",
+    "@tailor-cms/tce-edit-runtime": "^0.0.1",
+    "@tailor-cms/tce-display-runtime": "^0.0.1"
   },
   "pnpm": {
     "packageExtensions": {
