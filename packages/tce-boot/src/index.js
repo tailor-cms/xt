@@ -1,5 +1,15 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import boxen from "boxen";
 import concurrently from "concurrently";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Detect if run within t-xt or tce-template
+const codeDir = __dirname.includes("t-xt")
+  ? __dirname.replace("/tce-boot/src", "/tce-template/packages")
+  : path.resolve(__dirname, "../../../packages");
 
 console.log(
   boxen("🚀 Teaching Element Kit", {
@@ -10,13 +20,17 @@ console.log(
   })
 );
 
-concurrently([
-  "tce-server-runtime",
-  "tce-edit-runtime",
-  "tce-display-runtime",
-].map((packageName, index) => ({
-  // Remove tce- prefix
-  name: packageName.slice(4, packageName.length),
-  prefixColor: ['magenta', 'green', 'blue'][index],
-  command: `cd ./node_modules/${packageName} && pnpm dev`
-})));
+process.env.TCE_DISPLAY_DIR = `${codeDir}/display/src`;
+process.env.TCE_EDIT_DIR = `${codeDir}/edit/src`;
+process.env.TCE_SERVER_DIR = `${codeDir}/server/src`;
+
+concurrently(
+  ["tce-server-runtime", "tce-edit-runtime", "tce-display-runtime"].map(
+    (packageName, index) => ({
+      // Remove tce- prefix
+      name: packageName.slice(4, packageName.length),
+      prefixColor: ["magenta", "green", "blue"][index],
+      command: `cd ./node_modules/${packageName} && pnpm dev`,
+    })
+  )
+);
