@@ -33,7 +33,7 @@ concurrently(
       // Remove tce- prefix
       name: packageName.slice(4, packageName.length),
       prefixColor: ["magenta", "green", "blue"][index],
-      command: `cd ./node_modules/${packageName} && pnpm dev`,
+      command: `cd ./node_modules/@tailor-cms/${packageName} && pnpm dev`,
     })
   )
 );
