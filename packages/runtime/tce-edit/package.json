@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-edit-runtime",
   "description": "Edit content element client side runtime",
   "author": "ExtensionEngine <info@extensionengine.com>",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,13 +10,22 @@
   },
   "dependencies": {
     "@mdi/font": "^7.0.96",
+    "@vitejs/plugin-vue2": "^2.0.0",
+    "ky": "^0.31.4",
+    "sass": "~1.32.12",
+    "typescript": "^4.6.4",
+    "unplugin-vue-components": "^0.22.7",
+    "vite": "^3.0.0",
+    "vite-plugin-vue2": "^2.0.2",
     "vue": "2.7.14",
+    "vue-clickaway": "^2.2.2",
+    "vue-template-compiler": "^2.6.11",
+    "vue-tsc": "^0.38.4",
     "vuetify": "^2.6.12"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
-    "@vitejs/plugin-vue2": "^2.0.0",
     "@vue/eslint-config-standard": "^8.0.1",
     "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.5.0",
@@ -28,16 +37,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-vue": "^9.3.0",
     "eslint-plugin-vuejs-accessibility": "^1.2.0",
-    "ky": "^0.31.4",
-    "prettier": "^2.7.1",
-    "sass": "~1.32.12",
-    "typescript": "^4.6.4",
-    "unplugin-vue-components": "^0.22.7",
-    "vite": "^3.0.0",
-    "vite-plugin-vue2": "^2.0.2",
-    "vue-clickaway": "^2.2.2",
-    "vue-template-compiler": "^2.6.11",
-    "vue-tsc": "^0.38.4"
+    "prettier": "^2.7.1"
   },
   "publishConfig": {
     "access": "public"
