@@ -1,15 +1,21 @@
+import { createRequire } from "node:module";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+
 import boxen from "boxen";
 import concurrently from "concurrently";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const require = createRequire(import.meta.url);
 
-// Detect if run within t-xt or tce-template
-const codeDir = __dirname.includes("t-xt")
-  ? __dirname.replace("/tce-boot/src", "/tce-template/packages")
-  : path.resolve(__dirname, "../../../packages");
+const runtimes = await Promise.all(
+  ["server", "edit", "display"].map(async (name) => {
+    const pkgRef = `@tailor-cms/tce-${name}-runtime/package.json`;
+    const pkgPath = await require.resolve(pkgRef);
+    return {
+      name,
+      path: path.dirname(pkgPath),
+    };
+  })
+);
 
 console.log(
   boxen("🚀 Teaching Element Kit", {
@@ -20,20 +26,18 @@ console.log(
   })
 );
 
+const { INIT_CWD } = process.env;
 const tceBootEnv = {
-  TCE_DISPLAY_DIR: `${codeDir}/display/dist/index.js`,
-  TCE_EDIT_DIR: `${codeDir}/edit/dist/index.js`,
-  TCE_SERVER_DIR: `${codeDir}/server/dist/index.js`
-}
-Object.keys(tceBootEnv).forEach((key) => (process.env[key] = tceBootEnv[key]))
+  TCE_DISPLAY_DIR: `${INIT_CWD}/packages/display/dist/index.js`,
+  TCE_EDIT_DIR: `${INIT_CWD}/packages/edit/dist/index.js`,
+  TCE_SERVER_DIR: `${INIT_CWD}/packages/server/dist/index.js`,
+};
+Object.keys(tceBootEnv).forEach((key) => (process.env[key] = tceBootEnv[key]));
 
 concurrently(
-  ["tce-server-runtime", "tce-edit-runtime", "tce-display-runtime"].map(
-    (packageName, index) => ({
-      // Remove tce- prefix
-      name: packageName.slice(4, packageName.length),
-      prefixColor: ["magenta", "green", "blue"][index],
-      command: `cd ./node_modules/@tailor-cms/${packageName} && pnpm dev`,
-    })
-  )
+  runtimes.map((runtime, index) => ({
+    name: `${runtime.name}-runtime`,
+    prefixColor: ["magenta", "green", "blue"][index],
+    command: `cd ${runtime.path} && pnpm dev`,
+  }))
 );
