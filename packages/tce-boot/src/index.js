@@ -26,11 +26,12 @@ console.log(
   })
 );
 
-const { INIT_CWD } = process.env;
+const { PWD } = process.env
+const baseDir = PWD.slice(0, PWD.indexOf('/node_modules/'));
 const tceBootEnv = {
-  TCE_DISPLAY_DIR: `${INIT_CWD}/packages/display/dist/index.js`,
-  TCE_EDIT_DIR: `${INIT_CWD}/packages/edit/dist/index.js`,
-  TCE_SERVER_DIR: `${INIT_CWD}/packages/server/dist/index.js`,
+  TCE_DISPLAY_DIR: `${baseDir}/packages/display/dist/index.js`,
+  TCE_EDIT_DIR: `${baseDir}/packages/edit/dist/index.js`,
+  TCE_SERVER_DIR: `${baseDir}/packages/server/dist/index.js`,
 };
 Object.keys(tceBootEnv).forEach((key) => (process.env[key] = tceBootEnv[key]));
 
