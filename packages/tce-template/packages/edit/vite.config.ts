@@ -10,7 +10,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, "./src/index.ts"),
       name: "Edit",
-      fileName: "edit",
+      fileName: "index",
     },
   },
   plugins: [vue()],
