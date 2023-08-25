@@ -6,7 +6,7 @@
           <v-col v-on-clickaway="unfocusElement" @click="isFocused = true">
             <h2 class="mb-5">Edit preview</h2>
             <div class="edit-frame">
-              <edit
+              <tce-edit
                 v-if="element.data"
                 :element="element"
                 :is-focused="isFocused"

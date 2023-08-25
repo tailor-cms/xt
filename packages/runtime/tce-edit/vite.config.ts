@@ -4,7 +4,7 @@ import { createVuePlugin } from "vite-plugin-vue2";
 import { VuetifyResolver } from "unplugin-vue-components/resolvers";
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode }): any => {
   // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
   const env = loadEnv(mode, process.cwd(), "");
@@ -20,6 +20,16 @@ export default defineConfig(({ mode }) => {
         resolvers: [
           // Vuetify
           VuetifyResolver(),
+          (componentName) => {
+            if (["TopToolbar", "SideToolbar", "Edit"].includes(componentName)) {
+              console.log("Loaded:", componentName);
+              return {
+                name: componentName,
+                as: componentName === "Edit" ? "TceEdit" : componentName,
+                from: env.TCE_EDIT_DIR,
+              };
+            }
+          },
         ],
       }),
     ],
