@@ -25,7 +25,6 @@ export default defineConfig(({ mode }): any => {
               console.log("Loaded:", componentName);
               return {
                 name: componentName,
-                as: componentName === "Edit" ? "TceEdit" : componentName,
                 from: env.TCE_EDIT_DIR,
               };
             }

@@ -5,7 +5,7 @@
         <v-row>
           <v-col cols="6">
             <h2 class="mb-5">Display preview</h2>
-            <TceDisplay v-bind="dataSeed" />
+            <Display v-bind="dataSeed" />
           </v-col>
         </v-row>
       </v-container>

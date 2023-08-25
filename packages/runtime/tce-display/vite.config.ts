@@ -20,8 +20,7 @@ export default defineConfig(({ mode }): any => {
             if (["Display"].includes(componentName)) {
               console.log("Loaded:", componentName);
               return {
-                name: "Display",
-                as: "TceDisplay",
+                name: componentName,
                 from: env.TCE_DISPLAY_DIR,
               };
             }
