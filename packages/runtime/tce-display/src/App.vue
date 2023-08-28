@@ -1,15 +1,6 @@
 <template>
   <v-app>
-    <v-main>
-      <v-container>
-        <v-row>
-          <v-col cols="6">
-            <h2 class="mb-5">Display preview</h2>
-            <Display v-bind="dataSeed" />
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
+    <Display v-bind="dataSeed" />
   </v-app>
 </template>
 
