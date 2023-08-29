@@ -21,20 +21,22 @@ onMounted(() => Split(["#splitA", "#splitB"]));
     <div class="d-flex flex-row h-100">
       <iframe
         id="splitA"
-        src="http://localhost:8010"
         ref="iframe"
         class="w-full p-4"
-        sandbox="allow-scripts"
         frameBorder="0"
-      />
+        sandbox="allow-scripts"
+        src="http://localhost:8010"
+        title="Edit component container"
+      ></iframe>
       <iframe
         id="splitB"
-        src="http://localhost:8020"
         ref="iframe"
         class="w-full p-4"
-        sandbox="allow-scripts"
         frameBorder="0"
-      />
+        sandbox="allow-scripts"
+        src="http://localhost:8020"
+        title="Display component container"
+      ></iframe>
     </div>
   </main>
 </template>

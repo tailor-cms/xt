@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import logoUrl from "../assets/logo.png";
 import { useToggle } from "@vueuse/core";
+
+import logoUrl from "../assets/logo.png";
 import { useDarkGlobal } from "../utils";
 
 const isDark = useDarkGlobal();
@@ -9,15 +10,13 @@ const toggleDark = useToggle(isDark);
 
 <template>
   <v-app-bar :color="isDark ? 'blue-grey-darken-4' : 'grey-lighten-4'">
-    <template v-slot:prepend>
+    <template #prepend>
       <v-app-bar-nav-icon>
-        <img :src="logoUrl" width="32" />
+        <img :src="logoUrl" alt="Tailor logo" width="32" />
       </v-app-bar-nav-icon>
     </template>
-    <v-app-bar-title>
-      Dev Kit
-    </v-app-bar-title>
-    <v-spacer></v-spacer>
+    <v-app-bar-title> Dev Kit </v-app-bar-title>
+    <v-spacer />
     <v-btn icon>
       <v-icon>mdi-github</v-icon>
     </v-btn>

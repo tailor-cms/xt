@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Nav from "./components/Nav.vue";
-import Main from "./components/Main.vue";
+import AppBar from "./components/AppBar.vue";
+import MainLayout from "./components/MainLayout.vue";
 </script>
 
 <template>
   <v-app>
-    <Nav />
-    <Main class="mt-14" />
+    <AppBar />
+    <MainLayout class="mt-14" />
   </v-app>
 </template>
 
