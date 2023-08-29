@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from "vue";
-import Split from "split.js";
+import { onMounted, ref, watch } from 'vue';
+import Split from 'split.js';
 
-import { useDarkGlobal } from "../utils";
+import { useDarkGlobal } from '../utils';
 const isDark = useDarkGlobal();
 const iframe = ref<HTMLIFrameElement>();
 
 watch(isDark, (value) => {
   iframe.value?.contentWindow?.postMessage(
-    `theme-${value ? "dark" : "light"}`,
-    "*"
+    `theme-${value ? 'dark' : 'light'}`,
+    '*',
   );
 });
 
-onMounted(() => Split(["#splitA", "#splitB"]));
+onMounted(() => Split(['#splitA', '#splitB']));
 </script>
 
 <template>
@@ -52,7 +52,7 @@ main {
 
 .gutter.gutter-horizontal {
   background-color: #333;
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==");
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
   cursor: col-resize;
 }
 </style>

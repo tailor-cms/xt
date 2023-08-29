@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import AppBar from "./components/AppBar.vue";
-import MainLayout from "./components/MainLayout.vue";
+import AppBar from './components/AppBar.vue';
+import MainLayout from './components/MainLayout.vue';
 </script>
 
 <template>

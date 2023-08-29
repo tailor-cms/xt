@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useToggle } from "@vueuse/core";
+import { useToggle } from '@vueuse/core';
 
-import logoUrl from "../assets/logo.png";
-import { useDarkGlobal } from "../utils";
+import logoUrl from '../assets/logo.png';
+import { useDarkGlobal } from '../utils';
 
 const isDark = useDarkGlobal();
 const toggleDark = useToggle(isDark);
