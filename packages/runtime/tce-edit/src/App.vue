@@ -10,8 +10,8 @@
                 v-if="element.data"
                 :element="element"
                 :is-focused="isFocused"
-                @save="onSave"
                 @delete="onDelete"
+                @save="onSave"
               />
             </div>
           </v-col>
@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import ky from "ky";
-import { directive as onClickaway } from "vue-clickaway";
+import ky from 'ky';
+import { directive as onClickaway } from 'vue-clickaway';
 
 const SERVER_HOST = `localhost:${import.meta.env.VITE_TCE_SERVER_PORT || 8030}`;
 const api = ky.create({ prefixUrl: `http://${SERVER_HOST}` });
@@ -52,7 +52,7 @@ export default {
   async mounted() {
     await this.getElement();
     // Simulate SSE from Tailor
-    ws.addEventListener("message", (event) => {
+    ws.addEventListener('message', (event) => {
       this.element = JSON.parse(event.data);
     });
   },
@@ -62,18 +62,18 @@ export default {
     },
     onSave(data) {
       this.updateElementData(data);
-      this.$emit("save", data);
+      this.$emit('save', data);
     },
     onDelete() {
-      this.$emit("delete");
+      this.$emit('delete');
     },
     async getElement() {
       try {
-        const response = await api("content-element").json();
+        const response = await api('content-element').json();
         if (response === null) return;
         this.element = response;
       } catch (error) {
-        console.log("Error on element get", error);
+        console.log('Error on element get', error);
       }
     },
     async updateElementData(data) {
@@ -84,7 +84,7 @@ export default {
 
         this.element = response;
       } catch (error) {
-        console.log("Error on element update", error);
+        console.log('Error on element update', error);
       }
     },
   },
