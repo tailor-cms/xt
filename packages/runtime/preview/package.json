@@ -1,4 +1,5 @@
 {
+  "name": "@tailor-cms/tce-preview-runtime",
   "version": "0.0.1",
   "scripts": {
     "dev": "vite",
