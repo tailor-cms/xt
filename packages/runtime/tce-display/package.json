@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "lint": "eslint --ext .js,.ts,.vue ."
+    "lint": "eslint --ext .js,.ts,.vue .",
+    "lint:fix": "pnpm lint --fix"
   },
   "dependencies": {
     "@mdi/font": "^7.0.96",

@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import { dataSeed } from "./data";
+import { dataSeed } from './data';
 </script>
