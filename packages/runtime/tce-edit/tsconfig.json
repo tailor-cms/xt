@@ -8,7 +8,6 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "allowJs": true,
     "useDefineForClassFields": true,
     "strict": false,
     "jsx": "preserve",
