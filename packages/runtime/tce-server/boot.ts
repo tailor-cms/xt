@@ -1,4 +1,4 @@
-import initServerRuntime from "./index";
+import initServerRuntime from './index';
 
 const elementManifest = await import(process.env.TCE_SERVER_DIR);
-initServerRuntime(elementManifest);
+await initServerRuntime(elementManifest);

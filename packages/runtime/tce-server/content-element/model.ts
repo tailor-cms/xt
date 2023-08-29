@@ -1,4 +1,4 @@
-import { Model, DataTypes } from "sequelize";
+import { DataTypes, Model } from 'sequelize';
 const { BOOLEAN, DATE, DOUBLE, TEXT, STRING, UUID, UUIDV4 } = DataTypes;
 
 export default class ContentElement extends Model {
@@ -10,30 +10,30 @@ export default class ContentElement extends Model {
         unique: true,
       },
       type: {
-        type: STRING
+        type: STRING,
       },
       position: {
         type: DOUBLE,
-        validate: { min: 0, max: 1000000 }
+        validate: { min: 0, max: 1000000 },
       },
       data: {
         type: TEXT,
         get() {
-          return JSON.parse(this.getDataValue("data"));
+          return JSON.parse(this.getDataValue('data'));
         },
         set(value) {
-          this.setDataValue("data", JSON.stringify(value));
-        }
+          this.setDataValue('data', JSON.stringify(value));
+        },
       },
       meta: {
         type: TEXT,
         get() {
-          return JSON.parse(this.getDataValue("meta"));
+          return JSON.parse(this.getDataValue('meta'));
         },
         set(value) {
-          this.setDataValue("meta", JSON.stringify(value));
+          this.setDataValue('meta', JSON.stringify(value));
         },
-        defaultValue: "{}"
+        defaultValue: '{}',
       },
       contentId: {
         type: UUID,
@@ -48,36 +48,36 @@ export default class ContentElement extends Model {
       refs: {
         type: TEXT,
         get() {
-          return JSON.parse(this.getDataValue("refs"));
+          return JSON.parse(this.getDataValue('refs'));
         },
         set(value) {
-          this.setDataValue("refs", JSON.stringify(value));
+          this.setDataValue('refs', JSON.stringify(value));
         },
-        defaultValue: "{}"
+        defaultValue: '{}',
       },
       linked: {
         type: BOOLEAN,
         defaultValue: false,
-        allowNull: false
+        allowNull: false,
       },
       detached: {
         type: BOOLEAN,
         defaultValue: false,
-        allowNull: false
+        allowNull: false,
       },
       createdAt: {
         type: DATE,
-        field: 'created_at'
+        field: 'created_at',
       },
       updatedAt: {
         type: DATE,
-        field: 'updated_at'
+        field: 'updated_at',
       },
       deletedAt: {
         type: DATE,
-        field: 'deleted_at'
-      }
-    }
+        field: 'deleted_at',
+      },
+    };
   }
 
   static initOptions() {
@@ -86,7 +86,7 @@ export default class ContentElement extends Model {
       tableName: 'content_element',
       underscored: true,
       timestamps: true,
-      paranoid: true
+      paranoid: true,
     };
   }
 }

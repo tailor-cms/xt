@@ -1,8 +1,8 @@
-import { Sequelize } from "sequelize";
+import { Sequelize } from 'sequelize';
 
-import ContentElement from "./content-element/model";
-import initHooks from "./content-element/hooks";
-import { getTceConfig } from "./common/config";
+import ContentElement from './content-element/model';
+import { getTceConfig } from './common/config';
+import initHooks from './content-element/hooks';
 
 const sequelize = new Sequelize('sqlite::memory:');
 
@@ -23,13 +23,13 @@ function initializeModel(model, hookMap) {
 
 async function synchronize() {
   await sequelize.sync({ force: true });
-  console.log("All models were synchronized successfully.");
+  console.log('All models were synchronized successfully.');
 }
 
 export async function initDb(hookMap) {
   try {
     await initConnection();
-    await initializeModel(ContentElement, hookMap);
+    initializeModel(ContentElement, hookMap);
     await synchronize();
   } catch (error) {
     console.error('Error upon initializing the database:', error);

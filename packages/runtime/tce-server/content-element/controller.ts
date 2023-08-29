@@ -1,6 +1,6 @@
-import { getTceConfig } from "../common/config";
-import initHooks from "./hooks";
-import ContentElement from "./model";
+import ContentElement from './model';
+import { getTceConfig } from '../common/config';
+import initHooks from './hooks';
 
 export default ({ type, initState, hookMap }) => {
   const { applyFetchHooks } = initHooks(hookMap);
@@ -9,7 +9,7 @@ export default ({ type, initState, hookMap }) => {
     const defaults = { type, data: initState() };
     const [element] = await ContentElement.findOrCreate({
       where: { type: defaults.type },
-      defaults
+      defaults,
     });
     res.json(await applyFetchHooks(element, getTceConfig(process.env)));
   }
@@ -24,5 +24,5 @@ export default ({ type, initState, hookMap }) => {
     res.json(element);
   }
 
-  return { get, create, patch }
+  return { get, create, patch };
 };

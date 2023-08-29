@@ -1,5 +1,5 @@
-import { emitter } from "../common/emitter.js";
-import ELEMENT_HOOKS from "./hook-type.js";
+import ELEMENT_HOOKS from './hook-type.js';
+import { emitter } from '../common/emitter.js';
 
 function prepareHookServices(tce) {
   return {
@@ -17,7 +17,7 @@ export default function initHooks(hooks) {
   }
 
   function registerSocketUpdate(element) {
-    emitter.emit("element:update", element);
+    emitter.emit('element:update', element);
     return element;
   }
 
@@ -27,21 +27,21 @@ export default function initHooks(hooks) {
     }
 
     if (hooksMap.has(ELEMENT_HOOKS.BEFORE_SAVE)) {
-      elementModel.addHook("beforeCreate", register(ELEMENT_HOOKS.BEFORE_SAVE));
-      elementModel.addHook("beforeUpdate", register(ELEMENT_HOOKS.BEFORE_SAVE));
+      elementModel.addHook('beforeCreate', register(ELEMENT_HOOKS.BEFORE_SAVE));
+      elementModel.addHook('beforeUpdate', register(ELEMENT_HOOKS.BEFORE_SAVE));
     }
 
     if (hooksMap.has(ELEMENT_HOOKS.AFTER_SAVE)) {
-      elementModel.addHook("afterCreate", register(ELEMENT_HOOKS.AFTER_SAVE));
-      elementModel.addHook("afterUpdate", register(ELEMENT_HOOKS.AFTER_SAVE));
+      elementModel.addHook('afterCreate', register(ELEMENT_HOOKS.AFTER_SAVE));
+      elementModel.addHook('afterUpdate', register(ELEMENT_HOOKS.AFTER_SAVE));
     }
 
     if (hooksMap.has(ELEMENT_HOOKS.AFTER_LOADED)) {
-      elementModel.addHook("afterCreate", register(ELEMENT_HOOKS.AFTER_LOADED));
-      elementModel.addHook("afterUpdate", register(ELEMENT_HOOKS.AFTER_LOADED));
+      elementModel.addHook('afterCreate', register(ELEMENT_HOOKS.AFTER_LOADED));
+      elementModel.addHook('afterUpdate', register(ELEMENT_HOOKS.AFTER_LOADED));
     }
 
-    elementModel.addHook("afterUpdate", registerSocketUpdate);
+    elementModel.addHook('afterUpdate', registerSocketUpdate);
   }
 
   async function applyFetchHooks(element, tceConfig) {
@@ -63,6 +63,6 @@ export default function initHooks(hooks) {
 
   return {
     applyFetchHooks,
-    registerSaveHooks
+    registerSaveHooks,
   };
 }

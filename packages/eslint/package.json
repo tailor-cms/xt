@@ -2,6 +2,10 @@
   "name": "@tailor-cms/eslint-config",
   "version": "0.0.1",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "base.js"
+  ],
   "scripts": {
     "lint": "eslint .",
     "release": "npx np"

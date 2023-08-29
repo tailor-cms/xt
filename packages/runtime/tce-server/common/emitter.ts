@@ -1,3 +1,3 @@
-import EventTarget from "node:events";
+import EventTarget from 'node:events';
 
 export const emitter = new EventTarget();
