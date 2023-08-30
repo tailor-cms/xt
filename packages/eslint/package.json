@@ -1,10 +1,11 @@
 {
   "name": "@tailor-cms/eslint-config",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "files": [
     "index.js",
-    "base.js"
+    "base.js",
+    "rules"
   ],
   "scripts": {
     "lint": "eslint .",
