@@ -22,5 +22,8 @@
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
