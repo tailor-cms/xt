@@ -34,9 +34,10 @@
 </template>
 
 <script>
+import * as vueClickAway from 'vue-clickaway';
 import ky from 'ky';
-import { directive as onClickaway } from 'vue-clickaway';
 
+const { directive: onClickaway } = vueClickAway;
 const SERVER_HOST = `localhost:${import.meta.env.VITE_TCE_SERVER_PORT || 8030}`;
 const api = ky.create({ prefixUrl: `http://${SERVER_HOST}` });
 const ws = new WebSocket(`ws://${SERVER_HOST}`);
