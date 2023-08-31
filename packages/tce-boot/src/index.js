@@ -37,7 +37,7 @@ Object.keys(tceBootEnv).forEach((key) => (process.env[key] = tceBootEnv[key]));
 concurrently(
   runtimes.map((runtime, index) => ({
     name: `${runtime.name}-runtime`,
-    prefixColor: ['magenta', 'green', 'blue'][index],
+    prefixColor: ['magenta', 'green', 'blue', 'cyan'][index],
     command: `cd ${runtime.path} && pnpm dev`
   }))
 );
