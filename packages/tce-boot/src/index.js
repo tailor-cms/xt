@@ -7,7 +7,7 @@ import concurrently from 'concurrently';
 const require = createRequire(import.meta.url);
 
 const runtimes = await Promise.all(
-  ['server', 'edit', 'display'].map(async (name) => {
+  ['server', 'edit', 'display', 'preview'].map(async (name) => {
     const pkgRef = `@tailor-cms/tce-${name}-runtime/package.json`;
     const pkgPath = await require.resolve(pkgRef);
     return {
