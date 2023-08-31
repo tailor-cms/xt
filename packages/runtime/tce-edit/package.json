@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-edit-runtime",
   "description": "Edit content element client side runtime",
   "author": "ExtensionEngine <info@extensionengine.com>",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -20,7 +20,7 @@
     "vite-plugin-vue2": "^2.0.2",
     "vue": "2.7.14",
     "vue-clickaway": "^2.2.2",
-    "vue-template-compiler": "^2.6.11",
+    "vue-template-compiler": "2.7.14",
     "vue-tsc": "^0.38.4",
     "vuetify": "^2.6.12"
   },
@@ -29,5 +29,14 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "pnpm": {
+    "packageExtensions": {
+      "vue-template-compiler": {
+        "peerDependencies": {
+          "vue": "2.7.14"
+        }
+      }
+    }
   }
 }
