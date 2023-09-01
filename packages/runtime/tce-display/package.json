@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-display-runtime",
   "description": "Content element display runtime",
   "author": "ExtensionEngine <info@extensionengine.com>",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -15,7 +15,7 @@
     "@vitejs/plugin-vue": "^3.0.0",
     "sass": "^1.53.0",
     "typescript": "^5.1.6",
-    "unplugin-vue-components": "^0.22.7",
+    "unplugin-vue-components": "0.25.2",
     "vite": "^3.0.0",
     "vite-plugin-vuetify": "^1.0.0-alpha.17",
     "vue": "^3.2.37",

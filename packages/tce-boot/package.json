@@ -10,7 +10,7 @@
     "lint:fix": "pnpm lint --fix"
   },
   "dependencies": {
-    "@tailor-cms/tce-edit-runtime": "^0.0.6",
+    "@tailor-cms/tce-edit-runtime": "workspace:*",
     "@tailor-cms/tce-display-runtime": "^0.0.4",
     "@tailor-cms/tce-preview-runtime": "^0.0.4",
     "@tailor-cms/tce-server-runtime": "^0.0.4",
