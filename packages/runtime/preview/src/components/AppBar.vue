@@ -9,15 +9,15 @@ const toggleDark = useToggle(isDark);
 </script>
 
 <template>
-  <v-app-bar :color="isDark ? 'blue-grey-darken-4' : 'grey-lighten-4'">
+  <v-app-bar :color="isDark ? 'blue-grey-darken-4' : 'grey-lighten-5'">
     <template #prepend>
       <v-app-bar-nav-icon>
         <img :src="logoUrl" alt="Tailor logo" width="32" />
       </v-app-bar-nav-icon>
     </template>
-    <v-app-bar-title> Dev Kit </v-app-bar-title>
+    <v-app-bar-title class="font-weight-bold">Dev Kit</v-app-bar-title>
     <v-spacer />
-    <v-btn icon>
+    <v-btn href="https://github.com/tailor-cms/t-xt" icon>
       <v-icon>mdi-github</v-icon>
     </v-btn>
     <v-btn icon @click.prevent="toggleDark()">

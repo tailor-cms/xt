@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main>
+    <v-main class="pa-4">
       <v-container>
         <v-row>
           <v-col @click="isFocused = true">
@@ -89,7 +89,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.edit-frame {
-  border: 1px dashed #888;
+.v-application {
+  background-color: transparent !important;
 }
 </style>
