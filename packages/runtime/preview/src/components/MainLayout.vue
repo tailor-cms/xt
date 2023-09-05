@@ -2,12 +2,12 @@
 import { onMounted, ref, watch } from 'vue';
 import Split from 'split.js';
 
-import { useDarkGlobal } from '../utils';
+import { PANELS, useGlobalState } from '../state';
+const { isDark, splitJs } = useGlobalState();
 
-const DARK_BACKGROUND = '#CFD8DC';
 const LIGHT_BACKGROUND = '#ECEFF1';
+const DARK_BACKGROUND = '#CFD8DC';
 
-const isDark = useDarkGlobal();
 const backgroundColor = ref('');
 
 watch(
@@ -18,14 +18,19 @@ watch(
   { immediate: true },
 );
 
-onMounted(() => Split(['#splitA', '#splitB']));
+onMounted(
+  () =>
+    (splitJs.value = Split([`#${PANELS.EDIT}`, `#${PANELS.DISPLAY}`], {
+      minSize: [0, 0],
+    })),
+);
 </script>
 
 <template>
   <main :class="{ 'dark-theme': isDark }">
     <div class="d-flex h-100">
       <iframe
-        id="splitA"
+        :id="PANELS.EDIT"
         :style="{ backgroundColor }"
         frameBorder="0"
         sandbox="allow-scripts"
@@ -34,7 +39,7 @@ onMounted(() => Split(['#splitA', '#splitB']));
       >
       </iframe>
       <iframe
-        id="splitB"
+        :id="PANELS.DISPLAY"
         :style="{ backgroundColor }"
         frameBorder="0"
         sandbox="allow-scripts"
