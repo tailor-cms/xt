@@ -3,7 +3,7 @@
     <v-main>
       <v-container>
         <v-row>
-          <v-col v-on-clickaway="unfocusElement" @click="isFocused = true">
+          <v-col @click="isFocused = true">
             <h2 class="mb-5">Edit preview</h2>
             <div class="edit-frame">
               <Edit
@@ -34,18 +34,13 @@
 </template>
 
 <script>
-import * as vueClickAway from 'vue-clickaway';
 import ky from 'ky';
 
-const { directive: onClickaway } = vueClickAway;
 const SERVER_HOST = `localhost:${import.meta.env.VITE_TCE_SERVER_PORT || 8030}`;
 const api = ky.create({ prefixUrl: `http://${SERVER_HOST}` });
 const ws = new WebSocket(`ws://${SERVER_HOST}`);
 
 export default {
-  directives: {
-    onClickaway,
-  },
   data: () => ({
     element: {},
     isFocused: false,
@@ -58,6 +53,7 @@ export default {
     });
   },
   methods: {
+    // TODO: Missing implementation (vue-clickaway removed)
     unfocusElement() {
       this.isFocused = false;
     },
