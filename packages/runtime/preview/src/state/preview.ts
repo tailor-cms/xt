@@ -9,7 +9,7 @@ export const PANELS = {
 
 export const useGlobalState = createGlobalState(() => {
   // Control color scheme
-  const isDark = ref(true);
+  const isDark = ref(false);
   const toggleDark = useToggle(isDark);
 
   // Control panels
