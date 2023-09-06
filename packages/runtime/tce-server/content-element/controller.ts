@@ -7,10 +7,9 @@ export default ({ type, initState, hookMap }) => {
 
   async function get(_req, res) {
     const defaults = { type, data: initState() };
-    const [element] = await ContentElement.findOrCreate({
-      where: { type: defaults.type },
-      defaults,
-    });
+    // NOTE: findOrCreate has issues with SQLite (transactions)
+    let element = await ContentElement.findOne({ where: { type } });
+    if (!element) element = await ContentElement.create(defaults);
     res.json(await applyFetchHooks(element, getTceConfig(process.env)));
   }
 
