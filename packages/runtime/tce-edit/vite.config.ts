@@ -34,10 +34,12 @@ export default defineConfig(({ mode }): any => {
         extensions: ['js'],
         // Need to be set to avoid excluding /node_modules/ paths
         exclude: [],
-        importPathTransform: (path) => {
-          console.log('🗃️  processing import path:', path);
-          return path;
-        },
+        // Uncomment for debugging import path
+        // importPathTransform: (path) => {
+        //   if (path === 'vuetify/lib') return path;
+        //   console.log('🗃️  processing import path:', path);
+        //   return path;
+        // },
         resolvers: [
           // Vuetify
           VuetifyResolver(),
