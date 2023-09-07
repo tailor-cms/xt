@@ -1,9 +1,27 @@
 <script setup lang="ts">
 import 'vue-json-pretty/lib/styles.css';
 
+import * as sortObject from 'sort-object-keys';
 import { onMounted, ref, watch } from 'vue';
 import Split from 'split.js';
 import VueJsonPretty from 'vue-json-pretty';
+
+const SERVER_PROP_ORDER = [
+  'id',
+  'uid',
+  'type',
+  'position',
+  'data',
+  'meta',
+  'refs',
+  'contentId',
+  'contentSignature',
+  'linked',
+  'detached',
+  'createdAt',
+  'updatedAt',
+  'deletedAt',
+];
 
 import { PANELS, useGlobalState } from '../state';
 
@@ -64,7 +82,7 @@ onMounted(() => {
         <v-tab>Server state</v-tab>
       </v-tabs>
       <div class="pa-5">
-        <VueJsonPretty :data="props.element" />
+        <VueJsonPretty :data="sortObject(props.element, SERVER_PROP_ORDER)" />
       </div>
     </div>
   </main>
