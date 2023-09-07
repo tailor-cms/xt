@@ -15,7 +15,8 @@
     "@tailor-cms/tce-preview-runtime": "^0.0.4",
     "@tailor-cms/tce-server-runtime": "^0.0.4",
     "boxen": "^7.1.1",
-    "concurrently": "^8.2.0"
+    "concurrently": "^8.2.0",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "eslint": ">=8.5.0",
