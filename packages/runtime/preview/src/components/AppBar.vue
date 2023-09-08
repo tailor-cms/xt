@@ -7,10 +7,10 @@ const { isDark, toggleDark, showEdit, showDisplay, showBothComponents } =
 </script>
 
 <template>
-  <v-app-bar :color="isDark ? 'blue-grey-darken-4' : 'grey-lighten-5'">
+  <v-app-bar :color="isDark ? '#29292f' : 'grey-lighten-5'">
     <template #prepend>
       <v-app-bar-nav-icon class="ml-3">
-        <v-avatar :color="isDark ? 'blue-grey-darken-4' : '#333'" size="48">
+        <v-avatar :color="isDark ? 'transparent' : '#29292f'" size="48">
           <img :src="logoUrl" alt="Tailor logo" width="30" />
         </v-avatar>
       </v-app-bar-nav-icon>

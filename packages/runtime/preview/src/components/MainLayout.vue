@@ -1,44 +1,30 @@
 <script setup lang="ts">
-import 'vue-json-pretty/lib/styles.css';
-
-import * as sortObject from 'sort-object-keys';
-import { onMounted, ref, watch } from 'vue';
+import { onMounted } from 'vue';
+import JsonEditor from 'vue3-ts-jsoneditor';
 import Split from 'split.js';
-import VueJsonPretty from 'vue-json-pretty';
-
-const SERVER_PROP_ORDER = [
-  'id',
-  'uid',
-  'type',
-  'position',
-  'data',
-  'meta',
-  'refs',
-  'contentId',
-  'contentSignature',
-  'linked',
-  'detached',
-  'createdAt',
-  'updatedAt',
-  'deletedAt',
-];
 
 import { PANELS, useGlobalState } from '../state';
 
-const LIGHT_BACKGROUND = '#ECEFF1';
-const DARK_BACKGROUND = '#CFD8DC';
+// TODO: Enforce order
+// const SERVER_PROP_ORDER = [
+//   'id',
+//   'uid',
+//   'type',
+//   'position',
+//   'data',
+//   'meta',
+//   'refs',
+//   'contentId',
+//   'contentSignature',
+//   'linked',
+//   'detached',
+//   'createdAt',
+//   'updatedAt',
+//   'deletedAt',
+// ];
 
 const props = defineProps<{ element: any }>();
 const { isDark, splitJs } = useGlobalState();
-const backgroundColor = ref('');
-
-watch(
-  isDark,
-  (value) => {
-    backgroundColor.value = value ? DARK_BACKGROUND : LIGHT_BACKGROUND;
-  },
-  { immediate: true },
-);
 
 onMounted(() => {
   // Component preview split
@@ -55,11 +41,10 @@ onMounted(() => {
 
 <template>
   <main :class="{ 'dark-theme': isDark }">
-    <div id="panelTop" class="d-flex">
+    <div id="panelTop" class="d-flex panel">
       <div class="d-flex flex-grow-1">
         <iframe
           :id="PANELS.EDIT"
-          :style="{ backgroundColor }"
           frameBorder="0"
           sandbox="allow-scripts"
           src="http://localhost:8010"
@@ -68,7 +53,6 @@ onMounted(() => {
         </iframe>
         <iframe
           :id="PANELS.DISPLAY"
-          :style="{ backgroundColor }"
           frameBorder="0"
           sandbox="allow-scripts"
           src="http://localhost:8020"
@@ -77,12 +61,18 @@ onMounted(() => {
         </iframe>
       </div>
     </div>
-    <div id="panelBottom" :style="{ backgroundColor }">
+    <div id="panelBottom" class="panel">
       <v-tabs density="compact" hide-slider>
         <v-tab>Server state</v-tab>
       </v-tabs>
       <div class="pa-5">
-        <VueJsonPretty :data="sortObject(props.element, SERVER_PROP_ORDER)" />
+        <JsonEditor
+          :dark-theme="isDark"
+          :main-menu-bar="false"
+          :status-bar="false"
+          :value="props.element"
+          mode="text"
+        />
       </div>
     </div>
   </main>
@@ -91,6 +81,10 @@ onMounted(() => {
 <style>
 main {
   height: calc(100vh - var(--nav-height));
+
+  .panel {
+    background-color: #eceff1;
+  }
 }
 
 .gutter {
@@ -113,6 +107,11 @@ main {
   .gutter.gutter-horizontal,
   .gutter.gutter-vertical {
     background-color: #333;
+  }
+
+  .jse-theme-dark .cm-content,
+  .jse-theme-dark .cm-gutters {
+    background-color: #29292f !important;
   }
 }
 </style>
