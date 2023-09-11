@@ -67,7 +67,6 @@ onMounted(() => {
       </v-tabs>
       <div class="pa-5">
         <JsonEditor
-          :dark-theme="isDark"
           :main-menu-bar="false"
           :status-bar="false"
           :value="props.element"
