@@ -5,7 +5,6 @@ import vue from '@vitejs/plugin-vue2';
 import { VuetifyResolver } from 'unplugin-vue-components/resolvers';
 
 import { fileURLToPath } from 'url';
-import { logRuntimeInit } from './runtime-utils.js';
 import path from 'node:path';
 
 // https://vitejs.dev/config/
@@ -23,8 +22,6 @@ export default defineConfig(({ mode }): any => {
   ]);
   console.log('📦 Loading edit components from:');
   console.log(dirs.join('\n'));
-  // Log and restart in case of the first boot
-  logRuntimeInit();
   return {
     root: './src',
     server: {
