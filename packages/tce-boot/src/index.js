@@ -4,6 +4,7 @@ import path from 'node:path';
 
 import boxen from 'boxen';
 import concurrently from 'concurrently';
+import { getRuntimeLog, saveRuntimeInit } from './utils.js';
 
 const require = createRequire(import.meta.url);
 const TERM_COLORS = ['magenta', 'green', 'blue', 'cyan', 'yellow'];
@@ -68,15 +69,21 @@ console.log(
   })
 );
 // Packages
-const { commands: packageCmds } = concurrently(packageWatchers);
-const serverPackage = packageCmds.find(it => it.name === 'server-package');
-// Runtimes, delay to avoid restarts initially
+const { commands } = concurrently([...packageWatchers, ...runtimes]);
+const serverPackage = commands.find(it => it.name === 'server-package');
+const serverRuntime = commands.find(it => it.name === 'server-runtime');
+
+const restartServerRuntime = debounce(() => restartCmd(serverRuntime), 500);
+serverPackage.stdout.subscribe((msg) => {
+  if (msg && msg.includes('success')) restartServerRuntime();
+});
+
 setTimeout(() => {
-  const { commands: runtimeCmds } = concurrently(runtimes);
-  // Restart server-runtime upon server-package rebuild
-  const serverRuntime = runtimeCmds.find(it => it.name === 'server-runtime');
-  const restartServerRuntime = debounce(() => restartCmd(serverRuntime), 500);
-  serverPackage.stdout.subscribe((msg) => {
-    if (msg && msg.includes('success')) restartServerRuntime();
-  });
-}, 3000);
+  const runtimeLog = getRuntimeLog();
+  if (runtimeLog.initialBootAt) return;
+  const editRuntime = commands.find(it => it.name === 'edit-runtime');
+  const displayRuntime = commands.find(it => it.name === 'display-runtime');
+  restartCmd(editRuntime);
+  restartCmd(displayRuntime);
+  saveRuntimeInit();
+}, 10 * 1000);
