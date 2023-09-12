@@ -1,7 +1,7 @@
 import { defineConfig, loadEnv } from 'vite';
 import Components from 'unplugin-vue-components/vite';
-import { createVuePlugin } from 'vite-plugin-vue2';
 import uniq from 'lodash/uniq';
+import vue from '@vitejs/plugin-vue2';
 import { VuetifyResolver } from 'unplugin-vue-components/resolvers';
 
 import { fileURLToPath } from 'url';
@@ -28,7 +28,7 @@ export default defineConfig(({ mode }): any => {
       port: 8010,
     },
     plugins: [
-      createVuePlugin(),
+      vue(),
       Components({
         dirs,
         extensions: ['js'],
