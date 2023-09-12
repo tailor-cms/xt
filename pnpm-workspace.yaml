@@ -1,4 +1,4 @@
 packages:
   - 'packages/*'
   - 'packages/runtime/*'
-  - 'packages/tce-template/packages/*'
+  - 'packages/tce-template/*'
