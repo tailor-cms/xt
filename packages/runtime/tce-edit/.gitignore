@@ -25,3 +25,4 @@ yarn-error.log*
 
 # Other
 src/components.d.ts
+edit.runtime-log.txt
