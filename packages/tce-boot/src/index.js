@@ -1,6 +1,7 @@
 import { createRequire } from 'node:module';
 import debounce from 'lodash/debounce.js';
 import path from 'node:path';
+import { setTimeout } from 'node:timers/promises';
 
 import boxen from 'boxen';
 import concurrently from 'concurrently';
@@ -12,9 +13,10 @@ const TERM_COLORS = ['magenta', 'green', 'blue', 'cyan', 'yellow'];
 // Extract package name from env variable name
 const envToName = envKey => envKey.match(/TCE_(.*?)_DIR/)[1].toLowerCase();
 // Restart concurrently spawned command
-const restartCmd = (command, timeout = 1000) => {
+const restartCmd = async (command, timeout = 1000) => {
   command.kill(9);
-  setTimeout(() => command.start(), timeout);
+  await setTimeout(timeout);
+  command.start();
 };
 
 // Template location resolution and env setup
@@ -68,22 +70,31 @@ console.log(
     borderColor: 'cyan'
   })
 );
-// Packages
 const { commands } = concurrently([...packageWatchers, ...runtimes]);
+
+// TODO: Temp initial reboot due to vite first run issues
+// Optimize pre-build step
+const runtimeLog = getRuntimeLog();
+if (!runtimeLog.initialBootAt) {
+  // Restart atempts
+  const timeouts = [8000, 6000];
+  for (const timeout of timeouts) {
+    await setTimeout(timeout);
+    const editRuntime = commands.find(it => it.name === 'edit-runtime');
+    const displayRuntime = commands.find(it => it.name === 'display-runtime');
+    await Promise.all([
+      restartCmd(editRuntime, 2000),
+      restartCmd(displayRuntime, 2000)
+    ])
+  }
+  saveRuntimeInit();
+}
+
+// Delay package watchers
+await setTimeout(8000);
 const serverPackage = commands.find(it => it.name === 'server-package');
 const serverRuntime = commands.find(it => it.name === 'server-runtime');
-
-const restartServerRuntime = debounce(() => restartCmd(serverRuntime), 500);
+const restartServerRuntime = debounce(() => restartCmd(serverRuntime));
 serverPackage.stdout.subscribe((msg) => {
   if (msg && msg.includes('success')) restartServerRuntime();
 });
-
-setTimeout(() => {
-  const runtimeLog = getRuntimeLog();
-  if (runtimeLog.initialBootAt) return;
-  const editRuntime = commands.find(it => it.name === 'edit-runtime');
-  const displayRuntime = commands.find(it => it.name === 'display-runtime');
-  restartCmd(editRuntime);
-  restartCmd(displayRuntime);
-  saveRuntimeInit();
-}, 10 * 1000);
