@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import JsonEditor from 'vue3-ts-jsoneditor';
 import Split from 'split.js';
 
 import { PANELS, useGlobalState } from '../state';
+import VueSplash from './SplashLoader.vue';
 
 // TODO: Enforce order
 // const SERVER_PROP_ORDER = [
@@ -24,27 +25,45 @@ import { PANELS, useGlobalState } from '../state';
 // ];
 
 const props = defineProps<{ element: any }>();
+
+const isLoaded = ref(false);
+const editPanel = ref(null);
+const displayPanel = ref(null);
+
 const { isDark, splitJs } = useGlobalState();
 
+const reloadPreview = () => {
+  setTimeout(() => {
+    editPanel.value.src = editPanel.value.src;
+    displayPanel.value.src = displayPanel.value.src;
+  }, 2000);
+};
+
 onMounted(() => {
-  // Component preview split
-  splitJs.value = Split([`#${PANELS.EDIT}`, `#${PANELS.DISPLAY}`], {
-    minSize: [0, 0],
-  });
-  // Client/server vertical split
-  Split([`#panelTop`, `#panelBottom`], {
-    direction: 'vertical',
-    sizes: [70, 30],
-  });
+  setTimeout(() => {
+    isLoaded.value = true;
+    reloadPreview();
+    // Client/server vertical split
+    Split([`#panelTop`, `#panelBottom`], {
+      direction: 'vertical',
+      sizes: [70, 30],
+    });
+    // Component preview split
+    splitJs.value = Split([`#${PANELS.EDIT}`, `#${PANELS.DISPLAY}`], {
+      minSize: [0, 0],
+    });
+  }, 6000);
 });
 </script>
 
 <template>
   <main :class="{ 'dark-theme': isDark }">
-    <div id="panelTop" class="d-flex panel">
+    <VueSplash v-show="!isLoaded" color="#00bfa5" />
+    <div v-show="isLoaded" id="panelTop" class="d-flex panel">
       <div class="d-flex flex-grow-1">
         <iframe
           :id="PANELS.EDIT"
+          ref="editPanel"
           frameBorder="0"
           sandbox="allow-scripts"
           src="http://localhost:8010"
@@ -53,6 +72,7 @@ onMounted(() => {
         </iframe>
         <iframe
           :id="PANELS.DISPLAY"
+          ref="displayPanel"
           frameBorder="0"
           sandbox="allow-scripts"
           src="http://localhost:8020"
@@ -61,12 +81,13 @@ onMounted(() => {
         </iframe>
       </div>
     </div>
-    <div id="panelBottom" class="panel">
+    <div v-show="isLoaded" id="panelBottom" class="panel">
       <v-tabs density="compact" hide-slider>
         <v-tab>Server state</v-tab>
       </v-tabs>
       <div class="pa-5">
         <JsonEditor
+          v-if="isLoaded"
           :main-menu-bar="false"
           :status-bar="false"
           :value="props.element"
