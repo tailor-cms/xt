@@ -2,3 +2,4 @@ packages:
   - 'packages/*'
   - 'packages/runtime/*'
   - 'packages/tce-template/*'
+  - 'docs'
