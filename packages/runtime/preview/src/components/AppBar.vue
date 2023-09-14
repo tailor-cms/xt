@@ -7,23 +7,28 @@ const { isDark, toggleDark, showEdit, showDisplay, showBothComponents } =
 </script>
 
 <template>
-  <v-app-bar :color="isDark ? '#29292f' : 'grey-lighten-5'">
+  <v-app-bar :color="isDark ? 'grey-darken-4' : 'grey-lighten-4'" elevation="1">
     <template #prepend>
-      <v-app-bar-nav-icon class="ml-3">
-        <v-avatar :color="isDark ? 'transparent' : '#29292f'" size="48">
-          <img :src="logoUrl" alt="Tailor logo" width="30" />
-        </v-avatar>
+      <v-app-bar-nav-icon class="ml-2">
+        <img :src="logoUrl" alt="Tailor logo" width="24" />
       </v-app-bar-nav-icon>
     </template>
-    <v-app-bar-title class="ml-3 font-weight-bold">Dev Kit</v-app-bar-title>
+    <v-app-bar-title class="ml-1 font-weight-bold">
+      Content Element Kit
+      <span class="pl-1 text-body-2 font-weight-bold">0.0.1</span>
+    </v-app-bar-title>
     <v-spacer />
-    <v-btn-toggle class="mr-4" density="compact" borderless>
+    <v-btn-toggle
+      :variant="isDark ? 'flat' : 'tonal'"
+      class="mr-4"
+      density="compact"
+    >
       <v-btn @click="showEdit">
         <span>Edit</span>
         <v-icon end>mdi-pencil</v-icon>
       </v-btn>
       <v-btn @click="showDisplay">
-        <span>Preview</span>
+        <span>Display</span>
         <v-icon end>mdi-fullscreen</v-icon>
       </v-btn>
       <v-btn @click="showBothComponents">
@@ -31,7 +36,7 @@ const { isDark, toggleDark, showEdit, showDisplay, showBothComponents } =
         <v-icon end>mdi-math-norm-box</v-icon>
       </v-btn>
     </v-btn-toggle>
-    <v-btn href="https://github.com/tailor-cms/t-xt" icon>
+    <v-btn href="https://github.com/tailor-cms/tce-template" icon>
       <v-icon>mdi-github</v-icon>
     </v-btn>
     <v-btn icon @click.prevent="toggleDark()">

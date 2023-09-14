@@ -14,25 +14,25 @@ export const useGlobalState = createGlobalState(() => {
 
   // Control panels
   const visiblePanels = ref(['EDIT', 'DISPLAY', 'STATE']);
-  const splitJs = ref();
+  const previewPanelSplit = ref();
   const showEdit = () => {
     visiblePanels.value = [PANELS.EDIT];
-    if (splitJs.value) splitJs.value?.setSizes([100, 0]);
+    if (previewPanelSplit.value) previewPanelSplit.value?.setSizes([100, 0]);
   };
   const showDisplay = () => {
     visiblePanels.value = [PANELS.DISPLAY];
-    if (splitJs.value) splitJs.value?.setSizes([0, 100]);
+    if (previewPanelSplit.value) previewPanelSplit.value?.setSizes([0, 100]);
   };
   const showBothComponents = () => {
     visiblePanels.value = [PANELS.EDIT, PANELS.DISPLAY];
-    if (splitJs.value) splitJs.value?.setSizes([50, 50]);
+    if (previewPanelSplit.value) previewPanelSplit.value?.setSizes([50, 50]);
   };
 
   return {
     isDark,
     toggleDark,
     visiblePanels,
-    splitJs,
+    previewPanelSplit,
     showEdit,
     showDisplay,
     showBothComponents,

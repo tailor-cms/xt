@@ -1,14 +1,11 @@
 <template>
   <transition name="fade">
-    <div
-      :class="['vue-splash', { 'vue-splash--fixed': fixed }]"
-      :style="containerStyle"
-    >
+    <div :style="{ backgroundColor }" class="splash-loader">
       <div>
-        <div class="vue-splash__anim">
-          <img :src="logo" :style="imageStyle" alt="Logo" />
+        <div class="splash-loader__anim">
+          <img :src="logo" alt="Logo" width="88" />
         </div>
-        <div class="vue-splash__text text-body-1">
+        <div class="splash-loader__text text-body-1">
           <div>Booting Teaching Element Kit....</div>
           <div class="font-weight-bold">Alpha preview v0.0.1</div>
         </div>
@@ -32,15 +29,7 @@ export default {
     },
     backgroundColor: {
       type: String,
-      default: '',
-    },
-  },
-  computed: {
-    imageStyle: () => ({ width: '88px' }),
-    containerStyle() {
-      return {
-        backgroundColor: this.backgroundColor || '#fff',
-      };
+      default: '#fff',
     },
   },
   created() {
@@ -57,27 +46,16 @@ export default {
 <style lang="scss" scoped>
 $splash-color: var(--splash-color);
 
-.vue-splash {
+.splash-loader {
   flex: 1;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  &--fixed {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    background-color: white;
-  }
 }
 
-.vue-splash__anim {
+.splash-loader__anim {
   text-align: center;
   animation: splashAnimation 1.3s infinite;
 
@@ -86,7 +64,7 @@ $splash-color: var(--splash-color);
   }
 }
 
-.vue-splash__text {
+.splash-loader__text {
   margin-top: 50px;
   font-size: 1rem;
   text-align: center;
