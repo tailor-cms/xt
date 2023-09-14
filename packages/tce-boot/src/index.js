@@ -77,15 +77,17 @@ const { commands } = concurrently([...packageWatchers, ...runtimes]);
 const runtimeLog = getRuntimeLog();
 if (!runtimeLog.initialBootAt) {
   // Restart atempts
-  const timeouts = [8000, 6000, 5000];
+  const timeouts = [4000, 6000];
   for (const timeout of timeouts) {
     await setTimeout(timeout);
     const editRuntime = commands.find(it => it.name === 'edit-runtime');
     const displayRuntime = commands.find(it => it.name === 'display-runtime');
+    const previewRuntime = commands.find(it => it.name === 'preview-runtime');
     await Promise.all([
       restartCmd(editRuntime, 2500),
-      restartCmd(displayRuntime, 2500)
-    ])
+      restartCmd(displayRuntime, 2500),
+      restartCmd(previewRuntime, 2500)
+    ]);
   }
   saveRuntimeInit();
 }
