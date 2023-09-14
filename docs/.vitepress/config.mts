@@ -29,6 +29,13 @@ export default defineConfig({
           { text: "Deploy", link: "/deploy" },
         ],
       },
+      {
+        text: "Going further",
+        items: [
+          { text: "Testing", link: "/testing" },
+          { text: "Troubleshooting", link: "/troubleshooting" },
+        ],
+      },
     ],
     socialLinks: [
       { icon: "github", link: "https://github.com/tailor-cms/tce-template" },
