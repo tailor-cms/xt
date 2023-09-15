@@ -23,6 +23,7 @@ export default defineConfig({
           { text: "Directory structure", link: "/directory-structure" },
           { text: "Runtime", link: "/runtime" },
           { text: "State", link: "/state" },
+          { text: "Manifest", link: "/manifest" },
           { text: "Edit package", link: "/edit-package" },
           { text: "Display package", link: "/display-package" },
           { text: "Server package", link: "/server-package" },
