@@ -25,13 +25,25 @@
         <v-row>
           <v-col>
             <h3>Top toolbar</h3>
-            <top-toolbar />
+            <top-toolbar
+              v-if="element.data"
+              :element="element"
+              :is-focused="isFocused"
+              @delete="onDelete"
+              @save="onSave"
+            />
           </v-col>
         </v-row>
         <v-row>
           <v-col>
             <h3>Side toolbar</h3>
-            <side-toolbar />
+            <side-toolbar
+              v-if="element.data"
+              :element="element"
+              :is-focused="isFocused"
+              @delete="onDelete"
+              @save="onSave"
+            />
           </v-col>
         </v-row>
       </v-container>
@@ -63,7 +75,6 @@ export default {
     });
   },
   methods: {
-    // TODO: Missing implementation (vue-clickaway removed)
     unfocusElement() {
       this.isFocused = false;
     },
