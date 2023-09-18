@@ -109,6 +109,7 @@ importers:
       '@tailor-cms/eslint-config': workspace:*
       '@types/webfontloader': ^1.6.35
       '@vitejs/plugin-vue': 4.3.4
+      ky: ^0.31.4
       lodash: ^4.17.21
       sass: ^1.53.0
       typescript: ^5.1.6
@@ -123,6 +124,7 @@ importers:
       '@mdi/font': 7.2.96
       '@types/webfontloader': 1.6.35
       '@vitejs/plugin-vue': 4.3.4_vite@4.4.9+vue@3.3.4
+      ky: 0.31.4
       lodash: 4.17.21
       sass: 1.66.1
       typescript: 5.2.2
@@ -1969,7 +1971,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.4.9
+      vite: 4.4.9_sass@1.66.1
       vue: 3.3.4
     dev: false
 
