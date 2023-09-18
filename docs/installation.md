@@ -1,4 +1,4 @@
-# ⚙️ Installation
+# Installation
 
 Here you will find information on setting up and running the Content Element Kit.
 
