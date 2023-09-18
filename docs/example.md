@@ -134,17 +134,17 @@ front-end component and the server state being modified to the same value
 
 ![Edit component](./assets/example/edit_component_1.png)
 
-## Edit toolbar
+### Edit toolbar
 
 We can implement the same functionality from the toolbars, as they will also
 recieve element state and have the ability to save it.
 
-Let's navigate to `packages/edit/src/components/TopToolbar.vue` and paste
-the following code
+Let's navigate to `packages/edit/src/components/TopToolbar.vue`, paste
+the following code and save:
 
 ```vue
 <template>
-  <button @click="increment">Increment</button>
+  <button @click="decrement">Decrement</button>
 </template>
 
 <script setup lang="ts">
@@ -153,9 +153,9 @@ import { Element } from 'tce-manifest';
 const props = defineProps<{ element: Element }>();
 const emit = defineEmits(['save']);
 
-const increment = () => {
+const decrement = () => {
   const { data } = props.element;
-  const count = data.count + 1;
+  const count = data.count - 1;
   emit('save', { ...data, count });
 };
 </script>
@@ -169,3 +169,8 @@ button {
 }
 </style>
 ```
+
+You sould be able to decrement the `count` by clicking on the Top Toolbar
+Decrement button.
+
+![Edit component](./assets/example/edit_component_2.png)
