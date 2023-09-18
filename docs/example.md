@@ -27,7 +27,7 @@ your browser should pop up and display the preview. During the initial boot
 components will reload few times, and it might take some time for `Edit`
 component (left panel) to show up.
 
-::: tip Note
+::: tip Note ☝️
 In case the Edit component does not show up within 30 seconds, please restart.
 There is a reported defect appearing on the first boot while dependencies
 are being optimized.
@@ -134,4 +134,38 @@ front-end component and the server state being modified to the same value
 
 ![Edit component](./assets/example/edit_component_1.png)
 
+## Edit toolbar
 
+We can implement the same functionality from the toolbars, as they will also
+recieve element state and have the ability to save it.
+
+Let's navigate to `packages/edit/src/components/TopToolbar.vue` and paste
+the following code
+
+```vue
+<template>
+  <button @click="increment">Increment</button>
+</template>
+
+<script setup lang="ts">
+import { Element } from 'tce-manifest';
+
+const props = defineProps<{ element: Element }>();
+const emit = defineEmits(['save']);
+
+const increment = () => {
+  const { data } = props.element;
+  const count = data.count + 1;
+  emit('save', { ...data, count });
+};
+</script>
+
+<style scoped>
+button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #444;
+  background-color: #fff;
+}
+</style>
+```
