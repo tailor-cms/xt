@@ -174,3 +174,94 @@ You sould be able to decrement the `count` by clicking on the Top Toolbar
 Decrement button.
 
 ![Edit component](./assets/example/edit_component_2.png)
+
+## Display component
+
+Now that we created a Edit component, we can create our Lerner-facing
+presentation component. For this particular example, Display component does
+not contain any additional logic, it simply displays our counter value.
+Navigate to `packages/display/src/components/Display.vue` and paste the
+following code:
+
+```vue
+<template>
+  <div class="tce-root">
+    <div class="d-flex align-center text-h5">
+      Author clicked
+      <span class="counter">{{ data.count }}</span>
+      times!
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ElementData } from 'tce-manifest';
+
+defineProps<{ data: ElementData }>();
+</script>
+
+<style scoped>
+.tce-root {
+  background-color: transparent;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 2px dashed #888;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+}
+
+.counter {
+  margin: 0 1rem;
+  padding: 1rem;
+  color: #23f48b;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: #323338;
+  border-radius: 0.5rem;
+}
+</style>
+```
+
+Note that Display component recieves element attributes as props. After
+applying these changes you should be able to see the `Display` component:
+
+![Display component](./assets/example/display_component_1.png)
+
+## Server hooks
+
+Finally, we are going to make one last change to our might counter by adding
+some server-side behaviour. Server hooks are great place for interfacing
+with external APIs (e.g. create a video upload link), validating inputs,
+handling secrets and preparing the data for delivery (e.g. signing assets
+to enable access).
+
+In this example we are going to reset the counter in case it reaches 10.
+Navigate to the `packages/server/src/index.ts` and update beforeSave function
+to:
+
+```ts
+export function beforeSave(element: Element, services: any) {
+  if (element.data.count >= 10) {
+    element.data = {
+      ...element.data,
+      count: 0,
+    };
+  }
+  return element;
+}
+```
+
+Element is a Sequelize.js instance, with `data` defined as a JSONB property.
+In order for Sequelize to detect changes, `data` property is entirely replaced
+with a new value.
+
+::: tip Note ☝️
+In case that hook code changes are not picked up automatically, please restart.
+:::
+
+## Conclusion
+
+Congradulations! You have created your first Content Element. For more details
+on each of the components please visit the matching documentation section.
+For a fully working example, please visit
+https://github.com/tailor-cms/tce-counter.
