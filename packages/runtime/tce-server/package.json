@@ -2,10 +2,10 @@
   "name": "@tailor-cms/tce-server-runtime",
   "description": "Teaching element server runtime",
   "author": "underscope@gmail.com",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "type": "module",
   "scripts": {
-    "dev": "node --experimental-specifier-resolution=node --loader ts-node/esm ./boot.ts",
+    "dev": "npx nodemon ./boot.ts",
     "lint": "eslint --ext .js,.ts .",
     "lint:fix": "pnpm lint --fix"
   },

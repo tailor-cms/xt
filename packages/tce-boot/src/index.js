@@ -1,22 +1,40 @@
 import { createRequire } from 'node:module';
-import debounce from 'lodash/debounce.js';
 import path from 'node:path';
 import { setTimeout } from 'node:timers/promises';
 
 import boxen from 'boxen';
 import concurrently from 'concurrently';
+import debounce from 'lodash/debounce.js';
+import fkill from 'fkill';
+import { portToPid } from 'pid-port';
+
 import { getRuntimeLog, saveRuntimeInit } from './utils.js';
 
 const require = createRequire(import.meta.url);
+
+const SERVICE_PORTS = [8010, 8020, 8030, 8080];
 const TERM_COLORS = ['magenta', 'green', 'blue', 'cyan', 'yellow'];
+
+// Kill running services occupying kit ports
+for (const port of SERVICE_PORTS) {
+  try {
+    const pid = await portToPid(port);
+    if (pid) await fkill(pid, { force: true });
+  } catch {}
+}
 
 // Extract package name from env variable name
 const envToName = envKey => envKey.match(/TCE_(.*?)_DIR/)[1].toLowerCase();
+
 // Restart concurrently spawned command
-const restartCmd = async (command, timeout = 1000) => {
-  command.kill(9);
-  await setTimeout(timeout);
-  command.start();
+const restartCmd = async (command, port, timeout = 1000) => {
+  try {
+    const pid = await portToPid(port);
+    if (pid) await fkill(pid, { force: true });
+  } finally {
+    await setTimeout(timeout);
+    command.start();
+  }
 };
 
 // Template location resolution and env setup
@@ -83,8 +101,8 @@ if (!runtimeLog.initialBootAt) {
     const editRuntime = commands.find(it => it.name === 'edit-runtime');
     const displayRuntime = commands.find(it => it.name === 'display-runtime');
     await Promise.all([
-      restartCmd(editRuntime, 3000),
-      restartCmd(displayRuntime, 3000)
+      restartCmd(editRuntime, 8010),
+      restartCmd(displayRuntime, 8020)
     ]);
   }
   saveRuntimeInit();
@@ -94,7 +112,7 @@ if (!runtimeLog.initialBootAt) {
 await setTimeout(8000);
 const serverPackage = commands.find(it => it.name === 'server-package');
 const serverRuntime = commands.find(it => it.name === 'server-runtime');
-const restartServerRuntime = debounce(() => restartCmd(serverRuntime));
+const restartServerRuntime = debounce(() => restartCmd(serverRuntime, 8030), 4000);
 serverPackage.stdout.subscribe((msg) => {
   if (msg && msg.includes('success')) restartServerRuntime();
 });
