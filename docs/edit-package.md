@@ -1,4 +1,4 @@
-# Edit
+# Edit package
 
 Edit is the subpackage located under `packages/edit` exposing `Vue 2`
 components needed for the Content Element authors to create Content Element. It
