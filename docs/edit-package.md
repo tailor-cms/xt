@@ -1,6 +1,6 @@
 # Edit
 
-Edit is the package located under `packages/edit` exposing `Vue 2`
+Edit is the subpackage located under `packages/edit` exposing `Vue 2`
 components needed for the Content Element authors to create Content Element. It
 consists of three main components:
 
