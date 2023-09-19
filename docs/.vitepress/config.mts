@@ -26,8 +26,7 @@ export default defineConfig({
           { text: "Manifest", link: "/manifest" },
           { text: "Edit package", link: "/edit-package" },
           { text: "Display package", link: "/display-package" },
-          { text: "Server package", link: "/server-package" },
-          { text: "Deploy", link: "/deploy" },
+          { text: "Server package", link: "/server-package" }
         ],
       },
       {

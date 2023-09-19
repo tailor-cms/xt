@@ -1,4 +1,4 @@
-# 🗂️ Directory structure
+# Directory structure
 
 ## Overview
 
