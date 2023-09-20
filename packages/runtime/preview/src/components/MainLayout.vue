@@ -17,6 +17,15 @@ const bootRegistry = JSON.parse(
   localStorage.getItem('element-kit-boot') || '{}',
 );
 const isFirstBoot = !bootRegistry[runtimeId];
+if (isFirstBoot) {
+  localStorage.setItem(
+    'element-kit-boot',
+    JSON.stringify({
+      ...bootRegistry,
+      [runtimeId]: true,
+    }),
+  );
+}
 
 onMounted(() => {
   // Client/server vertical split
@@ -24,19 +33,7 @@ onMounted(() => {
     direction: 'vertical',
     sizes: [70, 30],
   });
-  setTimeout(
-    () => {
-      isLoaded.value = true;
-      localStorage.setItem(
-        'element-kit-boot',
-        JSON.stringify({
-          ...bootRegistry,
-          [runtimeId]: true,
-        }),
-      );
-    },
-    isFirstBoot ? 17000 : 5000,
-  );
+  setTimeout(() => (isLoaded.value = true), isFirstBoot ? 17000 : 5000);
 });
 </script>
 

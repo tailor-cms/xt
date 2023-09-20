@@ -12,7 +12,7 @@
   "dependencies": {
     "@tailor-cms/tce-display-runtime": "0.0.28",
     "@tailor-cms/tce-edit-runtime": "0.0.28",
-    "@tailor-cms/tce-preview-runtime": "0.0.28",
+    "@tailor-cms/tce-preview-runtime": "0.0.29",
     "@tailor-cms/tce-server-runtime": "0.0.28",
     "boxen": "^7.1.1",
     "concurrently": "^8.2.0",
