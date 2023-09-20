@@ -17,13 +17,19 @@ onMounted(async () => {
   });
 });
 
+function timeout(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function getElement() {
   try {
     const response = await api('content-element').json();
     return response || {};
   } catch (error) {
     console.log('Error on element get', error);
-    return { msg: 'Error upon retrieving element state' };
+    await timeout(2000);
+    console.log('Retrying element get...');
+    return getElement();
   }
 }
 </script>

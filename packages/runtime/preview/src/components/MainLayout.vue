@@ -12,19 +12,37 @@ const props = defineProps<{ element: any }>();
 const { isDark } = useGlobalState();
 const isLoaded = ref(false);
 
+const runtimeId = import.meta.env.VITE_RUNTIME_ID;
+const bootRegistry = JSON.parse(
+  localStorage.getItem('element-kit-boot') || '{}',
+);
+const isFirstBoot = !bootRegistry[runtimeId];
+
 onMounted(() => {
   // Client/server vertical split
   Split([`#panelTop`, `#panelBottom`], {
     direction: 'vertical',
     sizes: [70, 30],
   });
-  setTimeout(() => (isLoaded.value = true), 5000);
+  setTimeout(
+    () => {
+      isLoaded.value = true;
+      localStorage.setItem(
+        'element-kit-boot',
+        JSON.stringify({
+          ...bootRegistry,
+          [runtimeId]: true,
+        }),
+      );
+    },
+    isFirstBoot ? 17000 : 5000,
+  );
 });
 </script>
 
 <template>
   <main :class="{ 'dark-theme': isDark }">
-    <SplashLoader v-show="!isLoaded" />
+    <SplashLoader v-show="!isLoaded" :is-first-boot="isFirstBoot" />
     <PreviewPanel id="panelTop" :is-loaded="isLoaded" />
     <BottomPanel
       id="panelBottom"

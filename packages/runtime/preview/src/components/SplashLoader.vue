@@ -7,6 +7,11 @@
         </div>
         <div class="splash-loader__text text-body-1">
           <div>Booting Teaching Element Kit....</div>
+          <v-progress-linear
+            v-if="isFirstBoot"
+            :model-value="progress"
+            class="my-3"
+          />
           <div class="font-weight-bold">Alpha preview v0.0.1</div>
         </div>
       </div>
@@ -19,6 +24,10 @@ import logoUrl from '../assets/logo.png';
 
 export default {
   props: {
+    isFirstBoot: {
+      type: Boolean,
+      required: true,
+    },
     logo: {
       type: String,
       default: logoUrl,
@@ -32,8 +41,20 @@ export default {
       default: '#fff',
     },
   },
-  created() {
+  data: () => ({
+    interval: 0,
+    progress: 0,
+  }),
+  mounted() {
     this.setColor();
+    if (!this.isFirstBoot) return;
+    this.interval = setInterval(() => {
+      this.progress += 1;
+      if (this.progress === 100) clearInterval(this.interval);
+    }, 160);
+  },
+  beforeUnmount() {
+    clearInterval(this.interval);
   },
   methods: {
     setColor() {

@@ -27,7 +27,7 @@ for (const port of SERVICE_PORTS) {
 const envToName = envKey => envKey.match(/TCE_(.*?)_DIR/)[1].toLowerCase();
 
 // Restart concurrently spawned command
-const restartCmd = async (command, port, timeout = 1000) => {
+const restartCmd = async (command, port, timeout = 3000) => {
   try {
     const pid = await portToPid(port);
     if (pid) await fkill(pid, { force: true });
@@ -52,7 +52,9 @@ const tcePackageDirs = {
 // Provides info for component/hook autoloading (where from)
 Object.keys(tcePackageDirs).forEach((key) =>
   (process.env[key] = `${tcePackageDirs[key]}/dist`));
-
+// Load runtime log
+const runtimeLog = getRuntimeLog();
+process.env.VITE_RUNTIME_ID = runtimeLog.id;
 // Prepare cmds for running the template
 // -------------------------------------------------------------------------
 // Prepare commands for watching and rebuilding template packages
@@ -89,30 +91,26 @@ console.log(
   })
 );
 const { commands } = concurrently([...packageWatchers, ...runtimes]);
-
 // TODO: Temp initial reboot due to vite first run issues
 // Optimize pre-build step
-const runtimeLog = getRuntimeLog();
 if (!runtimeLog.initialBootAt) {
-  // Restart atempts
-  const timeouts = [4000, 8000];
-  for (const timeout of timeouts) {
-    await setTimeout(timeout);
-    const editRuntime = commands.find(it => it.name === 'edit-runtime');
-    const displayRuntime = commands.find(it => it.name === 'display-runtime');
-    await Promise.all([
-      restartCmd(editRuntime, 8010),
-      restartCmd(displayRuntime, 8020)
-    ]);
-  }
+  // First run reboot, wait for optimize deps step
+  await setTimeout(10 * 1000);
+  const editRuntime = commands.find(it => it.name === 'edit-runtime');
+  const displayRuntime = commands.find(it => it.name === 'display-runtime');
+  await Promise.all([
+    restartCmd(editRuntime, 8010, 6000),
+    restartCmd(displayRuntime, 8020, 6000)
+  ]);
+  const previewRuntime = commands.find(it => it.name === 'preview-runtime');
+  await restartCmd(previewRuntime, 8080, 1000);
   saveRuntimeInit();
 }
-
 // Delay package watchers
-await setTimeout(8000);
+await setTimeout(5000);
 const serverPackage = commands.find(it => it.name === 'server-package');
 const serverRuntime = commands.find(it => it.name === 'server-runtime');
-const restartServerRuntime = debounce(() => restartCmd(serverRuntime, 8030), 4000);
+const restartServerRuntime = debounce(() => restartCmd(serverRuntime, 8030, 1000), 4000);
 serverPackage.stdout.subscribe((msg) => {
   if (msg && msg.includes('success')) restartServerRuntime();
 });

@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import crypto from 'node:crypto';
 
 export const LOG_FILENAME = 'tce.runtime-log.txt';
 
@@ -7,6 +8,7 @@ export const getRuntimeLog = () => {
   try {
     const data = fs.readFileSync(LOG_FILENAME, { encoding: 'utf-8' });
     runtimeLog = JSON.parse(data);
+    if (!runtimeLog.id) runtimeLog.id = crypto.randomUUID();
   } catch (e) {
     console.log('TCE runtime log does not exist!');
   }
