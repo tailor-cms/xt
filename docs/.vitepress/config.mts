@@ -3,6 +3,7 @@ import { defineConfig } from "vitepress";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Content Element Kit",
+  base: '/t-xt/',
   description: "Documentation for Tailor Content Element Kit",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
