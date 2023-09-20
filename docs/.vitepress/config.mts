@@ -5,6 +5,8 @@ export default defineConfig({
   title: "Content Element Kit",
   base: '/t-xt/',
   description: "Documentation for Tailor Content Element Kit",
+  // In order to avoid errors for localhost:8080
+  ignoreDeadLinks: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: "/assets/logo.png",
