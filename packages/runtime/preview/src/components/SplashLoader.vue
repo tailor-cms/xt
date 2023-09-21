@@ -51,7 +51,7 @@ export default {
     this.interval = setInterval(() => {
       this.progress += 1;
       if (this.progress === 100) clearInterval(this.interval);
-    }, 160);
+    }, 200);
   },
   beforeUnmount() {
     clearInterval(this.interval);

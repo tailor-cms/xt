@@ -33,7 +33,7 @@ onMounted(() => {
     direction: 'vertical',
     sizes: [70, 30],
   });
-  setTimeout(() => (isLoaded.value = true), isFirstBoot ? 17000 : 5000);
+  setTimeout(() => (isLoaded.value = true), isFirstBoot ? 25000 : 5000);
 });
 </script>
 

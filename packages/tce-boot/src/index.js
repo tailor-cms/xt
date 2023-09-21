@@ -98,12 +98,14 @@ if (!runtimeLog.initialBootAt) {
   await setTimeout(10 * 1000);
   const editRuntime = commands.find(it => it.name === 'edit-runtime');
   const displayRuntime = commands.find(it => it.name === 'display-runtime');
-  await Promise.all([
-    restartCmd(editRuntime, 8010, 6000),
-    restartCmd(displayRuntime, 8020, 6000)
-  ]);
+  await Promise.each([5000, 6000], (timeout) => {
+    return Promise.all([
+      restartCmd(editRuntime, 8010, timeout),
+      restartCmd(displayRuntime, 8020, timeout)
+    ]);
+  });
   const previewRuntime = commands.find(it => it.name === 'preview-runtime');
-  await restartCmd(previewRuntime, 8080, 1000);
+  await restartCmd(previewRuntime, 8080, 2000);
   saveRuntimeInit();
 }
 // Delay package watchers
