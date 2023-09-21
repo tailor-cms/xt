@@ -1,8 +1,10 @@
 # Edit package
 
+## Overview
+
 Edit is the subpackage located under `packages/edit` exposing `Vue 2`
-components needed for the Content Element authors to create Content Element. It
-consists of three main components:
+components needed for the Content Element authors to create a Content Element.
+It consists of three main components:
 
 - Edit component; main authoring component, required
 - Top Toolbar component; exposing Content Element controls within
@@ -26,8 +28,8 @@ props:
 
 - `:element`: object; Element entity containing all element related data
 - `:isFocused`: boolean; Is element selected
-- `:isDragged`: boolean: Is element being dragged; e.g. upon reordering
-- `:isDisabled`: boolean: Should element be disabled; e.g. upon copy element seleciton
+- `:isDragged`: boolean; Is element being dragged; e.g. upon reordering
+- `:isDisabled`: boolean; Should element be disabled; e.g. upon copy element seleciton
 
 and observed for element related events:
 
@@ -36,11 +38,11 @@ and observed for element related events:
 
 \
 As noted above, to store element state, simply emit `save` event passing an
-object to store (which will be saved on the `element.data` property). To set
+object to store (which will be persisted on the `element.data` property). To set
 the initial state of the `element.data` property, you need to define
 the `initState` function. The `initState` function generates the initial
 `element.data` value. For more details on how to do that, please visit the
-manifest section.
+State section.
 
 Here is an example of a simple counter `Edit` component from the Introduction
 section:
@@ -71,12 +73,12 @@ const increment = () => {
 ```
 
 \
-In the example above, component triggers save state event on each Increment
+In the example above, component triggers `save` state event on each Increment
 button click. Note how `data` object is recreated, rather than count value being
 modified. Since data flow should be top-down it is important not to modify
-the recieved value, but rather emit a new state, which will be updated, and
-after that, change is recieved via prop (updated element state). Similar goes
-for the TopToolbar:
+the recieved value, but rather emit a new state (to avoid side-effects). After
+the event has been triggered, change is recieved via prop (updated element
+state). Similar goes for the TopToolbar:
 
 \
 `TopToolbar.vue`
@@ -98,3 +100,19 @@ const decrement = () => {
 };
 </script>
 ```
+
+## When to save the state ?
+
+Depending on the type of the element, you might wonder what is the best
+moment to persist element state. Most of the elements are observing isFocused
+prop and triggering save state event upon user focusing out of the element.
+Of course, this is not always possible, e.g. when element input needs to be
+validated. In those cases we suggest explicit save button.
+
+## Disabled state
+
+Each Content Element needs to implement the `disabled` behaviour which is
+activated when `isDisabled` prop is set to `true`. Disabled element
+presentation is used for various features like observing Content Element
+diff or for copy functionality (Content Element needs to be previewed in
+order to be selected).

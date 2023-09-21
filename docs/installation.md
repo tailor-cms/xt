@@ -19,8 +19,9 @@ npx @tailor-cms/tce-template
 ```
 
 This command will initialize the project. It will ask you some questions (name,
-desc, author, etc). Once all questions are answered, it will install all the
-dependencies. The next step is to navigate to the project folder and launch it:
+desc, author, etc). Once all of the questions are answered, it will install
+project dependencies. The next step is to navigate to the project folder and
+launch it:
 
 ```bash
 cd <project-name>

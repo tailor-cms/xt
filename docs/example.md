@@ -28,7 +28,7 @@ components will reload few times, and it might take some time for `Edit`
 component (left panel) to show up.
 
 ::: tip Note ☝️
-In case the Edit component does not show up within 30 seconds, please restart.
+In case that Edit component does not show up within 30 seconds, please restart.
 There is a reported defect appearing on the first boot while dependencies
 are being optimized.
 :::
@@ -67,7 +67,7 @@ export interface ElementData {
 ```
 
 Upon starting the runtime, the server state should now reflect these changes
-displaying updated type and setting the `data.count` value to `0`:
+by displaying updated type and setting the `data.count` value to `0`:
 
 ![State after manifest update](./assets/example/server_state_1.png)
 
@@ -124,14 +124,15 @@ button {
 
 ::: tip Note ☝️
 We imported type definitions from the manifest package to enable code
-completion and specify input.
+completion and to specify input.
 :::
-
-You should be able to see our Edit component and click on the increment button.
+\
+You should be able to see our Edit component and click on the `Increment` button.
 As you are clicking on the `Increment` button, you should see both; the
 front-end component and the server state being modified to the same value
 (as upon emitting the save event, data is being passed to the server runtime).
 
+\
 ![Edit component](./assets/example/edit_component_1.png)
 
 ### Edit toolbar
@@ -139,7 +140,7 @@ front-end component and the server state being modified to the same value
 We can implement the same functionality from the toolbars, as they will also
 recieve element state and have the ability to save it.
 
-Let's navigate to `packages/edit/src/components/TopToolbar.vue`, paste
+Navigate to `packages/edit/src/components/TopToolbar.vue`, paste
 the following code and save:
 
 ```vue
@@ -169,15 +170,16 @@ button {
 }
 </style>
 ```
-
+\
 You sould be able to decrement the `count` by clicking on the Top Toolbar
-Decrement button.
+`Decrement` button.
 
+\
 ![Edit component](./assets/example/edit_component_2.png)
 
 ## Display component
 
-Now that we created a Edit component, we can create our Lerner-facing
+Now that we created an Edit component, we can create our End-user facing
 presentation component. For this particular example, Display component does
 not contain any additional logic, it simply displays our counter value.
 Navigate to `packages/display/src/components/Display.vue` and paste the
@@ -222,20 +224,23 @@ defineProps<{ data: ElementData }>();
 </style>
 ```
 
-Note that Display component recieves element attributes as props. After
+\
+Note that Display component recieves spreaded element attributes as props. After
 applying these changes you should be able to see the `Display` component:
 
+\
 ![Display component](./assets/example/display_component_1.png)
 
 ## Server hooks
 
-Finally, we are going to make one last change to our might counter by adding
+Finally, we are going to make one last change to our might counter and add
 some server-side behaviour. Server hooks are great place for interfacing
 with external APIs (e.g. create a video upload link), validating inputs,
 handling secrets and preparing the data for delivery (e.g. signing assets
 to enable access).
 
-In this example we are going to reset the counter in case it reaches 10.
+In this example, we are going to reset the counter in case it reaches 10.
+
 Navigate to the `packages/server/src/index.ts` and update beforeSave function
 to:
 
@@ -251,6 +256,7 @@ export function beforeSave(element: Element, services: any) {
 }
 ```
 
+\
 Element is a Sequelize.js instance, with `data` defined as a JSONB property.
 In order for Sequelize to detect changes, `data` property is entirely replaced
 with a new value.

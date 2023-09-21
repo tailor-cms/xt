@@ -6,40 +6,38 @@ Content Element `Edit` component has the ability to emit the `data` object
 that needs to be stored by the `Tailor CMS`; which is later on used to render
 `Display` component. This is achived by emitting the `save` event.
 The emitted `data` is stored on the `ContentElement` entity under the
-same key. Here is a simple example of Content Element `Edit` component
-implemented using Vue 2, presenting the amount of times user clicked on a
-button:
+same key. Here is a Content Element `Edit` Counter component from the Example
+section, displaying the amount of times user clicked on a button:
 
 ```vue
 <template>
   <div>
-    {{ element.data.timesClicked }}
+    <div>Times clicked: {{ element.data.count }}</div>
     <button @click="increment">Increment</button>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'tce-times-clicked',
-  props: {
-    element: { type: Object, required: true },
-  },
-  methods: {
-    increment() {
-      const timesClicked = element.data.timesClicked + 1;
-      this.$emit('save', { ...element.data, timesClicked });
-    }
-  },
+<script setup lang="ts">
+import { Element } from 'tce-manifest';
+
+const props = defineProps<{ element: Element }>();
+const emit = defineEmits(['save']);
+
+const increment = () => {
+  const { data } = props.element;
+  const count = data.count + 1;
+  emit('save', { ...data, count });
 };
 </script>
 ```
 
 ## Initializing the state
 
-By emitting the `save` event, `timesClicked` value is stored alongside other
-data in the `element.data` key-value property bag. What about the
-first time `Edit` component gets rendered, timesClicked does not exist on the
-`data` object and `data.timesClicked` will return undefined. That is where
+By emitting the `save` event, `count` value is stored alongside other
+data in the `element.data` key-value property bag.
+
+What about the first time `Edit` component gets rendered? `count` does not exist
+on the `data` object and `data.count` will return undefined. That is where
 `initState` function kicks in. Each Content Element package exposes `initState`
 function, which is called upon adding a new `Content Element`. As name suggests,
 the goal of `initState` function is to properly initialize `data` field of
@@ -47,7 +45,7 @@ respective element. To support our data structure, we would define `initState`
 as:
 
 ```js
-const initState = () => ({ timesClicked: 0 })
+const initState = () => ({ count: 0 })
 ```
 
 ## `data.assets` property
@@ -69,8 +67,8 @@ authored static assets (e.g. uploaded image or attached file). The key
 denotes the location within the `data` property bag where the value needs to
 be injected. Value should be the `URL` or the uploaded entity.
 
-To securely deliver assets at scale, there is a mechanism in place,
-which generates token making assets accessible for a limited amount of time.
+To securely deliver assets at scale, there is a mechanism in place which
+generates access token, making assets accessible for a limited amount of time.
 The key will be used to denote key within the `data` object if value is a
 local url (denoted with `repository://` prefix) file URL will be resolved and
 signed with a short lived token. For the example above, after entity has been
@@ -160,4 +158,4 @@ interface ContentElement {
 ```
 
 Full Content Element entity ORM instance is available within server-side hooks.
-For more info on that. Please visit Server package section.
+For more info on that. Please visit `Server package` section.
