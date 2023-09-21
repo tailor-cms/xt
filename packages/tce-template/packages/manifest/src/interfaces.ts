@@ -1,4 +1,6 @@
-export interface ElementData {}
+export interface ElementData {
+  count: number;
+}
 
 export interface Element {
   id: number;

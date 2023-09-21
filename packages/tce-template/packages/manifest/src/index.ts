@@ -5,14 +5,14 @@ import type {
 } from './interfaces';
 
 // Element unique id within the target system (e.g. Tailor)
-export const type = 'ORG/CUSTOM_ELEMENT';
+export const type = 'ACME/TCE_COUNTER';
 
 // Display name (e.g. shown to the author)
-export const name = 'Custom element';
+export const name = 'Simple counter';
 
 // Function which inits element state (data property on the Content Element
 // entity)
-export const initState: DataInitializer = (): ElementData => ({});
+export const initState: DataInitializer = (): ElementData => ({ count: 0 });
 
 // Can be loaded from package.json
 export const version = '1.0';
