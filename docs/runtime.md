@@ -12,7 +12,7 @@ The framework consist of four different runtimes:
   on port `8030` mimicking Tailor entity storage system and providing remaining
   APIs.
 - Preview; Glues it all together and provides common UI for inspecting the
-  created the components. Runs on port `8080`.
+  created components. Runs on port `8080`.
 
 The runtime is booted by executing:
 

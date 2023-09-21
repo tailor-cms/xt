@@ -24,19 +24,19 @@ export default defineConfig({
         text: "Essentials",
         items: [
           { text: "Directory structure", link: "/directory-structure" },
-          { text: "Runtime", link: "/runtime" },
-          { text: "State", link: "/state" },
           { text: "Manifest", link: "/manifest" },
           { text: "Edit package", link: "/edit-package" },
           { text: "Display package", link: "/display-package" },
-          { text: "Server package", link: "/server-package" }
+          { text: "Server package", link: "/server-package" },
+          { text: "State", link: "/state" },
         ],
       },
       {
         text: "Going further",
         items: [
+          { text: "Runtime", link: "/runtime" },
           { text: "Testing", link: "/testing" },
-          { text: "Troubleshooting", link: "/troubleshooting" },
+          { text: "Continuous Integration", link: "/ci" },
         ],
       },
     ],

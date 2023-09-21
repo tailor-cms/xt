@@ -5,6 +5,8 @@ defines the key information about the `Content Element`. Its interface and data
 is imported, implemented and exposed by other packages (edit, display and
 server). Here is an interface overview:
 
+\
+`packages/manifest/src/interfaces.ts`
 ```ts
 export interface ElementManifest {
   // Unique, reserved string, denoting 'Content Element' type.
@@ -30,7 +32,7 @@ export interface ElementManifest {
   // (Used for authoring purposes)
   SideToolbar?: object;
   // Display component of the Content Element
-  // (End-user facing; presentation component)
+  // (end-user facing; presentation component)
   Display?: object;
   // UI configuration for the authoring tool
   ui: {
