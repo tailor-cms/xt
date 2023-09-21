@@ -95,21 +95,18 @@ const { commands } = concurrently([...packageWatchers, ...runtimes]);
 // Optimize pre-build step
 if (!runtimeLog.initialBootAt) {
   // First run reboot, wait for optimize deps step
-  await setTimeout(10 * 1000);
+  await setTimeout(12 * 1000);
   const editRuntime = commands.find(it => it.name === 'edit-runtime');
   const displayRuntime = commands.find(it => it.name === 'display-runtime');
-  for (const timeout of [4000, 8000]) {
-    try {
-      await Promise.all([
-        restartCmd(editRuntime, 8010, timeout),
-        restartCmd(displayRuntime, 8020, timeout)
-      ]);
-    } catch {}
-  }
-  const previewRuntime = commands.find(it => it.name === 'preview-runtime');
-  await restartCmd(previewRuntime, 8080, 2000);
+  await Promise.all([
+    restartCmd(editRuntime, 8010, 8000),
+    restartCmd(displayRuntime, 8020, 8000)
+  ]);
   saveRuntimeInit();
 }
+await setTimeout(3000);
+const previewRuntime = commands.find(it => it.name === 'preview-runtime');
+await restartCmd(previewRuntime, 8080, 0);
 // Delay package watchers
 await setTimeout(5000);
 const serverPackage = commands.find(it => it.name === 'server-package');
