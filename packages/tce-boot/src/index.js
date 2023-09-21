@@ -98,11 +98,13 @@ if (!runtimeLog.initialBootAt) {
   await setTimeout(10 * 1000);
   const editRuntime = commands.find(it => it.name === 'edit-runtime');
   const displayRuntime = commands.find(it => it.name === 'display-runtime');
-  for (const timeout of [5000, 6000]) {
-    await Promise.all([
-      restartCmd(editRuntime, 8010, timeout),
-      restartCmd(displayRuntime, 8020, timeout)
-    ]);
+  for (const timeout of [4000, 8000]) {
+    try {
+      await Promise.all([
+        restartCmd(editRuntime, 8010, timeout),
+        restartCmd(displayRuntime, 8020, timeout)
+      ]);
+    } catch {}
   }
   const previewRuntime = commands.find(it => it.name === 'preview-runtime');
   await restartCmd(previewRuntime, 8080, 2000);
