@@ -12,6 +12,7 @@ export default defineConfig(({ mode }): any => {
   const env = loadEnv(mode, process.cwd(), '');
   const viteConfigPath = fileURLToPath(import.meta.url);
   const displayModulePath = path.relative(viteConfigPath, env.TCE_DISPLAY_DIR);
+
   const dirs = uniq([
     displayModulePath,
     // Defaults
@@ -27,7 +28,7 @@ export default defineConfig(({ mode }): any => {
       port: 8020,
     },
     optimizeDeps: {
-      include: [displayModulePath],
+      include: [displayModulePath.replace(/\/dist$/, '')],
     },
     resolve: {
       preserveSymlinks: true,
