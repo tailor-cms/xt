@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from 'vite';
 import Components from 'unplugin-vue-components/vite';
 import uniq from 'lodash/uniq';
 import vue from '@vitejs/plugin-vue';
+import vuetify from 'vite-plugin-vuetify';
 
 import { fileURLToPath } from 'url';
 import path from 'node:path';
@@ -33,6 +34,7 @@ export default defineConfig(({ mode }): any => {
     },
     plugins: [
       vue(),
+      vuetify({ autoImport: true }),
       Components({
         version: 3,
         dirs,
