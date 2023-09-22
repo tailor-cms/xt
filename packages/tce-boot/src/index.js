@@ -71,11 +71,14 @@ const runtimes = await Promise.all(
     const pkgRef = `@tailor-cms/tce-${name}-runtime/package.json`;
     const pkgPath = await require.resolve(pkgRef);
     const cmdDir = path.dirname(pkgPath);
+    const command = ['edit', 'display'].includes(name)
+      ? `cd ${cmdDir} && pnpm vite optimize && pnpm dev`
+      : `cd ${cmdDir} && pnpm dev`;
     return {
       name: `${name}-runtime`,
       prefixColor: TERM_COLORS[index],
       path: cmdDir,
-      command: `cd ${cmdDir} && pnpm dev`
+      command
     };
   })
 );
