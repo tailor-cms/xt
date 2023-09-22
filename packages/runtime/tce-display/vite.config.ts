@@ -4,7 +4,7 @@ import uniq from 'lodash/uniq';
 import vue from '@vitejs/plugin-vue';
 
 import { fileURLToPath } from 'url';
-import path from 'path';
+import path from 'node:path';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }): any => {
@@ -21,8 +21,15 @@ export default defineConfig(({ mode }): any => {
   console.log(dirs.join('\n'));
   return {
     root: './src',
+    logLevel: 'warn',
     server: {
       port: 8020,
+    },
+    optimizeDeps: {
+      include: [displayModulePath],
+    },
+    resolve: {
+      preserveSymlinks: true,
     },
     plugins: [
       vue(),

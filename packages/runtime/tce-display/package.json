@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-display-runtime",
   "description": "Content element display runtime",
   "author": "ExtensionEngine <info@extensionengine.com>",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -26,7 +26,8 @@
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
-    "@tailor-cms/eslint-config": "workspace:*"
+    "@tailor-cms/eslint-config": "workspace:*",
+    "@types/node": "^20.6.3"
   },
   "publishConfig": {
     "access": "public"
