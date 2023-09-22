@@ -24,8 +24,15 @@ export default defineConfig(({ mode }): any => {
   console.log(dirs.join('\n'));
   return {
     root: './src',
+    logLevel: 'warn',
     server: {
       port: 8010,
+    },
+    resolve: {
+      preserveSymlinks: true,
+    },
+    optimizeDeps: {
+      include: [editModulePath],
     },
     plugins: [
       vue(),
