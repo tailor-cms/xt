@@ -72,7 +72,7 @@ const runtimes = await Promise.all(
     const pkgPath = await require.resolve(pkgRef);
     const cmdDir = path.dirname(pkgPath);
     const command = ['edit', 'display'].includes(name)
-      ? `cd ${cmdDir} && pnpm vite optimize && pnpm dev`
+      ? `cd ${cmdDir} && pnpm vite optimize && pnpm vite build && pnpm dev`
       : `cd ${cmdDir} && pnpm dev`;
     return {
       name: `${name}-runtime`,
