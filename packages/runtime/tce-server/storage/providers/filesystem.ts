@@ -1,28 +1,19 @@
-import * as yup from 'yup';
 import expandPath from 'untildify';
 import { mkdirp } from 'mkdirp';
-import { pathExists } from 'path-exists';
 import Promise from 'bluebird';
 
-import * as fs from 'node:fs';
 import * as fsp from 'node:fs/promises';
 import config from '../config';
 import path from 'node:path';
-import { validateConfig } from '../validation.js';
 
 const isNotFound = (err) => err.code === 'ENOENT';
 const resolvePath = (str) => path.resolve(expandPath(str));
-
-export const schema = yup.object().shape({
-  path: yup.string().required(),
-});
 
 class FilesystemStorage {
   root: string;
 
   constructor(config) {
-    config = validateConfig({ path: process.env.STORAGE_PATH }, schema);
-    this.root = resolvePath(config.path);
+    this.root = resolvePath(config.storagePath);
   }
 
   static create(config) {
@@ -41,10 +32,6 @@ class FilesystemStorage {
     });
   }
 
-  createReadStream(key, options = {}) {
-    return fs.createReadStream(this.path(key), options);
-  }
-
   saveFile(key, data, options = {}) {
     const filePath = this.path(key);
     return mkdirp(path.dirname(filePath)).then(() =>
@@ -52,40 +39,8 @@ class FilesystemStorage {
     );
   }
 
-  createWriteStream(key, options = {}) {
-    const filepath = this.path(key);
-    const dirname = path.dirname(filepath);
-    // TODO: Replace with async mkdir
-    fs.mkdirSync(dirname, { recursive: true });
-    return fs.createWriteStream(filepath, options);
-  }
-
-  copyFile(key, newKey) {
-    const src = this.path(key);
-    const dest = this.path(newKey);
-    return mkdirp(path.dirname(dest)).then(() => fsp.copyFile(src, dest));
-  }
-
-  moveFile(key, newKey) {
-    return this.copyFile(key, newKey).then((file) =>
-      this.deleteFile(key).then(() => file),
-    );
-  }
-
-  deleteFile(key) {
-    return fsp.unlink(this.path(key));
-  }
-
-  deleteFiles(keys) {
-    return Promise.map(keys, (key) => this.deleteFile(key));
-  }
-
-  fileExists(key) {
-    return pathExists(this.path(key));
-  }
-
   getFileUrl(key) {
-    return Promise.resolve(`${config.origin}/${key}`);
+    return Promise.resolve(path.join(config.origin, key));
   }
 }
 
