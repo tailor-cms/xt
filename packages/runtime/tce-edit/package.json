@@ -12,6 +12,7 @@
   "dependencies": {
     "@mdi/font": "7.2.96",
     "@vitejs/plugin-vue2": "2.2.0",
+    "axios": "^1.5.1",
     "ky": "1.0.1",
     "lodash": "4.17.21",
     "sass": "~1.32.12",
@@ -24,6 +25,7 @@
     "vuetify": "2.7.1"
   },
   "devDependencies": {
+    "@tailor-cms/cek-common": "workspace:*",
     "@tailor-cms/eslint-config": "workspace:*"
   },
   "publishConfig": {
