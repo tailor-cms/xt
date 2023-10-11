@@ -1,6 +1,7 @@
 import expandPath from 'untildify';
 import { mkdirp } from 'mkdirp';
 import Promise from 'bluebird';
+import urlJoin from 'url-join';
 
 import * as fsp from 'node:fs/promises';
 import config from '../config';
@@ -40,7 +41,7 @@ class FilesystemStorage {
   }
 
   getFileUrl(key) {
-    return Promise.resolve(path.join(config.origin, key));
+    return Promise.resolve(urlJoin(config.origin, key));
   }
 }
 
