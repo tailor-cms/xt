@@ -1,5 +1,8 @@
 export interface ElementData {
   count: number;
+  key?: string;
+  url?: string;
+  publicUrl?: string;
 }
 
 export interface Element {
