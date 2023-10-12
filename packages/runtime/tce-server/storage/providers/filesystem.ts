@@ -41,7 +41,9 @@ class FilesystemStorage {
   }
 
   getFileUrl(key) {
-    return Promise.resolve(urlJoin(config.origin, key));
+    return Promise.resolve(
+      urlJoin(config.origin, key.replace('storage://', '')),
+    );
   }
 }
 
