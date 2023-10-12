@@ -15,20 +15,20 @@
       </label>
       <ul v-if="element.data.key" class="upload-details">
         <li><b>Storage key:</b>{{ element.data.key }}</li>
-        <li><b>Internal url:</b>{{ element.data.url }}</li>
+        <li><b>Internal url:</b>{{ element.data.assets?.backgroundUrl }}</li>
         <li>
           <b>Public url:</b>
-          <a :href="element.data.publicUrl" target="_blank">
-            {{ element.data.publicUrl }}
+          <a :href="element.data.backgroundUrl" target="_blank">
+            {{ element.data.backgroundUrl }}
           </a>
         </li>
       </ul>
     </div>
     <img
-      v-if="element.data.publicUrl"
-      :src="element.data.publicUrl"
+      v-if="element.data.backgroundUrl"
+      :src="element.data.backgroundUrl"
       alt="Background image"
-      max-height="100px"
+      width="300px"
     />
   </div>
 </template>
@@ -53,12 +53,12 @@ const increment = () => {
 const upload = (e: InputFileEvent) => {
   const form = createUploadForm(e);
   if (!form) return;
-  return storageService.upload(form).then((response) => {
+  return storageService.upload(form).then(({ key, url }) => {
     emit('save', {
       ...props.element.data,
-      ...response,
+      key,
       assets: {
-        backgroundUrl: response.url,
+        backgroundUrl: url,
       },
     });
   });
@@ -73,6 +73,7 @@ const upload = (e: InputFileEvent) => {
   border: 2px dashed #888;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
+  overflow-x: hidden;
 }
 
 .background-input {

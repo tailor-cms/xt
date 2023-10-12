@@ -1,8 +1,8 @@
 export interface ElementData {
   count: number;
   key?: string;
-  url?: string;
-  publicUrl?: string;
+  backgroundUrl?: string;
+  assets?: { backgroundUrl: string };
 }
 
 export interface Element {
