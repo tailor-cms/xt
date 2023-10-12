@@ -1,16 +1,21 @@
+import { processAssets, resolveAssets } from './processors.js';
+import config from '../storage/config.js';
+import { create as createFilesystemStorage } from '../storage/providers/filesystem';
 import ELEMENT_HOOKS from './hook-type.js';
 import { emitter } from '../common/emitter.js';
+
+const Storage = createFilesystemStorage(config);
 
 function prepareHookServices(tce) {
   return {
     config: { tce },
+    storage: Storage,
   };
 }
 
 export default function initHooks(hooks) {
   // If plain object, convert to map
   const hooksMap = hooks?.has ? hooks : new Map(hooks);
-
   function registerHook(element, hookName, tceConfig) {
     const hook = hooksMap.get(hookName);
     return hook(element, prepareHookServices(tceConfig));
@@ -41,12 +46,24 @@ export default function initHooks(hooks) {
       elementModel.addHook('afterUpdate', register(ELEMENT_HOOKS.AFTER_LOADED));
     }
 
+    // Register default save hooks
+    ['beforeCreate', 'beforeUpdate'].forEach((hookName) => {
+      elementModel.addHook(hookName, (element) => {
+        return processAssets(hookName, element);
+      });
+    });
+    ['afterCreate', 'afterUpdate'].forEach((hookName) => {
+      elementModel.addHook(hookName, async (element) => {
+        return resolveAssets(element);
+      });
+    });
+    elementModel.addHook('afterCreate', registerSocketUpdate);
     elementModel.addHook('afterUpdate', registerSocketUpdate);
   }
 
   async function applyFetchHooks(element, tceConfig) {
     const services = prepareHookServices(tceConfig);
-    let elementAfterHook = element;
+    let elementAfterHook = await resolveAssets(element);
 
     if (hooksMap.has(ELEMENT_HOOKS.AFTER_RETRIEVE)) {
       const hook = hooksMap.get(ELEMENT_HOOKS.AFTER_RETRIEVE);
@@ -57,7 +74,6 @@ export default function initHooks(hooks) {
       const hook = hooksMap.get(ELEMENT_HOOKS.AFTER_LOADED);
       elementAfterHook = await hook(elementAfterHook, services);
     }
-
     return elementAfterHook;
   }
 
