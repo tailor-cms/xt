@@ -5,7 +5,7 @@
 The authoring components (Edit package) have the `$storageService` provided via
 Vue [provide/inject](https://v2.vuejs.org/v2/api/#provide-inject) prop-drilling
 feature. To upload a file simpliy inject `$storageService` into your component
-and pass `FormData` with the `file` property containing upload data
+and pass `FormData` with the `file` property containing the upload data
 ([File type](https://developer.mozilla.org/en-US/docs/Web/API/File]))
 to the
 `$storageService.upload` method:
