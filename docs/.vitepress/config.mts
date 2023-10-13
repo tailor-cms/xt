@@ -30,6 +30,7 @@ export default defineConfig({
           { text: "Display package", link: "/display-package" },
           { text: "Server package", link: "/server-package" },
           { text: "State", link: "/state" },
+          { text: "File storage", link: "/file-storage" },
         ],
       },
       {
