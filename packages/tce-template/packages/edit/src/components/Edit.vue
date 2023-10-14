@@ -40,6 +40,7 @@ import { Element } from 'tce-manifest';
 import { inject } from 'vue';
 
 const storageService = inject('$storageService') as StorageApi;
+const elementBus = inject('$elementBus') as any;
 
 const props = defineProps<{ element: Element; isFocused: boolean }>();
 const emit = defineEmits(['save']);
@@ -49,6 +50,8 @@ const increment = () => {
   const count = data.count + 1;
   emit('save', { ...data, count });
 };
+
+elementBus.on('decrement', ({ count }) => console.log(count));
 
 const upload = (e: InputFileEvent) => {
   const form = createUploadForm(e);
