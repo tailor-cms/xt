@@ -26,7 +26,8 @@
     "vuetify": "2.7.1"
   },
   "devDependencies": {
-    "@tailor-cms/eslint-config": "workspace:*"
+    "@tailor-cms/eslint-config": "workspace:*",
+    "@types/node": "^20.8.6"
   },
   "publishConfig": {
     "access": "public"
