@@ -1,9 +1,7 @@
-import { readFile, sha256 } from './util.js';
-import config from './config.js';
+import { readFile, sha256 } from './util';
+import config from './config';
 import path from 'node:path';
-
-import { create as createFilesystemStorage } from './providers/filesystem';
-const Storage = createFilesystemStorage(config);
+import StorageService from './storage.service';
 
 const getStorageUrl = (key) => `${config.protocol}${key}`;
 
@@ -11,13 +9,13 @@ function getUrl(req, res) {
   const {
     query: { key },
   } = req;
-  return Storage.getFileUrl(key).then((url) => res.json({ url }));
+  return StorageService.getFileUrl(key).then((url) => res.json({ url }));
 }
 
 async function upload({ file }, res) {
   const { name } = path.parse(file.originalname);
-  const asset = await uploadFile(file, name);
-  return res.json(asset);
+  const assetInfo = await uploadFile(file, name);
+  return res.json(assetInfo);
 }
 
 export default {
@@ -32,7 +30,7 @@ async function uploadFile(file, name) {
   const fileName = `${hash}___${name}${extension}`;
   const key = path.join('assets/', fileName);
   console.log('Uploading file to storage:', key);
-  await Storage.saveFile(key, buffer, { ContentType: file.mimetype });
-  const publicUrl = await Storage.getFileUrl(key);
+  await StorageService.saveFile(key, buffer, { ContentType: file.mimetype });
+  const publicUrl = await StorageService.getFileUrl(key);
   return { key, publicUrl, url: getStorageUrl(key) };
 }
