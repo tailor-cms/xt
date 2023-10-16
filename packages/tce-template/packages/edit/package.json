@@ -22,6 +22,9 @@
   "peerDependencies": {
     "vue": "^2.7.13"
   },
+  "dependencies": {
+    "@tailor-cms/cek-common": "0.0.1"
+  },
   "devDependencies": {
     "@tailor-cms/eslint-config": "0.0.2",
     "@vitejs/plugin-vue2": "^2.2.0",

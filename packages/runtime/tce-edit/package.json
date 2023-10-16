@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-edit-runtime",
   "description": "Edit content element client side runtime",
   "author": "ExtensionEngine <info@extensionengine.com>",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.4",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@mdi/font": "7.2.96",
+    "@tailor-cms/cek-common": "0.0.1",
     "@vitejs/plugin-vue2": "2.2.0",
+    "axios": "^1.5.1",
     "ky": "1.0.1",
     "lodash": "4.17.21",
     "sass": "~1.32.12",
@@ -24,7 +26,8 @@
     "vuetify": "2.7.1"
   },
   "devDependencies": {
-    "@tailor-cms/eslint-config": "workspace:*"
+    "@tailor-cms/eslint-config": "workspace:*",
+    "@types/node": "^20.8.6"
   },
   "publishConfig": {
     "access": "public"

@@ -1,5 +1,8 @@
 export interface ElementData {
   count: number;
+  key?: string;
+  backgroundUrl?: string;
+  assets?: { backgroundUrl: string };
 }
 
 export interface Element {
