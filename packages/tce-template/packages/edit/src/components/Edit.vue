@@ -2,15 +2,14 @@
   <div class="tce-container">
     <div>Times clicked: {{ element.data.count }}</div>
     <button @click="increment">Increment</button>
-    <div class="background-input">
+    <div class="background-input-container">
       <label for="backgroundInput">
         Set background:
         <input
           id="backgroundInput"
           accept="image/png, image/jpeg"
-          class="background-input"
           type="file"
-          @change="(e) => upload(e)"
+          @change="(e) => upload(e as InputFileEvent)"
         />
       </label>
       <ul v-if="element.data.key" class="upload-details">
@@ -76,7 +75,7 @@ const upload = (e: InputFileEvent) => {
   overflow-x: hidden;
 }
 
-.background-input {
+.background-input-container {
   margin: 1rem 0;
 }
 
