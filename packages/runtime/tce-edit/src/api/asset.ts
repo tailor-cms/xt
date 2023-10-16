@@ -24,7 +24,7 @@ function upload(data: UploadFormData): Promise<FileUploadResponse> {
         serialized as JSON. Unsetting the header instructs Axios to determine
         the header and serialization based on the type of the provided data.
         https://github.com/axios/axios/issues/5556#issuecomment-1434668134
-       */
+        */
         'Content-Type': undefined,
       },
     })
