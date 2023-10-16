@@ -165,6 +165,7 @@ importers:
       '@mdi/font': 7.2.96
       '@tailor-cms/cek-common': 0.0.1
       '@tailor-cms/eslint-config': workspace:*
+      '@types/node': ^20.8.6
       '@vitejs/plugin-vue2': 2.2.0
       axios: ^1.5.1
       ky: 1.0.1
@@ -179,6 +180,7 @@ importers:
       vuetify: 2.7.1
     dependencies:
       '@mdi/font': 7.2.96
+      '@tailor-cms/cek-common': link:../../common
       '@vitejs/plugin-vue2': 2.2.0_vite@4.4.9+vue@2.7.14
       axios: 1.5.1
       ky: 1.0.1
@@ -186,14 +188,14 @@ importers:
       sass: 1.32.13
       typescript: 5.2.2
       unplugin-vue-components: 0.25.2_vue@2.7.14
-      vite: 4.4.9_sass@1.32.13
+      vite: 4.4.9_kiewnh2g4cetjcvrzqahznzfhu
       vue: 2.7.14
       vue-template-compiler: 2.7.14_vue@2.7.14
       vue-tsc: 1.8.13_nfwcdbauhyorapgffjnvrr55lm
       vuetify: 2.7.1_vue@2.7.14
     devDependencies:
-      '@tailor-cms/cek-common': link:../../common
       '@tailor-cms/eslint-config': link:../../eslint
+      '@types/node': 20.8.6
 
   packages/runtime/tce-server:
     specifiers:
@@ -244,10 +246,10 @@ importers:
 
   packages/tce-boot:
     specifiers:
-      '@tailor-cms/tce-display-runtime': 0.1.0-beta.1
-      '@tailor-cms/tce-edit-runtime': 0.1.0-beta.1
-      '@tailor-cms/tce-preview-runtime': 0.1.0-beta.2
-      '@tailor-cms/tce-server-runtime': workspace:*
+      '@tailor-cms/tce-display-runtime': 0.1.0-beta.4
+      '@tailor-cms/tce-edit-runtime': 0.1.0-beta.4
+      '@tailor-cms/tce-preview-runtime': 0.1.0-beta.4
+      '@tailor-cms/tce-server-runtime': 0.1.0-beta.4
       boxen: ^7.1.1
       concurrently: ^8.2.0
       eslint: '>=8.5.0'
@@ -1012,6 +1014,11 @@ packages:
   /@types/node/20.6.3:
     resolution: {integrity: sha512-HksnYH4Ljr4VQgEy2lTStbCKv/P590tmPe5HqOnv9Gprffgv5WXAY+Y5Gqniu0GGqeTCUdBnzC3QSrzPkBkAMA==}
 
+  /@types/node/20.8.6:
+    resolution: {integrity: sha512-eWO4K2Ji70QzKUqRy6oyJWUeB7+g2cRagT3T/nxYibYcT4y2BDL8lqolRXjTHmkZCdJfIPaY73KbJAZmcryxTQ==}
+    dependencies:
+      undici-types: 5.25.3
+
   /@types/qs/6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
     dev: true
@@ -1205,7 +1212,7 @@ packages:
       vite: ^3.0.0 || ^4.0.0
       vue: ^2.7.0-0
     dependencies:
-      vite: 4.4.9_sass@1.32.13
+      vite: 4.4.9_kiewnh2g4cetjcvrzqahznzfhu
       vue: 2.7.14
     dev: false
 
@@ -5336,6 +5343,9 @@ packages:
     resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}
     dev: false
 
+  /undici-types/5.25.3:
+    resolution: {integrity: sha512-Ga1jfYwRn7+cP9v8auvEXN1rX3sWqlayd4HP7OKk4mZWylEmu3KzXDUGrQUN6Ol7qo1gPvB2e5gX6udnyEPgdA==}
+
   /unique-filename/1.1.1:
     resolution: {integrity: sha512-Vmp0jIp2ln35UTXuryvjzkjGdRyf9b2lTXuSYUiPmzRcl3FDtYqAwOnTJkAngD9SWhnoJzDbTKwaOrZ+STtxNQ==}
     dependencies:
@@ -5575,7 +5585,7 @@ packages:
       fsevents: 2.3.3
     dev: false
 
-  /vite/4.4.9_sass@1.32.13:
+  /vite/4.4.9_kiewnh2g4cetjcvrzqahznzfhu:
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -5603,6 +5613,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 20.8.6
       esbuild: 0.18.20
       postcss: 8.4.28
       rollup: 3.29.1
