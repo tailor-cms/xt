@@ -68,12 +68,17 @@ export default {
   provide() {
     return {
       $storageService: assetApi,
+      $elementBus: this.elementBus,
     };
   },
   data: () => ({
     element: {},
     isFocused: false,
   }),
+  computed: {
+    // TODO: Add editor bus
+    elementBus: (vm) => vm.$radio.channel(`element:${vm.id}`),
+  },
   async mounted() {
     await this.getElement();
     // Simulate SSE from Tailor
