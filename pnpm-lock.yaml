@@ -10,33 +10,11 @@ importers:
       '@typescript-eslint/eslint-plugin': '>=6.4.0'
       '@typescript-eslint/parser': '>=6.4.0'
       changelogen: ^0.5.3
-      eslint: '>=8.5.0'
-      eslint-config-prettier: '>=9.0.0'
-      eslint-config-semistandard: '>=17.0.0'
-      eslint-config-standard: '>=17.1.0'
-      eslint-plugin-import: '>=2.28.0'
-      eslint-plugin-n: '>=16.0.1'
-      eslint-plugin-prettier: '>=4.2.1'
-      eslint-plugin-promise: '>=6.1.1'
-      eslint-plugin-vue: '>=9.17.0'
-      eslint-plugin-vuejs-accessibility: '>=2.2.0'
-      prettier: ^2.7.1
     devDependencies:
       '@tailor-cms/eslint-config': link:packages/eslint
       '@typescript-eslint/eslint-plugin': 6.5.0_nvwva6txm3qs6xnog6dqanz5uy
       '@typescript-eslint/parser': 6.5.0_w2g2uv42be7wag4oipwkfv43p4
       changelogen: 0.5.5
-      eslint: 8.48.0
-      eslint-config-prettier: 9.0.0_eslint@8.48.0
-      eslint-config-semistandard: 17.0.0_god7lj3vaauoazdkfx7hqmtwum
-      eslint-config-standard: 17.1.0_qy3ofq72cftvatskbzwakl2sv4
-      eslint-plugin-import: 2.28.1_cfz6cobcjzmgs4fgqkxcz6abri
-      eslint-plugin-n: 16.0.2_eslint@8.48.0
-      eslint-plugin-prettier: 4.2.1_qhfprrilblfjgj6n7mezrdrqsm
-      eslint-plugin-promise: 6.1.1_eslint@8.48.0
-      eslint-plugin-vue: 9.17.0_eslint@8.48.0
-      eslint-plugin-vuejs-accessibility: 2.2.0_eslint@8.48.0
-      prettier: 2.8.8
 
   docs:
     specifiers:
