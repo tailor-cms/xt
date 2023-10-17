@@ -1,5 +1,5 @@
-import Vue from 'vue';
 import Radio from '@extensionengine/vue-radio';
+import Vue from 'vue';
 
 import App from './App.vue';
 import vuetify from './plugins/vuetify';

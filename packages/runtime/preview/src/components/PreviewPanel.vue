@@ -3,22 +3,22 @@
     <div :id="PANELS.EDIT" class="d-flex flex-1-1-50">
       <iframe
         :key="`author-${isLoaded ? new Date().getTime() : 0}`"
+        class="flex-1-1-100"
         frameBorder="0"
         sandbox="allow-scripts"
         src="http://localhost:8010"
         title="Edit component container"
-        class="flex-1-1-100"
       >
       </iframe>
     </div>
     <div :id="PANELS.DISPLAY" class="d-flex flex-1-1-50">
       <iframe
         :key="`display-${isLoaded ? new Date().getTime() : 0}`"
+        class="flex-1-1-100"
         frameBorder="0"
         sandbox="allow-scripts"
         src="http://localhost:8020"
         title="Display component container"
-        class="flex-1-1-100"
       >
       </iframe>
     </div>
