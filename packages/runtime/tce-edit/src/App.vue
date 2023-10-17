@@ -92,9 +92,11 @@ export default {
     },
     onSave(data) {
       this.updateElementData(data);
+      // eslint-disable-next-line vue/require-explicit-emits
       this.$emit('save', data);
     },
     onDelete() {
+      // eslint-disable-next-line vue/require-explicit-emits
       this.$emit('delete');
     },
     async getElement() {

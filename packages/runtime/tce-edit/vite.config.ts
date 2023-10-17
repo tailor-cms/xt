@@ -4,11 +4,15 @@ import uniq from 'lodash/uniq';
 import vue from '@vitejs/plugin-vue2';
 import { VuetifyResolver } from 'unplugin-vue-components/resolvers';
 
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }): any => {
+  // Default API URL
+  if (!process.env.VITE_API_URL) {
+    process.env.VITE_API_URL = 'http://localhost:8030';
+  }
   // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
   const env = loadEnv(mode, process.cwd(), '');

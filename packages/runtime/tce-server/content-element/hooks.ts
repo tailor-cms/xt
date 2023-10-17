@@ -1,15 +1,12 @@
-import { processAssets, resolveAssets } from './processors.js';
-import config from '../storage/config.js';
-import { create as createFilesystemStorage } from '../storage/providers/filesystem';
-import ELEMENT_HOOKS from './hook-type.js';
-import { emitter } from '../common/emitter.js';
-
-const Storage = createFilesystemStorage(config);
+import { processAssets, resolveAssets } from './processors';
+import ELEMENT_HOOKS from './hook-type';
+import { emitter } from '../common/emitter';
+import StorageService from '../storage/storage.service';
 
 function prepareHookServices(tce) {
   return {
     config: { tce },
-    storage: Storage,
+    storage: StorageService,
   };
 }
 
