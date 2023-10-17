@@ -22,6 +22,68 @@ importers:
     devDependencies:
       vitepress: 1.0.0-rc.13_vrjutvdt6m7zqtbxr4yjyrfosa
 
+  example:
+    specifiers:
+      '@npmcli/package-json': ^2.0.0
+      '@tailor-cms/cek-common': 0.0.1
+      '@tailor-cms/eslint-config': 0.0.2
+      '@tailor-cms/tce-boot': file:../packages/tce-boot
+      '@types/node': ^20.5.7
+      '@typescript-eslint/eslint-plugin': '>=6.4.0'
+      '@typescript-eslint/parser': '>=6.4.0'
+      boxen: ^7.1.1
+      chalk: ^4.1.2
+      concurrently: ^8.2.0
+      degit: ^2.8.4
+      enquirer: ^2.4.1
+      eslint: '>=8.13.0'
+      eslint-config-prettier: '>=9.0.0'
+      eslint-config-semistandard: '>=17.0.0'
+      eslint-config-standard: '>=17.1.0'
+      eslint-plugin-import: '>=2.28.1'
+      eslint-plugin-n: '>=15.0.0'
+      eslint-plugin-prettier: '>=4.2.1'
+      eslint-plugin-promise: '>=6.1.1'
+      eslint-plugin-vue: '>=9.17.0'
+      eslint-plugin-vuejs-accessibility: '>=2.2.0'
+      has-flag: ^5.0.1
+      prettier: ^2.7.1
+      shelljs: ^0.8.5
+      typescript: ^5.1.6
+      validate-npm-package-name: ^4.0.0
+      vue: 2.7.14
+      vue-template-compiler: 2.7.14
+    devDependencies:
+      '@npmcli/package-json': 2.0.0
+      '@tailor-cms/cek-common': link:../packages/common
+      '@tailor-cms/eslint-config': link:../packages/eslint
+      '@tailor-cms/tce-boot': file:packages/tce-boot_@types+node@20.8.6
+      '@types/node': 20.8.6
+      '@typescript-eslint/eslint-plugin': 6.5.0_nvwva6txm3qs6xnog6dqanz5uy
+      '@typescript-eslint/parser': 6.5.0_w2g2uv42be7wag4oipwkfv43p4
+      boxen: 7.1.1
+      chalk: 4.1.2
+      concurrently: 8.2.1
+      degit: 2.8.4
+      enquirer: 2.4.1
+      eslint: 8.48.0
+      eslint-config-prettier: 9.0.0_eslint@8.48.0
+      eslint-config-semistandard: 17.0.0_god7lj3vaauoazdkfx7hqmtwum
+      eslint-config-standard: 17.1.0_qy3ofq72cftvatskbzwakl2sv4
+      eslint-plugin-import: 2.28.1_cfz6cobcjzmgs4fgqkxcz6abri
+      eslint-plugin-n: 16.0.2_eslint@8.48.0
+      eslint-plugin-prettier: 4.2.1_qhfprrilblfjgj6n7mezrdrqsm
+      eslint-plugin-promise: 6.1.1_eslint@8.48.0
+      eslint-plugin-vue: 9.17.0_eslint@8.48.0
+      eslint-plugin-vuejs-accessibility: 2.2.0_eslint@8.48.0
+      has-flag: 5.0.1
+      prettier: 2.8.8
+      shelljs: 0.8.5
+      typescript: 5.2.2
+      validate-npm-package-name: 4.0.0
+      vue: 2.7.14
+      vue-template-compiler: 2.7.14_vue@2.7.14
+
   packages/common:
     specifiers:
       '@tailor-cms/eslint-config': 0.0.2
@@ -264,68 +326,6 @@ importers:
       eslint-plugin-prettier: 4.2.1_qhfprrilblfjgj6n7mezrdrqsm
       eslint-plugin-promise: 6.1.1_eslint@8.48.0
       prettier: 2.8.8
-
-  packages/tce-template:
-    specifiers:
-      '@npmcli/package-json': ^2.0.0
-      '@tailor-cms/cek-common': 0.0.1
-      '@tailor-cms/eslint-config': 0.0.2
-      '@tailor-cms/tce-boot': file:../tce-boot
-      '@types/node': ^20.5.7
-      '@typescript-eslint/eslint-plugin': '>=6.4.0'
-      '@typescript-eslint/parser': '>=6.4.0'
-      boxen: ^7.1.1
-      chalk: ^4.1.2
-      concurrently: ^8.2.0
-      degit: ^2.8.4
-      enquirer: ^2.4.1
-      eslint: '>=8.13.0'
-      eslint-config-prettier: '>=9.0.0'
-      eslint-config-semistandard: '>=17.0.0'
-      eslint-config-standard: '>=17.1.0'
-      eslint-plugin-import: '>=2.28.1'
-      eslint-plugin-n: '>=15.0.0'
-      eslint-plugin-prettier: '>=4.2.1'
-      eslint-plugin-promise: '>=6.1.1'
-      eslint-plugin-vue: '>=9.17.0'
-      eslint-plugin-vuejs-accessibility: '>=2.2.0'
-      has-flag: ^5.0.1
-      prettier: ^2.7.1
-      shelljs: ^0.8.5
-      typescript: ^5.1.6
-      validate-npm-package-name: ^4.0.0
-      vue: 2.7.14
-      vue-template-compiler: 2.7.14
-    devDependencies:
-      '@npmcli/package-json': 2.0.0
-      '@tailor-cms/cek-common': link:../common
-      '@tailor-cms/eslint-config': link:../eslint
-      '@tailor-cms/tce-boot': file:packages/tce-boot_@types+node@20.5.7
-      '@types/node': 20.5.7
-      '@typescript-eslint/eslint-plugin': 6.5.0_nvwva6txm3qs6xnog6dqanz5uy
-      '@typescript-eslint/parser': 6.5.0_w2g2uv42be7wag4oipwkfv43p4
-      boxen: 7.1.1
-      chalk: 4.1.2
-      concurrently: 8.2.1
-      degit: 2.8.4
-      enquirer: 2.4.1
-      eslint: 8.48.0
-      eslint-config-prettier: 9.0.0_eslint@8.48.0
-      eslint-config-semistandard: 17.0.0_god7lj3vaauoazdkfx7hqmtwum
-      eslint-config-standard: 17.1.0_qy3ofq72cftvatskbzwakl2sv4
-      eslint-plugin-import: 2.28.1_cfz6cobcjzmgs4fgqkxcz6abri
-      eslint-plugin-n: 16.0.2_eslint@8.48.0
-      eslint-plugin-prettier: 4.2.1_qhfprrilblfjgj6n7mezrdrqsm
-      eslint-plugin-promise: 6.1.1_eslint@8.48.0
-      eslint-plugin-vue: 9.17.0_eslint@8.48.0
-      eslint-plugin-vuejs-accessibility: 2.2.0_eslint@8.48.0
-      has-flag: 5.0.1
-      prettier: 2.8.8
-      shelljs: 0.8.5
-      typescript: 5.2.2
-      validate-npm-package-name: 4.0.0
-      vue: 2.7.14
-      vue-template-compiler: 2.7.14_vue@2.7.14
 
 packages:
 
@@ -894,7 +894,7 @@ packages:
     resolution: {integrity: sha512-Mi+V01JypQPJqdDKl0QrQYfEV92SNl+KIgtV/9VhGE8tYBItb4Fdhq6hXW2/3qwB7163raNLG6oZAUaDBVAQ2A==}
     dev: true
 
-  /@tailor-cms/tce-display-runtime/0.1.0-beta.4_@types+node@20.5.7:
+  /@tailor-cms/tce-display-runtime/0.1.0-beta.4_@types+node@20.8.6:
     resolution: {integrity: sha512-5JRxPdGlnB53u5CAZl8bGx67pQOcTBto3O4cLR1kBGC84FHQnS07osWz4Kj+8XMejgycUCc7ODys3UuD1CKzXA==}
     dependencies:
       '@mdi/font': 7.2.96
@@ -908,7 +908,7 @@ packages:
       sass: 1.68.0
       typescript: 5.2.2
       unplugin-vue-components: 0.25.2_vue@3.3.4
-      vite: 4.4.9_pjbljcgl2viomw4xav5quqmu7y
+      vite: 4.4.9_inionw7x6tavztoazvjvfqof5m
       vite-plugin-vuetify: 1.0.2_3dha3q36hhgy53ntokizmmc2dy
       vue: 3.3.4
       vue-tsc: 1.8.13_typescript@5.2.2+vue@3.3.4
@@ -929,7 +929,7 @@ packages:
       - webpack-plugin-vuetify
     dev: true
 
-  /@tailor-cms/tce-edit-runtime/0.1.0-beta.5_@types+node@20.5.7:
+  /@tailor-cms/tce-edit-runtime/0.1.0-beta.5_@types+node@20.8.6:
     resolution: {integrity: sha512-Mi185JoOz4J38PTyRJpLEOAJt2Rm3Hhoh04gqeP7Tc5lEMRAR1ztTLyUt2j8/334opD83Yoc8hTSzhRGc6ibcg==}
     dependencies:
       '@extensionengine/vue-radio': 1.0.0-beta.5
@@ -942,7 +942,7 @@ packages:
       sass: 1.32.13
       typescript: 5.2.2
       unplugin-vue-components: 0.25.2_vue@2.7.14
-      vite: 4.4.9_r2wiebgr2gzdiwlrwykzu3ojzu
+      vite: 4.4.9_kiewnh2g4cetjcvrzqahznzfhu
       vue: 2.7.14
       vue-template-compiler: 2.7.14_vue@2.7.14
       vue-tsc: 1.8.13_nfwcdbauhyorapgffjnvrr55lm
@@ -961,7 +961,7 @@ packages:
       - terser
     dev: true
 
-  /@tailor-cms/tce-preview-runtime/0.1.0-beta.4_@types+node@20.5.7:
+  /@tailor-cms/tce-preview-runtime/0.1.0-beta.4_@types+node@20.8.6:
     resolution: {integrity: sha512-ZD2JzoJHP//HLFKZeHM/sAQf34CLFxAgjq64hiIS/S5PBJERKRPTbvAWyavGFXVFMmTSSXyjs7/Wu86D43D+pw==}
     dependencies:
       '@mdi/font': 7.2.96
@@ -971,7 +971,7 @@ packages:
       sass: 1.68.0
       split.js: 1.6.5
       typescript: 5.2.2
-      vite: 4.4.9_@types+node@20.5.7
+      vite: 4.4.9_@types+node@20.8.6
       vite-plugin-vuetify: 1.0.2_3dha3q36hhgy53ntokizmmc2dy
       vue: 3.3.4
       vue-tsc: 1.8.13_typescript@5.2.2+vue@3.3.4
@@ -990,7 +990,7 @@ packages:
       - webpack-plugin-vuetify
     dev: true
 
-  /@tailor-cms/tce-server-runtime/0.1.0-beta.4_@types+node@20.5.7:
+  /@tailor-cms/tce-server-runtime/0.1.0-beta.4_@types+node@20.8.6:
     resolution: {integrity: sha512-OIIjUs2SVQXYGEDM8S6+K8q5NV89kMrOjM49U+NWA8A2hkhGpwTCTbUeR1aHF0X/awsRjfp6a/vfBc3BO5/MmQ==}
     dependencies:
       bluebird: 3.7.2
@@ -1004,7 +1004,7 @@ packages:
       nodemon: 3.0.1
       sequelize: 6.32.1_sqlite3@5.1.6
       sqlite3: 5.1.6_bluebird@3.7.2
-      ts-node: 10.9.1_yph7ydtg2jnjtc2tqcylvuiqfq
+      ts-node: 10.9.1_ooxg54gqkceha3muuhdzw7r62a
       typescript: 5.2.2
       untildify: 5.0.0
       url-join: 5.0.0
@@ -5089,6 +5089,37 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
+  /ts-node/10.9.1_ooxg54gqkceha3muuhdzw7r62a:
+    resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
+    hasBin: true
+    peerDependencies:
+      '@swc/core': '>=1.2.50'
+      '@swc/wasm': '>=1.2.50'
+      '@types/node': '*'
+      typescript: '>=2.7'
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      '@swc/wasm':
+        optional: true
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.9
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.4
+      '@types/node': 20.8.6
+      acorn: 8.10.0
+      acorn-walk: 8.2.0
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 5.2.2
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+    dev: true
+
   /ts-node/10.9.1_yph7ydtg2jnjtc2tqcylvuiqfq:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
@@ -5118,6 +5149,7 @@ packages:
       typescript: 5.2.2
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
+    dev: false
 
   /tsconfig-paths/3.14.2:
     resolution: {integrity: sha512-o/9iXgCYc5L/JxCHPe3Hvh8Q/2xm5Z+p18PESBU6Ff33695QnCHBEjcytY2q19ua7Mbl/DavtBOLq+oG0RCL+g==}
@@ -5482,7 +5514,7 @@ packages:
       fsevents: 2.3.3
     dev: false
 
-  /vite/4.4.9_@types+node@20.5.7:
+  /vite/4.4.9_@types+node@20.8.6:
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -5510,10 +5542,47 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.5.7
+      '@types/node': 20.8.6
       esbuild: 0.18.20
       postcss: 8.4.28
       rollup: 3.29.1
+    optionalDependencies:
+      fsevents: 2.3.3
+    dev: true
+
+  /vite/4.4.9_inionw7x6tavztoazvjvfqof5m:
+    resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': '>= 14'
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      '@types/node': 20.8.6
+      esbuild: 0.18.20
+      postcss: 8.4.28
+      rollup: 3.29.1
+      sass: 1.68.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
@@ -5553,80 +5622,6 @@ packages:
       sass: 1.32.13
     optionalDependencies:
       fsevents: 2.3.3
-
-  /vite/4.4.9_pjbljcgl2viomw4xav5quqmu7y:
-    resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': '>= 14'
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      '@types/node': 20.5.7
-      esbuild: 0.18.20
-      postcss: 8.4.28
-      rollup: 3.29.1
-      sass: 1.68.0
-    optionalDependencies:
-      fsevents: 2.3.3
-    dev: true
-
-  /vite/4.4.9_r2wiebgr2gzdiwlrwykzu3ojzu:
-    resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': '>= 14'
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      '@types/node': 20.5.7
-      esbuild: 0.18.20
-      postcss: 8.4.28
-      rollup: 3.29.1
-      sass: 1.32.13
-    optionalDependencies:
-      fsevents: 2.3.3
-    dev: true
 
   /vite/4.4.9_sass@1.68.0:
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
@@ -5913,7 +5908,7 @@ packages:
   /wkx/0.5.0:
     resolution: {integrity: sha512-Xng/d4Ichh8uN4l0FToV/258EjMGU9MGcA0HV2d9B/ZpZB3lqQm7nkOdZdm5GhKtLLhAE7PiVQwN4eN+2YJJUg==}
     dependencies:
-      '@types/node': 20.6.3
+      '@types/node': 20.8.6
 
   /wrap-ansi/7.0.0:
     resolution: {integrity: sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==}
@@ -5992,16 +5987,16 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  file:packages/tce-boot_@types+node@20.5.7:
+  file:packages/tce-boot_@types+node@20.8.6:
     resolution: {directory: packages/tce-boot, type: directory}
     id: file:packages/tce-boot
     name: '@tailor-cms/tce-boot'
     version: 0.1.0-beta.5
     dependencies:
-      '@tailor-cms/tce-display-runtime': 0.1.0-beta.4_@types+node@20.5.7
-      '@tailor-cms/tce-edit-runtime': 0.1.0-beta.5_@types+node@20.5.7
-      '@tailor-cms/tce-preview-runtime': 0.1.0-beta.4_@types+node@20.5.7
-      '@tailor-cms/tce-server-runtime': 0.1.0-beta.4_@types+node@20.5.7
+      '@tailor-cms/tce-display-runtime': 0.1.0-beta.4_@types+node@20.8.6
+      '@tailor-cms/tce-edit-runtime': 0.1.0-beta.5_@types+node@20.8.6
+      '@tailor-cms/tce-preview-runtime': 0.1.0-beta.4_@types+node@20.8.6
+      '@tailor-cms/tce-server-runtime': 0.1.0-beta.4_@types+node@20.8.6
       boxen: 7.1.1
       concurrently: 8.2.1
       fkill: 8.1.1
