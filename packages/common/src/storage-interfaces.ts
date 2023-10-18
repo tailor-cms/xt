@@ -1,5 +1,3 @@
-import type { Stream } from 'node:stream';
-
 export type UploadFormFieldname = 'file';
 
 /**
@@ -21,7 +19,7 @@ export interface UploadFormData extends FormData {
 /**
  * Storage service 'saveFile' input data type.
  */
-type FileData = string | Buffer | DataView | Stream;
+type FileData = string | Buffer | DataView;
 
 /**
  * Storage service interface.
