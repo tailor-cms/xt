@@ -5,12 +5,18 @@ import initHooks from './hooks';
 export default ({ type, initState, hookMap }) => {
   const { applyFetchHooks } = initHooks(hookMap);
 
-  async function get(_req, res) {
+  async function get(req, res) {
     const defaults = { type, data: initState() };
     // NOTE: findOrCreate has issues with SQLite (transactions)
     let element = await ContentElement.findOne({ where: { type } });
     if (!element) element = await ContentElement.create(defaults);
-    res.json(await applyFetchHooks(element, getTceConfig(process.env)));
+    res.json(
+      await applyFetchHooks(
+        element,
+        getTceConfig(process.env),
+        req.query?.runtime || 'authoring',
+      ),
+    );
   }
 
   async function create(req, res) {
