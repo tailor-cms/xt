@@ -25,7 +25,6 @@ importers:
   example:
     specifiers:
       '@npmcli/package-json': ^2.0.0
-      '@tailor-cms/cek-common': 0.0.1
       '@tailor-cms/eslint-config': 0.0.2
       '@tailor-cms/tce-boot': file:../packages/tce-boot
       '@types/node': ^20.5.7
@@ -55,7 +54,6 @@ importers:
       vue-template-compiler: 2.7.14
     devDependencies:
       '@npmcli/package-json': 2.0.0
-      '@tailor-cms/cek-common': link:../packages/common
       '@tailor-cms/eslint-config': link:../packages/eslint
       '@tailor-cms/tce-boot': file:packages/tce-boot_@types+node@20.8.6
       '@types/node': 20.8.6
@@ -87,10 +85,12 @@ importers:
   packages/common:
     specifiers:
       '@tailor-cms/eslint-config': 0.0.2
+      '@types/node': ^20.8.7
       tsup: ^7.2.0
       typescript: ^5.1.6
     devDependencies:
       '@tailor-cms/eslint-config': link:../eslint
+      '@types/node': 20.8.7
       tsup: 7.2.0_typescript@5.2.2
       typescript: 5.2.2
 
@@ -204,7 +204,7 @@ importers:
     specifiers:
       '@extensionengine/vue-radio': 1.0.0-beta.5
       '@mdi/font': 7.2.96
-      '@tailor-cms/cek-common': 0.0.1
+      '@tailor-cms/cek-common': 0.0.3
       '@tailor-cms/eslint-config': workspace:*
       '@types/node': ^20.8.6
       '@vitejs/plugin-vue2': 2.2.0
@@ -1048,19 +1048,19 @@ packages:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
     dependencies:
       '@types/connect': 3.4.35
-      '@types/node': 20.6.3
+      '@types/node': 20.8.7
     dev: true
 
   /@types/connect/3.4.35:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
-      '@types/node': 20.6.3
+      '@types/node': 20.8.7
     dev: true
 
   /@types/cors/2.8.13:
     resolution: {integrity: sha512-RG8AStHlUiV5ysZQKq97copd2UmVYw3/pRMLefISZ3S1hK104Cwm7iLQ3fTKx+lsUH2CE8FlLaYeEA2LSeqYUA==}
     dependencies:
-      '@types/node': 20.6.3
+      '@types/node': 20.8.7
     dev: true
 
   /@types/debug/4.1.8:
@@ -1074,7 +1074,7 @@ packages:
   /@types/express-serve-static-core/4.17.36:
     resolution: {integrity: sha512-zbivROJ0ZqLAtMzgzIUC4oNqDG9iF0lSsAqpOD9kbs5xcIM3dTiyuHvBc7R8MtWBp3AAWGaovJa+wzWPjLYW7Q==}
     dependencies:
-      '@types/node': 20.6.3
+      '@types/node': 20.8.7
       '@types/qs': 6.9.7
       '@types/range-parser': 1.2.4
       '@types/send': 0.17.1
@@ -1123,6 +1123,11 @@ packages:
     dependencies:
       undici-types: 5.25.3
 
+  /@types/node/20.8.7:
+    resolution: {integrity: sha512-21TKHHh3eUHIi2MloeptJWALuCu5H7HQTdTrWIFReA8ad+aggoX+lRes3ex7/FtpC+sVUpFMQ+QTfYr74mruiQ==}
+    dependencies:
+      undici-types: 5.25.3
+
   /@types/qs/6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
     dev: true
@@ -1139,7 +1144,7 @@ packages:
     resolution: {integrity: sha512-Cwo8LE/0rnvX7kIIa3QHCkcuF21c05Ayb0ZfxPiv0W8VRiZiNW/WuRupHKpqqGVGf7SUA44QSOUKaEd9lIrd/Q==}
     dependencies:
       '@types/mime': 1.3.2
-      '@types/node': 20.6.3
+      '@types/node': 20.8.7
     dev: true
 
   /@types/serve-static/1.15.2:
@@ -1147,7 +1152,7 @@ packages:
     dependencies:
       '@types/http-errors': 2.0.1
       '@types/mime': 3.0.1
-      '@types/node': 20.6.3
+      '@types/node': 20.8.7
     dev: true
 
   /@types/validator/13.11.1:
@@ -1163,7 +1168,7 @@ packages:
   /@types/ws/8.5.5:
     resolution: {integrity: sha512-lwhs8hktwxSjf9UaZ9tG5M03PGogvFaH8gUgLNbN9HKIg0dvv6q+gkSuJ8HN4/VbyxkuLzCjlN7GquQ0gUJfIg==}
     dependencies:
-      '@types/node': 20.6.3
+      '@types/node': 20.8.7
     dev: true
 
   /@typescript-eslint/eslint-plugin/6.5.0_nvwva6txm3qs6xnog6dqanz5uy:
@@ -1304,7 +1309,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.4.9_sass@1.68.0
+      vite: 4.4.9_64tj46k4quhv5ljf3qphrfiauy
       vue: 3.3.4
 
   /@vitejs/plugin-vue2/2.2.0_vite@4.4.9+vue@2.7.14:
@@ -5436,7 +5441,7 @@ packages:
       '@vuetify/loader-shared': 1.7.1_vue@3.3.4+vuetify@3.3.17
       debug: 4.3.4
       upath: 2.0.1
-      vite: 4.4.9_sass@1.68.0
+      vite: 4.4.9_64tj46k4quhv5ljf3qphrfiauy
       vuetify: 3.3.17_3zhiord3sdjr4serefajxiaexe
     transitivePeerDependencies:
       - supports-color
@@ -5512,7 +5517,6 @@ packages:
       sass: 1.68.0
     optionalDependencies:
       fsevents: 2.3.3
-    dev: false
 
   /vite/4.4.9_@types+node@20.8.6:
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
@@ -5657,6 +5661,7 @@ packages:
       sass: 1.68.0
     optionalDependencies:
       fsevents: 2.3.3
+    dev: false
 
   /vitepress/1.0.0-rc.13_vrjutvdt6m7zqtbxr4yjyrfosa:
     resolution: {integrity: sha512-TnVydQOZE38rtXu9gHCb7EGdN03jTcmYkDdhCqox6+pfKYgiyfm1qk2Uy8BZatnM9wXpa64f+T5p30R8P/9Z+A==}
@@ -5908,7 +5913,7 @@ packages:
   /wkx/0.5.0:
     resolution: {integrity: sha512-Xng/d4Ichh8uN4l0FToV/258EjMGU9MGcA0HV2d9B/ZpZB3lqQm7nkOdZdm5GhKtLLhAE7PiVQwN4eN+2YJJUg==}
     dependencies:
-      '@types/node': 20.8.6
+      '@types/node': 20.8.7
 
   /wrap-ansi/7.0.0:
     resolution: {integrity: sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==}

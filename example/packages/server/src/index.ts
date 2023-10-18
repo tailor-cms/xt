@@ -1,10 +1,9 @@
+import type { HookServices, ServerRuntime } from '@tailor-cms/cek-common';
 import { initState, type } from 'tce-manifest';
 import type { Element } from 'tce-manifest';
 
-type Runtime = 'authoring' | 'delivery';
-
 /* eslint-disable @typescript-eslint/no-unused-vars */
-export function beforeSave(element: Element, services: any) {
+export function beforeSave(element: Element, services: HookServices) {
   if (element.data.count >= 10) {
     element.data = {
       ...element.data,
@@ -15,20 +14,24 @@ export function beforeSave(element: Element, services: any) {
   return element;
 }
 
-export function afterSave(element: Element, services: any) {
+export function afterSave(element: Element, services: HookServices) {
   console.log('After save hook');
   return element;
 }
 
-export function afterLoaded(element: Element, services: any, runtime: Runtime) {
+export function afterLoaded(
+  element: Element,
+  services: HookServices,
+  runtime: ServerRuntime,
+) {
   console.log('After loaded hook', runtime);
   return element;
 }
 
 export function afterRetrieve(
   element: Element,
-  services: any,
-  runtime: Runtime,
+  services: HookServices,
+  runtime: ServerRuntime,
 ) {
   console.log('After retrieve hook', runtime);
   return element;
