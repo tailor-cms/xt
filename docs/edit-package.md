@@ -101,6 +101,49 @@ const decrement = () => {
 </script>
 ```
 
+## Communication between components
+
+::: tip Beta
+Available in version >=0.1.0
+:::
+
+All authoring components have the `$elementBus` pub/sub mechanism available,
+provided via Vue [provide/inject](https://v2.vuejs.org/v2/api/#provide-inject)
+prop-drilling feature. To communicate between components, simply inject
+`$elementBus` and `emit` the event.
+
+\
+`TopToolbar.vue`
+```ts
+<script setup lang="ts">
+...
+const elementBus = inject('$elementBus');
+
+const decrement = () => {
+  // Emit decrement event upon toolbar btn click
+  elementBus.emit('decrement', { count });
+};
+...
+</script>
+```
+
+\
+Proceed by implementing a listener within the targeted component (using the `on` registration method):
+
+\
+`Edit.vue`
+```ts
+<script setup lang="ts">
+...
+const elementBus = inject('$elementBus');
+elementBus.on('decrement', ({ count }) => console.log(count));
+...
+</script>
+```
+
+For more details on the entire pub/sub API see the
+[vue-radio implementation](https://github.com/ExtensionEngine/tailor/blob/develop/packages/vue-radio/src/index.js).
+
 ## When to save the state ?
 
 Depending on the type of the element, you might wonder what is the best
