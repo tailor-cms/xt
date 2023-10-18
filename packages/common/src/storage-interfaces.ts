@@ -17,16 +17,11 @@ export interface UploadFormData extends FormData {
 }
 
 /**
- * Storage service 'saveFile' input data type.
- */
-type FileData = string | Buffer | DataView;
-
-/**
  * Storage service interface.
  */
 export interface StorageService {
   getFile(key: string): Promise<Buffer>;
-  saveFile(key: string, data: FileData): Promise<void>;
+  saveFile(key: string, data: string | Buffer | DataView): Promise<void>;
   getFileUrl(key: string): Promise<string>;
 }
 
