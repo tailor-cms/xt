@@ -107,9 +107,9 @@ if (!runtimeLog.initialBootAt) {
   ]);
   saveRuntimeInit();
 }
-await setTimeout(3000);
+await setTimeout(4000);
 const previewRuntime = commands.find(it => it.name === 'preview-runtime');
-await restartCmd(previewRuntime, 8080, 1000);
+await restartCmd(previewRuntime, 8080, 2000);
 // Delay package watchers
 await setTimeout(5000);
 const serverPackage = commands.find(it => it.name === 'server-package');
