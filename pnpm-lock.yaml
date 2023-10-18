@@ -288,10 +288,10 @@ importers:
 
   packages/tce-boot:
     specifiers:
-      '@tailor-cms/tce-display-runtime': 0.1.0-beta.4
-      '@tailor-cms/tce-edit-runtime': 0.1.0-beta.5
-      '@tailor-cms/tce-preview-runtime': 0.1.0-beta.4
-      '@tailor-cms/tce-server-runtime': 0.1.0-beta.4
+      '@tailor-cms/tce-display-runtime': 0.1.0-beta.6
+      '@tailor-cms/tce-edit-runtime': 0.1.0-beta.6
+      '@tailor-cms/tce-preview-runtime': 0.1.0-beta.6
+      '@tailor-cms/tce-server-runtime': 0.1.0-beta.6
       boxen: ^7.1.1
       concurrently: ^8.2.0
       eslint: '>=8.5.0'
@@ -890,12 +890,12 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  /@tailor-cms/cek-common/0.0.1:
-    resolution: {integrity: sha512-Mi+V01JypQPJqdDKl0QrQYfEV92SNl+KIgtV/9VhGE8tYBItb4Fdhq6hXW2/3qwB7163raNLG6oZAUaDBVAQ2A==}
+  /@tailor-cms/cek-common/0.0.3:
+    resolution: {integrity: sha512-QZGKfGb8sdmS/4U2ZdbG8VKD816Q2AoL4t23/WGXyo5wgpdjw4n9eNYNTwv8kp/pE02LzSBG+CUOMTb3UAqPoA==}
     dev: true
 
-  /@tailor-cms/tce-display-runtime/0.1.0-beta.4_@types+node@20.8.6:
-    resolution: {integrity: sha512-5JRxPdGlnB53u5CAZl8bGx67pQOcTBto3O4cLR1kBGC84FHQnS07osWz4Kj+8XMejgycUCc7ODys3UuD1CKzXA==}
+  /@tailor-cms/tce-display-runtime/0.1.0-beta.6_@types+node@20.8.6:
+    resolution: {integrity: sha512-yD/sAZvknh293dzeCLHOEwfjJZ1Wnhu5oT3vbIGLDuuobJ4suH3eKkz4FFDtjptQly49QVLM81cEaoYyvskijA==}
     dependencies:
       '@mdi/font': 7.2.96
       '@vitejs/plugin-vue': 4.3.4_vite@4.4.9+vue@3.3.4
@@ -929,12 +929,12 @@ packages:
       - webpack-plugin-vuetify
     dev: true
 
-  /@tailor-cms/tce-edit-runtime/0.1.0-beta.5_@types+node@20.8.6:
-    resolution: {integrity: sha512-Mi185JoOz4J38PTyRJpLEOAJt2Rm3Hhoh04gqeP7Tc5lEMRAR1ztTLyUt2j8/334opD83Yoc8hTSzhRGc6ibcg==}
+  /@tailor-cms/tce-edit-runtime/0.1.0-beta.6_@types+node@20.8.6:
+    resolution: {integrity: sha512-MT202ZCpcYnKvCdhhvbO/ZNkdPm5ovQ3BRl3CO1s6SIto8HT0Hk34dzlTu/RM/Q2iNPY7H8PROF2+3iypjwqIg==}
     dependencies:
       '@extensionengine/vue-radio': 1.0.0-beta.5
       '@mdi/font': 7.2.96
-      '@tailor-cms/cek-common': 0.0.1
+      '@tailor-cms/cek-common': 0.0.3
       '@vitejs/plugin-vue2': 2.2.0_vite@4.4.9+vue@2.7.14
       axios: 1.5.1
       ky: 1.0.1
@@ -961,8 +961,8 @@ packages:
       - terser
     dev: true
 
-  /@tailor-cms/tce-preview-runtime/0.1.0-beta.4_@types+node@20.8.6:
-    resolution: {integrity: sha512-ZD2JzoJHP//HLFKZeHM/sAQf34CLFxAgjq64hiIS/S5PBJERKRPTbvAWyavGFXVFMmTSSXyjs7/Wu86D43D+pw==}
+  /@tailor-cms/tce-preview-runtime/0.1.0-beta.6_@types+node@20.8.6:
+    resolution: {integrity: sha512-rHBkcsaDmy4mB4VyNAbbYOE4gXLuAfESsPCDbql6JwoWX7KgGf5P9yoixeErXFtU8ZINOzklyM70/VxIO/bo3g==}
     dependencies:
       '@mdi/font': 7.2.96
       '@vitejs/plugin-vue': 4.3.4_vite@4.4.9+vue@3.3.4
@@ -990,8 +990,8 @@ packages:
       - webpack-plugin-vuetify
     dev: true
 
-  /@tailor-cms/tce-server-runtime/0.1.0-beta.4_@types+node@20.8.6:
-    resolution: {integrity: sha512-OIIjUs2SVQXYGEDM8S6+K8q5NV89kMrOjM49U+NWA8A2hkhGpwTCTbUeR1aHF0X/awsRjfp6a/vfBc3BO5/MmQ==}
+  /@tailor-cms/tce-server-runtime/0.1.0-beta.6_@types+node@20.8.6:
+    resolution: {integrity: sha512-W+DHIA9CsRpBens2+2ouhE6TMqE07llznRerRzQSPTLOa4SGVDjj2GGj7/D5De7lmxP7w4PZI7S/48QdoZmaKg==}
     dependencies:
       bluebird: 3.7.2
       cors: 2.8.5
@@ -1309,7 +1309,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.4.9_64tj46k4quhv5ljf3qphrfiauy
+      vite: 4.4.9_sass@1.68.0
       vue: 3.3.4
 
   /@vitejs/plugin-vue2/2.2.0_vite@4.4.9+vue@2.7.14:
@@ -5441,7 +5441,7 @@ packages:
       '@vuetify/loader-shared': 1.7.1_vue@3.3.4+vuetify@3.3.17
       debug: 4.3.4
       upath: 2.0.1
-      vite: 4.4.9_64tj46k4quhv5ljf3qphrfiauy
+      vite: 4.4.9_sass@1.68.0
       vuetify: 3.3.17_3zhiord3sdjr4serefajxiaexe
     transitivePeerDependencies:
       - supports-color
@@ -5517,6 +5517,7 @@ packages:
       sass: 1.68.0
     optionalDependencies:
       fsevents: 2.3.3
+    dev: false
 
   /vite/4.4.9_@types+node@20.8.6:
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
@@ -5661,7 +5662,6 @@ packages:
       sass: 1.68.0
     optionalDependencies:
       fsevents: 2.3.3
-    dev: false
 
   /vitepress/1.0.0-rc.13_vrjutvdt6m7zqtbxr4yjyrfosa:
     resolution: {integrity: sha512-TnVydQOZE38rtXu9gHCb7EGdN03jTcmYkDdhCqox6+pfKYgiyfm1qk2Uy8BZatnM9wXpa64f+T5p30R8P/9Z+A==}
@@ -5996,12 +5996,12 @@ packages:
     resolution: {directory: packages/tce-boot, type: directory}
     id: file:packages/tce-boot
     name: '@tailor-cms/tce-boot'
-    version: 0.1.0-beta.5
+    version: 0.1.0-beta.7
     dependencies:
-      '@tailor-cms/tce-display-runtime': 0.1.0-beta.4_@types+node@20.8.6
-      '@tailor-cms/tce-edit-runtime': 0.1.0-beta.5_@types+node@20.8.6
-      '@tailor-cms/tce-preview-runtime': 0.1.0-beta.4_@types+node@20.8.6
-      '@tailor-cms/tce-server-runtime': 0.1.0-beta.4_@types+node@20.8.6
+      '@tailor-cms/tce-display-runtime': 0.1.0-beta.6_@types+node@20.8.6
+      '@tailor-cms/tce-edit-runtime': 0.1.0-beta.6_@types+node@20.8.6
+      '@tailor-cms/tce-preview-runtime': 0.1.0-beta.6_@types+node@20.8.6
+      '@tailor-cms/tce-server-runtime': 0.1.0-beta.6_@types+node@20.8.6
       boxen: 7.1.1
       concurrently: 8.2.1
       fkill: 8.1.1
