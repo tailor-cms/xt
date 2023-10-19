@@ -1,8 +1,7 @@
 # File storage
 
-::: tip ⚠️ Beta
-Not yet available on the latest stable release.
-Documentation might be incomplete!
+::: tip Info
+Available in version >=0.1.0
 :::
 
 ## File upload from authoring package

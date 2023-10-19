@@ -103,7 +103,7 @@ const decrement = () => {
 
 ## Communication between components
 
-::: tip Beta
+::: tip Info
 Available in version >=0.1.0
 :::
 
