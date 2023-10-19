@@ -51,7 +51,7 @@ onMounted(() => {
       id="panelBottom"
       :element="props.element"
       :is-loaded="isLoaded"
-      class="preview-panel"
+      class="preview-panel-bottom"
     />
   </main>
 </template>
@@ -60,7 +60,7 @@ onMounted(() => {
 main {
   height: calc(100vh - var(--nav-height));
 
-  .preview-panel {
+  .preview-panel-bottom {
     background-color: #eceff1;
     overflow-y: auto;
   }

@@ -43,7 +43,7 @@ like name and type. In your editor of choice, open
 
 ```ts
 // Element unique id within the target system (e.g. Tailor)
-export const type = 'ACME/TCE_COUNTER';
+export const type = 'ACME_TCE_COUNTER';
 
 // Display name (e.g. shown to the author within add element dialog)
 export const name = 'Simple counter';

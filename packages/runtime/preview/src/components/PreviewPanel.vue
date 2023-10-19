@@ -43,3 +43,9 @@ const initPanels = () => {
 
 onMounted(() => initPanels());
 </script>
+
+<style scoped>
+iframe {
+  background: #eceff1 !important;
+}
+</style>
