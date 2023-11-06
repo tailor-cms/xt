@@ -13,7 +13,7 @@
     "@tailor-cms/tce-display-runtime": "0.1.0",
     "@tailor-cms/tce-edit-runtime": "0.1.0",
     "@tailor-cms/tce-preview-runtime": "0.1.0",
-    "@tailor-cms/tce-server-runtime": "0.1.0",
+    "@tailor-cms/tce-server-runtime": "workspace:*",
     "boxen": "^7.1.1",
     "concurrently": "^8.2.0",
     "fkill": "^8.1.1",

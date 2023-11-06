@@ -10,7 +10,7 @@ function prepareHookServices(tce) {
   };
 }
 
-export default function initHooks(hooks) {
+export default function initHooks(hooks, mocks = { displayContexts: [] }) {
   // If plain object, convert to map
   const hooksMap = hooks?.has ? hooks : new Map(hooks);
   function registerHook(element, hookName, tceConfig) {
@@ -70,6 +70,14 @@ export default function initHooks(hooks) {
     if (hooksMap.has(ELEMENT_HOOKS.AFTER_LOADED)) {
       const hook = hooksMap.get(ELEMENT_HOOKS.AFTER_LOADED);
       elementAfterHook = await hook(elementAfterHook, services);
+    }
+
+    if (hooksMap.has(ELEMENT_HOOKS.CUSTOM_FETCH)) {
+      const hook = hooksMap.get(ELEMENT_HOOKS.CUSTOM_FETCH);
+      elementAfterHook = await hook(
+        elementAfterHook,
+        mocks.displayContexts?.[0]?.data || {},
+      );
     }
     return elementAfterHook;
   }

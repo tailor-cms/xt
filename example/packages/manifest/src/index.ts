@@ -26,12 +26,17 @@ const ui = {
   forceFullWidth: true,
 };
 
+export const mocks = {
+  displayContexts: [{ name: 'Test', data: { state: 'test' } }],
+};
+
 const manifest: ElementManifest = {
   type,
   version: '1.0',
   name,
   initState,
   ui,
+  mocks,
 };
 
 export default manifest;

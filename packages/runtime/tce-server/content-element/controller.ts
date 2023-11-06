@@ -2,8 +2,8 @@ import ContentElement from './model';
 import { getTceConfig } from '../common/config';
 import initHooks from './hooks';
 
-export default ({ type, initState, hookMap }) => {
-  const { applyFetchHooks } = initHooks(hookMap);
+export default ({ type, initState, hookMap, mocks }) => {
+  const { applyFetchHooks } = initHooks(hookMap, mocks);
 
   async function get(_req, res) {
     const defaults = { type, data: initState() };

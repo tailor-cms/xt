@@ -1,4 +1,4 @@
-import { initState, type } from 'tce-manifest';
+import { initState, mocks, type } from 'tce-manifest';
 import type { Element } from 'tce-manifest';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -31,12 +31,20 @@ export function afterRetrieve(element: Element, services: any) {
   return element;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function customFetch(element: Element, context: any) {
+  console.log('Custom fetch hook');
+  console.log('Custom context', context);
+  return { hello: 'world' };
+}
+
 export const hookMap = new Map(
   Object.entries({
     beforeSave,
     afterSave,
     afterLoaded,
     afterRetrieve,
+    customFetch,
   }),
 );
 
@@ -48,6 +56,8 @@ export default {
   afterSave,
   afterLoaded,
   afterRetrieve,
+  customFetch,
+  mocks,
 };
 
-export { type, initState };
+export { type, initState, mocks };

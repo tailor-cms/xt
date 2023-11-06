@@ -9,9 +9,9 @@ import { port } from './config';
 import storageConfig from './storage/config';
 import storageRouter from './storage/storage.router';
 
-function initApp({ type, initState, hookMap }) {
+function initApp({ type, initState, hookMap, mocks }) {
   const app = express();
-  const router = contentElement.initRouter({ type, initState, hookMap });
+  const router = contentElement.initRouter({ type, initState, hookMap, mocks });
   app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
@@ -27,7 +27,7 @@ function initApp({ type, initState, hookMap }) {
   return { httpServer, wsServer };
 }
 
-export default async function run({ type, initState, hookMap }) {
+export default async function run({ type, initState, hookMap, mocks }) {
   await initDb(hookMap);
-  return initApp({ type, initState, hookMap });
+  return initApp({ type, initState, hookMap, mocks });
 }
