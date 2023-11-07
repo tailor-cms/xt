@@ -101,7 +101,9 @@ export default {
     },
     async getElement() {
       try {
-        const response = await api('content-element').json();
+        const response = await api('content-element', {
+          searchParams: { runtime: 'authoring' },
+        }).json();
         if (response === null) return;
         this.element = response;
       } catch (error) {
