@@ -5,7 +5,12 @@
         <v-row>
           <v-col>
             <h2 class="mb-2">Display preview</h2>
-            <Display v-if="element.data" v-bind="element" />
+            <Display
+              v-if="element.data"
+              v-bind="element"
+              :user-state="userState"
+              @submit="onInteraction"
+            />
           </v-col>
         </v-row>
       </v-container>
@@ -22,6 +27,7 @@ const api = ky.create({ prefixUrl: `http://${SERVER_HOST}` });
 const ws = new WebSocket(`ws://${SERVER_HOST}`);
 
 const element: any = ref({});
+const userState: any = ref({});
 
 onMounted(() => {
   getElement();
@@ -39,6 +45,18 @@ const getElement = async () => {
     console.log('Error on element get', error);
     // Retry
     setTimeout(() => getElement(), 2000);
+  }
+};
+
+const onInteraction = async (data) => {
+  try {
+    const response: any = await api
+      .post(`content-element/${element.value.id}/activity`, { json: { data } })
+      .json();
+    if (!response.displayState) return;
+    userState.value = response.displayState;
+  } catch (error) {
+    console.log('Could not update user state', error);
   }
 };
 </script>

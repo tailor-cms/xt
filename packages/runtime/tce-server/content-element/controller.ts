@@ -3,7 +3,7 @@ import { getTceConfig } from '../common/config';
 import initHooks from './hooks';
 
 export default ({ type, initState, hookMap, mocks }) => {
-  const { applyFetchHooks } = initHooks(hookMap, mocks);
+  const { applyFetchHooks, processInteraction } = initHooks(hookMap, mocks);
 
   async function get(_req, res) {
     const defaults = { type, data: initState() };
@@ -23,5 +23,10 @@ export default ({ type, initState, hookMap, mocks }) => {
     res.json(element);
   }
 
-  return { get, create, patch };
+  async function onUserInteraction(req, res) {
+    const result = await processInteraction(req.element, req.body);
+    res.json({ displayState: result.displayState });
+  }
+
+  return { get, create, patch, onUserInteraction };
 };

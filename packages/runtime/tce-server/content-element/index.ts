@@ -5,7 +5,7 @@ import { emitter } from '../common/emitter';
 import initController from './controller';
 
 function initRouter({ type, initState, hookMap, mocks = {} }) {
-  const { get, create, patch } = initController({
+  const { get, create, patch, onUserInteraction } = initController({
     type,
     initState,
     hookMap,
@@ -19,7 +19,7 @@ function initRouter({ type, initState, hookMap, mocks = {} }) {
   router.route('/').get(get).post(create);
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   router.route('/:id').patch(patch);
-
+  router.route('/:id/activity').post(onUserInteraction);
   return router;
 }
 

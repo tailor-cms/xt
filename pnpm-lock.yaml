@@ -288,7 +288,7 @@ importers:
 
   packages/tce-boot:
     specifiers:
-      '@tailor-cms/tce-display-runtime': 0.1.0
+      '@tailor-cms/tce-display-runtime': workspace:*
       '@tailor-cms/tce-edit-runtime': 0.1.0
       '@tailor-cms/tce-preview-runtime': 0.1.0
       '@tailor-cms/tce-server-runtime': workspace:*
@@ -899,41 +899,6 @@ packages:
     resolution: {integrity: sha512-Mi+V01JypQPJqdDKl0QrQYfEV92SNl+KIgtV/9VhGE8tYBItb4Fdhq6hXW2/3qwB7163raNLG6oZAUaDBVAQ2A==}
     dev: true
 
-  /@tailor-cms/tce-display-runtime/0.1.0_@types+node@20.8.6:
-    resolution: {integrity: sha512-mTtViqvzmVVwx5RATY1MVb+xpodp57R9EtBhSC5pyqRDD8GKV6CxPLCJVyQzaKlAG+bfUSYKrWYFvaWCO9lpPw==}
-    dependencies:
-      '@mdi/font': 7.2.96
-      '@vitejs/plugin-vue': 4.3.4_vite@4.4.9+vue@3.3.4
-      '@vue/reactivity': 3.3.4
-      '@vue/runtime-core': 3.3.4
-      '@vue/runtime-dom': 3.3.4
-      '@vue/shared': 3.3.4
-      ky: 1.0.1
-      lodash: 4.17.21
-      sass: 1.68.0
-      typescript: 5.2.2
-      unplugin-vue-components: 0.25.2_vue@3.3.4
-      vite: 4.4.9_inionw7x6tavztoazvjvfqof5m
-      vite-plugin-vuetify: 1.0.2_3dha3q36hhgy53ntokizmmc2dy
-      vue: 3.3.4
-      vue-tsc: 1.8.13_typescript@5.2.2+vue@3.3.4
-      vuetify: 3.3.17_3zhiord3sdjr4serefajxiaexe
-      webfontloader: 1.6.28
-    transitivePeerDependencies:
-      - '@babel/parser'
-      - '@nuxt/kit'
-      - '@types/node'
-      - less
-      - lightningcss
-      - rollup
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-      - vue-i18n
-      - webpack-plugin-vuetify
-    dev: true
-
   /@tailor-cms/tce-edit-runtime/0.1.0_@types+node@20.8.6:
     resolution: {integrity: sha512-+ZIin9EaPUCtoWzS36/hHiuACrWrULX+ZjdX98cMJT/BmV7FBIKBXeEdmWbeRWMBO2xfi4k9XLUYTlWKDn3oeA==}
     dependencies:
@@ -981,7 +946,7 @@ packages:
       vue: 3.3.4
       vue-tsc: 1.8.13_typescript@5.2.2+vue@3.3.4
       vue3-ts-jsoneditor: 2.9.0
-      vuetify: 3.3.17_3zhiord3sdjr4serefajxiaexe
+      vuetify: 3.3.17_nfwcdbauhyorapgffjnvrr55lm
     transitivePeerDependencies:
       - '@types/node'
       - '@vue/composition-api'
@@ -5451,6 +5416,7 @@ packages:
     transitivePeerDependencies:
       - rollup
       - supports-color
+    dev: false
 
   /unplugin/1.4.0:
     resolution: {integrity: sha512-5x4eIEL6WgbzqGtF9UV8VEC/ehKptPXDS6L2b0mv4FRMkJxRtjaJfOWDd6a8+kYbqsjklix7yWP0N3SUepjXcg==}
@@ -5642,43 +5608,6 @@ packages:
       esbuild: 0.18.20
       postcss: 8.4.28
       rollup: 3.29.1
-    optionalDependencies:
-      fsevents: 2.3.3
-    dev: true
-
-  /vite/4.4.9_inionw7x6tavztoazvjvfqof5m:
-    resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': '>= 14'
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      '@types/node': 20.8.6
-      esbuild: 0.18.20
-      postcss: 8.4.28
-      rollup: 3.29.1
-      sass: 1.68.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
@@ -5931,8 +5860,32 @@ packages:
       vite-plugin-vuetify: 1.0.2_3dha3q36hhgy53ntokizmmc2dy
       vue: 3.3.4
 
+  /vuetify/3.3.17_nfwcdbauhyorapgffjnvrr55lm:
+    resolution: {integrity: sha512-HO1Tl0saXb45Fi/PvpB8ZSn06Ix4JNiodEVkAdOyW6jq3MSIMho8xiOSQ0qQ7DoXyeTnWEvPuG3StbVAwH8tyw==}
+    engines: {node: ^12.20 || >=14.13}
+    peerDependencies:
+      typescript: '>=4.7'
+      vite-plugin-vuetify: ^1.0.0-alpha.12
+      vue: ^3.2.0
+      vue-i18n: ^9.0.0
+      webpack-plugin-vuetify: ^2.0.0-alpha.11
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+      vite-plugin-vuetify:
+        optional: true
+      vue-i18n:
+        optional: true
+      webpack-plugin-vuetify:
+        optional: true
+    dependencies:
+      typescript: 5.2.2
+      vue: 2.7.14
+    dev: true
+
   /webfontloader/1.6.28:
     resolution: {integrity: sha512-Egb0oFEga6f+nSgasH3E0M405Pzn6y3/9tOVanv/DLfa1YBIgcv90L18YyWnvXkRbIM17v5Kv6IT2N6g1x5tvQ==}
+    dev: false
 
   /webidl-conversions/3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
@@ -6096,7 +6049,7 @@ packages:
     name: '@tailor-cms/tce-boot'
     version: 0.1.1
     dependencies:
-      '@tailor-cms/tce-display-runtime': 0.1.0_@types+node@20.8.6
+      '@tailor-cms/tce-display-runtime': link:packages/runtime/tce-display
       '@tailor-cms/tce-edit-runtime': 0.1.0_@types+node@20.8.6
       '@tailor-cms/tce-preview-runtime': 0.1.0_@types+node@20.8.6
       '@tailor-cms/tce-server-runtime': link:packages/runtime/tce-server

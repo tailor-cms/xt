@@ -32,10 +32,23 @@ export function afterRetrieve(element: Element, services: any) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function customFetch(element: Element, context: any) {
-  console.log('Custom fetch hook');
-  console.log('Custom context', context);
-  return { hello: 'world' };
+export function beforeDisplay(element: Element, context: any, runtime: string) {
+  if (runtime === 'authoring') return {};
+  console.log('beforeDisplay hook');
+  console.log('beforeDisplay context', context);
+  return element;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function onUserInteraction(
+  element: Element,
+  context: any,
+  payload: any,
+): any {
+  console.log('onUserInteraction', context, payload);
+  // Can have arbitrary return value
+  // displayState is passed to the client if defined
+  return { displayState: 'test' };
 }
 
 export const hookMap = new Map(
@@ -44,7 +57,8 @@ export const hookMap = new Map(
     afterSave,
     afterLoaded,
     afterRetrieve,
-    customFetch,
+    onUserInteraction,
+    beforeDisplay,
   }),
 );
 
@@ -56,7 +70,8 @@ export default {
   afterSave,
   afterLoaded,
   afterRetrieve,
-  customFetch,
+  onUserInteraction,
+  beforeDisplay,
   mocks,
 };
 

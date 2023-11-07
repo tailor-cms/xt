@@ -3,5 +3,6 @@ export default {
   AFTER_SAVE: 'afterSave',
   AFTER_RETRIEVE: 'afterRetrieve',
   AFTER_LOADED: 'afterLoaded',
-  CUSTOM_FETCH: 'customFetch',
+  BEFORE_DISPLAY: 'beforeDisplay',
+  ON_USER_INTERACTION: 'onUserInteraction',
 };
