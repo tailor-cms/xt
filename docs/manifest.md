@@ -12,7 +12,7 @@ export interface ElementManifest {
   // Unique, reserved string, denoting 'Content Element' type.
   // Each Content Element defines unique type id which is
   // used to resolve which component needs to be used to handle specific
-  // Content Element instance. The external types should follow 'ORG/TYPE'
+  // Content Element instance. The external types should follow 'ORG_TYPE'
   // convention.
   type: string;
   // Version of the content element (e.g. '1.0')

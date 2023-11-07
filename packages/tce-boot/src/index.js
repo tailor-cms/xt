@@ -27,12 +27,14 @@ for (const port of SERVICE_PORTS) {
 const envToName = envKey => envKey.match(/TCE_(.*?)_DIR/)[1].toLowerCase();
 
 // Restart concurrently spawned command
-const restartCmd = async (command, port, timeout = 3000) => {
+const restartCmd = async (command, port, startTimeout = 3000) => {
   try {
     const pid = await portToPid(port);
     if (pid) await fkill(pid, { force: true });
+  } catch (e) {
+    console.log(`Could not restart process running on port ${port}!`);
   } finally {
-    await setTimeout(timeout);
+    await setTimeout(startTimeout);
     command.start();
   }
 };

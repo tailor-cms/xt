@@ -5,7 +5,7 @@ import type {
 } from './interfaces';
 
 // Element unique id within the target system (e.g. Tailor)
-export const type = 'ACME/TCE_COUNTER';
+export const type = 'ACME_TCE_COUNTER';
 
 // Display name (e.g. shown to the author)
 export const name = 'Simple counter';

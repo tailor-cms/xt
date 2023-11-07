@@ -1,8 +1,7 @@
 # File storage
 
-::: tip ⚠️ Beta
-Not yet available on the latest stable release.
-Documentation might be incomplete!
+::: tip Info
+Available in version >=0.1.0
 :::
 
 ## File upload from authoring package
@@ -116,4 +115,5 @@ getFileUrl(key: string)
 ```
 
 ```ts
-saveFile(key: string, data: string | NodeJS.ArrayBufferView | Iterable<string |    NodeJS.ArrayBufferView> | AsyncIterable<string | NodeJS.ArrayBufferView> | internal.Stream)```
+saveFile(key: string, data: string | NodeJS.ArrayBufferView | Iterable<string |    NodeJS.ArrayBufferView> | AsyncIterable<string | NodeJS.ArrayBufferView> | internal.Stream)
+```
