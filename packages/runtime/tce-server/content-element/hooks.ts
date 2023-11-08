@@ -73,12 +73,12 @@ export default function initHooks(hooks, mocks = { displayContexts: [] }) {
       elementAfterHook = await hook(elementAfterHook, services, runtime);
     }
 
-    if (hooksMap.has(ELEMENT_HOOKS.BEFORE_DISPLAY)) {
-      const hook = hooksMap.get(ELEMENT_HOOKS.BEFORE_DISPLAY);
-      elementAfterHook = await hook(elementAfterHook, displayContext);
-    }
     return elementAfterHook;
   }
+
+  const beforeDisplay = hooksMap.has(ELEMENT_HOOKS.BEFORE_DISPLAY)
+    ? (el) => hooksMap.get(ELEMENT_HOOKS.BEFORE_DISPLAY)(el, displayContext)
+    : () => ({});
 
   const processInteraction = hooksMap.has(ELEMENT_HOOKS.ON_USER_INTERACTION)
     ? (element, payload) =>
@@ -92,6 +92,7 @@ export default function initHooks(hooks, mocks = { displayContexts: [] }) {
   return {
     applyFetchHooks,
     registerSaveHooks,
+    beforeDisplay,
     processInteraction,
   };
 }
