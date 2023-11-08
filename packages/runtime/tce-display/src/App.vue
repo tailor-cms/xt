@@ -38,11 +38,12 @@ onMounted(() => {
 
 const getElement = async () => {
   try {
-    const response = await api('content-element', {
+    const response: any = await api('content-element', {
       searchParams: { runtime: 'delivery' },
     }).json();
     if (response === null) return;
-    element.value = response;
+    element.value = response?.element;
+    userState.value = response?.userState;
   } catch (error) {
     console.log('Error on element get', error);
     // Retry
