@@ -9,7 +9,7 @@
               v-if="element.data"
               v-bind="element"
               :user-state="userState"
-              @submit="onInteraction"
+              @interaction="onInteraction"
             />
           </v-col>
         </v-row>
