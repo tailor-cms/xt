@@ -38,7 +38,11 @@ export function afterRetrieve(
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function beforeDisplay(element: Element, context: any, runtime: string) {
+export function beforeDisplay(
+  element: Element,
+  context: any,
+  runtime: ServerRuntime,
+) {
   if (runtime === 'authoring') return {};
   console.log('beforeDisplay hook');
   console.log('beforeDisplay context', context);
