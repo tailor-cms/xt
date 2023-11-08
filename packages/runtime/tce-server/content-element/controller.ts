@@ -31,7 +31,13 @@ export default ({ type, initState, hookMap, mocks }) => {
 
   async function onUserInteraction(req, res) {
     const result = await processInteraction(req.element, req.body);
-    res.json({ displayState: result.displayState });
+    if (!result?.updateDisplayState) return res.status(204).end();
+    const displayState = await applyFetchHooks(
+      req.element,
+      getTceConfig(process.env),
+      'delivery',
+    );
+    return res.json(displayState);
   }
 
   return { get, create, patch, onUserInteraction };
