@@ -52,11 +52,12 @@ const getElement = async () => {
 
 const onInteraction = async (data) => {
   try {
-    const response: any = await api
-      .post(`content-element/${element.value.id}/activity`, { json: { data } })
-      .json();
-    if (!response.displayState) return;
-    userState.value = response.displayState;
+    const response: any = await api.post(
+      `content-element/${element.value.id}/activity`,
+      { json: { data } },
+    );
+    if (response.status === 204) return;
+    userState.value = await response.json();
   } catch (error) {
     console.log('Could not update user state', error);
   }
