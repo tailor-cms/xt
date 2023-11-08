@@ -38,7 +38,9 @@ onMounted(() => {
 
 const getElement = async () => {
   try {
-    const response = await api('content-element').json();
+    const response = await api('content-element', {
+      searchParams: { runtime: 'delivery' },
+    }).json();
     if (response === null) return;
     element.value = response;
   } catch (error) {

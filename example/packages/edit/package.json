@@ -23,7 +23,7 @@
     "vue": "^2.7.13"
   },
   "dependencies": {
-    "@tailor-cms/cek-common": "0.0.1"
+    "@tailor-cms/cek-common": "0.0.3"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "0.0.2",

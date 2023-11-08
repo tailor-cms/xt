@@ -1,4 +1,4 @@
-import { UploadFormData } from './interfaces';
+import { UploadFormData } from './storage-interfaces';
 
 export interface InputFileEvent extends Event {
   target: HTMLInputElement;

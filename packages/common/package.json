@@ -3,7 +3,7 @@
   "description": "Content element kit shared util library",
   "author": "ExtensionEngine <info@extensionengine.com>",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "0.0.2",
+    "@types/node": "^20.8.7",
     "tsup": "^7.2.0",
     "typescript": "^5.1.6"
   },

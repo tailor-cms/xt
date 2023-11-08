@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits } from 'vue';
 import { ElementData } from 'tce-manifest';
 
 const props = defineProps<{ data: ElementData; userState: any }>();

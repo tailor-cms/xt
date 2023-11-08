@@ -59,18 +59,18 @@ export default function initHooks(hooks, mocks = { displayContexts: [] }) {
     elementModel.addHook('afterUpdate', registerSocketUpdate);
   }
 
-  async function applyFetchHooks(element, tceConfig) {
+  async function applyFetchHooks(element, tceConfig, runtime = 'authoring') {
     const services = prepareHookServices(tceConfig);
     let elementAfterHook = await resolveAssets(element);
 
     if (hooksMap.has(ELEMENT_HOOKS.AFTER_RETRIEVE)) {
       const hook = hooksMap.get(ELEMENT_HOOKS.AFTER_RETRIEVE);
-      elementAfterHook = await hook(elementAfterHook, services);
+      elementAfterHook = await hook(elementAfterHook, services, runtime);
     }
 
     if (hooksMap.has(ELEMENT_HOOKS.AFTER_LOADED)) {
       const hook = hooksMap.get(ELEMENT_HOOKS.AFTER_LOADED);
-      elementAfterHook = await hook(elementAfterHook, services);
+      elementAfterHook = await hook(elementAfterHook, services, runtime);
     }
 
     if (hooksMap.has(ELEMENT_HOOKS.BEFORE_DISPLAY)) {
