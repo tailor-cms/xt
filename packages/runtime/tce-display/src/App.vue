@@ -42,7 +42,7 @@ const getElement = async () => {
       searchParams: { runtime: 'delivery' },
     }).json();
     if (response?.element === null) return;
-    element.value = response?.element;
+    element.value = response.element;
     userState.value = response?.userState;
   } catch (error) {
     console.log('Error on element get', error);
