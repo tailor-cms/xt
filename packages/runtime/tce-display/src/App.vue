@@ -55,7 +55,7 @@ const onInteraction = async (data) => {
   try {
     const response: any = await api.post(
       `content-element/${element.value.id}/activity`,
-      { json: { data } },
+      { json: data },
     );
     if (response.status === 204) return;
     userState.value = await response.json();
