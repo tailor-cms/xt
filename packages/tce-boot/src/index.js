@@ -57,6 +57,7 @@ Object.keys(tcePackageDirs).forEach((key) =>
 // Load runtime log
 const runtimeLog = getRuntimeLog();
 process.env.VITE_RUNTIME_ID = runtimeLog.id;
+process.env.CEK_RUNTIME = true;
 // Prepare cmds for running the template
 // -------------------------------------------------------------------------
 // Prepare commands for watching and rebuilding template packages
