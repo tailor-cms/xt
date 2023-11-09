@@ -19,6 +19,7 @@ function initRouter({ type, initState, hookMap, mocks = {} }) {
   router.route('/').get(get).post(create);
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   router.route('/:id').patch(patch);
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   router.route('/:id/activity').post(onUserInteraction);
   return router;
 }
