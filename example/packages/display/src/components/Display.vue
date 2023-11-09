@@ -14,9 +14,9 @@
 import { ElementData } from 'tce-manifest';
 
 const props = defineProps<{ data: ElementData; userState: any }>();
-const emit = defineEmits(['submit']);
+const emit = defineEmits(['interaction']);
 
-const submit = () => emit('submit', { count: props.data.count });
+const submit = () => emit('interaction', { count: props.data.count });
 </script>
 
 <style scoped>

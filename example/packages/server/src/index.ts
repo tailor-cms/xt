@@ -2,6 +2,8 @@ import type { HookServices, ServerRuntime } from '@tailor-cms/cek-common';
 import { initState, mocks, type } from 'tce-manifest';
 import type { Element } from 'tce-manifest';
 
+const userStateMock: any = {};
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export function beforeSave(element: Element, services: HookServices) {
   if (element.data.count >= 10) {
@@ -46,7 +48,7 @@ export function beforeDisplay(
   if (runtime === 'authoring') return {};
   console.log('beforeDisplay hook');
   console.log('beforeDisplay context', context);
-  return element;
+  return userStateMock;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -58,7 +60,8 @@ export function onUserInteraction(
   console.log('onUserInteraction', context, payload);
   // Can have arbitrary return value
   // displayState is passed to the client if defined
-  return { displayState: 'test' };
+  userStateMock.interactionTimestamp = new Date().getTime();
+  return { updateDisplayState: true };
 }
 
 export const hookMap = new Map(
