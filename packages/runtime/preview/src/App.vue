@@ -23,8 +23,8 @@ function timeout(ms: number) {
 
 async function getElement() {
   try {
-    const response = await api('content-element').json();
-    return response || {};
+    const response: any = await api('content-element').json();
+    return response?.element || {};
   } catch (error) {
     console.log('Error on element get', error);
     await timeout(2000);
