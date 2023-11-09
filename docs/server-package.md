@@ -94,7 +94,7 @@ The hook recieves authored content `element`, the target system
 
 ```ts
 function beforeDisplay(
-  element: ContentElement,
+  element: Element,
   displaySystemContext: any) => UserState
 ```
 
@@ -106,7 +106,7 @@ system `displaySystemContext` and the payload emitted by the `Display` component
 
 ```ts
 function onUserInteraction(
-  element: ContentElement,
+  element: Element,
   displaySystemContext: any,
   payload: any) => any
 ```

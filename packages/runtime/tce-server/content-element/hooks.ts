@@ -12,8 +12,10 @@ function prepareHookServices(tce) {
 
 export default function initHooks(hooks, mocks = { displayContexts: [] }) {
   // If plain object, convert to map
-  const displayContext = mocks.displayContexts?.[0]?.data || {};
   const hooksMap = hooks?.has ? hooks : new Map(hooks);
+  // Default context
+  const displayContext = mocks.displayContexts?.[0]?.data || {};
+
   function registerHook(element, hookName, tceConfig) {
     const hook = hooksMap.get(hookName);
     return hook(element, prepareHookServices(tceConfig));
