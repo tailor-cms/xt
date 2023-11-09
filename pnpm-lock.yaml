@@ -228,10 +228,10 @@ importers:
 
   packages/tce-boot:
     specifiers:
-      '@tailor-cms/tce-display-runtime': 0.2.0-beta.7
-      '@tailor-cms/tce-edit-runtime': 0.2.0-beta.7
-      '@tailor-cms/tce-preview-runtime': 0.2.0-beta.7
-      '@tailor-cms/tce-server-runtime': 0.2.0-beta.7
+      '@tailor-cms/tce-display-runtime': 0.2.0
+      '@tailor-cms/tce-edit-runtime': 0.2.0
+      '@tailor-cms/tce-preview-runtime': 0.2.0
+      '@tailor-cms/tce-server-runtime': 0.2.0
       boxen: ^7.1.1
       concurrently: ^8.2.0
       eslint: '>=8.5.0'
@@ -1132,7 +1132,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.4.9_64tj46k4quhv5ljf3qphrfiauy
+      vite: 4.4.9_sass@1.68.0
       vue: 3.3.4
     dev: false
 
@@ -5542,7 +5542,7 @@ packages:
       '@vuetify/loader-shared': 1.7.1_vue@3.3.4+vuetify@3.3.17
       debug: 4.3.4
       upath: 2.0.1
-      vite: 4.4.9_64tj46k4quhv5ljf3qphrfiauy
+      vite: 4.4.9_sass@1.68.0
       vuetify: 3.3.17_3zhiord3sdjr4serefajxiaexe
     transitivePeerDependencies:
       - supports-color
