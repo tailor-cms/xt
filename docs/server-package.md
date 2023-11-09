@@ -1,12 +1,12 @@
 # Server package
 
 Server subpackage is located under `packages/server`. It exposes
-Content Element server hooks, which can be used for authoring and end-user
+server-side hooks, which can be used for authoring and `end-user`
 system.
 
 ## Content element hooks
 
-For managing content element data, The following hooks are available:
+The following hooks are available for managing content element data:
 
 Create/update content element lifecycle:
   - `beforeSave`
@@ -64,15 +64,16 @@ front-end using SSE (Server Side Events).
 Available in versions >= 0.2.0.
 ::::
 
-The server package enables user state hooks, which one can use to manage
+The server package enables user-state hooks, which one can use to manage
 user-specific state of a particular element. There are two state hooks available:
   - `beforeDisplay`
   - `onUserInteraction`
 
-Since the target system has the full flexibility on implementing the state
-management and persistance, user state hooks recieve `displaySystemContext`,
-which can be provided by the `target` system and used to add additional context needed for the state resolution. Within the content element kit, this
-is mocked within the element manifest:
+The `end-user` system has the full flexibility for implementing the state
+management and persistance. User-state hooks recieve `displaySystemContext`,
+which can be provided by the `end-user` system and used to add additional context
+needed for the state resolution. For content element kit this is
+mocked within the element manifest and injected into previously listed hooks.
 
 ```ts
 mocks?: {
@@ -89,7 +90,7 @@ wants to quickly mock different user states and switch between them.
 
 `beforeDisplay` hook is responsible for resolving a user state of a particular
 content element (binded as `userState` upon rendering the `Display` component).
-The hook recieves authored content `element`, the target system
+The hook recieves authored content `element`, the end-user system
 `displaySystemContext` and returns a resolved user state.
 
 ```ts
@@ -111,14 +112,14 @@ function onUserInteraction(
   payload: any) => any
 ```
 
-The `target` system is fully in control of the `displaySystemContext` provided
-and value returned by the `onUserInteraction` hook. If after the
-`onUserInteraction` hook execution, there is a need to refresh the user state
+The `end-user` system is fully in control of the `displaySystemContext` provided
+and the value returned by the `onUserInteraction` hook. If after the
+`onUserInteraction` hook execution, there is a need to refresh the user state,
 `onUserInteraction` hook should return `{ updateDisplayState: true }` flag,
 which will result with invoking `beforeDisplay` hook and updating the
 user state.
 
-### Mocking `target` system state persistance
+### Mocking `end-user` system state persistance and handling
 
 In addition to the context mock, one might want to mimick the persistance and
 context handling mechanism. At the moment, it is possible to rely on the
