@@ -59,7 +59,8 @@ export function onUserInteraction(
   // Can have arbitrary return value
   // displayState is passed to the client if defined
   userStateMock.interactionTimestamp = new Date().getTime();
-  return { updateDisplayState: true, ...payload };
+  Object.assign(userStateMock, payload);
+  return { updateDisplayState: true };
 }
 
 export const hookMap = new Map(
