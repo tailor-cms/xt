@@ -105,7 +105,7 @@ export default {
           searchParams: { runtime: 'authoring' },
         }).json();
         if (response === null) return;
-        this.element = response;
+        this.element = response?.element;
       } catch (error) {
         console.log('Error on element get', error);
         // Retry

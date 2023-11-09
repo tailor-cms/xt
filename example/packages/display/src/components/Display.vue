@@ -5,13 +5,18 @@
       <span class="counter">{{ data.count }}</span>
       times!
     </div>
+    <v-btn class="my-8" @click="submit">Submit interaction</v-btn>
+    <div>User state value: {{ userState }}</div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ElementData } from 'tce-manifest';
 
-defineProps<{ data: ElementData }>();
+const props = defineProps<{ data: ElementData; userState: any }>();
+const emit = defineEmits(['interaction']);
+
+const submit = () => emit('interaction', { count: props.data.count });
 </script>
 
 <style scoped>

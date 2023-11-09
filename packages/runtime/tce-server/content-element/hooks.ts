@@ -10,9 +10,12 @@ function prepareHookServices(tce) {
   };
 }
 
-export default function initHooks(hooks) {
+export default function initHooks(hooks, mocks = { displayContexts: [] }) {
   // If plain object, convert to map
   const hooksMap = hooks?.has ? hooks : new Map(hooks);
+  // Default context
+  const displayContext = mocks.displayContexts?.[0]?.data || {};
+
   function registerHook(element, hookName, tceConfig) {
     const hook = hooksMap.get(hookName);
     return hook(element, prepareHookServices(tceConfig));
@@ -71,11 +74,27 @@ export default function initHooks(hooks) {
       const hook = hooksMap.get(ELEMENT_HOOKS.AFTER_LOADED);
       elementAfterHook = await hook(elementAfterHook, services, runtime);
     }
+
     return elementAfterHook;
   }
+
+  const beforeDisplay = hooksMap.has(ELEMENT_HOOKS.BEFORE_DISPLAY)
+    ? (el) => hooksMap.get(ELEMENT_HOOKS.BEFORE_DISPLAY)(el, displayContext)
+    : () => ({});
+
+  const processInteraction = hooksMap.has(ELEMENT_HOOKS.ON_USER_INTERACTION)
+    ? (element, payload) =>
+        hooksMap.get(ELEMENT_HOOKS.ON_USER_INTERACTION)(
+          element,
+          displayContext,
+          payload,
+        )
+    : () => ({ updateDisplayState: false });
 
   return {
     applyFetchHooks,
     registerSaveHooks,
+    beforeDisplay,
+    processInteraction,
   };
 }

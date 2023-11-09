@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div :style="{ backgroundColor }" class="splash-loader">
+    <div v-show="isVisible" :style="{ backgroundColor }" class="splash-loader">
       <div>
         <div class="splash-loader__anim">
           <img :src="logo" alt="Logo" width="88" />
@@ -24,6 +24,10 @@ import logoUrl from '../assets/logo.png';
 
 export default {
   props: {
+    isVisible: {
+      type: Boolean,
+      required: true,
+    },
     isFirstBoot: {
       type: Boolean,
       required: true,

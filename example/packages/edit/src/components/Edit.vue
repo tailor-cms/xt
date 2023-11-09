@@ -50,9 +50,9 @@ const increment = () => {
   emit('save', { ...data, count });
 };
 
-elementBus.on('decrement', ({ count }) => console.log(count));
+elementBus.on('decrement', ({ count }: any) => console.log(count));
 
-const upload = (e: InputFileEvent) => {
+const upload = (e: InputFileEvent | any) => {
   const form = createUploadForm(e);
   if (!form) return;
   return storageService.upload(form).then(({ key, url }) => {
