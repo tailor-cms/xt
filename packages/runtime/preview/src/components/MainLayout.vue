@@ -45,7 +45,7 @@ onMounted(() => {
 
 <template>
   <main :class="{ 'dark-theme': isDark }">
-    <SplashLoader v-show="!isLoaded" :is-first-boot="isFirstBoot" />
+    <SplashLoader :is-first-boot="isFirstBoot" :is-visible="!isLoaded" />
     <PreviewPanel id="panelTop" :is-loaded="isLoaded" />
     <BottomPanel
       id="panelBottom"
