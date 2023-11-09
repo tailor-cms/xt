@@ -89,7 +89,7 @@ export default function initHooks(hooks, mocks = { displayContexts: [] }) {
           displayContext,
           payload,
         )
-    : () => ({ displayState: null });
+    : () => ({ updateDisplayState: false });
 
   return {
     applyFetchHooks,
