@@ -41,7 +41,7 @@ const getElement = async () => {
     const response: any = await api('content-element', {
       searchParams: { runtime: 'delivery' },
     }).json();
-    if (response === null) return;
+    if (response?.element === null) return;
     element.value = response?.element;
     userState.value = response?.userState;
   } catch (error) {
