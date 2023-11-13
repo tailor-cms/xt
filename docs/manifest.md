@@ -41,6 +41,11 @@ export interface ElementManifest {
     // Does the element support layouts (e.g. 50/50) or it needs to be
     // full width
     forceFullWidth: boolean;
+  },
+  mocks?: {
+    // Provide end-user system context mock (used for user state hooks)
+    // See https://tailor-cms.github.io/xt/server-package.html#user-state-hooks
+    displayContexts: Array<{ name: string; data: any }>;
   };
 }
 ```
