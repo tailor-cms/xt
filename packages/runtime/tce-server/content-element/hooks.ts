@@ -79,7 +79,11 @@ export default function initHooks(hooks, mocks = { displayContexts: [] }) {
   }
 
   const beforeDisplay = hooksMap.has(ELEMENT_HOOKS.BEFORE_DISPLAY)
-    ? (el) => hooksMap.get(ELEMENT_HOOKS.BEFORE_DISPLAY)(el, displayContext)
+    ? (el, contextExtensions) =>
+        hooksMap.get(ELEMENT_HOOKS.BEFORE_DISPLAY)(el, {
+          ...displayContext,
+          ...contextExtensions,
+        })
     : () => ({});
 
   const processInteraction = hooksMap.has(ELEMENT_HOOKS.ON_USER_INTERACTION)
