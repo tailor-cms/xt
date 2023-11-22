@@ -35,7 +35,10 @@ export default ({ type, initState, hookMap, mocks }) => {
   async function onUserInteraction(req, res) {
     const result = await processInteraction(req.element, req.body);
     if (!result?.updateDisplayState) return res.status(204).end();
-    return res.json(beforeDisplay(req.element));
+    const contextExtensions = result.transientState
+      ? { transientState: result.transientState }
+      : {};
+    return res.json(beforeDisplay(req.element, contextExtensions));
   }
 
   return { get, create, patch, onUserInteraction };
