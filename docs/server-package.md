@@ -120,7 +120,8 @@ which will result with invoking `beforeDisplay` hook and updating the
 user state. In case you want to pass data to the `beforeDisplay` hook
 from the `onUserInteraction` hook, simply return the `transientState` property
 containing the data (alongside `updateDisplayState` flag). This will be
-injected into `displaySystemContext` for you upon the `beforeDisplay` hook call.
+injected into the `displaySystemContext` for you upon the `beforeDisplay` hook
+call.
 
 ### Mocking `end-user` system state persistance and handling
 
