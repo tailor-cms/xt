@@ -9,6 +9,7 @@ importers:
       '@npmcli/package-json': ^2.0.0
       '@tailor-cms/eslint-config': 0.0.2
       '@tailor-cms/tce-boot': file:../packages/tce-boot
+      '@tailor-cms/tce-display-runtime': ^0.2.0
       '@types/node': ^20.5.7
       '@typescript-eslint/eslint-plugin': '>=6.4.0'
       '@typescript-eslint/parser': '>=6.4.0'
@@ -38,6 +39,7 @@ importers:
       '@npmcli/package-json': 2.0.0
       '@tailor-cms/eslint-config': 0.0.2_pb2mgxcxxw4r3r7dd3axzqktum
       '@tailor-cms/tce-boot': file:../packages/tce-boot_@types+node@20.9.0
+      '@tailor-cms/tce-display-runtime': 0.2.0_@types+node@20.9.0
       '@types/node': 20.9.0
       '@typescript-eslint/eslint-plugin': 6.10.0_u434aypout3c3z2ybwpl5ggmim
       '@typescript-eslint/parser': 6.10.0_5iy6f2d3forlnf27wdbuobyvmm
@@ -597,7 +599,7 @@ packages:
       eslint-config-standard: 17.1.0_z3bdzjpouj7t527seuvpkbli5q
       eslint-plugin-import: 2.29.0_hscwqm7lcnics5hvars772fnce
       eslint-plugin-n: 16.3.0_eslint@8.53.0
-      eslint-plugin-prettier: 5.0.1_wplvldop3r5r5wlokwl7v277he
+      eslint-plugin-prettier: 5.0.1_y64ye4so5rcssapqdlrhuyou2q
       eslint-plugin-promise: 6.1.1_eslint@8.53.0
       eslint-plugin-vue: 9.18.1_eslint@8.53.0
       eslint-plugin-vuejs-accessibility: 2.2.0_eslint@8.53.0
@@ -699,8 +701,8 @@ packages:
       - webpack-plugin-vuetify
     dev: true
 
-  /@tailor-cms/tce-server-runtime/0.2.0_@types+node@20.9.0:
-    resolution: {integrity: sha512-wh9p3qHF/RfaqKuNqPDCE5L80dkreZscqNYwYcDa7967hq65o0gPYLAndG6mi1by17g5ZXU91tyx3No+H444Dw==}
+  /@tailor-cms/tce-server-runtime/0.2.1_@types+node@20.9.0:
+    resolution: {integrity: sha512-7sm68Lj3sPbZdZygpkhiIgQSNfm+p+7Ra1KSKLCxmJ1rMZDhDOhux3BOkH1A/s0EDbQofLb4/WNLmhPBnlNJIg==}
     dependencies:
       bluebird: 3.7.2
       cors: 2.8.5
@@ -2393,27 +2395,6 @@ packages:
       minimatch: 3.1.2
       resolve: 1.22.8
       semver: 7.5.4
-    dev: true
-
-  /eslint-plugin-prettier/5.0.1_wplvldop3r5r5wlokwl7v277he:
-    resolution: {integrity: sha512-m3u5RnR56asrwV/lDC4GHorlW75DsFfmUcjfCYylTUs85dBRnB7VM6xG8eCMJdeDRnppzmxZVf1GEPJvl1JmNg==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    peerDependencies:
-      '@types/eslint': '>=8.0.0'
-      eslint: '>=8.0.0'
-      eslint-config-prettier: '*'
-      prettier: '>=3.0.0'
-    peerDependenciesMeta:
-      '@types/eslint':
-        optional: true
-      eslint-config-prettier:
-        optional: true
-    dependencies:
-      eslint: 8.53.0
-      eslint-config-prettier: 9.0.0_eslint@8.53.0
-      prettier: 3.0.3
-      prettier-linter-helpers: 1.0.0
-      synckit: 0.8.5
     dev: true
 
   /eslint-plugin-prettier/5.0.1_y64ye4so5rcssapqdlrhuyou2q:
@@ -4137,12 +4118,6 @@ packages:
     hasBin: true
     dev: true
 
-  /prettier/3.0.3:
-    resolution: {integrity: sha512-L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg==}
-    engines: {node: '>=14'}
-    hasBin: true
-    dev: true
-
   /process-exists/4.1.0:
     resolution: {integrity: sha512-BBJoiorUKoP2AuM5q/yKwIfT1YWRHsaxjW+Ayu9erLhqKOfnXzzVVML0XTYoQZuI1YvcWKmc1dh06DEy4+KzfA==}
     engines: {node: '>=10'}
@@ -5790,12 +5765,12 @@ packages:
     resolution: {directory: ../packages/tce-boot, type: directory}
     id: file:../packages/tce-boot
     name: '@tailor-cms/tce-boot'
-    version: 0.2.0
+    version: 0.2.1
     dependencies:
       '@tailor-cms/tce-display-runtime': 0.2.0_@types+node@20.9.0
       '@tailor-cms/tce-edit-runtime': 0.2.0_@types+node@20.9.0
       '@tailor-cms/tce-preview-runtime': 0.2.0_@types+node@20.9.0
-      '@tailor-cms/tce-server-runtime': 0.2.0_@types+node@20.9.0
+      '@tailor-cms/tce-server-runtime': 0.2.1_@types+node@20.9.0
       boxen: 7.1.1
       concurrently: 8.2.2
       fkill: 8.1.1
