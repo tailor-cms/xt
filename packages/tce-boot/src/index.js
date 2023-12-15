@@ -68,14 +68,14 @@ const packageWatchers =
       prefixColor: TERM_COLORS[index],
       command: `cd ${tcePackageDirs[key]} && pnpm dev`
     }));
-// Prepare commands for spining the runtimes (edit, display, server, preview)
+// Prepare commands for spining the runtimes (edit, server, preview)
 const runtimes = await Promise.all(
-  ['server', 'edit', 'display', 'preview'].map(async (name, index) => {
+  ['server', 'edit', 'preview'].map(async (name, index) => {
     const pkgRef = `@tailor-cms/tce-${name}-runtime/package.json`;
     const pkgPath = await require.resolve(pkgRef);
     const cmdDir = path.dirname(pkgPath);
-    const command = ['edit', 'display'].includes(name)
-      ? `cd ${cmdDir} && pnpm vite optimize && pnpm vite build && pnpm dev`
+    const command = name === 'edit'
+      ? `cd ${cmdDir} && pnpm vite optimize && pnpm dev`
       : `cd ${cmdDir} && pnpm dev`;
     return {
       name: `${name}-runtime`,
@@ -89,7 +89,7 @@ const runtimes = await Promise.all(
 // Run
 // -------------------------------------------------------------------------
 console.log(
-  boxen('🚀 Teaching Element Kit', {
+  boxen('🚀 Content Element Kit', {
     titleAlignment: 'center',
     padding: 1,
     margin: 1,
@@ -103,10 +103,8 @@ if (!runtimeLog.initialBootAt) {
   // First run reboot, wait for optimize deps step
   await setTimeout(10 * 1000);
   const editRuntime = commands.find(it => it.name === 'edit-runtime');
-  const displayRuntime = commands.find(it => it.name === 'display-runtime');
   await Promise.all([
-    restartCmd(editRuntime, 8010, 8000),
-    restartCmd(displayRuntime, 8020, 8000)
+    restartCmd(editRuntime, 8010, 8000)
   ]);
   saveRuntimeInit();
 }
