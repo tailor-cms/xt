@@ -8,7 +8,7 @@ importers:
     specifiers:
       '@npmcli/package-json': ^2.0.0
       '@tailor-cms/eslint-config': 0.0.2
-      '@tailor-cms/tce-boot': 0.3.0-beta.3
+      '@tailor-cms/tce-boot': file:../packages/tce-boot
       '@tailor-cms/tce-display-runtime': ^0.2.0
       '@types/node': ^20.5.7
       '@typescript-eslint/eslint-plugin': '>=6.4.0'
@@ -38,7 +38,7 @@ importers:
     devDependencies:
       '@npmcli/package-json': 2.0.0
       '@tailor-cms/eslint-config': 0.0.2_pb2mgxcxxw4r3r7dd3axzqktum
-      '@tailor-cms/tce-boot': 0.3.0-beta.3_@types+node@20.9.0
+      '@tailor-cms/tce-boot': file:../packages/tce-boot_@types+node@20.9.0
       '@tailor-cms/tce-display-runtime': 0.2.0_@types+node@20.9.0
       '@types/node': 20.9.0
       '@typescript-eslint/eslint-plugin': 6.10.0_u434aypout3c3z2ybwpl5ggmim
@@ -605,48 +605,6 @@ packages:
       eslint-plugin-vuejs-accessibility: 2.2.0_eslint@8.53.0
     dev: true
 
-  /@tailor-cms/tce-boot/0.3.0-beta.3_@types+node@20.9.0:
-    resolution: {integrity: sha512-BAFr6fhY4HNgQ4lHpygUokXVjzsQE8l04m0t4YPhSQzuAqKmkonsowUQLAjbZ5stDQxmLBSs9l6n/elG2GbCEQ==}
-    dependencies:
-      '@tailor-cms/tce-display-runtime': 0.2.0_@types+node@20.9.0
-      '@tailor-cms/tce-edit-runtime': 0.2.1-beta.1_@types+node@20.9.0
-      '@tailor-cms/tce-preview-runtime': 0.2.0_@types+node@20.9.0
-      '@tailor-cms/tce-server-runtime': 0.2.2-beta.1_@types+node@20.9.0
-      boxen: 7.1.1
-      concurrently: 8.2.2
-      fkill: 8.1.1
-      lodash: 4.17.21
-      pid-port: 0.2.0
-    transitivePeerDependencies:
-      - '@babel/parser'
-      - '@nuxt/kit'
-      - '@swc/core'
-      - '@swc/wasm'
-      - '@types/node'
-      - '@vue/composition-api'
-      - bufferutil
-      - debug
-      - encoding
-      - ibm_db
-      - less
-      - lightningcss
-      - mariadb
-      - mysql2
-      - oracledb
-      - pg
-      - pg-hstore
-      - rollup
-      - snowflake-sdk
-      - stylus
-      - sugarss
-      - supports-color
-      - tedious
-      - terser
-      - utf-8-validate
-      - vue-i18n
-      - webpack-plugin-vuetify
-    dev: true
-
   /@tailor-cms/tce-display-runtime/0.2.0_@types+node@20.9.0:
     resolution: {integrity: sha512-Rtpx0g08Z8ggx/0h/1MqGm/sequejubCHcvL4NGJ+sfZKZSc8rMLpNYcVJ/r1fHjx4FDDZzUj9D4BIr8CwDJhg==}
     dependencies:
@@ -682,8 +640,8 @@ packages:
       - webpack-plugin-vuetify
     dev: true
 
-  /@tailor-cms/tce-edit-runtime/0.2.1-beta.1_@types+node@20.9.0:
-    resolution: {integrity: sha512-406s+827uptBiLIoeB6B6K7lCrZUM94XZNIKjAF/ieB0GOlwgybdnwBZCcDc7KqbkDdHmoSRU8rLC4AmoTZDjQ==}
+  /@tailor-cms/tce-edit-runtime/0.2.1_@types+node@20.9.0:
+    resolution: {integrity: sha512-R2klKQ5dHtlh2LO8fumdEIuzDEvKVxwcoZIjUfZT89EyjpCpAYvE3y+u7NV/XuBraHZCQwQL5JnQ1bccqZOyUw==}
     dependencies:
       '@extensionengine/vue-radio': 1.0.0-beta.5
       '@mdi/font': 7.2.96
@@ -714,8 +672,8 @@ packages:
       - terser
     dev: true
 
-  /@tailor-cms/tce-preview-runtime/0.2.0_@types+node@20.9.0:
-    resolution: {integrity: sha512-xuY9qKkRkF46/ll1l5M4iq6b7bPgIJsb7UokroDX2ODAhTcTgiqYYjZaZ10gk53TOBZmFHCPK4cvdy6+aokn/Q==}
+  /@tailor-cms/tce-preview-runtime/0.2.1_@types+node@20.9.0:
+    resolution: {integrity: sha512-e0iHJXRlvpue1q4Z7jyE0pDSjc7kUx6D7KGpSed2LAFxAVsJlynZo2UkAfh0pYS7Qb7G9jhrYtmC6hERcLpKsg==}
     dependencies:
       '@mdi/font': 7.2.96
       '@vitejs/plugin-vue': 4.3.4_vite@4.4.9+vue@3.3.4
@@ -743,8 +701,8 @@ packages:
       - webpack-plugin-vuetify
     dev: true
 
-  /@tailor-cms/tce-server-runtime/0.2.2-beta.1_@types+node@20.9.0:
-    resolution: {integrity: sha512-gpVQ28KGYw7oJPGW/fkulW3ajiI8ZvzhdliYv5ykS/ueSdwPXQlkKi3qawixBOGA3/S9rBG7SgVQnzdTeuM6tQ==}
+  /@tailor-cms/tce-server-runtime/0.2.2_@types+node@20.9.0:
+    resolution: {integrity: sha512-zkRJS/KAGuuFjiBfB6cq1QWeLQgiqWj4RbrybbatiG5+NIYTQSuvlhz1hSUiYYxaORNTTXGVW6MrWxNxLFOIuA==}
     dependencies:
       bluebird: 3.7.2
       cors: 2.8.5
@@ -5769,4 +5727,50 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+    dev: true
+
+  file:../packages/tce-boot_@types+node@20.9.0:
+    resolution: {directory: ../packages/tce-boot, type: directory}
+    id: file:../packages/tce-boot
+    name: '@tailor-cms/tce-boot'
+    version: 0.3.0-beta.6
+    dependencies:
+      '@tailor-cms/tce-display-runtime': 0.2.0_@types+node@20.9.0
+      '@tailor-cms/tce-edit-runtime': 0.2.1_@types+node@20.9.0
+      '@tailor-cms/tce-preview-runtime': 0.2.1_@types+node@20.9.0
+      '@tailor-cms/tce-server-runtime': 0.2.2_@types+node@20.9.0
+      boxen: 7.1.1
+      concurrently: 8.2.2
+      fkill: 8.1.1
+      is-docker: 3.0.0
+      lodash: 4.17.21
+      pid-port: 0.2.0
+    transitivePeerDependencies:
+      - '@babel/parser'
+      - '@nuxt/kit'
+      - '@swc/core'
+      - '@swc/wasm'
+      - '@types/node'
+      - '@vue/composition-api'
+      - bufferutil
+      - debug
+      - encoding
+      - ibm_db
+      - less
+      - lightningcss
+      - mariadb
+      - mysql2
+      - oracledb
+      - pg
+      - pg-hstore
+      - rollup
+      - snowflake-sdk
+      - stylus
+      - sugarss
+      - supports-color
+      - tedious
+      - terser
+      - utf-8-validate
+      - vue-i18n
+      - webpack-plugin-vuetify
     dev: true

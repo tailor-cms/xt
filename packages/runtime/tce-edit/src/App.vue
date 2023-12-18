@@ -51,7 +51,7 @@
     </v-main>
     <v-dialog v-model="isLinkDialogVisible" width="500" persistent>
       <v-card>
-        <v-card-title class="text-h5"> Link element dialog </v-card-title>
+        <v-card-title class="text-h5">Link element dialog</v-card-title>
         <v-card-text>
           In Tailor, this action will open a dialog to select a content element
           to link to. The `refs` property is updated with mock data to reflect
