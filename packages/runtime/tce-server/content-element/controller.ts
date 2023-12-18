@@ -1,3 +1,5 @@
+import pick from 'lodash/pick';
+
 import ContentElement from './model';
 import { getTceConfig } from '../common/config';
 import initHooks from './hooks';
@@ -28,7 +30,8 @@ export default ({ type, initState, hookMap, mocks }) => {
   }
 
   async function patch(req, res) {
-    const element = await req.element.update({ data: req.body.data });
+    const payload = pick(req.body, ['data', 'meta', 'refs']);
+    const element = await req.element.update(payload);
     res.json(element);
   }
 
