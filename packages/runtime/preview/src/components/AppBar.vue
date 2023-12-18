@@ -2,8 +2,7 @@
 import logoUrl from '../assets/logo.png';
 import { useGlobalState } from '../state';
 
-const { isDark, toggleDark, showEdit, showDisplay, showBothComponents } =
-  useGlobalState();
+const { isDark, showEdit, showDisplay, showBothComponents } = useGlobalState();
 </script>
 
 <template>
