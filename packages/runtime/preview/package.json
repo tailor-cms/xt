@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-preview-runtime",
   "version": "0.2.1",
   "scripts": {
-    "dev": "vite --open",
+    "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
     "lint": "eslint --ext .js,.ts,.vue .",

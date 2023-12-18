@@ -1,5 +1,6 @@
 import { createRequire } from 'node:module';
 import dotenv from 'dotenv';
+import isDocker from 'is-docker';
 import path from 'node:path';
 import { setTimeout } from 'node:timers/promises';
 
@@ -77,9 +78,10 @@ const runtimes = await Promise.all(
     const pkgRef = `@tailor-cms/tce-${name}-runtime/package.json`;
     const pkgPath = await require.resolve(pkgRef);
     const cmdDir = path.dirname(pkgPath);
+    const viteArgs = ((name === 'preview') && !isDocker()) ? '-- --open' : '';
     const command = name === 'edit'
-      ? `cd ${cmdDir} && pnpm vite optimize && pnpm dev`
-      : `cd ${cmdDir} && pnpm dev`;
+      ? `cd ${cmdDir} && pnpm vite optimize && pnpm dev ${viteArgs}`
+      : `cd ${cmdDir} && pnpm dev ${viteArgs}`;
     return {
       name: `${name}-runtime`,
       prefixColor: TERM_COLORS[index],

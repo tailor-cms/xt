@@ -229,9 +229,9 @@ importers:
   packages/tce-boot:
     specifiers:
       '@tailor-cms/tce-display-runtime': 0.2.0
-      '@tailor-cms/tce-edit-runtime': 0.2.1-beta.1
-      '@tailor-cms/tce-preview-runtime': 0.2.0
-      '@tailor-cms/tce-server-runtime': 0.2.2-beta.1
+      '@tailor-cms/tce-edit-runtime': 0.2.1
+      '@tailor-cms/tce-preview-runtime': 0.2.1
+      '@tailor-cms/tce-server-runtime': 0.2.2
       boxen: ^7.1.1
       concurrently: ^8.2.0
       eslint: '>=8.5.0'
@@ -243,6 +243,7 @@ importers:
       eslint-plugin-prettier: '>=4.2.1'
       eslint-plugin-promise: '>=6.1.1'
       fkill: ^8.1.1
+      is-docker: ^3.0.0
       lodash: ^4.17.21
       pid-port: ^0.2.0
       prettier: ^2.7.1
@@ -254,6 +255,7 @@ importers:
       boxen: 7.1.1
       concurrently: 8.2.2
       fkill: 8.1.1
+      is-docker: 3.0.0
       lodash: 4.17.21
       pid-port: 0.2.0
     devDependencies:
@@ -2486,7 +2488,7 @@ packages:
     dependencies:
       eslint: 8.53.0
       eslint-config-standard: 17.1.0_z3bdzjpouj7t527seuvpkbli5q
-      eslint-plugin-import: 2.29.0_hscwqm7lcnics5hvars772fnce
+      eslint-plugin-import: 2.29.0_eslint@8.53.0
       eslint-plugin-n: 16.3.0_eslint@8.53.0
       eslint-plugin-promise: 6.1.1_eslint@8.53.0
     dev: true
@@ -2501,7 +2503,7 @@ packages:
       eslint-plugin-promise: ^6.0.0
     dependencies:
       eslint: 8.53.0
-      eslint-plugin-import: 2.29.0_hscwqm7lcnics5hvars772fnce
+      eslint-plugin-import: 2.29.0_eslint@8.53.0
       eslint-plugin-n: 16.3.0_eslint@8.53.0
       eslint-plugin-promise: 6.1.1_eslint@8.53.0
     dev: true
@@ -3526,7 +3528,6 @@ packages:
     resolution: {integrity: sha512-eljcgEDlEns/7AXFosB5K/2nCM4P7FQPkGc/DWLy5rmFEWvZayGrik1d9/QIY5nJ4f9YsVvBkA6kJpHn9rISdQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     hasBin: true
-    dev: true
 
   /is-extglob/2.1.1:
     resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
