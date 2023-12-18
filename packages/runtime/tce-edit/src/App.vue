@@ -121,14 +121,16 @@ export default {
       // eslint-disable-next-line vue/require-explicit-emits
       this.$emit('delete');
     },
-    onLink() {
+    async onLink() {
       this.isLinkDialogVisible = true;
       const refs = {
-        linked: [{
-          outlineId: 1,
-          containerId: 2,
-          id: 3,
-        }]
+        linked: [
+          {
+            outlineId: 1,
+            containerId: 2,
+            id: 3,
+          },
+        ],
       };
       await api
         .patch(`content-element/${this.element.id}`, { json: { refs } })
