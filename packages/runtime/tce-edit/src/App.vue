@@ -49,7 +49,7 @@
         </v-row>
       </v-container>
     </v-main>
-    <v-dialog v-model="isLinkDialogVisible" width="500">
+    <v-dialog v-model="isLinkDialogVisible" width="500" persistent>
       <v-card>
         <v-card-title class="text-h5"> Link element dialog </v-card-title>
         <v-card-text>
