@@ -229,9 +229,9 @@ importers:
   packages/tce-boot:
     specifiers:
       '@tailor-cms/tce-display-runtime': 0.2.0
-      '@tailor-cms/tce-edit-runtime': 0.2.0
+      '@tailor-cms/tce-edit-runtime': 0.2.1-beta.1
       '@tailor-cms/tce-preview-runtime': 0.2.0
-      '@tailor-cms/tce-server-runtime': 0.2.1
+      '@tailor-cms/tce-server-runtime': 0.2.2-beta.1
       boxen: ^7.1.1
       concurrently: ^8.2.0
       eslint: '>=8.5.0'
