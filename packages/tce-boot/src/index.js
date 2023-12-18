@@ -78,7 +78,7 @@ const runtimes = await Promise.all(
     const pkgRef = `@tailor-cms/tce-${name}-runtime/package.json`;
     const pkgPath = await require.resolve(pkgRef);
     const cmdDir = path.dirname(pkgPath);
-    const viteArgs = ((name === 'preview') && !isDocker()) ? '-- --open' : '';
+    const viteArgs = ((name === 'preview') && !isDocker()) ? '--open' : '';
     const command = name === 'edit'
       ? `cd ${cmdDir} && pnpm vite optimize && pnpm dev ${viteArgs}`
       : `cd ${cmdDir} && pnpm dev ${viteArgs}`;
