@@ -1,4 +1,5 @@
 import { createRequire } from 'node:module';
+import dotenv from 'dotenv';
 import path from 'node:path';
 import { setTimeout } from 'node:timers/promises';
 
@@ -44,14 +45,16 @@ const restartCmd = async (command, port, startTimeout = 3000) => {
 // Determine tce-template and sub-package dir paths
 const { PWD } = process.env;
 const baseDir = PWD.slice(0, PWD.indexOf('/node_modules/'));
+// Load .env file
+dotenv.config({ path: `${baseDir}/.env` });
+// Set env variables for runtimes
+// Provides info for component/hook autoloading (where from)
 const tcePackageDirs = {
   TCE_DISPLAY_DIR: `${baseDir}/packages/display`,
   TCE_EDIT_DIR: `${baseDir}/packages/edit`,
   TCE_SERVER_DIR: `${baseDir}/packages/server`,
   TCE_MANIFEST_DIR: `${baseDir}/packages/manifest`
 };
-// Set env variables for runtimes
-// Provides info for component/hook autoloading (where from)
 Object.keys(tcePackageDirs).forEach((key) =>
   (process.env[key] = `${tcePackageDirs[key]}/dist`));
 // Load runtime log
