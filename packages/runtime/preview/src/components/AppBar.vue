@@ -10,12 +10,19 @@ const { isDark, toggleDark, showEdit, showDisplay, showBothComponents } =
   <v-app-bar :color="isDark ? 'grey-darken-4' : 'grey-lighten-4'" elevation="1">
     <template #prepend>
       <v-app-bar-nav-icon class="ml-2">
-        <img :src="logoUrl" alt="Tailor logo" width="24" />
+        <img :src="logoUrl" alt="Tailor logo" width="36" />
       </v-app-bar-nav-icon>
     </template>
-    <v-app-bar-title class="ml-1 font-weight-bold">
+    <v-app-bar-title class="ml-2">
       Content Element Kit
-      <span class="pl-1 text-body-2 font-weight-bold">0.0.1</span>
+      <v-chip
+        class="ml-3 mb-1 text-body-2"
+        color="teal-accent-4"
+        density="compact"
+        variant="tonal"
+      >
+        0.3.0
+      </v-chip>
     </v-app-bar-title>
     <v-spacer />
     <v-btn-toggle
@@ -39,8 +46,8 @@ const { isDark, toggleDark, showEdit, showDisplay, showBothComponents } =
     <v-btn href="https://github.com/tailor-cms/tce-template" icon>
       <v-icon>mdi-github</v-icon>
     </v-btn>
-    <v-btn icon @click.prevent="toggleDark()">
-      <v-icon>mdi-theme-light-dark</v-icon>
+    <v-btn href="https://tailor-cms.github.io/xt/" icon>
+      <v-icon>mdi-book-outline</v-icon>
     </v-btn>
   </v-app-bar>
 </template>
