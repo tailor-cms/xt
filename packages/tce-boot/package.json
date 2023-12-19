@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-boot",
   "description": "Content element runtime boot script",
   "author": "ExtensionEngine <info@extensionengine.com>",
-  "version": "0.3.1",
+  "version": "0.3.2-beta.1",
   "type": "module",
   "scripts": {
     "start": "node src/index.js",
@@ -17,8 +17,8 @@
     "boxen": "^7.1.1",
     "concurrently": "^8.2.0",
     "fkill": "^8.1.1",
-    "is-docker": "^3.0.0",
     "lodash": "^4.17.21",
+    "open": "^10.0.0",
     "pid-port": "^0.2.0"
   },
   "devDependencies": {

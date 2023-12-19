@@ -1,13 +1,13 @@
 import { createRequire } from 'node:module';
-import dotenv from 'dotenv';
-import isDocker from 'is-docker';
 import path from 'node:path';
 import { setTimeout } from 'node:timers/promises';
 
 import boxen from 'boxen';
 import concurrently from 'concurrently';
 import debounce from 'lodash/debounce.js';
+import dotenv from 'dotenv';
 import fkill from 'fkill';
+import open from 'open';
 import { portToPid } from 'pid-port';
 
 import { getRuntimeLog, saveRuntimeInit } from './utils.js';
@@ -15,6 +15,7 @@ import { getRuntimeLog, saveRuntimeInit } from './utils.js';
 const require = createRequire(import.meta.url);
 
 const SERVICE_PORTS = [8010, 8020, 8030, 8080];
+const PREVIEW_URL = 'http://localhost:8080';
 const TERM_COLORS = ['magenta', 'green', 'blue', 'cyan', 'yellow'];
 
 // Kill running services occupying kit ports
@@ -78,10 +79,9 @@ const runtimes = await Promise.all(
     const pkgRef = `@tailor-cms/tce-${name}-runtime/package.json`;
     const pkgPath = await require.resolve(pkgRef);
     const cmdDir = path.dirname(pkgPath);
-    const viteArgs = ((name === 'preview') && !isDocker()) ? '--open' : '';
     const command = name === 'edit'
-      ? `cd ${cmdDir} && pnpm vite optimize && pnpm dev ${viteArgs}`
-      : `cd ${cmdDir} && pnpm dev ${viteArgs}`;
+      ? `cd ${cmdDir} && pnpm vite optimize && pnpm dev`
+      : `cd ${cmdDir} && pnpm dev`;
     return {
       name: `${name}-runtime`,
       prefixColor: TERM_COLORS[index],
@@ -90,7 +90,6 @@ const runtimes = await Promise.all(
     };
   })
 );
-
 // Run
 // -------------------------------------------------------------------------
 console.log(
@@ -102,6 +101,13 @@ console.log(
   })
 );
 const { commands } = concurrently([...packageWatchers, ...runtimes]);
+// Wait boot and open the browser
+try {
+  await setTimeout(2000);
+  await open(PREVIEW_URL);
+} catch {
+  console.log('Could not open browser!');
+}
 // TODO: Temp initial reboot due to vite first run issues
 // Optimize pre-build step
 if (!runtimeLog.initialBootAt) {
