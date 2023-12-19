@@ -46,7 +46,9 @@ const restartCmd = async (command, port, startTimeout = 3000) => {
 // -------------------------------------------------------------------------
 // Determine tce-template and sub-package dir paths
 const { PWD } = process.env;
-const baseDir = PWD.slice(0, PWD.indexOf('/node_modules/'));
+const baseDir = PWD.includes('/node_modules/')
+  ? PWD.slice(0, PWD.indexOf('/node_modules/'))
+  : PWD;
 // Load .env file
 dotenv.config({ path: `${baseDir}/.env` });
 // Set env variables for runtimes
