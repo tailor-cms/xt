@@ -96,6 +96,7 @@ export default {
   data: () => ({
     element: {},
     isFocused: false,
+    isLinkDialogVisible: false,
   }),
   computed: {
     // TODO: Add editor bus
