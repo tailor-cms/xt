@@ -25,6 +25,7 @@ export default defineConfig(({ mode }): any => {
     root: './src',
     logLevel: 'warn',
     server: {
+      host: '0.0.0.0', // Accept connections from any host (Docker)
       port: 8020,
     },
     optimizeDeps: {

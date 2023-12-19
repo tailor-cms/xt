@@ -7,6 +7,7 @@ export default defineConfig((): any => {
   return {
     root: './src',
     server: {
+      host: '0.0.0.0', // Accept connections from any host (Docker)
       port: 8080,
     },
     logLevel: 'warn',
