@@ -16,6 +16,7 @@
                   :element="element"
                   :is-focused="isFocused"
                   @delete="onDelete"
+                  @link="onLink"
                   @save="onSave"
                 />
               </div>
@@ -48,6 +49,27 @@
         </v-row>
       </v-container>
     </v-main>
+    <v-dialog v-model="isLinkDialogVisible" width="500" persistent>
+      <v-card>
+        <v-card-title class="text-h5">Link element dialog</v-card-title>
+        <v-card-text>
+          In Tailor, this action will open a dialog to select a content element
+          to link to. The `refs` property is updated with mock data to reflect
+          the mocked selection.
+        </v-card-text>
+        <v-divider />
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="blue-grey darken-2"
+            text
+            @click="isLinkDialogVisible = false"
+          >
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -74,6 +96,7 @@ export default {
   data: () => ({
     element: {},
     isFocused: false,
+    isLinkDialogVisible: false,
   }),
   computed: {
     // TODO: Add editor bus
@@ -98,6 +121,21 @@ export default {
     onDelete() {
       // eslint-disable-next-line vue/require-explicit-emits
       this.$emit('delete');
+    },
+    async onLink() {
+      this.isLinkDialogVisible = true;
+      const refs = {
+        linked: [
+          {
+            outlineId: 1,
+            containerId: 2,
+            id: 3,
+          },
+        ],
+      };
+      await api
+        .patch(`content-element/${this.element.id}`, { json: { refs } })
+        .json();
     },
     async getElement() {
       try {

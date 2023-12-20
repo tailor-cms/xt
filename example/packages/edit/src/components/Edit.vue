@@ -29,6 +29,7 @@
       alt="Background image"
       width="300px"
     />
+    <button @click="emit('link')">Link example</button>
   </div>
 </template>
 
@@ -42,7 +43,7 @@ const storageService = inject('$storageService') as StorageApi;
 const elementBus = inject('$elementBus') as any;
 
 const props = defineProps<{ element: Element; isFocused: boolean }>();
-const emit = defineEmits(['save']);
+const emit = defineEmits(['save', 'link']);
 
 const increment = () => {
   const { data } = props.element;

@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-display-runtime",
   "description": "Content element display runtime",
   "author": "ExtensionEngine <info@extensionengine.com>",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -188,7 +188,7 @@ importers:
       '@types/ws': ^8.5.5
       bluebird: ^3.7.2
       cors: ^2.8.5
-      dotenv: ^16.0.3
+      dotenv: ^16.3.1
       express: ^4.18.1
       hash-obj: ^4.0.0
       lodash: ^4.17.21
@@ -228,10 +228,10 @@ importers:
 
   packages/tce-boot:
     specifiers:
-      '@tailor-cms/tce-display-runtime': 0.2.0
-      '@tailor-cms/tce-edit-runtime': 0.2.0
-      '@tailor-cms/tce-preview-runtime': 0.2.0
-      '@tailor-cms/tce-server-runtime': 0.2.1
+      '@tailor-cms/tce-display-runtime': 0.2.1
+      '@tailor-cms/tce-edit-runtime': 0.2.3
+      '@tailor-cms/tce-preview-runtime': 0.2.2
+      '@tailor-cms/tce-server-runtime': 0.2.2
       boxen: ^7.1.1
       concurrently: ^8.2.0
       eslint: '>=8.5.0'
@@ -244,6 +244,7 @@ importers:
       eslint-plugin-promise: '>=6.1.1'
       fkill: ^8.1.1
       lodash: ^4.17.21
+      open: ^10.0.0
       pid-port: ^0.2.0
       prettier: ^2.7.1
     dependencies:
@@ -255,6 +256,7 @@ importers:
       concurrently: 8.2.2
       fkill: 8.1.1
       lodash: 4.17.21
+      open: 10.0.0
       pid-port: 0.2.0
     devDependencies:
       eslint: 8.53.0
@@ -1132,7 +1134,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.4.9_sass@1.68.0
+      vite: 4.4.9_64tj46k4quhv5ljf3qphrfiauy
       vue: 3.3.4
     dev: false
 
@@ -1835,6 +1837,13 @@ packages:
       run-applescript: 5.0.0
     dev: true
 
+  /bundle-name/4.1.0:
+    resolution: {integrity: sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q==}
+    engines: {node: '>=18'}
+    dependencies:
+      run-applescript: 7.0.0
+    dev: false
+
   /bundle-require/4.0.2_esbuild@0.18.20:
     resolution: {integrity: sha512-jwzPOChofl67PSTW2SGubV9HBQAhhR2i6nskiOThauo9dzwDUgOWQScFVaJkjEfYX+UXiD+LEx8EblQMc2wIag==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -2202,6 +2211,11 @@ packages:
       untildify: 4.0.0
     dev: true
 
+  /default-browser-id/5.0.0:
+    resolution: {integrity: sha512-A6p/pu/6fyBcA1TRz/GqWYPViplrftcW2gZC9q79ngNCKAeR/X3gcEdXQHl4KNXV+3wgIJ1CPkJQ3IHM6lcsyA==}
+    engines: {node: '>=18'}
+    dev: false
+
   /default-browser/4.0.0:
     resolution: {integrity: sha512-wX5pXO1+BrhMkSbROFsyxUm0i/cJEScyNhA4PPxc41ICuv05ZZB/MX28s8aZx6xjmatvebIapF6hLEKEcpneUA==}
     engines: {node: '>=14.16'}
@@ -2211,6 +2225,14 @@ packages:
       execa: 7.2.0
       titleize: 3.0.0
     dev: true
+
+  /default-browser/5.2.0:
+    resolution: {integrity: sha512-EviRCeDkniKC30N3uKNHIaIsBZEo00ZOrxDZQmJwJeY2q6Uli5SwfmQ6wSf5aezcBS3PDHoQJl/XuAHEfMCJFg==}
+    engines: {node: '>=18'}
+    dependencies:
+      bundle-name: 4.1.0
+      default-browser-id: 5.0.0
+    dev: false
 
   /define-data-property/1.1.1:
     resolution: {integrity: sha512-E7uGkTzkk1d0ByLeSc6ZsFS79Axg+m1P/VsgYsxHgiuc3tFSj+MjMIwe90FC4lOAZzNBdY7kkO2P2wKdsQ1vgQ==}
@@ -2223,7 +2245,6 @@ packages:
   /define-lazy-prop/3.0.0:
     resolution: {integrity: sha512-N+MeXYoqr3pOgn8xfyRPREN7gHakLYjhsHhWGT3fWAiL4IkAt0iDw14QiiEm2bE30c5XX5q0FtAA3CK5f9/BUg==}
     engines: {node: '>=12'}
-    dev: true
 
   /define-properties/1.2.1:
     resolution: {integrity: sha512-8QmQKqEASLd5nx0U1B1okLElbUuuttJ/AnYmRXbbbGDWh6uS208EjD4Xqq/I9wK7u0v6O08XhTWnt5XtEbR6Dg==}
@@ -3526,7 +3547,6 @@ packages:
     resolution: {integrity: sha512-eljcgEDlEns/7AXFosB5K/2nCM4P7FQPkGc/DWLy5rmFEWvZayGrik1d9/QIY5nJ4f9YsVvBkA6kJpHn9rISdQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     hasBin: true
-    dev: true
 
   /is-extglob/2.1.1:
     resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
@@ -3549,7 +3569,6 @@ packages:
     hasBin: true
     dependencies:
       is-docker: 3.0.0
-    dev: true
 
   /is-lambda/1.0.1:
     resolution: {integrity: sha512-z7CMFGNrENq5iFB9Bqo64Xk6Y9sg+epq1myIcdHaGnbMTYOxvzsEtdYqQUylB7LxfkvgrrjP32T6Ywciio9UIQ==}
@@ -3643,6 +3662,13 @@ packages:
     dependencies:
       is-docker: 2.2.1
     dev: true
+
+  /is-wsl/3.1.0:
+    resolution: {integrity: sha512-UcVfVfaK4Sc4m7X3dUSoHoozQGBEFeDC+zVo06t98xe8CzHSZZBekNXH+tu0NalHolcJ/QAGqS46Hef7QXBIMw==}
+    engines: {node: '>=16'}
+    dependencies:
+      is-inside-container: 1.0.0
+    dev: false
 
   /isarray/1.0.0:
     resolution: {integrity: sha512-VLghIWNM6ELQzo7zwmcg0NmTVyWKYjvIeM83yjp0wRDTmUnrM678fQbcKBo6n2CJEF0szoG//ytg+TKla89ALQ==}
@@ -4240,6 +4266,16 @@ packages:
       mimic-fn: 4.0.0
     dev: true
 
+  /open/10.0.0:
+    resolution: {integrity: sha512-WDekhGCZ7VHBw6sNDzCl42rVL315m/K/A1lYiZO2nHXn9T4yPBXxvrZKYkVPtsCahD815yhFNR9/Wq608PdIaA==}
+    engines: {node: '>=18'}
+    dependencies:
+      default-browser: 5.2.0
+      define-lazy-prop: 3.0.0
+      is-inside-container: 1.0.0
+      is-wsl: 3.1.0
+    dev: false
+
   /open/9.1.0:
     resolution: {integrity: sha512-OS+QTnw1/4vrf+9hh1jc1jnYjzSG4ttTBB8UxOwAnInG3Uo4ssetzC1ihqaIHjLJnA5GGlRl6QlZXOTQhRBUvg==}
     engines: {node: '>=14.16'}
@@ -4644,6 +4680,11 @@ packages:
     dependencies:
       execa: 5.1.1
     dev: true
+
+  /run-applescript/7.0.0:
+    resolution: {integrity: sha512-9by4Ij99JUr/MCFBUkDKLWK3G9HVXmabKz9U5MlIAIuvuzkiOicRYs8XJLxX+xahD+mLiiCYDqF9dKAgtzKP1A==}
+    engines: {node: '>=18'}
+    dev: false
 
   /run-parallel/1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
@@ -5542,7 +5583,7 @@ packages:
       '@vuetify/loader-shared': 1.7.1_vue@3.3.4+vuetify@3.3.17
       debug: 4.3.4
       upath: 2.0.1
-      vite: 4.4.9_sass@1.68.0
+      vite: 4.4.9_64tj46k4quhv5ljf3qphrfiauy
       vuetify: 3.3.17_3zhiord3sdjr4serefajxiaexe
     transitivePeerDependencies:
       - supports-color

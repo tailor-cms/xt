@@ -12,7 +12,7 @@
             :model-value="progress"
             class="my-3"
           />
-          <div class="font-weight-bold">Alpha preview v0.0.1</div>
+          <div class="font-weight-bold">Beta preview v0.3.0</div>
         </div>
       </div>
     </div>
