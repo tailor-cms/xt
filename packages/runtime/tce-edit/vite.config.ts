@@ -32,10 +32,6 @@ export default defineConfig(({ mode }): any => {
     server: {
       host: '0.0.0.0', // Accept connections from any host (Docker)
       port: 8010,
-      cors: {
-        origin: '*',
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'],
-      },
     },
     resolve: {
       preserveSymlinks: true,
