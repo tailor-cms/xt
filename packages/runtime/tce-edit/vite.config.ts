@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from 'vite';
 import Components from 'unplugin-vue-components/vite';
+import defaults from 'lodash/defaults';
 import uniq from 'lodash/uniq';
 import vue from '@vitejs/plugin-vue2';
 import { VuetifyResolver } from 'unplugin-vue-components/resolvers';
@@ -7,12 +8,18 @@ import { VuetifyResolver } from 'unplugin-vue-components/resolvers';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
+const applyDefaultEnv = () => {
+  const env = process.env;
+  const ENV_DEFAULTS = {
+    VITE_EDIT_RUNTIME_PORT: '8010',
+    VITE_SERVER_RUNTIME_URL: 'http://localhost:8030',
+  };
+  defaults(env, ENV_DEFAULTS);
+};
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }): any => {
-  // Default API URL
-  if (!process.env.VITE_API_URL) {
-    process.env.VITE_API_URL = 'http://localhost:8030';
-  }
+  applyDefaultEnv();
   // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
   const env = loadEnv(mode, process.cwd(), '');
@@ -26,12 +33,24 @@ export default defineConfig(({ mode }): any => {
   ]);
   console.log('📦 Loading edit components from:');
   console.log(dirs.join('\n'));
+  const {
+    VITE_EDIT_RUNTIME_PORT,
+    VITE_SERVER_RUNTIME_URL,
+  } = env;
   return {
     root: './src',
     logLevel: 'error',
     server: {
       host: '0.0.0.0', // Accept connections from any host (Docker)
-      port: 8010,
+      port: parseInt(VITE_EDIT_RUNTIME_PORT, 10),
+      proxy: {
+        '/tce-server': {
+          target: VITE_SERVER_RUNTIME_URL,
+          ws: true,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/tce-server/, '')
+        }
+      }
     },
     resolve: {
       preserveSymlinks: true,

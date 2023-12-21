@@ -79,9 +79,10 @@ import ky from 'ky';
 
 import assetApi from './api/asset';
 
-const SERVER_HOST = `localhost:${import.meta.env.VITE_TCE_SERVER_PORT || 8030}`;
-const api = ky.create({ prefixUrl: `http://${SERVER_HOST}` });
-const ws = new WebSocket(`ws://${SERVER_HOST}`);
+const appUrl = new URL(window.location.href);
+const apiPrefix = '/tce-server';
+const api = ky.create({ prefixUrl: apiPrefix });
+const ws = new WebSocket(`ws://${appUrl.host}${apiPrefix}`);
 
 export default {
   directives: {
