@@ -13,6 +13,7 @@
     "@vitejs/plugin-vue": "4.3.4",
     "@vueuse/core": "10.4.1",
     "ky": "1.0.1",
+    "lodash": "^4.17.21",
     "sass": "1.68.0",
     "split.js": "1.6.5",
     "typescript": "5.2.2",
