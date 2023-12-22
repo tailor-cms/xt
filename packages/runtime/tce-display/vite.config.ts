@@ -18,7 +18,7 @@ const DISPLAY_RUNTIME_PORT = env.DISPLAY_RUNTIME_PORT || '8020';
 const SERVER_RUNTIME_URL = env.SERVER_RUNTIME_URL || 'http://localhost:8030';
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }): any => {
+export default defineConfig((): any => {
   const viteConfigPath = fileURLToPath(import.meta.url);
   const displayModulePath = path.relative(viteConfigPath, TCE_DISPLAY_DIR);
   const dirs = uniq([
