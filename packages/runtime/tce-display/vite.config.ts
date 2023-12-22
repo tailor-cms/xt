@@ -1,6 +1,6 @@
-import { defineConfig, loadEnv } from 'vite';
 import Components from 'unplugin-vue-components/vite';
-import defaults from 'lodash/defaults';
+import { defineConfig } from 'vite';
+import dotenv from 'dotenv';
 import uniq from 'lodash/uniq';
 import vue from '@vitejs/plugin-vue';
 import vuetify from 'vite-plugin-vuetify';
@@ -8,21 +8,19 @@ import vuetify from 'vite-plugin-vuetify';
 import { fileURLToPath } from 'url';
 import path from 'node:path';
 
-const applyDefaultEnv = () => {
-  const env = process.env;
-  const ENV_DEFAULTS = {
-    VITE_DISPLAY_RUNTIME_PORT: '8020',
-    VITE_SERVER_RUNTIME_URL: 'http://localhost:8030',
-  };
-  defaults(env, ENV_DEFAULTS);
-};
+const { TCE_DISPLAY_DIR } = process.env;
+const TCE_ROOT_DIR = TCE_DISPLAY_DIR.replace('/packages/display/dist', '');
+
+dotenv.config({ path: `${TCE_ROOT_DIR}/.env` });
+
+const env = process.env;
+const DISPLAY_RUNTIME_PORT = env.DISPLAY_RUNTIME_PORT || '8020';
+const SERVER_RUNTIME_URL = env.SERVER_RUNTIME_URL || 'http://localhost:8030';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }): any => {
-  applyDefaultEnv();
-  const env = loadEnv(mode, process.cwd(), '');
   const viteConfigPath = fileURLToPath(import.meta.url);
-  const displayModulePath = path.relative(viteConfigPath, env.TCE_DISPLAY_DIR);
+  const displayModulePath = path.relative(viteConfigPath, TCE_DISPLAY_DIR);
   const dirs = uniq([
     displayModulePath,
     // Defaults
@@ -31,20 +29,16 @@ export default defineConfig(({ mode }): any => {
   ]);
   console.log('📦 Loading display components from:');
   console.log(dirs.join('\n'));
-  const {
-    VITE_DISPLAY_RUNTIME_PORT,
-    VITE_SERVER_RUNTIME_URL
-  } = env;
   return {
     root: './src',
     logLevel: 'warn',
     server: {
       // Accept connections from any host (Docker)
       host: '0.0.0.0',
-      port: parseInt(VITE_DISPLAY_RUNTIME_PORT, 10),
+      port: parseInt(DISPLAY_RUNTIME_PORT, 10),
       proxy: {
         '/tce-server': {
-          target: VITE_SERVER_RUNTIME_URL,
+          target: SERVER_RUNTIME_URL,
           ws: true,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/tce-server/, ''),

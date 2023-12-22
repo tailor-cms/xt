@@ -1,1 +1,5 @@
-export const port = process.env.VITE_SERVER_RUNTIME_PORT || 8030;
+const { SERVER_RUNTIME_PORT } = process.env;
+
+export const port = SERVER_RUNTIME_PORT
+  ? parseInt(SERVER_RUNTIME_PORT, 10)
+  : 8030;

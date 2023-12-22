@@ -22,7 +22,7 @@
 import { onMounted, ref } from 'vue';
 import ky from 'ky';
 
-const appUrl = new URL(import.meta.env.VITE_BASE_URL);
+const appUrl = new URL(window.location.href);
 const apiPrefix = '/tce-server';
 const api = ky.create({ prefixUrl: apiPrefix });
 const ws = new WebSocket(`ws://${appUrl.host}${apiPrefix}`);
