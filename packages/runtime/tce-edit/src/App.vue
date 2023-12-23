@@ -4,7 +4,13 @@
       <v-container>
         <v-row>
           <v-col>
-            <h2 class="mb-5">Edit preview</h2>
+            <v-chip
+              class="elevation-2 mt-1 mb-2 body-2 font-weight-bold"
+              color="#E0FB61"
+              label
+            >
+              Authoring component
+            </v-chip>
             <v-sheet
               v-click-outside="unfocusElement"
               color="transparent"
@@ -25,7 +31,16 @@
         </v-row>
         <v-row>
           <v-col>
-            <h3>Top toolbar</h3>
+            <div>
+              <v-chip
+                class="elevation-2 my-3 body-2 font-weight-bold"
+                color="grey darken-3"
+                dark
+                label
+              >
+                Top toolbar
+              </v-chip>
+            </div>
             <top-toolbar
               v-if="element.data"
               :element="element"
@@ -37,7 +52,14 @@
         </v-row>
         <v-row>
           <v-col>
-            <h3>Side toolbar</h3>
+            <v-chip
+              class="elevation-2 my-3 body-2 font-weight-bold"
+              color="grey darken-3"
+              dark
+              label
+            >
+              Side toolbar
+            </v-chip>
             <side-toolbar
               v-if="element.data"
               :element="element"

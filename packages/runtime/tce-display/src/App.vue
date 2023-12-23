@@ -4,7 +4,14 @@
       <v-container>
         <v-row>
           <v-col>
-            <h2 class="mb-2">Display preview</h2>
+            <v-chip
+              class="mb-2 text-body-2 font-weight-bold"
+              color="#E0FB61"
+              variant="elevated"
+              label
+            >
+              End-user component
+            </v-chip>
             <Display
               v-if="element.data"
               v-bind="element"

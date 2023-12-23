@@ -2,11 +2,11 @@
 import logoUrl from '../assets/logo.png';
 import { useGlobalState } from '../state';
 
-const { isDark, showEdit, showDisplay, showBothComponents } = useGlobalState();
+const { showEdit, showDisplay, showBothComponents } = useGlobalState();
 </script>
 
 <template>
-  <v-app-bar :color="isDark ? 'grey-darken-4' : 'grey-lighten-4'" elevation="1">
+  <v-app-bar color="blue-grey-darken-4" elevation="6">
     <template #prepend>
       <v-app-bar-nav-icon class="ml-2">
         <img :src="logoUrl" alt="Tailor logo" width="36" />
@@ -16,7 +16,7 @@ const { isDark, showEdit, showDisplay, showBothComponents } = useGlobalState();
       Content Element Kit
       <v-chip
         class="ml-3 mb-1 text-body-2"
-        color="teal-accent-4"
+        color="#23F48B"
         density="compact"
         variant="tonal"
       >
@@ -24,17 +24,13 @@ const { isDark, showEdit, showDisplay, showBothComponents } = useGlobalState();
       </v-chip>
     </v-app-bar-title>
     <v-spacer />
-    <v-btn-toggle
-      :variant="isDark ? 'flat' : 'tonal'"
-      class="mr-4"
-      density="compact"
-    >
+    <v-btn-toggle class="mr-4" density="compact">
       <v-btn @click="showEdit">
-        <span>Edit</span>
+        <span>Authoring</span>
         <v-icon end>mdi-pencil</v-icon>
       </v-btn>
       <v-btn @click="showDisplay">
-        <span>Display</span>
+        <span>End-user</span>
         <v-icon end>mdi-fullscreen</v-icon>
       </v-btn>
       <v-btn @click="showBothComponents">
