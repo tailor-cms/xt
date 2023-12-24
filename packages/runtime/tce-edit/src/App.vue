@@ -104,7 +104,8 @@ import assetApi from './api/asset';
 const appUrl = new URL(window.location.href);
 const apiPrefix = '/tce-server';
 const api = ky.create({ prefixUrl: apiPrefix });
-const ws = new WebSocket(`ws://${appUrl.host}${apiPrefix}`);
+const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
+const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
 export default {
   directives: {
