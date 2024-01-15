@@ -12,10 +12,18 @@ const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
 const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
 const element = ref({});
+const userState = ref({});
+
 onMounted(async () => {
   element.value = await getElement();
-  ws.addEventListener('message', (event) => {
-    element.value = JSON.parse(event.data);
+  ws.addEventListener('message', (message) => {
+    const event = JSON.parse(message.data);
+    if (event.type === 'userState:update') {
+      userState.value = event.payload;
+    }
+    if (event.type === 'element:update') {
+      element.value = event.payload;
+    }
   });
 });
 
@@ -39,7 +47,7 @@ async function getElement() {
 <template>
   <v-app>
     <AppBar />
-    <MainLayout :element="element" class="mt-14" />
+    <MainLayout :element="element" :user-state="userState" class="mt-14" />
   </v-app>
 </template>
 

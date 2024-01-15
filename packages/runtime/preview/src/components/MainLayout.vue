@@ -7,7 +7,7 @@ import PreviewPanel from './PreviewPanel.vue';
 import SplashLoader from './SplashLoader.vue';
 import { useGlobalState } from '../state';
 
-const props = defineProps<{ element: any }>();
+const props = defineProps<{ element: any; userState: any }>();
 
 const { isDark } = useGlobalState();
 const isLoaded = ref(false);
@@ -51,6 +51,7 @@ onMounted(() => {
       id="panelBottom"
       :element="props.element"
       :is-loaded="isLoaded"
+      :user-state="props.userState"
       class="preview-panel-bottom"
     />
   </main>
