@@ -41,7 +41,9 @@ const userState: any = ref({});
 onMounted(() => {
   getElement();
   ws.addEventListener('message', (event) => {
-    element.value = JSON.parse(event.data);
+    const data = JSON.parse(event.data);
+    if (data.type !== 'element:update') return;
+    element.value = data.payload;
   });
 });
 

@@ -130,7 +130,9 @@ export default {
     await this.getElement();
     // Simulate SSE from Tailor
     ws.addEventListener('message', (event) => {
-      this.element = JSON.parse(event.data);
+      const data = JSON.parse(event.data);
+      if (data.type !== 'element:update') return;
+      this.element = data.payload;
     });
   },
   methods: {
