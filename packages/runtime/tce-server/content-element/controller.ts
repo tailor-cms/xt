@@ -1,6 +1,7 @@
 import pick from 'lodash/pick';
 
 import ContentElement from './model';
+import { emitter } from '../common/emitter';
 import { getTceConfig } from '../common/config';
 import initHooks from './hooks';
 
@@ -41,7 +42,9 @@ export default ({ type, initState, hookMap, mocks }) => {
     const contextExtensions = result.transientState
       ? { transientState: result.transientState }
       : {};
-    return res.json(beforeDisplay(req.element, contextExtensions));
+    const displayState = beforeDisplay(req.element, contextExtensions);
+    emitter.emit('userState:update', displayState);
+    return res.json(displayState);
   }
 
   return { get, create, patch, onUserInteraction };
