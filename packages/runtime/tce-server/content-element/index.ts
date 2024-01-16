@@ -5,22 +5,34 @@ import { emitter } from '../common/emitter';
 import initController from './controller';
 
 function initRouter({ type, initState, hookMap, mocks = {} }) {
-  const { get, create, patch, onUserInteraction } = initController({
+  const {
+    get,
+    create,
+    patch,
+    onUserInteraction,
+    resetAuthoringState,
+    resetUserStateContext,
+    setUserStateContext,
+  } = initController({
     type,
     initState,
     hookMap,
-    mocks,
   });
 
   const router = express.Router();
   router.param('id', getContentElement);
-
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   router.route('/').get(get).post(create);
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   router.route('/:id').patch(patch);
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   router.route('/:id/activity').post(onUserInteraction);
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  router.route('/:id/reset-element').post(resetAuthoringState);
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  router.route('/:id/reset-state').post(resetUserStateContext);
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  router.route('/:id/set-state').post(setUserStateContext);
   return router;
 }
 
@@ -38,7 +50,12 @@ async function getContentElement(req, _res, next, id) {
 }
 
 function pushChanges(conn) {
-  emitter.on('element:update', (el) => conn.send(JSON.stringify(el)));
+  const events = ['element:update', 'userState:update'];
+  events.forEach((eventType) =>
+    emitter.on(eventType, (payload) =>
+      conn.send(JSON.stringify({ type: eventType, payload })),
+    ),
+  );
 }
 
 export default {

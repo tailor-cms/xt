@@ -1,15 +1,14 @@
 import pick from 'lodash/pick';
 
 import ContentElement from './model';
+import DisplayContextService from './DisplayContextService';
 import { emitter } from '../common/emitter';
 import { getTceConfig } from '../common/config';
 import initHooks from './hooks';
 
-export default ({ type, initState, hookMap, mocks }) => {
-  const { applyFetchHooks, beforeDisplay, processInteraction } = initHooks(
-    hookMap,
-    mocks,
-  );
+export default ({ type, initState, hookMap }) => {
+  const { applyFetchHooks, beforeDisplay, processInteraction } =
+    initHooks(hookMap);
 
   async function get(req, res) {
     const defaults = { type, data: initState() };
@@ -47,5 +46,30 @@ export default ({ type, initState, hookMap, mocks }) => {
     return res.json(displayState);
   }
 
-  return { get, create, patch, onUserInteraction };
+  async function resetAuthoringState(req, res) {
+    const { element } = req;
+    await element.update({ type, data: initState() });
+    DisplayContextService.resetContext();
+    return get(req, res);
+  }
+
+  async function resetUserStateContext(req, res) {
+    DisplayContextService.resetContext();
+    return get(req, res);
+  }
+
+  async function setUserStateContext(req, res) {
+    DisplayContextService.setCurrentContext(req.body.index);
+    return get(req, res);
+  }
+
+  return {
+    get,
+    create,
+    patch,
+    onUserInteraction,
+    resetAuthoringState,
+    resetUserStateContext,
+    setUserStateContext,
+  };
 };
