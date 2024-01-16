@@ -3,6 +3,7 @@ import express from 'express';
 import { WebSocketServer } from 'ws';
 
 import contentElement from './content-element/index';
+import DisplayContextService from './content-element/DisplayContextService';
 import http from 'node:http';
 import { initDb } from './db';
 import { port } from './config';
@@ -11,6 +12,7 @@ import storageRouter from './storage/storage.router';
 
 function initApp({ type, initState, hookMap, mocks }) {
   const app = express();
+  DisplayContextService.initialize(mocks.displayContexts);
   const router = contentElement.initRouter({ type, initState, hookMap, mocks });
   app.use(cors());
   app.use(express.json());
