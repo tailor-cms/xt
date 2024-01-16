@@ -7,6 +7,7 @@ import PreviewPanel from './PreviewPanel.vue';
 import SplashLoader from './SplashLoader.vue';
 import { useGlobalState } from '../state';
 
+defineEmits(['resetElement', 'resetState']);
 const props = defineProps<{ element: any; userState: any }>();
 
 const { isDark } = useGlobalState();
@@ -53,6 +54,8 @@ onMounted(() => {
       :is-loaded="isLoaded"
       :user-state="props.userState"
       class="preview-panel-bottom"
+      @reset-element="$emit('resetElement')"
+      @reset-state="$emit('resetState')"
     />
   </main>
 </template>

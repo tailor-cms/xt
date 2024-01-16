@@ -2,16 +2,12 @@
   <div v-show="isLoaded">
     <v-tabs v-model="state.selectedTab">
       <v-tab :value="1">
-        <VIcon class="mr-2" size="small">mdi-server</VIcon>
-        Element server state
-      </v-tab>
-      <v-tab :value="2">
         <VChip append-icon="mdi-pen" class="mr-2" color="indigo" size="small">
           {{ state.elementHistory.length }}
         </VChip>
-        Authoring changes
+        Authoring history
       </v-tab>
-      <v-tab :value="3">
+      <v-tab :value="2">
         <VChip
           append-icon="mdi-account"
           class="mr-2"
@@ -20,31 +16,32 @@
         >
           {{ state.userInteractions.length }}
         </VChip>
-        End-User state changes
+        End-User state history
       </v-tab>
     </v-tabs>
     <div class="pa-6">
       <v-window v-model="state.selectedTab">
         <v-window-item :value="1">
-          <JsonEditor
-            v-if="isLoaded"
-            :main-menu-bar="false"
-            :status-bar="false"
-            :value="orderKeys(props.element)"
-            mode="text"
-          />
-        </v-window-item>
-        <v-window-item :value="2">
-          <VBtn class="mb-4" color="indigo-darken-4" variant="tonal">
+          <VBtn
+            class="mb-4"
+            color="indigo-darken-4"
+            variant="tonal"
+            @click="$emit('resetElement')"
+          >
             <VIcon class="mr-2 left">mdi-refresh</VIcon>
-            Reset
+            Reset content element
           </VBtn>
           <MutationList :changes="state.elementHistory" />
         </v-window-item>
-        <v-window-item :value="3">
-          <VBtn class="mb-4" color="indigo-darken-4" variant="tonal">
+        <v-window-item :value="2">
+          <VBtn
+            class="mb-4"
+            color="indigo-darken-4"
+            variant="tonal"
+            @click="$emit('resetState')"
+          >
             <VIcon class="mr-2 left">mdi-refresh</VIcon>
-            Reset
+            Reset end-user state
           </VBtn>
           <MutationList :changes="state.userInteractions" />
         </v-window-item>
@@ -56,10 +53,10 @@
 <script setup lang="ts">
 import { reactive, watch } from 'vue';
 import { format as formatDate } from 'date-fns';
-import JsonEditor from 'vue3-ts-jsoneditor';
 
 import MutationList from './MutationList.vue';
 
+defineEmits(['resetElement', 'resetState']);
 const props = defineProps<{
   isLoaded: Boolean;
   element: any;
@@ -72,7 +69,7 @@ const state = reactive({
   userInteractions: [] as any[],
 });
 
-const orderKeys = (val: any) => {
+const orderContentElementKeys = (val: any) => {
   return [
     'id',
     'uid',
@@ -100,8 +97,9 @@ watch(
     state.elementHistory.unshift({
       id: state.elementHistory.length,
       title: formatDate(val.updatedAt, 'HH:mm:ss'),
-      data: orderKeys(val),
+      data: orderContentElementKeys(val),
     });
+    state.selectedTab = 1;
   },
   { deep: true },
 );
@@ -114,6 +112,7 @@ watch(
       title: formatDate(new Date(), 'HH:mm:ss'),
       data: val,
     });
+    state.selectedTab = 2;
   },
   { deep: true },
 );
