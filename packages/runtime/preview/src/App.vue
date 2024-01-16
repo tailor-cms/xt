@@ -15,7 +15,9 @@ const element = ref({});
 const userState = ref({});
 
 onMounted(async () => {
-  element.value = await getElement();
+  const { element: elementVal, userState: userStateVal } = await getElement();
+  element.value = elementVal;
+  userState.value = userStateVal;
   ws.addEventListener('message', (message) => {
     const event = JSON.parse(message.data);
     if (event.type === 'userState:update') {
@@ -33,8 +35,7 @@ function timeout(ms: number) {
 
 async function getElement() {
   try {
-    const response: any = await api('content-element').json();
-    return response?.element || {};
+    return api('content-element').json();
   } catch (error) {
     console.log('Error on element get', error);
     await timeout(2000);
