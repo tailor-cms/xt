@@ -48,7 +48,7 @@ export default ({ type, initState, hookMap }) => {
 
   async function resetAuthoringState(req, res) {
     const { element } = req;
-    await element.update({ type, data: initState() });
+    await element.update({ type, data: initState(), meta: {}, refs: {} });
     DisplayContextService.resetContext();
     return get(req, res);
   }
