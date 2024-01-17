@@ -55,6 +55,8 @@ export default ({ type, initState, hookMap }) => {
 
   async function resetUserStateContext(req, res) {
     DisplayContextService.resetContext();
+    const displayState = beforeDisplay(req.element);
+    emitter.emit('userState:update', displayState);
     return get(req, res);
   }
 

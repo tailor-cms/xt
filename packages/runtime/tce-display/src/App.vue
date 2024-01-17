@@ -57,8 +57,8 @@ onMounted(() => {
   getElement();
   ws.addEventListener('message', (event) => {
     const data = JSON.parse(event.data);
-    if (data.type !== 'element:update') return;
-    element.value = data.payload;
+    if (data.type === 'element:update') element.value = data.payload;
+    if (data.type === 'userState:update') userState.value = data.payload;
   });
 });
 
