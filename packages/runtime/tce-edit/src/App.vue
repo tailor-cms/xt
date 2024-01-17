@@ -16,7 +16,7 @@
               color="transparent"
               @click="isFocused = true"
             >
-              <div class="edit-frame">
+              <div class="edit-frame pt-3">
                 <Edit
                   v-if="element.data"
                   :element="element"
