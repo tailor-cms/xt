@@ -65,9 +65,7 @@ async function resetState() {
   const id = getElementId();
   if (!id) return;
   const path = `content-element/${id}/reset-state`;
-  const response = await api.post(path);
-  const { userState: userStateVal } = (await response.json()) as any;
-  userState.value = userStateVal;
+  await api.post(path);
 }
 </script>
 
