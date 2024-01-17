@@ -6,7 +6,6 @@
         :src="VITE_EDIT_RUNTIME_URL"
         class="flex-1-1-100"
         frameBorder="0"
-        sandbox="allow-scripts"
         title="Edit component container"
       >
       </iframe>
@@ -17,7 +16,6 @@
         :src="VITE_DISPLAY_RUNTIME_URL"
         class="flex-1-1-100"
         frameBorder="0"
-        sandbox="allow-scripts"
         title="Display component container"
       >
       </iframe>
