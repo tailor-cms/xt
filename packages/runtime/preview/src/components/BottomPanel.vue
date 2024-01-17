@@ -41,7 +41,7 @@
             @click="$emit('resetState')"
           >
             <VIcon class="mr-2 left">mdi-refresh</VIcon>
-            Reset end-user state
+            Reset state context
           </VBtn>
           <MutationList :changes="state.userInteractions" />
         </v-window-item>
