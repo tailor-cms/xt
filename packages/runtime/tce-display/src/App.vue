@@ -4,14 +4,26 @@
       <v-container>
         <v-row>
           <v-col>
-            <v-chip
-              class="mb-2 text-body-2 font-weight-bold"
-              color="#E0FB61"
-              variant="elevated"
-              label
-            >
-              End-user component
-            </v-chip>
+            <div class="d-flex pb-1">
+              <v-chip
+                class="text-body-2 font-weight-bold"
+                color="#E0FB61"
+                variant="elevated"
+                label
+              >
+                End-user component
+              </v-chip>
+              <v-spacer />
+              <VSelect
+                v-model="selectedStateContext"
+                :items="displayStateContexts"
+                density="compact"
+                hide-details
+                item-title="name"
+                label="State preset"
+                @update:model-value="onContextChange"
+                />
+            </div>
             <Display
               v-if="element.data"
               v-bind="element"
@@ -27,6 +39,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import findIndex from 'lodash/findIndex';
 import ky from 'ky';
 
 const appUrl = new URL(window.location.href);
@@ -37,6 +50,8 @@ const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
 const element: any = ref({});
 const userState: any = ref({});
+const displayStateContexts = ref([]);
+const selectedStateContext = ref(null);
 
 onMounted(() => {
   getElement();
@@ -55,12 +70,23 @@ const getElement = async () => {
     if (!response?.element) return;
     element.value = response.element;
     userState.value = response?.userState;
+    const contextsPath = `content-element/${element.value.id}/state-contexts`;
+    displayStateContexts.value = await api(contextsPath).json();
+    selectedStateContext.value = displayStateContexts.value[0];
   } catch (error) {
     console.log('Error on element get', error);
     // Retry
     setTimeout(() => getElement(), 2000);
   }
 };
+
+async function onContextChange(name) {
+  const index = findIndex(displayStateContexts.value, { name });
+  const contextsPath = `content-element/${element.value.id}/set-state`;
+  await api.post(contextsPath, { json: { index } });
+  await getElement();
+  selectedStateContext.value = displayStateContexts.value[index];
+}
 
 const onInteraction = async (data) => {
   try {
