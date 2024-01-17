@@ -58,13 +58,18 @@ export default ({ type, initState, hookMap }) => {
     return get(req, res);
   }
 
-  async function setUserStateContext(req, res) {
+  function getUserStateContexts(_req, res) {
+    res.json(DisplayContextService.getContexts());
+  }
+
+  function setUserStateContext(req, res) {
     DisplayContextService.setCurrentContext(req.body.index);
     return get(req, res);
   }
 
   return {
     get,
+    getUserStateContexts,
     create,
     patch,
     onUserInteraction,

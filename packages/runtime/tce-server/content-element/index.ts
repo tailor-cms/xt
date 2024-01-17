@@ -7,6 +7,7 @@ import initController from './controller';
 function initRouter({ type, initState, hookMap, mocks = {} }) {
   const {
     get,
+    getUserStateContexts,
     create,
     patch,
     onUserInteraction,
@@ -29,9 +30,8 @@ function initRouter({ type, initState, hookMap, mocks = {} }) {
   router.route('/:id/activity').post(onUserInteraction);
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   router.route('/:id/reset-element').post(resetAuthoringState);
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  router.route('/:id/state-contexts').get(getUserStateContexts);
   router.route('/:id/reset-state').post(resetUserStateContext);
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   router.route('/:id/set-state').post(setUserStateContext);
   return router;
 }
