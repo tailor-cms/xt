@@ -6,12 +6,16 @@
       times!
     </div>
     <v-btn class="my-8" @click="submit">Submit interaction</v-btn>
-    <div>User state value: {{ userState }}</div>
+    <div>
+      <div class="text-body-2 font-weight-bold">User state:</div>
+      <pre class="my-1 text-body-2">{{ stringifyObject(userState, { indent: '  ' }) }}</pre>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ElementData } from 'tce-manifest';
+import stringifyObject from 'stringify-object';
 
 const props = defineProps<{ data: ElementData; userState: any }>();
 const emit = defineEmits(['interaction']);
