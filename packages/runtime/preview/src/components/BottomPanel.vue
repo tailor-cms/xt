@@ -94,6 +94,7 @@ const orderContentElementKeys = (val: any) => {
 watch(
   () => props.element,
   (val) => {
+    if (val.updatedAt === state.elementHistory[0]?.data?.updatedAt) return;
     state.elementHistory.unshift({
       id: state.elementHistory.length,
       title: formatDate(val.updatedAt, 'HH:mm:ss'),
