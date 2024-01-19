@@ -1,10 +1,12 @@
 import pick from 'lodash/pick';
 
 import ContentElement from './model';
+import ContentElementService from './ContentElementService';
 import DisplayContextService from './DisplayContextService';
 import { emitter } from '../common/emitter';
 import { getTceConfig } from '../common/config';
 import initHooks from './hooks';
+import PubSubService from '../PubSubService';
 
 export default ({ type, initState, hookMap }) => {
   const { applyFetchHooks, beforeDisplay, processInteraction } =
@@ -12,9 +14,11 @@ export default ({ type, initState, hookMap }) => {
 
   async function get(req, res) {
     const defaults = { type, data: initState() };
-    // NOTE: findOrCreate has issues with SQLite (transactions)
-    let element = await ContentElement.findOne({ where: { type } });
-    if (!element) element = await ContentElement.create(defaults);
+    const element = await ContentElementService.getElement(
+      req.cookies.cekSid,
+      defaults,
+    );
+    PubSubService.subscribe(element.dataValues.id, req.cookies.cekSid);
     const processedElement = await applyFetchHooks(
       element,
       getTceConfig(process.env),
@@ -41,9 +45,9 @@ export default ({ type, initState, hookMap }) => {
     const contextExtensions = result.transientState
       ? { transientState: result.transientState }
       : {};
-    const displayState = beforeDisplay(req.element, contextExtensions);
-    emitter.emit('userState:update', displayState);
-    return res.json(displayState);
+    const data = beforeDisplay(req.element, contextExtensions);
+    emitter.emit('userState:update', { entityId: req.element.id, data });
+    return res.json(data);
   }
 
   async function resetAuthoringState(req, res) {
@@ -56,7 +60,10 @@ export default ({ type, initState, hookMap }) => {
   async function resetUserStateContext(req, res) {
     DisplayContextService.resetContext();
     const displayState = beforeDisplay(req.element);
-    emitter.emit('userState:update', displayState);
+    emitter.emit('userState:update', {
+      entityId: req.element.id,
+      data: displayState,
+    });
     return get(req, res);
   }
 

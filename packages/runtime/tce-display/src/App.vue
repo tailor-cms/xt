@@ -22,7 +22,7 @@
                 item-title="name"
                 label="State preset"
                 @update:model-value="onContextChange"
-                />
+              />
             </div>
             <Display
               v-if="element.data"
@@ -57,6 +57,7 @@ onMounted(() => {
   getElement();
   ws.addEventListener('message', (event) => {
     const data = JSON.parse(event.data);
+    if (element.value?.id && element.value?.id !== data.entityId) return;
     if (data.type === 'element:update') element.value = data.payload;
     if (data.type === 'userState:update') userState.value = data.payload;
   });

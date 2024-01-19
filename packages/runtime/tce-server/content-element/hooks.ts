@@ -21,7 +21,7 @@ export default function initHooks(hooks) {
   }
 
   function registerSocketUpdate(element) {
-    emitter.emit('element:update', element);
+    emitter.emit('element:update', { entityId: element.id, data: element });
     return element;
   }
 

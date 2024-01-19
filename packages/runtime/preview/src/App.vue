@@ -21,6 +21,7 @@ onMounted(async () => {
   userState.value = userStateVal;
   ws.addEventListener('message', (message) => {
     const event = JSON.parse(message.data);
+    if (element.value?.id && element.value?.id !== event.entityId) return;
     if (event.type === 'userState:update') {
       userState.value = event.payload;
     }

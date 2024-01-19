@@ -1,7 +1,6 @@
 import express from 'express';
 
 import ContentElement from './model';
-import { emitter } from '../common/emitter';
 import initController from './controller';
 
 function initRouter({ type, initState, hookMap, mocks = {} }) {
@@ -49,17 +48,7 @@ async function getContentElement(req, _res, next, id) {
   }
 }
 
-function pushChanges(conn) {
-  const events = ['element:update', 'userState:update'];
-  events.forEach((eventType) =>
-    emitter.on(eventType, (payload) =>
-      conn.send(JSON.stringify({ type: eventType, payload })),
-    ),
-  );
-}
-
 export default {
   path: '/content-element',
-  initRouter,
-  pushChanges,
+  initRouter
 };
