@@ -80,7 +80,7 @@ export default function initHooks(hooks) {
   const beforeDisplay = hooksMap.has(ELEMENT_HOOKS.BEFORE_DISPLAY)
     ? (el, contextExtensions = {}) =>
         hooksMap.get(ELEMENT_HOOKS.BEFORE_DISPLAY)(el, {
-          ...DisplayContextService.getCurrentContextData(),
+          ...DisplayContextService.getCurrentContextData(el.id),
           ...contextExtensions,
         })
     : () => ({});
@@ -89,7 +89,7 @@ export default function initHooks(hooks) {
     ? (element, payload) =>
         hooksMap.get(ELEMENT_HOOKS.ON_USER_INTERACTION)(
           element,
-          DisplayContextService.getCurrentContextData(),
+          DisplayContextService.getCurrentContextData(element.id),
           payload,
         )
     : () => ({ updateDisplayState: false });

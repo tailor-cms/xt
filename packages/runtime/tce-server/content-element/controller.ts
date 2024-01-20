@@ -53,12 +53,12 @@ export default ({ type, initState, hookMap }) => {
   async function resetAuthoringState(req, res) {
     const { element } = req;
     await element.update({ type, data: initState(), meta: {}, refs: {} });
-    DisplayContextService.resetContext();
+    DisplayContextService.resetContext(element.id, 0);
     return get(req, res);
   }
 
   async function resetUserStateContext(req, res) {
-    DisplayContextService.resetContext();
+    DisplayContextService.resetContext(req.element.id);
     const displayState = beforeDisplay(req.element);
     emitter.emit('userState:update', {
       entityId: req.element.id,
@@ -72,7 +72,7 @@ export default ({ type, initState, hookMap }) => {
   }
 
   function setUserStateContext(req, res) {
-    DisplayContextService.setCurrentContext(req.body.index);
+    DisplayContextService.setCurrentContext(req.element.id, req.body.index);
     return get(req, res);
   }
 
