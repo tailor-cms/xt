@@ -14,7 +14,7 @@ export default ({ type, initState, hookMap }) => {
 
   async function get(req, res) {
     const defaults = { type, data: initState() };
-    const element = await ContentElementService.getElement(
+    const element = await ContentElementService.findOrCreate(
       req.cookies.cekSid,
       defaults,
     );
