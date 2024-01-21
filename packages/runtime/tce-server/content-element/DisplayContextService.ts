@@ -3,36 +3,42 @@ import cloneDeep from 'lodash/cloneDeep';
 const DEFAULT_CONTEXTS = [{ name: 'Default context', data: {} }];
 
 class DisplayContextService {
-  private initContextValue = DEFAULT_CONTEXTS;
+  private initContextValue = [];
   // Keyed by content element id
-  private displayContexts = {};
+  // One content element can have multiple display contexts for experiencing
+  // differend end-user states
+  private contextsByElementId = {};
+  // Current display context index for particular content element
   // Keyed by content element id
-  private selectedContextByElementId = {};
+  private selectedIndexByElementId = {};
 
-  initialize(displayContextSeed: any[]) {
-    this.initContextValue = cloneDeep(displayContextSeed);
-    this.displayContexts = {};
+  initialize(displayContextSeed = []) {
+    this.initContextValue = displayContextSeed?.length
+      ? displayContextSeed
+      : DEFAULT_CONTEXTS;
+    // Reset runtime context store
+    this.contextsByElementId = {};
   }
 
-  getContexts() {
+  getDefaultContexts() {
     return cloneDeep(this.initContextValue);
   }
 
-  initializeElementContext(id: number) {
-    this.displayContexts[id] = cloneDeep(this.initContextValue);
-    this.selectedContextByElementId[id] = 0;
+  initializeElementContext(elementId: number) {
+    this.contextsByElementId[elementId] = cloneDeep(this.initContextValue);
+    this.selectedIndexByElementId[elementId] = 0;
   }
 
-  isElementContextInitialized(id: number) {
-    const currentContextIndex = this.selectedContextByElementId[id];
+  isElementContextInitialized(elementId: number) {
+    const currentContextIndex = this.selectedIndexByElementId[elementId];
     return typeof currentContextIndex === 'number';
   }
 
   getCurrentContext(elementId: number) {
     if (!this.isElementContextInitialized(elementId))
       this.initializeElementContext(elementId);
-    const currentContextIndex = this.selectedContextByElementId[elementId];
-    return this.displayContexts[elementId][currentContextIndex];
+    const currentContextIndex = this.selectedIndexByElementId[elementId];
+    return this.contextsByElementId[elementId][currentContextIndex];
   }
 
   getCurrentContextData(elementId: number) {
@@ -42,17 +48,16 @@ class DisplayContextService {
   setCurrentContext(elementId: number, contextIndex: number) {
     if (!this.isElementContextInitialized(elementId))
       this.initializeElementContext(elementId);
-    this.selectedContextByElementId[elementId] = contextIndex;
+    this.selectedIndexByElementId[elementId] = contextIndex;
   }
 
   resetContext(elementId: number, index: number = null) {
     if (!this.isElementContextInitialized(elementId)) {
       this.initializeElementContext(elementId);
-      this.setCurrentContext(elementId, index || 0);
       return;
     }
-    if (index === null) index = this.selectedContextByElementId[elementId];
-    this.displayContexts[elementId][index] = cloneDeep(
+    if (index === null) index = this.selectedIndexByElementId[elementId];
+    this.contextsByElementId[elementId][index] = cloneDeep(
       this.initContextValue[index],
     );
   }
