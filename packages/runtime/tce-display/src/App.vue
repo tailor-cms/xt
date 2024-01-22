@@ -39,7 +39,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import findIndex from 'lodash/findIndex';
+import findIndex from 'lodash/findIndex.js';
 import ky from 'ky';
 
 const appUrl = new URL(window.location.href);
