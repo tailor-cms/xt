@@ -18,9 +18,9 @@
                 v-model="selectedStateContext"
                 :items="displayStateContexts"
                 density="compact"
-                hide-details
                 item-title="name"
                 label="State preset"
+                hide-details
                 @update:model-value="onContextChange"
               />
             </div>

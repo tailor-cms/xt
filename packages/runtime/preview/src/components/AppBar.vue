@@ -20,7 +20,7 @@ const { showEdit, showDisplay, showBothComponents } = useGlobalState();
         density="compact"
         variant="tonal"
       >
-        0.3.0
+        0.4.0
       </v-chip>
     </v-app-bar-title>
     <v-spacer />
