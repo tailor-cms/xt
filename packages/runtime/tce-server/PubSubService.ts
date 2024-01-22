@@ -22,7 +22,6 @@ class PubSubService {
 
   registerClient(sessionId, client) {
     if (!this.clients[sessionId]) this.clients[sessionId] = [];
-    if (this.clients[sessionId].find((it) => it.id === client.id)) return;
     this.clients[sessionId].push(client);
     // Remove on close
     client.on('close', () => {

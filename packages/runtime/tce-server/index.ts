@@ -20,6 +20,7 @@ function initApp({ type, initState, hookMap, mocks }) {
   const app = express();
   DisplayContextService.initialize(mocks.displayContexts);
   app.use(cookieParser());
+  // Intentionally exposing secret as this should be only used for development
   app.use(session({ secret: 'dev', saveUninitialized: true, key: 'cekSid' }));
   app.use(cors());
   app.use(express.json());
@@ -40,7 +41,7 @@ function initApp({ type, initState, hookMap, mocks }) {
     cookieParser(req);
     const sid = parseCookie(req.headers.cookie)?.cekSid;
     if (!sid) return conn.close();
-    set(conn, 'id', hash(sid + req.headers.origin));
+    set(conn, 'id', hash(sid + new Date().getTime()));
     PubSubService.registerClient(sid, conn);
   });
   return { httpServer, wsServer };
