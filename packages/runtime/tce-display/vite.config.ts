@@ -46,7 +46,10 @@ export default defineConfig((): any => {
       },
     },
     optimizeDeps: {
-      include: [displayModulePath.replace(/\/dist$/, ''), 'lodash'],
+      include: [
+        displayModulePath.replace(/\/dist$/, ''),
+        'lodash/findIndex.js',
+      ],
     },
     resolve: {
       preserveSymlinks: true,
