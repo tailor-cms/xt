@@ -88,6 +88,7 @@ importers:
     specifiers:
       '@tailor-cms/eslint-config': 0.0.2
       '@vitejs/plugin-vue': ^4.2.3
+      eslint: '>=8.13.0'
       stringify-object: ^5.0.0
       tce-manifest: workspace:*
       typescript: ^5.1.6
@@ -100,6 +101,7 @@ importers:
     devDependencies:
       '@tailor-cms/eslint-config': link:../../../packages/eslint
       '@vitejs/plugin-vue': 4.3.4_vite@4.4.9+vue@3.3.4
+      eslint: 8.56.0
       tce-manifest: link:../manifest
       typescript: 5.2.2
       vite: 4.4.9
@@ -110,6 +112,7 @@ importers:
       '@tailor-cms/cek-common': 0.0.3
       '@tailor-cms/eslint-config': 0.0.2
       '@vitejs/plugin-vue2': ^2.2.0
+      eslint: '>=8.13.0'
       tce-manifest: workspace:*
       typescript: ^5.1.6
       vite: ^4.4.5
@@ -121,6 +124,7 @@ importers:
     devDependencies:
       '@tailor-cms/eslint-config': link:../../../packages/eslint
       '@vitejs/plugin-vue2': 2.2.0_vite@4.4.9+vue@2.7.14
+      eslint: 8.56.0
       tce-manifest: link:../manifest
       typescript: 5.2.2
       vite: 4.4.9
@@ -129,10 +133,12 @@ importers:
   example/packages/manifest:
     specifiers:
       '@tailor-cms/eslint-config': 0.0.2
+      eslint: '>=8.13.0'
       tsup: ^7.2.0
       typescript: ^5.1.6
     devDependencies:
       '@tailor-cms/eslint-config': link:../../../packages/eslint
+      eslint: 8.56.0
       tsup: 7.3.0_typescript@5.2.2
       typescript: 5.2.2
 
@@ -140,12 +146,14 @@ importers:
     specifiers:
       '@tailor-cms/cek-common': 0.0.3
       '@tailor-cms/eslint-config': 0.0.2
+      eslint: '>=8.13.0'
       tce-manifest: workspace:*
       tsup: ^7.2.0
       typescript: ^5.1.6
     devDependencies:
       '@tailor-cms/cek-common': link:../../../packages/common
       '@tailor-cms/eslint-config': link:../../../packages/eslint
+      eslint: 8.56.0
       tce-manifest: link:../manifest
       tsup: 7.3.0_typescript@5.2.2
       typescript: 5.2.2

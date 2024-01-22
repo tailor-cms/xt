@@ -8,7 +8,9 @@
     <v-btn class="my-8" @click="submit">Submit interaction</v-btn>
     <div>
       <div class="text-body-2 font-weight-bold">User state:</div>
-      <pre class="my-1 text-body-2">{{ stringifyObject(userState, { indent: '  ' }) }}</pre>
+      <pre class="my-1 text-body-2">{{
+        stringifyObject(userState, { indent: '  ' })
+      }}</pre>
     </div>
   </div>
 </template>
