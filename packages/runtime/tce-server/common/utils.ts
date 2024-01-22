@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 
 export const parseCookie = (str) =>
-  str
+  (str || '')
     .split(';')
     .map((v) => v.split('='))
     .reduce((acc, v) => {
