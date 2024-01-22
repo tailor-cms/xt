@@ -46,7 +46,7 @@ export default defineConfig((): any => {
       },
     },
     optimizeDeps: {
-      include: [displayModulePath.replace(/\/dist$/, '')],
+      include: [displayModulePath.replace(/\/dist$/, ''), 'lodash'],
     },
     resolve: {
       preserveSymlinks: true,
