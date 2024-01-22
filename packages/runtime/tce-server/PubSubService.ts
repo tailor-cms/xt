@@ -10,9 +10,6 @@ class PubSubService {
     events.forEach((type) => {
       emitter.on(type, ({ entityId, data: payload }) => {
         const clients = this.getElementSubscriptions(entityId);
-        console.log('Event:', type);
-        console.log('Number of clients:', clients.length);
-        console.log('Updated entity:', entityId);
         clients.forEach((conn) =>
           conn.send(JSON.stringify({ type, entityId, payload })),
         );
@@ -39,7 +36,6 @@ class PubSubService {
   getElementSubscriptions(elementId) {
     const sessionIds = this.subscriptions[elementId] || [];
     return sessionIds.reduce((acc, sessionId) => {
-      console.log('Resolving client for sessionId:', sessionId);
       const clients = this.clients[sessionId] || [];
       return [...acc, ...clients];
     }, []);
