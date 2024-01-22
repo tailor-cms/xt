@@ -20,8 +20,10 @@ class DisplayContextService {
     this.contextsByElementId = {};
   }
 
-  getDefaultContexts() {
-    return cloneDeep(this.initContextValue);
+  getElementContexts(elementId: number) {
+    if (!this.isElementContextInitialized(elementId))
+      this.initializeElementContext(elementId);
+    return this.contextsByElementId[elementId];
   }
 
   initializeElementContext(elementId: number) {

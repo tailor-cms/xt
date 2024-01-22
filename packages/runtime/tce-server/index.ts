@@ -25,7 +25,7 @@ function initApp({ type, initState, hookMap, mocks }) {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
-  const router = contentElement.initRouter({ type, initState, hookMap, mocks });
+  const router = contentElement.initRouter({ type, initState, hookMap });
   app.use(contentElement.path, router);
   app.use(storageRouter.path, storageRouter.router);
   app.use(express.static(storageConfig.storagePath));

@@ -5,23 +5,27 @@ import ky from 'ky';
 import AppBar from './components/AppBar.vue';
 import MainLayout from './components/MainLayout.vue';
 
+interface ContentElement {
+  id: number;
+}
+
 const appUrl = new URL(window.location.href);
 const apiPrefix = '/tce-server';
 const api = ky.create({ prefixUrl: apiPrefix });
 const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
 const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
-const element = ref({});
+const element = ref<ContentElement>();
 const userState = ref({});
 
 onMounted(async () => {
-  const { element: elementVal, userState: userStateVal } =
-    (await getElement()) as any;
+  const { element: elementVal, userState: userStateVal } = await getElement();
   element.value = elementVal;
   userState.value = userStateVal;
   ws.addEventListener('message', (message) => {
     const event = JSON.parse(message.data);
-    if (element.value?.id && element.value?.id !== event.entityId) return;
+    const elementId = element.value?.id;
+    if (elementId && elementId !== event.entityId) return;
     if (event.type === 'userState:update') {
       userState.value = event.payload;
     }
@@ -35,7 +39,7 @@ function timeout(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function getElement() {
+async function getElement(): Promise<any> {
   try {
     return api('content-element').json();
   } catch (error) {
@@ -46,27 +50,19 @@ async function getElement() {
   }
 }
 
-function getElementId() {
-  const { id } = element.value as { id: number };
-  return id;
-}
-
 async function resetElement() {
-  const id = getElementId();
+  const id = element.value?.id;
   if (!id) return;
+  await resetState();
   const path = `content-element/${id}/reset-element`;
-  const response = await api.post(path);
-  const { element: elementVal, userState: userStateVal } =
-    (await response.json()) as any;
-  element.value = elementVal;
-  userState.value = userStateVal;
+  return api.post(path);
 }
 
 async function resetState() {
-  const id = getElementId();
+  const id = element.value?.id;
   if (!id) return;
   const path = `content-element/${id}/reset-state`;
-  await api.post(path);
+  return api.post(path);
 }
 </script>
 

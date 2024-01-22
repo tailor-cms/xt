@@ -3,12 +3,11 @@ import express from 'express';
 import ContentElement from './model';
 import initController from './controller';
 
-function initRouter({ type, initState, hookMap, mocks = {} }) {
+function initRouter({ type, initState, hookMap }) {
   const {
-    get,
+    get: getCtrl,
     getUserStateContexts,
-    create,
-    patch,
+    patch: patchCtrl,
     onUserInteraction,
     resetAuthoringState,
     resetUserStateContext,
@@ -19,19 +18,16 @@ function initRouter({ type, initState, hookMap, mocks = {} }) {
     hookMap,
   });
 
+  /* eslint-disable @typescript-eslint/no-misused-promises */
   const router = express.Router();
   router.param('id', getContentElement);
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  router.route('/').get(get).post(create);
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  router.route('/:id').patch(patch);
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  router.route('/').get(getCtrl);
+  router.route('/:id').patch(patchCtrl);
   router.route('/:id/activity').post(onUserInteraction);
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   router.route('/:id/reset-element').post(resetAuthoringState);
   router.route('/:id/state-contexts').get(getUserStateContexts);
-  router.route('/:id/reset-state').post(resetUserStateContext);
   router.route('/:id/set-state').post(setUserStateContext);
+  router.route('/:id/reset-state').post(resetUserStateContext);
   return router;
 }
 
@@ -50,5 +46,5 @@ async function getContentElement(req, _res, next, id) {
 
 export default {
   path: '/content-element',
-  initRouter
+  initRouter,
 };

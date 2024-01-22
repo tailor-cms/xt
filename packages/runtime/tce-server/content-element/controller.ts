@@ -1,6 +1,5 @@
 import pick from 'lodash/pick';
 
-import ContentElement from './model';
 import ContentElementService from './ContentElementService';
 import DisplayContextService from './DisplayContextService';
 import { emitter } from '../common/emitter';
@@ -14,10 +13,13 @@ export default ({ type, initState, hookMap }) => {
 
   async function get(req, res) {
     const defaults = { type, data: initState() };
+    // Find or create session content element
     const element = await ContentElementService.findOrCreate(
       req.cookies.cekSid,
       defaults,
     );
+    // Subscribe to content element and user state updates
+    // Session id is used to identify proper ws connections
     PubSubService.subscribe(element.dataValues.id, req.cookies.cekSid);
     const processedElement = await applyFetchHooks(
       element,
@@ -28,58 +30,48 @@ export default ({ type, initState, hookMap }) => {
     res.json({ element: processedElement, userState });
   }
 
-  async function create(req, res) {
-    const element = await ContentElement.create(req.body);
-    res.json(element);
+  async function patch({ element, body }, res) {
+    const inputData = pick(body, ['data', 'meta', 'refs']);
+    const outputData = await element.update(inputData);
+    res.json(outputData);
   }
 
-  async function patch(req, res) {
-    const payload = pick(req.body, ['data', 'meta', 'refs']);
-    const element = await req.element.update(payload);
-    res.json(element);
-  }
-
-  async function onUserInteraction(req, res) {
-    const result = await processInteraction(req.element, req.body);
+  async function onUserInteraction({ element, body }, res) {
+    const result = await processInteraction(element, body);
     if (!result?.updateDisplayState) return res.status(204).end();
     const contextExtensions = result.transientState
       ? { transientState: result.transientState }
       : {};
-    const data = beforeDisplay(req.element, contextExtensions);
-    emitter.emit('userState:update', { entityId: req.element.id, data });
+    const data = beforeDisplay(element, contextExtensions);
+    emitter.emit('userState:update', { entityId: element.id, data });
     return res.json(data);
   }
 
-  async function resetAuthoringState(req, res) {
-    const { element } = req;
+  async function resetAuthoringState({ element }, res) {
     await element.update({ type, data: initState(), meta: {}, refs: {} });
-    DisplayContextService.resetContext(element.id, 0);
-    return get(req, res);
+    return res.status(200).end();
   }
 
-  async function resetUserStateContext(req, res) {
-    DisplayContextService.resetContext(req.element.id);
-    const displayState = beforeDisplay(req.element);
-    emitter.emit('userState:update', {
-      entityId: req.element.id,
-      data: displayState,
-    });
-    return get(req, res);
+  function resetUserStateContext({ element }, res) {
+    DisplayContextService.resetContext(element.id);
+    const data = beforeDisplay(element);
+    emitter.emit('userState:update', { entityId: element.id, data });
+    return res.status(200).end();
   }
 
-  function getUserStateContexts(_req, res) {
-    res.json(DisplayContextService.getDefaultContexts());
+  function getUserStateContexts({ element }, res) {
+    res.json(DisplayContextService.getElementContexts(element.id));
   }
 
   function setUserStateContext(req, res) {
-    DisplayContextService.setCurrentContext(req.element.id, req.body.index);
+    const { element, body } = req;
+    DisplayContextService.setCurrentContext(element.id, body.index);
     return get(req, res);
   }
 
   return {
     get,
     getUserStateContexts,
-    create,
     patch,
     onUserInteraction,
     resetAuthoringState,
