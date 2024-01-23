@@ -19,6 +19,7 @@ export default defineConfig({
           { text: "Introduction", link: "/introduction" },
           { text: "Installation", link: "/installation" },
           { text: "Example", link: "/example" },
+          { text: "Environment variables", link: "/enviroment-variables" },
         ],
       },
       {
