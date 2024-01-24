@@ -24,7 +24,15 @@ function initApp({ type, initState, hookMap, mocks }) {
   app.use(cookieParserMw);
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
-
+  // Check if client ID cookie is present
+  // Required to be able to identify unique client
+  app.use((req, res, next) => {
+    if (!req.cookies.cekClientId) {
+      res.statusMessage = 'cekClientId cookie is missing';
+      res.status(400).end();
+    }
+    next();
+  });
   const router = contentElement.initRouter({ type, initState, hookMap });
   app.use(contentElement.path, router);
   app.use(storageRouter.path, storageRouter.router);
