@@ -21,7 +21,7 @@ export default function initHooks(hooks) {
   }
 
   function registerSocketUpdate(element) {
-    emitter.emit('element:update', { entityId: element.id, data: element });
+    emitter.emit('element:update', { entityId: element.uid, data: element });
     return element;
   }
 
@@ -80,7 +80,7 @@ export default function initHooks(hooks) {
   const beforeDisplay = hooksMap.has(ELEMENT_HOOKS.BEFORE_DISPLAY)
     ? (el, contextExtensions = {}) =>
         hooksMap.get(ELEMENT_HOOKS.BEFORE_DISPLAY)(el, {
-          ...DisplayContextService.getCurrentContextData(el.id),
+          ...DisplayContextService.getCurrentContextData(el.uid),
           ...contextExtensions,
         })
     : () => ({});
@@ -89,7 +89,7 @@ export default function initHooks(hooks) {
     ? (element, payload) =>
         hooksMap.get(ELEMENT_HOOKS.ON_USER_INTERACTION)(
           element,
-          DisplayContextService.getCurrentContextData(element.id),
+          DisplayContextService.getCurrentContextData(element.uid),
           payload,
         )
     : () => ({ updateDisplayState: false });

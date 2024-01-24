@@ -4,62 +4,62 @@ const DEFAULT_CONTEXTS = [{ name: 'Default context', data: {} }];
 
 class DisplayContextService {
   private initContextValue = [];
-  // Keyed by content element id
+  // Keyed by content element uid
   // One content element can have multiple display contexts for experiencing
-  // differend end-user states
-  private contextsByElementId = {};
+  // different end-user states
+  private contextsByElementUid = {};
   // Current display context index for particular content element
-  // Keyed by content element id
-  private selectedIndexByElementId = {};
+  // Keyed by content element uid
+  private selectedIndexByElementUid = {};
 
   initialize(displayContextSeed = []) {
     this.initContextValue = displayContextSeed?.length
       ? displayContextSeed
       : DEFAULT_CONTEXTS;
     // Reset runtime context store
-    this.contextsByElementId = {};
+    this.contextsByElementUid = {};
   }
 
-  getElementContexts(elementId: number) {
-    if (!this.isElementContextInitialized(elementId))
-      this.initializeElementContext(elementId);
-    return this.contextsByElementId[elementId];
+  getElementContexts(elementUid: string) {
+    if (!this.isElementContextInitialized(elementUid))
+      this.initializeElementContext(elementUid);
+    return this.contextsByElementUid[elementUid];
   }
 
-  initializeElementContext(elementId: number) {
-    this.contextsByElementId[elementId] = cloneDeep(this.initContextValue);
-    this.selectedIndexByElementId[elementId] = 0;
+  initializeElementContext(elementUid: string) {
+    this.contextsByElementUid[elementUid] = cloneDeep(this.initContextValue);
+    this.selectedIndexByElementUid[elementUid] = 0;
   }
 
-  isElementContextInitialized(elementId: number) {
-    const currentContextIndex = this.selectedIndexByElementId[elementId];
+  isElementContextInitialized(elementUid: string) {
+    const currentContextIndex = this.selectedIndexByElementUid[elementUid];
     return typeof currentContextIndex === 'number';
   }
 
-  getCurrentContext(elementId: number) {
-    if (!this.isElementContextInitialized(elementId))
-      this.initializeElementContext(elementId);
-    const currentContextIndex = this.selectedIndexByElementId[elementId];
-    return this.contextsByElementId[elementId][currentContextIndex];
+  getCurrentContext(elementUid: string) {
+    if (!this.isElementContextInitialized(elementUid))
+      this.initializeElementContext(elementUid);
+    const currentContextIndex = this.selectedIndexByElementUid[elementUid];
+    return this.contextsByElementUid[elementUid][currentContextIndex];
   }
 
-  getCurrentContextData(elementId: number) {
-    return this.getCurrentContext(elementId)?.data || {};
+  getCurrentContextData(elementUid: string) {
+    return this.getCurrentContext(elementUid)?.data || {};
   }
 
-  setCurrentContext(elementId: number, contextIndex: number) {
-    if (!this.isElementContextInitialized(elementId))
-      this.initializeElementContext(elementId);
-    this.selectedIndexByElementId[elementId] = contextIndex;
+  setCurrentContext(elementUid: string, contextIndex: number) {
+    if (!this.isElementContextInitialized(elementUid))
+      this.initializeElementContext(elementUid);
+    this.selectedIndexByElementUid[elementUid] = contextIndex;
   }
 
-  resetContext(elementId: number, index: number = null) {
-    if (!this.isElementContextInitialized(elementId)) {
-      this.initializeElementContext(elementId);
+  resetContext(elementUid: string, index: number = null) {
+    if (!this.isElementContextInitialized(elementUid)) {
+      this.initializeElementContext(elementUid);
       return;
     }
-    if (index === null) index = this.selectedIndexByElementId[elementId];
-    this.contextsByElementId[elementId][index] = cloneDeep(
+    if (index === null) index = this.selectedIndexByElementUid[elementUid];
+    this.contextsByElementUid[elementUid][index] = cloneDeep(
       this.initContextValue[index],
     );
   }

@@ -57,7 +57,8 @@ onMounted(() => {
   getElement();
   ws.addEventListener('message', (event) => {
     const data = JSON.parse(event.data);
-    if (element.value?.id && element.value?.id !== data.entityId) return;
+    const elementUid = element.value?.uid;
+    if (elementUid && elementUid !== data.entityId) return;
     if (data.type === 'element:update') element.value = data.payload;
     if (data.type === 'userState:update') userState.value = data.payload;
   });

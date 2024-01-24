@@ -132,7 +132,7 @@ export default {
     ws.addEventListener('message', (event) => {
       const data = JSON.parse(event.data);
       if (data.type !== 'element:update') return;
-      if (this.element?.id && this.element?.id !== data.entityId) return;
+      if (this.element?.uid && this.element?.uid !== data.entityId) return;
       this.element = data.payload;
     });
   },

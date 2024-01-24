@@ -7,6 +7,7 @@ import MainLayout from './components/MainLayout.vue';
 
 interface ContentElement {
   id: number;
+  uid: string;
 }
 
 const appUrl = new URL(window.location.href);
@@ -24,8 +25,8 @@ onMounted(async () => {
   userState.value = userStateVal;
   ws.addEventListener('message', (message) => {
     const event = JSON.parse(message.data);
-    const elementId = element.value?.id;
-    if (elementId && elementId !== event.entityId) return;
+    const elementUid = element.value?.uid;
+    if (elementUid && elementUid !== event.entityId) return;
     if (event.type === 'userState:update') {
       userState.value = event.payload;
     }

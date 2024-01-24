@@ -1,10 +1,11 @@
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
+import getVal from 'lodash/get';
 import set from 'lodash/set';
+import { v4 as uuid } from '@lukeed/uuid/secure';
 import { WebSocketServer } from 'ws';
 
-import { hash, parseCookie } from './common/utils';
 import contentElement from './content-element/index';
 import DisplayContextService from './content-element/DisplayContextService';
 import http from 'node:http';
@@ -14,15 +15,13 @@ import PubSubService from './PubSubService';
 import storageConfig from './storage/config';
 import storageRouter from './storage/storage.router';
 
-const { default: session } = await import('express-session');
+const cookieParserMw = cookieParser();
 
 function initApp({ type, initState, hookMap, mocks }) {
-  const app = express();
   DisplayContextService.initialize(mocks.displayContexts);
-  app.use(cookieParser());
-  // Intentionally exposing secret as this should be only used for development
-  app.use(session({ secret: 'dev', saveUninitialized: true, key: 'cekSid' }));
+  const app = express();
   app.use(cors());
+  app.use(cookieParserMw);
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
@@ -37,12 +36,13 @@ function initApp({ type, initState, hookMap, mocks }) {
   });
 
   const wsServer = new WebSocketServer({ server: httpServer });
-  wsServer.on('connection', (conn, req) => {
-    cookieParser(req);
-    const sid = parseCookie(req.headers.cookie)?.cekSid;
-    if (!sid) return conn.close();
-    set(conn, 'id', hash(sid + new Date().getTime()));
-    PubSubService.registerClient(sid, conn);
+  wsServer.on('connection', (connection, req) => {
+    cookieParserMw(req, null, () => {
+      const clientId = getVal(req, 'cookies.cekClientId');
+      if (!clientId) return connection.close();
+      set(connection, 'id', `${clientId}_${uuid()}`);
+      PubSubService.subscribe(clientId, connection);
+    });
   });
   return { httpServer, wsServer };
 }

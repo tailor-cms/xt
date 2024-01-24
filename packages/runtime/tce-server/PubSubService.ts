@@ -1,44 +1,31 @@
 import { emitter } from './common/emitter';
 
 class PubSubService {
-  // ws connections
-  private clients = {};
-  private subscriptions = {};
+  // websocket connections
+  private connections = {};
 
   constructor() {
     const events = ['element:update', 'userState:update'];
     events.forEach((type) => {
       emitter.on(type, ({ entityId, data: payload }) => {
-        const clients = this.getElementSubscriptions(entityId);
-        clients.forEach((conn) =>
+        const connections = this.connections[entityId] || [];
+        connections.forEach((conn) =>
           conn.send(JSON.stringify({ type, entityId, payload })),
         );
       });
     });
   }
 
-  registerClient(sessionId, client) {
-    if (!this.clients[sessionId]) this.clients[sessionId] = [];
-    this.clients[sessionId].push(client);
+  subscribe(entityId, client) {
+    if (!this.connections[entityId]) this.connections[entityId] = [];
+    this.connections[entityId].push(client);
     // Remove on close
     client.on('close', () => {
-      const clients = this.clients[sessionId];
-      this.clients[sessionId] = clients.filter((it) => it.id !== client.id);
+      const connections = this.connections[entityId];
+      this.connections[entityId] = connections.filter(
+        (it) => it.id !== client.id,
+      );
     });
-  }
-
-  subscribe(elementId, sessionId) {
-    if (!this.subscriptions[elementId]) this.subscriptions[elementId] = [];
-    if (this.subscriptions[elementId].includes(sessionId)) return;
-    this.subscriptions[elementId].push(sessionId);
-  }
-
-  getElementSubscriptions(elementId) {
-    const sessionIds = this.subscriptions[elementId] || [];
-    return sessionIds.reduce((acc, sessionId) => {
-      const clients = this.clients[sessionId] || [];
-      return [...acc, ...clients];
-    }, []);
   }
 }
 

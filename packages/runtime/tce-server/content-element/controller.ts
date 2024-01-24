@@ -5,7 +5,6 @@ import DisplayContextService from './DisplayContextService';
 import { emitter } from '../common/emitter';
 import { getTceConfig } from '../common/config';
 import initHooks from './hooks';
-import PubSubService from '../PubSubService';
 
 export default ({ type, initState, hookMap }) => {
   const { applyFetchHooks, beforeDisplay, processInteraction } =
@@ -15,18 +14,15 @@ export default ({ type, initState, hookMap }) => {
     const defaults = { type, data: initState() };
     // Find or create session content element
     const element = await ContentElementService.findOrCreate(
-      req.cookies.cekSid,
+      req.cookies.cekClientId,
       defaults,
     );
-    // Subscribe to content element and user state updates
-    // Session id is used to identify proper ws connections
-    PubSubService.subscribe(element.dataValues.id, req.cookies.cekSid);
     const processedElement = await applyFetchHooks(
       element,
       getTceConfig(process.env),
       req.query?.runtime || 'authoring',
     );
-    const userState = await beforeDisplay(element);
+    const userState = await beforeDisplay(processedElement);
     res.json({ element: processedElement, userState });
   }
 
@@ -43,7 +39,7 @@ export default ({ type, initState, hookMap }) => {
       ? { transientState: result.transientState }
       : {};
     const data = beforeDisplay(element, contextExtensions);
-    emitter.emit('userState:update', { entityId: element.id, data });
+    emitter.emit('userState:update', { entityId: element.uid, data });
     return res.json(data);
   }
 
@@ -53,19 +49,19 @@ export default ({ type, initState, hookMap }) => {
   }
 
   function resetUserStateContext({ element }, res) {
-    DisplayContextService.resetContext(element.id);
+    DisplayContextService.resetContext(element.uid);
     const data = beforeDisplay(element);
-    emitter.emit('userState:update', { entityId: element.id, data });
+    emitter.emit('userState:update', { entityId: element.uid, data });
     return res.status(200).end();
   }
 
   function getUserStateContexts({ element }, res) {
-    res.json(DisplayContextService.getElementContexts(element.id));
+    res.json(DisplayContextService.getElementContexts(element.uid));
   }
 
   function setUserStateContext(req, res) {
     const { element, body } = req;
-    DisplayContextService.setCurrentContext(element.id, body.index);
+    DisplayContextService.setCurrentContext(element.uid, body.index);
     return get(req, res);
   }
 
