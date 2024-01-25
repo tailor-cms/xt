@@ -33,7 +33,10 @@ export default defineConfig((): any => {
       },
     },
     logLevel: 'warn',
-    optimizeDeps: { entries: ['./src/main.js'] },
+    optimizeDeps: {
+      include: ['universal-cookie'],
+      entries: ['./src/main.js'],
+    },
     plugins: [vue(), vuetify({ autoImport: true })],
   };
 });
