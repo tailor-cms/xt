@@ -3,10 +3,9 @@
     <div :id="PANELS.EDIT" class="d-flex flex-1-1-50">
       <iframe
         :key="`author-${isLoaded ? new Date().getTime() : 0}`"
+        :src="VITE_EDIT_RUNTIME_URL"
         class="flex-1-1-100"
         frameBorder="0"
-        sandbox="allow-scripts"
-        src="http://localhost:8010"
         title="Edit component container"
       >
       </iframe>
@@ -14,10 +13,9 @@
     <div :id="PANELS.DISPLAY" class="d-flex flex-1-1-50">
       <iframe
         :key="`display-${isLoaded ? new Date().getTime() : 0}`"
+        :src="VITE_DISPLAY_RUNTIME_URL"
         class="flex-1-1-100"
         frameBorder="0"
-        sandbox="allow-scripts"
-        src="http://localhost:8020"
         title="Display component container"
       >
       </iframe>
@@ -31,6 +29,7 @@ import Split from 'split.js';
 
 import { PANELS, useGlobalState } from '../state';
 
+const { VITE_DISPLAY_RUNTIME_URL, VITE_EDIT_RUNTIME_URL } = import.meta.env;
 const { previewPanelSplit } = useGlobalState();
 
 defineProps<{ isLoaded: Boolean }>();

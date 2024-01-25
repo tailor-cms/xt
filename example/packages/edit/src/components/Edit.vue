@@ -27,9 +27,12 @@
       v-if="element.data.backgroundUrl"
       :src="element.data.backgroundUrl"
       alt="Background image"
-      width="300px"
+      class="my-7"
+      width="200px"
     />
-    <button @click="emit('link')">Link example</button>
+    <div class="my-3">
+      <button @click="emit('link')">Link example</button>
+    </div>
   </div>
 </template>
 

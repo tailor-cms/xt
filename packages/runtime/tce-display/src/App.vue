@@ -4,7 +4,26 @@
       <v-container>
         <v-row>
           <v-col>
-            <h2 class="mb-2">Display preview</h2>
+            <div class="d-flex pb-1">
+              <v-chip
+                class="text-body-2 font-weight-bold"
+                color="#E0FB61"
+                variant="elevated"
+                label
+              >
+                End-user component
+              </v-chip>
+              <v-spacer />
+              <VSelect
+                v-model="selectedStateContext"
+                :items="displayStateContexts"
+                density="compact"
+                item-title="name"
+                label="State preset"
+                hide-details
+                @update:model-value="onContextChange"
+              />
+            </div>
             <Display
               v-if="element.data"
               v-bind="element"
@@ -20,19 +39,35 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import findIndex from 'lodash/findIndex.js';
 import ky from 'ky';
 
-const SERVER_HOST = `localhost:${import.meta.env.VITE_TCE_SERVER_PORT || 8030}`;
-const api = ky.create({ prefixUrl: `http://${SERVER_HOST}` });
-const ws = new WebSocket(`ws://${SERVER_HOST}`);
+const appUrl = new URL(window.location.href);
+const apiPrefix = '/tce-server';
+const api = ky.create({ prefixUrl: apiPrefix });
+const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
+const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
 const element: any = ref({});
 const userState: any = ref({});
+const displayStateContexts = ref([]);
+const selectedStateContext = ref(null);
 
 onMounted(() => {
   getElement();
   ws.addEventListener('message', (event) => {
-    element.value = JSON.parse(event.data);
+    const data = JSON.parse(event.data);
+    const elementUid = element.value?.uid;
+    if (elementUid && elementUid !== data.entityId) return;
+    if (data.type === 'element:update') element.value = data.payload;
+    if (data.type === 'userState:update') userState.value = data.payload;
+    if (data.type === 'userContext:change') {
+      const { index } = data.payload;
+      const contextName = displayStateContexts.value[index].name;
+      if (selectedStateContext.value === contextName) return;
+      // Different browser tab
+      getElement();
+    }
   });
 });
 
@@ -44,12 +79,24 @@ const getElement = async () => {
     if (!response?.element) return;
     element.value = response.element;
     userState.value = response?.userState;
+    const contextsPath = `content-element/${element.value.id}/state-contexts`;
+    const contextData: any = await api(contextsPath).json();
+    const { contexts, currentContextIndex } = contextData;
+    displayStateContexts.value = contexts;
+    selectedStateContext.value = contexts[currentContextIndex].name;
   } catch (error) {
     console.log('Error on element get', error);
     // Retry
     setTimeout(() => getElement(), 2000);
   }
 };
+
+async function onContextChange(name) {
+  const index = findIndex(displayStateContexts.value, { name });
+  const contextsPath = `content-element/${element.value.id}/set-state`;
+  await api.post(contextsPath, { json: { index } });
+  await getElement();
+}
 
 const onInteraction = async (data) => {
   try {

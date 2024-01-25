@@ -9,10 +9,6 @@ import path from 'node:path';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }): any => {
-  // Default API URL
-  if (!process.env.VITE_API_URL) {
-    process.env.VITE_API_URL = 'http://localhost:8030';
-  }
   // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
   const env = loadEnv(mode, process.cwd(), '');
@@ -26,12 +22,21 @@ export default defineConfig(({ mode }): any => {
   ]);
   console.log('📦 Loading edit components from:');
   console.log(dirs.join('\n'));
+  const { EDIT_RUNTIME_PORT, SERVER_RUNTIME_URL } = env;
   return {
     root: './src',
     logLevel: 'error',
     server: {
       host: '0.0.0.0', // Accept connections from any host (Docker)
-      port: 8010,
+      port: parseInt(EDIT_RUNTIME_PORT, 10),
+      proxy: {
+        '/tce-server': {
+          target: SERVER_RUNTIME_URL,
+          ws: true,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/tce-server/, ''),
+        },
+      },
     },
     resolve: {
       preserveSymlinks: true,

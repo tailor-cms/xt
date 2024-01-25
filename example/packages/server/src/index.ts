@@ -40,13 +40,10 @@ export function afterRetrieve(
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function beforeDisplay(
-  element: Element,
-  context: any
-) {
+export function beforeDisplay(element: Element, context: any) {
   console.log('beforeDisplay hook');
   console.log('beforeDisplay context', context);
-  return userStateMock;
+  return { ...context, ...userStateMock };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -55,11 +52,10 @@ export function onUserInteraction(
   context: any,
   payload: any,
 ): any {
-  console.log('onUserInteraction', context, payload);
   // Can have arbitrary return value
   // displayState is passed to the client if defined
   userStateMock.interactionTimestamp = new Date().getTime();
-  Object.assign(userStateMock, payload);
+  context.contextTimestamp = userStateMock.interactionTimestamp;
   return { updateDisplayState: true };
 }
 

@@ -1,4 +1,5 @@
 import { processAssets, resolveAssets } from './processors';
+import DisplayContextService from './DisplayContextService';
 import ELEMENT_HOOKS from './hook-type';
 import { emitter } from '../common/emitter';
 import StorageService from '../storage/storage.service';
@@ -10,11 +11,9 @@ function prepareHookServices(tce) {
   };
 }
 
-export default function initHooks(hooks, mocks = { displayContexts: [] }) {
+export default function initHooks(hooks) {
   // If plain object, convert to map
   const hooksMap = hooks?.has ? hooks : new Map(hooks);
-  // Default context
-  const displayContext = mocks.displayContexts?.[0]?.data || {};
 
   function registerHook(element, hookName, tceConfig) {
     const hook = hooksMap.get(hookName);
@@ -22,7 +21,7 @@ export default function initHooks(hooks, mocks = { displayContexts: [] }) {
   }
 
   function registerSocketUpdate(element) {
-    emitter.emit('element:update', element);
+    emitter.emit('element:update', { entityId: element.uid, data: element });
     return element;
   }
 
@@ -81,7 +80,7 @@ export default function initHooks(hooks, mocks = { displayContexts: [] }) {
   const beforeDisplay = hooksMap.has(ELEMENT_HOOKS.BEFORE_DISPLAY)
     ? (el, contextExtensions = {}) =>
         hooksMap.get(ELEMENT_HOOKS.BEFORE_DISPLAY)(el, {
-          ...displayContext,
+          ...DisplayContextService.getCurrentContextData(el.uid),
           ...contextExtensions,
         })
     : () => ({});
@@ -90,7 +89,7 @@ export default function initHooks(hooks, mocks = { displayContexts: [] }) {
     ? (element, payload) =>
         hooksMap.get(ELEMENT_HOOKS.ON_USER_INTERACTION)(
           element,
-          displayContext,
+          DisplayContextService.getCurrentContextData(element.uid),
           payload,
         )
     : () => ({ updateDisplayState: false });

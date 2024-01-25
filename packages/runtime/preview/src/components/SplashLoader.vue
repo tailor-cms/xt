@@ -6,13 +6,13 @@
           <img :src="logo" alt="Logo" width="88" />
         </div>
         <div class="splash-loader__text text-body-1">
-          <div>Booting Teaching Element Kit....</div>
+          <div>Booting Content Element Kit....</div>
           <v-progress-linear
             v-if="isFirstBoot"
             :model-value="progress"
             class="my-3"
           />
-          <div class="font-weight-bold">Beta preview v0.3.0</div>
+          <div class="font-weight-bold">Beta preview v0.4.0</div>
         </div>
       </div>
     </div>

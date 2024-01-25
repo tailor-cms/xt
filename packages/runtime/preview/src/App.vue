@@ -5,15 +5,33 @@ import ky from 'ky';
 import AppBar from './components/AppBar.vue';
 import MainLayout from './components/MainLayout.vue';
 
-const SERVER_HOST = `localhost:${import.meta.env.VITE_TCE_SERVER_PORT || 8030}`;
-const api = ky.create({ prefixUrl: `http://${SERVER_HOST}` });
-const ws = new WebSocket(`ws://${SERVER_HOST}`);
+interface ContentElement {
+  id: number;
+  uid: string;
+}
 
-const element = ref({});
+const appUrl = new URL(window.location.href);
+const apiPrefix = '/tce-server';
+const api = ky.create({ prefixUrl: apiPrefix });
+const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
+const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
+
+const element = ref<ContentElement>();
+const userState = ref({});
+
 onMounted(async () => {
-  element.value = await getElement();
-  ws.addEventListener('message', (event) => {
-    element.value = JSON.parse(event.data);
+  await getElement();
+  ws.addEventListener('message', (message) => {
+    const event = JSON.parse(message.data);
+    const elementUid = element.value?.uid;
+    if (elementUid && elementUid !== event.entityId) return;
+    if (event.type === 'userState:update') {
+      userState.value = event.payload;
+    }
+    if (event.type === 'element:update') {
+      element.value = event.payload;
+    }
+    if (event.type === 'userContext:change') getElement();
   });
 });
 
@@ -21,10 +39,12 @@ function timeout(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function getElement() {
+async function getElement(): Promise<any> {
   try {
-    const response: any = await api('content-element').json();
-    return response?.element || {};
+    const res = await api('content-element').json();
+    const { element: elementVal, userState: userStateVal } = res as any;
+    element.value = elementVal;
+    userState.value = userStateVal;
   } catch (error) {
     console.log('Error on element get', error);
     await timeout(2000);
@@ -32,12 +52,33 @@ async function getElement() {
     return getElement();
   }
 }
+
+async function resetElement() {
+  const id = element.value?.id;
+  if (!id) return;
+  await resetState();
+  const path = `content-element/${id}/reset-element`;
+  return api.post(path);
+}
+
+async function resetState() {
+  const id = element.value?.id;
+  if (!id) return;
+  const path = `content-element/${id}/reset-state`;
+  return api.post(path);
+}
 </script>
 
 <template>
   <v-app>
     <AppBar />
-    <MainLayout :element="element" class="mt-14" />
+    <MainLayout
+      :element="element"
+      :user-state="userState"
+      class="mt-14"
+      @reset-element="resetElement"
+      @reset-state="resetState"
+    />
   </v-app>
 </template>
 

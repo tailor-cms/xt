@@ -4,13 +4,19 @@
       <v-container>
         <v-row>
           <v-col>
-            <h2 class="mb-5">Edit preview</h2>
+            <v-chip
+              class="elevation-2 mt-1 mb-2 body-2 font-weight-bold"
+              color="#E0FB61"
+              label
+            >
+              Authoring component
+            </v-chip>
             <v-sheet
               v-click-outside="unfocusElement"
               color="transparent"
               @click="isFocused = true"
             >
-              <div class="edit-frame">
+              <div class="edit-frame pt-3">
                 <Edit
                   v-if="element.data"
                   :element="element"
@@ -25,7 +31,16 @@
         </v-row>
         <v-row>
           <v-col>
-            <h3>Top toolbar</h3>
+            <div>
+              <v-chip
+                class="elevation-2 my-3 body-2 font-weight-bold"
+                color="grey darken-3"
+                dark
+                label
+              >
+                Top toolbar
+              </v-chip>
+            </div>
             <top-toolbar
               v-if="element.data"
               :element="element"
@@ -37,7 +52,14 @@
         </v-row>
         <v-row>
           <v-col>
-            <h3>Side toolbar</h3>
+            <v-chip
+              class="elevation-2 my-3 body-2 font-weight-bold"
+              color="grey darken-3"
+              dark
+              label
+            >
+              Side toolbar
+            </v-chip>
             <side-toolbar
               v-if="element.data"
               :element="element"
@@ -79,9 +101,11 @@ import ky from 'ky';
 
 import assetApi from './api/asset';
 
-const SERVER_HOST = `localhost:${import.meta.env.VITE_TCE_SERVER_PORT || 8030}`;
-const api = ky.create({ prefixUrl: `http://${SERVER_HOST}` });
-const ws = new WebSocket(`ws://${SERVER_HOST}`);
+const appUrl = new URL(window.location.href);
+const apiPrefix = '/tce-server';
+const api = ky.create({ prefixUrl: apiPrefix });
+const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
+const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
 export default {
   directives: {
@@ -106,7 +130,10 @@ export default {
     await this.getElement();
     // Simulate SSE from Tailor
     ws.addEventListener('message', (event) => {
-      this.element = JSON.parse(event.data);
+      const data = JSON.parse(event.data);
+      if (data.type !== 'element:update') return;
+      if (this.element?.uid && this.element?.uid !== data.entityId) return;
+      this.element = data.payload;
     });
   },
   methods: {
