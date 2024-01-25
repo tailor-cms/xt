@@ -5,7 +5,7 @@ class PubSubService {
   private connections = {};
 
   constructor() {
-    const events = ['element:update', 'userState:update'];
+    const events = ['element:update', 'userState:update', 'userContext:change'];
     events.forEach((type) => {
       emitter.on(type, ({ entityId, data: payload }) => {
         const connections = this.connections[entityId] || [];

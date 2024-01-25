@@ -56,12 +56,20 @@ export default ({ type, initState, hookMap }) => {
   }
 
   function getUserStateContexts({ element }, res) {
-    res.json(DisplayContextService.getElementContexts(element.uid));
+    const { uid } = element;
+    res.json({
+      contexts: DisplayContextService.getElementContexts(uid),
+      currentContextIndex: DisplayContextService.getCurrentContextIndex(uid),
+    });
   }
 
   function setUserStateContext(req, res) {
     const { element, body } = req;
     DisplayContextService.setCurrentContext(element.uid, body.index);
+    emitter.emit('userContext:change', {
+      entityId: element.uid,
+      data: { index: body.index },
+    });
     return get(req, res);
   }
 

@@ -36,10 +36,14 @@ class DisplayContextService {
     return typeof currentContextIndex === 'number';
   }
 
-  getCurrentContext(elementUid: string) {
+  getCurrentContextIndex(elementUid: string) {
     if (!this.isElementContextInitialized(elementUid))
       this.initializeElementContext(elementUid);
-    const currentContextIndex = this.selectedIndexByElementUid[elementUid];
+    return this.selectedIndexByElementUid[elementUid];
+  }
+
+  getCurrentContext(elementUid: string) {
+    const currentContextIndex = this.getCurrentContextIndex(elementUid);
     return this.contextsByElementUid[elementUid][currentContextIndex];
   }
 

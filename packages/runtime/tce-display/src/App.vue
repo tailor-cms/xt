@@ -61,6 +61,13 @@ onMounted(() => {
     if (elementUid && elementUid !== data.entityId) return;
     if (data.type === 'element:update') element.value = data.payload;
     if (data.type === 'userState:update') userState.value = data.payload;
+    if (data.type === 'userContext:change') {
+      const { index } = data.payload;
+      const contextName = displayStateContexts.value[index].name;
+      if (selectedStateContext.value === contextName) return;
+      // Different browser tab
+      getElement();
+    }
   });
 });
 
@@ -73,8 +80,10 @@ const getElement = async () => {
     element.value = response.element;
     userState.value = response?.userState;
     const contextsPath = `content-element/${element.value.id}/state-contexts`;
-    displayStateContexts.value = await api(contextsPath).json();
-    selectedStateContext.value = displayStateContexts.value[0];
+    const contextData: any = await api(contextsPath).json();
+    const { contexts, currentContextIndex } = contextData;
+    displayStateContexts.value = contexts;
+    selectedStateContext.value = contexts[currentContextIndex].name;
   } catch (error) {
     console.log('Error on element get', error);
     // Retry
@@ -87,7 +96,6 @@ async function onContextChange(name) {
   const contextsPath = `content-element/${element.value.id}/set-state`;
   await api.post(contextsPath, { json: { index } });
   await getElement();
-  selectedStateContext.value = displayStateContexts.value[index];
 }
 
 const onInteraction = async (data) => {
