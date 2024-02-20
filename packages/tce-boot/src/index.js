@@ -28,9 +28,9 @@ const packageWatchers =
 // Commands for spining the runtimes (edit, server, preview)
 // Display runtime is running separatley to enable plugging in custom one
 const require = createRequire(import.meta.url);
-const editRuntimeName = isTailorNext ? 'edit-next' : 'edit';
+const EDIT_RUNTIME_NAME = isTailorNext ? 'edit-next' : 'edit';
 const runtimes = await Promise.all(
-  ['server', editRuntimeName, 'preview'].map(async (name, index) => {
+  ['server', EDIT_RUNTIME_NAME, 'preview'].map(async (name, index) => {
     // Figure out runtime package location
     const pkgRef = `@tailor-cms/tce-${name}-runtime/package.json`;
     const pkgPath = await require.resolve(pkgRef);
@@ -75,7 +75,8 @@ try {
 if (!runtimeLog.initialBootAt) {
   // If first run, reboot; wait for optimize deps step
   await setTimeout(10 * 1000);
-  const editRuntime = commands.find(it => it.name === 'edit-runtime');
+  const editRuntimeCmdName = `${EDIT_RUNTIME_NAME}-runtime`;
+  const editRuntime = commands.find(it => it.name === editRuntimeCmdName);
   await restartCmd(editRuntime, serverConfig.editRuntimePort, 8000);
   saveRuntimeInit();
 }

@@ -7,7 +7,7 @@ import { resolve } from 'node:path';
 export default defineConfig({
   plugins: [vue()],
   build: {
-    // In order to avoid display runtime issues
+    // In order to avoid edit runtime issues
     // due to package missing (if dist is deleted for short time)
     emptyOutDir: false,
     minify: false,
