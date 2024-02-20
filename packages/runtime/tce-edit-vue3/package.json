@@ -37,5 +37,8 @@
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/node": "^20.8.6",
     "@types/webfontloader": "1.6.35"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
