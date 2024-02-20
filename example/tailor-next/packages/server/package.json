@@ -1,0 +1,49 @@
+{
+  "name": "tce-server",
+  "description": "Content element server module",
+  "author": "ExtensionEngine <info@extensionengine.com>",
+  "type": "module",
+  "version": "0.0.1",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsup --watch src --watch ../manifest/dist",
+    "build": "tsup",
+    "lint": "eslint --ext .js,.ts .",
+    "lint:fix": "pnpm lint --fix"
+  },
+  "devDependencies": {
+    "@tailor-cms/cek-common": "0.0.3",
+    "@tailor-cms/eslint-config": "0.0.2",
+    "eslint": ">=8.13.0",
+    "tce-manifest": "workspace:*",
+    "tsup": "^7.2.0",
+    "typescript": "^5.1.6"
+  },
+  "tsup": {
+    "entry": [
+      "src/index.ts"
+    ],
+    "target": [
+      "node14",
+      "es2022"
+    ],
+    "format": [
+      "cjs",
+      "esm"
+    ],
+    "bundle": true,
+    "minify": false,
+    "clean": false,
+    "dts": true
+  }
+}
