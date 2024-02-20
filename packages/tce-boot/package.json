@@ -12,6 +12,7 @@
   "dependencies": {
     "@tailor-cms/tce-display-runtime": "workspace:*",
     "@tailor-cms/tce-edit-runtime": "workspace:*",
+    "@tailor-cms/tce-edit-next-runtime": "workspace:*",
     "@tailor-cms/tce-preview-runtime": "workspace:*",
     "@tailor-cms/tce-server-runtime": "workspace:*",
     "boxen": "^7.1.1",

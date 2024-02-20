@@ -17,6 +17,8 @@ export const baseDir = PWD.includes('/node_modules/')
 // Load .env file
 dotenv.config({ path: `${baseDir}/.env` });
 
+export const isTailorNext = !!env.TAILOR_NEXT;
+
 // Validation rules
 const isValidPort = () => number().integer().positive().required();
 const isValidUrl = () => string().url().required();
