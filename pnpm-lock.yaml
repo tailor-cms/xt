@@ -113,8 +113,6 @@ importers:
       shelljs: ^0.8.5
       typescript: ^5.1.6
       validate-npm-package-name: ^4.0.0
-      vue: 2.7.14
-      vue-template-compiler: 2.7.14
     devDependencies:
       '@npmcli/package-json': 2.0.0
       '@tailor-cms/eslint-config': link:../../packages/eslint
@@ -143,8 +141,6 @@ importers:
       shelljs: 0.8.5
       typescript: 5.2.2
       validate-npm-package-name: 4.0.0
-      vue: 2.7.14
-      vue-template-compiler: 2.7.14_vue@2.7.14
 
   example/tailor-next/packages/display:
     specifiers:
