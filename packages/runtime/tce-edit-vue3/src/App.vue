@@ -94,7 +94,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, inject, onMounted, provide, ref } from 'vue';
+import { defineEmits, onMounted, provide, ref } from 'vue';
 import ky from 'ky';
 
 import assetApi from './api/asset';
