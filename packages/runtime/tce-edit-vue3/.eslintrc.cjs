@@ -9,5 +9,5 @@ module.exports = {
     project: ['./tsconfig.json', './tsconfig.node.json'],
     extraFileExtensions: ['vue'],
   },
-  ignorePatterns: ['**/components.d.ts'],
+  ignorePatterns: ['**/components.d.ts', '**/vite-env.d.ts'],
 };

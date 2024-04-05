@@ -21,7 +21,7 @@ export function extendedMitt<Events extends Record<EventType, unknown>>(
   all?: EventHandlerMap<Events>,
 ) {
   const instance = mitt(all);
-  // @ts-ignore
+  // @ts-expect-error - once is not part of the original mitt API
   instance.once = (type: any, fn: any) => {
     instance.on(type, fn);
     instance.on(type, instance.off.bind(instance, type, fn));
