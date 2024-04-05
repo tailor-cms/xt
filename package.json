@@ -1,6 +1,6 @@
 {
-  "name": "t-xt",
-  "version": "0.0.1",
+  "name": "@tailor-cms/xt",
+  "version": "0.5.0",
   "description": "Tailor extensions kit",
   "license": "MIT",
   "sideEffects": false,
