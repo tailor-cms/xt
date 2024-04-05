@@ -12,7 +12,7 @@
             :model-value="progress"
             class="my-3"
           />
-          <div class="font-weight-bold">Beta preview v0.4.0</div>
+          <div class="font-weight-bold">Beta preview v{{ version }}</div>
         </div>
       </div>
     </div>
@@ -21,6 +21,7 @@
 
 <script lang="ts">
 import logoUrl from '../assets/logo.png';
+import { version } from './../../package.json';
 
 export default {
   props: {
@@ -49,6 +50,9 @@ export default {
     interval: 0,
     progress: 0,
   }),
+  computed: {
+    version: () => version,
+  },
   mounted() {
     this.setColor();
     if (!this.isFirstBoot) return;

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import logoUrl from '../assets/logo.png';
 import { useGlobalState } from '../state';
+import { version } from './../../package.json';
 
 const { showEdit, showDisplay, showBothComponents } = useGlobalState();
 </script>
@@ -20,7 +21,7 @@ const { showEdit, showDisplay, showBothComponents } = useGlobalState();
         density="compact"
         variant="tonal"
       >
-        0.4.0
+        {{ version }}
       </v-chip>
     </v-app-bar-title>
     <v-spacer />
