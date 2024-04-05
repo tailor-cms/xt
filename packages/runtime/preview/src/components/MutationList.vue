@@ -12,13 +12,11 @@
             <v-icon color="orange-darken-3" icon="mdi-update" size="18" start />
             <div class="text-body-1">{{ item.raw.title }}</div>
           </v-card-title>
-          <v-card-text v-if="isExpanded(item) || index === 0">
-            <JsonEditor
-              :main-menu-bar="false"
-              :status-bar="false"
-              :value="item.raw.data"
-              mode="text"
-            />
+          <v-card-text
+            v-show="isExpanded(item) || index === 0"
+            class="text-indigo-darken-4 bg-blue-grey-lighten-5 py-2 ma-3"
+          >
+            <pre>{{ stringifyObject(item.raw.data, { indent: '  ' }) }}</pre>
           </v-card-text>
         </v-card>
       </template>
@@ -27,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import JsonEditor from 'vue3-ts-jsoneditor';
+import stringifyObject from 'stringify-object';
 
 defineProps<{ changes: any[] }>();
 </script>
