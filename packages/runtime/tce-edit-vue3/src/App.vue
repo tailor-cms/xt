@@ -29,7 +29,7 @@
             </VSheet>
           </VCol>
         </VRow>
-        <VRow>
+        <VRow v-if="TopToolbar">
           <VCol>
             <div>
               <VChip
@@ -40,7 +40,8 @@
                 Top toolbar
               </VChip>
             </div>
-            <TopToolbar
+            <component
+              :is="TopToolbar"
               v-if="element?.data"
               :element="element"
               :is-focused="isFocused"
@@ -49,7 +50,7 @@
             />
           </VCol>
         </VRow>
-        <VRow>
+        <VRow v-if="SideToolbar">
           <VCol>
             <VChip
               class="elevation-2 my-3 body-2 font-weight-bold"
@@ -58,7 +59,8 @@
             >
               Side toolbar
             </VChip>
-            <SideToolbar
+            <component
+              :is="SideToolbar"
               v-if="element?.data"
               :element="element"
               :is-focused="isFocused"
@@ -94,10 +96,12 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, onMounted, provide, ref } from 'vue';
+import { defineEmits, getCurrentInstance, onMounted, provide, ref } from 'vue';
 import ky from 'ky';
 
 import assetApi from './api/asset';
+
+const { TopToolbar, SideToolbar } = getCurrentInstance().appContext.components;
 
 const appUrl = new URL(window.location.href);
 const apiPrefix = '/tce-server';
