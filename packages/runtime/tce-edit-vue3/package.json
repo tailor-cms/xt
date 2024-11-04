@@ -25,6 +25,7 @@
     "sass": "1.68.0",
     "typescript": "5.2.2",
     "url-join": "^5.0.0",
+    "uuid": "^11.0.2",
     "vite": "4.4.9",
     "vite-plugin-vuetify": "1.0.2",
     "vue": "3.3.4",
@@ -35,6 +36,7 @@
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/node": "^20.8.6",
+    "@types/uuid": "^10.0.0",
     "@types/webfontloader": "1.6.35"
   },
   "publishConfig": {
