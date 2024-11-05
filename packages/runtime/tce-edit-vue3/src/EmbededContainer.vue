@@ -11,6 +11,7 @@
     <div class="text-grey-darken-4 text-h5">{{ item.data.content }}</div>
     <div class="text-grey-darken-2 text-subtitle-1">ID: {{ item.id }}</div>
     <VBtn
+      v-if="!isDisabled"
       class="position-absolute ma-4 top-0 right-0"
       color="secondary"
       density="comfortable"
@@ -21,6 +22,7 @@
     />
   </VSheet>
   <VBtn
+    v-if="!isDisabled"
     class="mt-2"
     color="primary-darken-2"
     icon="mdi-plus"
