@@ -45,6 +45,9 @@ export default defineConfig((): any => {
         },
       },
     },
+    define: {
+      'import.meta.env.DISPLAY_DIR': JSON.stringify(env.TCE_DISPLAY_DIR),
+    },
     optimizeDeps: {
       include: [
         displayModulePath.replace(/\/dist$/, ''),
