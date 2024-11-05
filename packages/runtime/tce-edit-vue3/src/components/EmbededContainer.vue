@@ -42,14 +42,14 @@ import ContentElementExample from './ContentElementExample.vue';
 const eventBus = inject('$eventBus') as any;
 
 const props = defineProps<{
-  container: any;
+  container: { embeds: Record<string, any> };
   isDisabled: boolean;
 }>();
 const emit = defineEmits(['delete', 'save']);
 
 const embeds = computed(() => {
-  const items = props.container.embeds ?? {};
-  return sortBy(Object.values(items), 'position');
+  const items = Object.values(props.container.embeds ?? {});
+  return sortBy(items, 'position');
 });
 
 const addItem = () => {
