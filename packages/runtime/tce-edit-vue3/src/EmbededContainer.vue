@@ -17,7 +17,7 @@
       icon="mdi-delete-outline"
       size="small"
       variant="tonal"
-      @click="deleteElement(item)"
+      @click="requestDeleteConfirmation(item)"
     />
   </VSheet>
   <VBtn
@@ -31,10 +31,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps } from 'vue';
+import { computed, defineProps, inject } from 'vue';
 import cloneDeep from 'lodash/cloneDeep';
 import sortBy from 'lodash/sortBy';
 import { v4 } from 'uuid';
+
+const eventBus = inject('$eventBus') as any;
 
 const props = defineProps<{ container: any; isDisabled: boolean }>();
 const emit = defineEmits(['delete', 'save']);
@@ -57,5 +59,13 @@ const addItem = () => {
   emit('save', container);
 };
 
-const deleteElement = (element) => emit('delete', element);
+// const deleteElement = (element) => emit('delete', element);
+
+const requestDeleteConfirmation = (element) => {
+  return eventBus.emit('showConfirmationModal', {
+    title: 'Delete element?',
+    message: 'Are you sure you want to delete element?',
+    action: () => emit('delete', element),
+  });
+};
 </script>

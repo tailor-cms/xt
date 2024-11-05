@@ -10,6 +10,7 @@ const element = await import(import.meta.env.EDIT_DIR);
 const app = createApp(App);
 const radio = Radio.getInstance();
 app.provide('$elementBus', radio.channel('app'));
+app.provide('$eventBus', radio.channel('app'));
 app.use(vuetify);
 app.component('EmbededContainer', EmbededContainer);
 app.component('Edit', element.Edit);
