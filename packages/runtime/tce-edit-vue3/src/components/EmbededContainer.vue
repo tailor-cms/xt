@@ -5,7 +5,6 @@
         :id="element.id"
         :data="element.data"
         :is-disabled="isDisabled"
-        :is-focused="isFocused"
         class="mb-2"
         @save="save(element, 'data', $event)"
       />
@@ -44,7 +43,6 @@ const eventBus = inject('$eventBus') as any;
 
 const props = defineProps<{
   container: any;
-  isFocused: boolean;
   isDisabled: boolean;
 }>();
 const emit = defineEmits(['delete', 'save']);

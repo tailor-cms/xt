@@ -23,7 +23,6 @@ import { defineProps, ref } from 'vue';
 
 const props = defineProps<{
   id: string;
-  isFocused: boolean;
   isDisabled: boolean;
   data: { title: string };
 }>();

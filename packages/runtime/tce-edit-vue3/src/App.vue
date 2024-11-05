@@ -22,7 +22,7 @@
               <VCheckbox
                 v-if="isQuestion"
                 v-model="isGraded"
-                :disabled="gradingType"
+                :disabled="!!gradingType"
                 class="ml-2"
                 color="primary"
                 label="Graded"
