@@ -9,8 +9,9 @@
       v-model="input"
       :readonly="isDisabled"
       label="Title"
+      max-width="500"
       variant="outlined"
-      width="500"
+      width="100%"
       hide-details
       @change="$emit('save', { ...props.data, title: input })"
     />
