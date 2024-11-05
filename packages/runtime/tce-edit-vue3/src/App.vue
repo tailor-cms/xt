@@ -62,14 +62,10 @@
                 Top toolbar
               </VChip>
             </div>
-            <VSheet
-              v-if="element?.data"
-              class="element-toolbar-wrapper"
-              color="white"
-              elevation="1"
-            >
+            <VSheet class="top-toolbar" color="white" elevation="1">
               <component
                 :is="TopToolbar"
+                v-if="element?.data"
                 :element="element"
                 :is-focused="isFocused"
                 @delete="onDelete"
@@ -87,14 +83,16 @@
             >
               Side toolbar
             </VChip>
-            <component
-              :is="SideToolbar"
-              v-if="element?.data"
-              :element="element"
-              :is-focused="isFocused"
-              @delete="onDelete"
-              @save="onSave"
-            />
+            <VSheet class="side-toolbar" color="primary-darken-2" elevation="5">
+              <component
+                :is="SideToolbar"
+                v-if="element?.data"
+                :element="element"
+                :is-focused="isFocused"
+                @delete="onDelete"
+                @save="onSave"
+              />
+            </VSheet>
           </VCol>
         </VRow>
       </VContainer>
@@ -220,7 +218,12 @@ const updateElementData = async (data) => {
   background-color: transparent !important;
 }
 
-.element-toolbar-wrapper {
+.side-toolbar {
+  padding: 1.75rem 0.875rem 1.5rem;
+  max-width: 30rem;
+}
+
+.top-toolbar {
   display: flex;
   justify-content: center;
   align-items: center;
