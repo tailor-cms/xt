@@ -1,31 +1,35 @@
 <template>
-  <div v-for="element in embeds" :key="element.id" class="position-relative">
-    <ContentElementExample
-      :id="element.id"
-      :data="element.data"
-      class="mb-2"
-      @save="save(element, 'data', $event)"
-    />
+  <div class="embeded-container pa-4">
+    <div v-for="element in embeds" :key="element.id" class="position-relative">
+      <ContentElementExample
+        :id="element.id"
+        :data="element.data"
+        :is-disabled="isDisabled"
+        :is-focused="isFocused"
+        class="mb-2"
+        @save="save(element, 'data', $event)"
+      />
+      <VBtn
+        v-if="!isDisabled"
+        class="position-absolute ma-4 top-0 right-0"
+        color="secondary"
+        density="comfortable"
+        icon="mdi-delete-outline"
+        size="small"
+        variant="tonal"
+        @click="requestDeleteConfirmation(element)"
+      />
+    </div>
     <VBtn
       v-if="!isDisabled"
-      class="position-absolute ma-4 top-0 right-0"
-      color="secondary"
-      density="comfortable"
-      icon="mdi-delete-outline"
+      class="mt-2"
+      color="primary-darken-2"
+      icon="mdi-plus"
       size="small"
       variant="tonal"
-      @click="requestDeleteConfirmation(element)"
+      @click="addItem"
     />
   </div>
-  <VBtn
-    v-if="!isDisabled"
-    class="mt-2"
-    color="primary-darken-2"
-    icon="mdi-plus"
-    size="small"
-    variant="tonal"
-    @click="addItem"
-  />
 </template>
 
 <script setup lang="ts">
@@ -38,7 +42,11 @@ import ContentElementExample from './ContentElementExample.vue';
 
 const eventBus = inject('$eventBus') as any;
 
-const props = defineProps<{ container: any; isDisabled: boolean }>();
+const props = defineProps<{
+  container: any;
+  isFocused: boolean;
+  isDisabled: boolean;
+}>();
 const emit = defineEmits(['delete', 'save']);
 
 const embeds = computed(() => {
@@ -49,7 +57,7 @@ const embeds = computed(() => {
 const addItem = () => {
   const item = {
     id: v4(),
-    data: { content: 'Example Item', width: 12 },
+    data: { title: 'Example Item' },
     embedded: true,
     position: embeds.value.length,
     type: 'EXAMPLE',

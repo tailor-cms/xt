@@ -6,22 +6,27 @@
     <div class="text-grey-darken-4 text-h5">Example Item</div>
     <div class="text-grey-darken-2 text-subtitle-1 mb-4">ID: {{ id }}</div>
     <VTextField
-      :model-value="data.content"
-      label="Content"
+      v-model="input"
+      :readonly="isDisabled"
+      label="Title"
       variant="outlined"
       width="500"
       hide-details
-      @update:model-value="$emit('save', { content: $event })"
+      @change="$emit('save', { ...props.data, title: input })"
     />
   </VSheet>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps, ref } from 'vue';
 
-defineProps<{
+const props = defineProps<{
   id: string;
-  data: { content: string };
+  isFocused: boolean;
+  isDisabled: boolean;
+  data: { title: string };
 }>();
 defineEmits(['save']);
+
+const input = ref(props.data.title);
 </script>
