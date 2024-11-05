@@ -4,13 +4,30 @@
       <VContainer>
         <VRow>
           <VCol>
-            <VChip
-              class="elevation-2 mt-1 mb-2 body-2 font-weight-bold"
-              color="primary-darken-1"
-              label
-            >
-              Authoring component
-            </VChip>
+            <div class="d-flex align-center">
+              <VChip
+                class="elevation-2 mt-1 mb-2 body-2 font-weight-bold"
+                color="primary-darken-1"
+                label
+              >
+                Authoring component
+              </VChip>
+              <VSpacer />
+              <VCheckbox
+                v-model="isDisabled"
+                color="primary"
+                label="Disabled"
+                hide-details
+              />
+              <VCheckbox
+                v-if="isGradable"
+                v-model="isGraded"
+                class="ml-2"
+                color="primary"
+                label="Graded"
+                hide-details
+              />
+            </div>
             <VSheet
               v-click-outside="unfocusElement"
               color="transparent"
@@ -20,7 +37,9 @@
                 <Edit
                   v-if="element?.data"
                   :element="element"
+                  :is-disabled="isDisabled"
                   :is-focused="isFocused"
+                  :is-graded="isGraded"
                   @delete="onDelete"
                   @link="onLink"
                   @save="onSave"
@@ -101,7 +120,7 @@ import { defineEmits, getCurrentInstance, onMounted, provide, ref } from 'vue';
 import ky from 'ky';
 
 import assetApi from './api/asset';
-import ConfirmationDialog from './ConfirmationDialog.vue';
+import ConfirmationDialog from './components/ConfirmationDialog.vue';
 
 const { TopToolbar, SideToolbar } = getCurrentInstance().appContext.components;
 
@@ -111,10 +130,13 @@ const api = ky.create({ prefixUrl: apiPrefix });
 const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
 const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
+defineProps<{ isGradable: boolean }>();
 const emit = defineEmits(['save', 'delete']);
 
 const element = ref({});
 const isFocused = ref(false);
+const isDisabled = ref(false);
+const isGraded = ref(false);
 const isLinkDialogVisible = ref(false);
 
 provide('$storageService', assetApi);
