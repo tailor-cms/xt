@@ -6,11 +6,10 @@ import Radio from './radio';
 import vuetify from './plugins/vuetify';
 
 const element = await import(import.meta.env.EDIT_DIR);
-const isGradable =
-  !!element.default.isQuestion &&
-  element.default.gradingType === 'GRADED_UNGRADED';
+const isQuestion = !!element.default.isQuestion;
+const gradingType = element.default.gradingType;
 
-const app = createApp(App, { isGradable });
+const app = createApp(App, { isQuestion, gradingType });
 const radio = Radio.getInstance();
 app.provide('$elementBus', radio.channel('app'));
 app.provide('$eventBus', radio.channel('app'));

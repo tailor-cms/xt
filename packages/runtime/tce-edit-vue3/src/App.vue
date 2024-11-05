@@ -20,8 +20,9 @@
                 hide-details
               />
               <VCheckbox
-                v-if="isGradable"
+                v-if="isQuestion"
                 v-model="isGraded"
+                :disabled="gradingType"
                 class="ml-2"
                 color="primary"
                 label="Graded"
@@ -36,10 +37,12 @@
               <div class="edit-frame pt-3">
                 <Edit
                   v-if="element?.data"
-                  :element="element"
-                  :is-disabled="isDisabled"
-                  :is-focused="isFocused"
-                  :is-graded="isGraded"
+                  v-bind="{
+                    element,
+                    isDisabled,
+                    isFocused,
+                    ...(isQuestion && { isGraded }),
+                  }"
                   @delete="onDelete"
                   @link="onLink"
                   @save="onSave"
@@ -130,13 +133,13 @@ const api = ky.create({ prefixUrl: apiPrefix });
 const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
 const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
-defineProps<{ isGradable: boolean }>();
+const props = defineProps<{ isQuestion: boolean; gradingType?: string }>();
 const emit = defineEmits(['save', 'delete']);
 
 const element = ref({});
 const isFocused = ref(false);
 const isDisabled = ref(false);
-const isGraded = ref(false);
+const isGraded = ref(props.gradingType === 'GRADED' || false);
 const isLinkDialogVisible = ref(false);
 
 provide('$storageService', assetApi);
