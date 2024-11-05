@@ -92,6 +92,7 @@
         </VCardActions>
       </VCard>
     </VDialog>
+    <ConfirmationDialog />
   </VApp>
 </template>
 
@@ -100,6 +101,7 @@ import { defineEmits, getCurrentInstance, onMounted, provide, ref } from 'vue';
 import ky from 'ky';
 
 import assetApi from './api/asset';
+import ConfirmationDialog from './ConfirmationDialog.vue';
 
 const { TopToolbar, SideToolbar } = getCurrentInstance().appContext.components;
 
