@@ -62,14 +62,20 @@
                 Top toolbar
               </VChip>
             </div>
-            <component
-              :is="TopToolbar"
+            <VSheet
               v-if="element?.data"
-              :element="element"
-              :is-focused="isFocused"
-              @delete="onDelete"
-              @save="onSave"
-            />
+              class="element-toolbar-wrapper"
+              color="white"
+              elevation="1"
+            >
+              <component
+                :is="TopToolbar"
+                :element="element"
+                :is-focused="isFocused"
+                @delete="onDelete"
+                @save="onSave"
+              />
+            </VSheet>
           </VCol>
         </VRow>
         <VRow v-if="SideToolbar">
@@ -212,5 +218,15 @@ const updateElementData = async (data) => {
 <style lang="scss" scoped>
 .v-application {
   background-color: transparent !important;
+}
+
+.element-toolbar-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 5.5rem;
+  padding: 0.5rem 2rem;
+  border-bottom: 4px solid #cfd8dc;
 }
 </style>
