@@ -1,15 +1,11 @@
 <template>
-  <VSheet
-    v-for="item in embeds"
-    :key="item.id"
-    class="mb-2 pa-12 position-relative"
-    rounded="lg"
-  >
-    <VAvatar class="mb-4" color="primary-darken-4" size="x-large">
-      <VIcon color="white" icon="mdi-cube" size="x-large" />
-    </VAvatar>
-    <div class="text-grey-darken-4 text-h5">{{ item.data.content }}</div>
-    <div class="text-grey-darken-2 text-subtitle-1">ID: {{ item.id }}</div>
+  <div v-for="element in embeds" :key="element.id" class="position-relative">
+    <ContentElementExample
+      :id="element.id"
+      :data="element.data"
+      class="mb-2"
+      @save="save(element, 'data', $event)"
+    />
     <VBtn
       v-if="!isDisabled"
       class="position-absolute ma-4 top-0 right-0"
@@ -18,9 +14,9 @@
       icon="mdi-delete-outline"
       size="small"
       variant="tonal"
-      @click="requestDeleteConfirmation(item)"
+      @click="requestDeleteConfirmation(element)"
     />
-  </VSheet>
+  </div>
   <VBtn
     v-if="!isDisabled"
     class="mt-2"
@@ -37,6 +33,8 @@ import { computed, defineProps, inject } from 'vue';
 import cloneDeep from 'lodash/cloneDeep';
 import sortBy from 'lodash/sortBy';
 import { v4 } from 'uuid';
+
+import ContentElementExample from './ContentElementExample.vue';
 
 const eventBus = inject('$eventBus') as any;
 
@@ -61,7 +59,11 @@ const addItem = () => {
   emit('save', container);
 };
 
-// const deleteElement = (element) => emit('delete', element);
+const save = (item, key, value) => {
+  const container = cloneDeep(props.container);
+  Object.assign(container.embeds[item.id], { [key]: value });
+  emit('save', container);
+};
 
 const requestDeleteConfirmation = (element) => {
   return eventBus.emit('showConfirmationModal', {
