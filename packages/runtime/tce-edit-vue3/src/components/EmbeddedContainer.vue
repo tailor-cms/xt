@@ -1,5 +1,5 @@
 <template>
-  <div class="embeded-container pa-4">
+  <div class="embedded-container pa-4">
     <div v-for="element in embeds" :key="element.id" class="position-relative">
       <ContentElementExample
         :id="element.id"
