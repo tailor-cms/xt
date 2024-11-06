@@ -52,14 +52,16 @@ const embeds = computed(() => {
   return sortBy(items, 'position');
 });
 
+const createEmbedElement = () => ({
+  id: v4(),
+  data: { title: 'Example Element' },
+  embedded: true,
+  position: embeds.value.length,
+  type: 'EXAMPLE',
+});
+
 const addItem = () => {
-  const item = {
-    id: v4(),
-    data: { title: 'Example Item' },
-    embedded: true,
-    position: embeds.value.length,
-    type: 'EXAMPLE',
-  };
+  const item = createEmbedElement();
   const container = cloneDeep(props.container);
   Object.assign(container.embeds, { [item.id]: item });
   emit('save', container);
