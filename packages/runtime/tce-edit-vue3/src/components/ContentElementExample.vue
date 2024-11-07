@@ -3,7 +3,7 @@
     <VAvatar class="mb-4" color="primary-darken-4" size="x-large">
       <VIcon color="white" icon="mdi-cube" size="x-large" />
     </VAvatar>
-    <div class="text-grey-darken-4 text-h5">Example Item</div>
+    <div class="text-grey-darken-4 text-h5">{{ type }} Example</div>
     <div class="text-grey-darken-2 text-subtitle-1 mb-4">ID: {{ id }}</div>
     <VTextField
       v-model="input"
@@ -24,6 +24,7 @@ import { defineProps, ref } from 'vue';
 const props = defineProps<{
   id: string;
   isDisabled: boolean;
+  type: string;
   data: { title: string };
 }>();
 defineEmits(['save']);

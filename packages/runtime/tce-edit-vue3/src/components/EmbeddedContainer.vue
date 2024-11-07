@@ -5,11 +5,12 @@
         :id="element.id"
         :data="element.data"
         :is-disabled="isDisabled"
+        :type="element.type"
         class="mb-2"
         @save="save(element, 'data', $event)"
       />
       <VBtn
-        v-if="!isDisabled"
+        v-if="!isDisabled && enableAdd"
         class="position-absolute ma-4 top-0 right-0"
         color="secondary"
         density="comfortable"
@@ -19,15 +20,38 @@
         @click="requestDeleteConfirmation(element)"
       />
     </div>
-    <VBtn
-      v-if="!isDisabled"
-      class="mt-2"
-      color="primary-darken-2"
-      icon="mdi-plus"
-      size="small"
-      variant="tonal"
-      @click="addItem"
-    />
+    <VBottomSheet v-if="!isDisabled" class="mx-5" close-on-content-click>
+      <template #activator="{ props: bottomSheetProps }">
+        <VBtn
+          v-bind="bottomSheetProps"
+          class="mt-2"
+          color="primary-darken-2"
+          icon="mdi-plus"
+          size="small"
+          variant="tonal"
+        />
+      </template>
+      <VSheet class="pa-6">
+        <div class="text-subtitle-2 mb-4">Example Elements</div>
+        <div class="d-flex flex-wrap ga-5 w-100">
+          <VBtn
+            v-for="type in types"
+            :key="type"
+            class="pa-4"
+            color="primary-darken-3"
+            height="auto"
+            prepend-icon="mdi-cube"
+            rounded="lg"
+            variant="tonal"
+            width="120"
+            stacked
+            @click="addItem(type)"
+          >
+            Example {{ type }}
+          </VBtn>
+        </div>
+      </VSheet>
+    </VBottomSheet>
   </div>
 </template>
 
@@ -61,16 +85,16 @@ const embeds = computed(() => {
   return sortBy(items, 'position');
 });
 
-const createEmbedElement = () => ({
+const createEmbedElement = (type) => ({
   id: v4(),
-  data: { title: 'Example Element' },
+  data: { title: `Example Element` },
   embedded: true,
   position: embeds.value.length,
-  type: 'EXAMPLE',
+  type,
 });
 
-const addItem = () => {
-  const item = createEmbedElement();
+const addItem = (type: string) => {
+  const item = createEmbedElement(type);
   const container = cloneDeep(props.container);
   Object.assign(container.embeds, { [item.id]: item });
   emit('save', container);
