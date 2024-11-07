@@ -179,11 +179,17 @@ is not defined that means element supports both behaviours so both cases need
 to be implemented dependent on the `isGraded` prop passed to the component.
 Regardless of grading type, `isGraded` should be stored to the element data.
 
+Example on how to handle storing `isGraded` to the element data.
+
 ```ts
-onMounted(() => {
-  if (props.element.data === props.isGraded) return;
-  emit('save', { ...props.element.data, isGraded: props.isGraded });
-})
+watch(
+  () =>  props.isGraded,
+  (isGraded) => {
+    if (props.element.data.isGraded === isGraded) return;
+    emit('save', { ...props.element.data, isGraded: props.isGraded });
+  },
+  { immediate: true }
+);
 ```
 
 ## Composite Elements
