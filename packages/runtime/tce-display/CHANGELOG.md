@@ -4,4 +4,5 @@
 
 ### Minor Changes
 
-- Introduced composite element support, added option to preview disabled and graded state, updated toolbar styles to match Tailor.
+- Introduced composite element support, added option to preview disabled and
+graded state, updated toolbar styles to match Tailor.
