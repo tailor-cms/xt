@@ -71,3 +71,15 @@ const submit = () => emit('interaction', { myInteractionData: 'example' });
 It is up to the `end-user`/`target system` to define mechanisms for end-user
 state persistance or any other additional behaviour.
 :::
+
+## Composite Elements
+
+Composite content elements can be configured using the `isComposite` flag in the
+manifest. To render a list of composite elements, use the `EmbeddedContainer`
+global component. Each learning platform that integrates composite content
+elements should have a globally registered `EmbeddedContainer` component to
+handle the rendering and listing of embedded elements. The CEK runtime provides
+a global component that mocks example elements when running inside the CEK environment.
+
+The `EmbeddedContainer` component accepts the following props:
+- `:elements`: Array; An array of embedded content elements.

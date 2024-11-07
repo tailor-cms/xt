@@ -38,6 +38,9 @@ props:
 - `:isFocused`: boolean; Is element selected
 - `:isDragged`: boolean; Is element being dragged; e.g. upon reordering
 - `:isDisabled`: boolean; Should element be disabled; e.g. upon copy element seleciton
+- `:isGraded`: boolean; This is specific to the question content elements. This is
+forwarded to the component in case question gradingType has been undefined meaning
+it can be configured as both graded and ungraded question type.
 
 and observed for element related events:
 
@@ -167,3 +170,32 @@ activated when `isDisabled` prop is set to `true`. Disabled element
 presentation is used for various features like observing Content Element
 diff or for copy functionality (Content Element needs to be previewed in
 order to be selected).
+
+## Graded state
+
+Each Question Content Element can be implemented to support graded and ungraded
+configuration. This is defined in the `gradingType` in manifest. If `gradingType`
+is not defined that means element supports both behaviours so both cases need
+to be implemented dependent on the `isGraded` prop passed to the component.
+Regardless of grading type, `isGraded` should be stored to the element data.
+
+```ts
+onMounted(() => {
+  if (props.element.data === props.isGraded) return;
+  emit('save', { ...props.element.data, isGraded: props.isGraded });
+})
+```
+
+## Composite Elements
+
+Content elements can be configured as composite elements using the `isComposite`
+flag in the manifest. To include a list of composite elements, utilize the
+`EmbeddedContainer` global component. Tailor CMS will render the appropriate
+element list, while the CEK runtime will mock example elements.
+
+The `EmbeddedContainer` component accepts the following props:
+- `:container`: object; Data field of the element containing `embeds` in a key-value format.
+- `:types`: array; Array of element types allowed to be embedded.
+- `:isDisabled`: boolean; Indicates if the element should be disabled. Defaults to `false`.
+- `:enableAdd`: boolean; Indicates if adding new elements is allowed. Defaults to `true`.
+- `:addElementOptions`: object; Additional options passed to the AddElement core component.
