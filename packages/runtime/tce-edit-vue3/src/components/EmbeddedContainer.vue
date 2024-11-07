@@ -41,10 +41,19 @@ import ContentElementExample from './ContentElementExample.vue';
 
 const eventBus = inject('$eventBus') as any;
 
-const props = defineProps<{
+interface Props {
+  types: string[];
   container: { embeds: Record<string, any> };
-  isDisabled: boolean;
-}>();
+  addElementOptions?: Record<string, any>;
+  isDisabled?: boolean;
+  enableAdd?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  addElementOptions: () => ({}),
+  isDisabled: false,
+  enableAdd: true,
+});
 const emit = defineEmits(['delete', 'save']);
 
 const embeds = computed(() => {
