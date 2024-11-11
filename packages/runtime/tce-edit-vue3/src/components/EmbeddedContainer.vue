@@ -57,8 +57,8 @@
 
 <script setup lang="ts">
 import { computed, defineProps, inject } from 'vue';
-import cloneDeep from 'lodash/cloneDeep';
-import sortBy from 'lodash/sortBy';
+import cloneDeep from 'lodash/cloneDeep.js';
+import sortBy from 'lodash/sortBy.js';
 import { v4 } from 'uuid';
 
 import ContentElementExample from './ContentElementExample.vue';
