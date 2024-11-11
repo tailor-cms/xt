@@ -1,5 +1,12 @@
 # @tailor-cms/tce-boot
 
+## 0.6.2
+
+### Patch Changes
+
+- Updated dependencies
+  - @tailor-cms/tce-edit-next-runtime@0.6.2
+
 ## 0.6.1
 
 ### Patch Changes
