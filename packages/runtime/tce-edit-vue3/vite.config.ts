@@ -35,7 +35,12 @@ export default defineConfig(({ mode }): any => {
       'import.meta.env.EDIT_DIR': JSON.stringify(env.TCE_EDIT_DIR),
     },
     optimizeDeps: {
-      include: [editModulePath.replace(/\/dist$/, '')],
+      include: [
+        editModulePath.replace(/\/dist$/, ''),
+        'lodash/cloneDeep.js',
+        'lodash/invoke.js',
+        'lodash/sortBy.js',
+      ],
     },
     plugins: [vue(), vuetify({ autoImport: true })],
   };
