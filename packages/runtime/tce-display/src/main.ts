@@ -1,6 +1,17 @@
 import { createApp } from 'vue';
 
 import App from './App.vue';
+import EmbeddedContainer from './components/EmbeddedContainer.vue';
+import NotCompositeAlert from './components/NotCompositeAlert.vue';
 import vuetify from './plugins/vuetify';
 
-createApp(App).use(vuetify).mount('#app');
+const element = await import(import.meta.env.DISPLAY_DIR);
+const isComposite = !!element.default.isComposite;
+
+const app = createApp(App);
+app.use(vuetify);
+app.component(
+  'EmbeddedContainer',
+  isComposite ? EmbeddedContainer : NotCompositeAlert,
+);
+app.mount('#app');

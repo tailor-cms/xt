@@ -4,13 +4,31 @@
       <VContainer>
         <VRow>
           <VCol>
-            <VChip
-              class="elevation-2 mt-1 mb-2 body-2 font-weight-bold"
-              color="primary-darken-1"
-              label
-            >
-              Authoring component
-            </VChip>
+            <div class="d-flex align-center">
+              <VChip
+                class="elevation-2 mt-1 mb-2 body-2 font-weight-bold"
+                color="primary-darken-1"
+                label
+              >
+                Authoring component
+              </VChip>
+              <VSpacer />
+              <VCheckbox
+                v-model="isDisabled"
+                color="primary"
+                label="Disabled"
+                hide-details
+              />
+              <VCheckbox
+                v-if="isQuestion"
+                v-model="isGraded"
+                :disabled="!!gradingType"
+                class="ml-2"
+                color="primary"
+                label="Graded"
+                hide-details
+              />
+            </div>
             <VSheet
               v-click-outside="unfocusElement"
               color="transparent"
@@ -19,8 +37,12 @@
               <div class="edit-frame pt-3">
                 <Edit
                   v-if="element?.data"
-                  :element="element"
-                  :is-focused="isFocused"
+                  v-bind="{
+                    element,
+                    isDisabled,
+                    isFocused,
+                    ...(isQuestion && { isGraded }),
+                  }"
                   @delete="onDelete"
                   @link="onLink"
                   @save="onSave"
@@ -40,14 +62,16 @@
                 Top toolbar
               </VChip>
             </div>
-            <component
-              :is="TopToolbar"
-              v-if="element?.data"
-              :element="element"
-              :is-focused="isFocused"
-              @delete="onDelete"
-              @save="onSave"
-            />
+            <VSheet class="top-toolbar" color="white" elevation="1">
+              <component
+                :is="TopToolbar"
+                v-if="element?.data"
+                :element="element"
+                :is-focused="isFocused"
+                @delete="onDelete"
+                @save="onSave"
+              />
+            </VSheet>
           </VCol>
         </VRow>
         <VRow v-if="SideToolbar">
@@ -59,14 +83,16 @@
             >
               Side toolbar
             </VChip>
-            <component
-              :is="SideToolbar"
-              v-if="element?.data"
-              :element="element"
-              :is-focused="isFocused"
-              @delete="onDelete"
-              @save="onSave"
-            />
+            <VSheet class="side-toolbar" color="primary-darken-2" elevation="5">
+              <component
+                :is="SideToolbar"
+                v-if="element?.data"
+                :element="element"
+                :is-focused="isFocused"
+                @delete="onDelete"
+                @save="onSave"
+              />
+            </VSheet>
           </VCol>
         </VRow>
       </VContainer>
@@ -92,6 +118,7 @@
         </VCardActions>
       </VCard>
     </VDialog>
+    <ConfirmationDialog />
   </VApp>
 </template>
 
@@ -100,6 +127,7 @@ import { defineEmits, getCurrentInstance, onMounted, provide, ref } from 'vue';
 import ky from 'ky';
 
 import assetApi from './api/asset';
+import ConfirmationDialog from './components/ConfirmationDialog.vue';
 
 const { TopToolbar, SideToolbar } = getCurrentInstance().appContext.components;
 
@@ -109,10 +137,13 @@ const api = ky.create({ prefixUrl: apiPrefix });
 const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
 const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
+const props = defineProps<{ isQuestion: boolean; gradingType?: string }>();
 const emit = defineEmits(['save', 'delete']);
 
 const element = ref({});
 const isFocused = ref(false);
+const isDisabled = ref(false);
+const isGraded = ref(props.gradingType === 'GRADED' || false);
 const isLinkDialogVisible = ref(false);
 
 provide('$storageService', assetApi);
@@ -185,5 +216,20 @@ const updateElementData = async (data) => {
 <style lang="scss" scoped>
 .v-application {
   background-color: transparent !important;
+}
+
+.side-toolbar {
+  padding: 1.75rem 0.875rem 1.5rem;
+  max-width: 30rem;
+}
+
+.top-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 5.5rem;
+  padding: 0.5rem 2rem;
+  border-bottom: 4px solid #cfd8dc;
 }
 </style>
