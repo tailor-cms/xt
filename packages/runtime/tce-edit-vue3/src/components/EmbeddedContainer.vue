@@ -66,7 +66,7 @@ import ContentElementExample from './ContentElementExample.vue';
 const eventBus = inject('$eventBus') as any;
 
 interface Props {
-  types: string[];
+  types?: string[];
   container: { embeds: Record<string, any> };
   addElementOptions?: Record<string, any>;
   isDisabled?: boolean;
@@ -74,6 +74,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  types: () => ['HTML', 'IMAGE', 'VIDEO'],
   addElementOptions: () => ({}),
   isDisabled: false,
   enableAdd: true,
