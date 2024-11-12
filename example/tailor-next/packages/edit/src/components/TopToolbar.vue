@@ -21,7 +21,6 @@ const decrement = () => {
 
 <style scoped>
 button {
-  margin-top: 1rem;
   padding: 0.5rem 1rem;
   border: 1px solid #444;
   background-color: #fff;

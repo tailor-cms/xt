@@ -74,9 +74,6 @@ const upload = (e: InputFileEvent | any) => {
 <style scoped>
 .tce-container {
   background-color: transparent;
-  margin-top: 1rem;
-  padding: 1rem;
-  border: 2px dashed #888;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
   overflow-x: hidden;
