@@ -29,12 +29,13 @@
                 hide-details
               />
             </div>
-            <VSheet
-              v-click-outside="unfocusElement"
-              color="transparent"
-              @click="isFocused = true"
-            >
-              <div class="edit-frame pt-3">
+            <VSheet class="pa-8" color="white" elevation="3" rounded="lg">
+              <VSheet
+                v-click-outside="unfocusElement"
+                :class="{ focused: isFocused }"
+                class="edit-frame"
+                @click="focusElement"
+              >
                 <Edit
                   v-if="element?.data"
                   v-bind="{
@@ -47,7 +48,7 @@
                   @link="onLink"
                   @save="onSave"
                 />
-              </div>
+              </VSheet>
             </VSheet>
           </VCol>
         </VRow>
@@ -158,6 +159,10 @@ onMounted(async () => {
   });
 });
 
+const focusElement = () => {
+  if (!isDisabled.value) isFocused.value = true;
+};
+
 const unfocusElement = () => {
   isFocused.value = false;
 };
@@ -231,5 +236,16 @@ const updateElementData = async (data) => {
   min-height: 5.5rem;
   padding: 0.5rem 2rem;
   border-bottom: 4px solid #cfd8dc;
+}
+
+.edit-frame {
+  border: 1px solid #e1e1e1;
+  padding: 0.625rem 1.25rem;
+
+  &.focused {
+    border: 1px dashed #1de9b6;
+    border-right-width: 2px;
+    border-right-style: solid;
+  }
 }
 </style>
