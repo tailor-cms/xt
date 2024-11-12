@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.2
+
+### Patch Changes
+
+- Added default types for embedded container.
+
 ## 0.6.1
 
 ### Patch Changes
