@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.3
+
+### Patch Changes
+
+- Update edit frame to match Tailor.
+
 ## 0.6.2
 
 ### Patch Changes
