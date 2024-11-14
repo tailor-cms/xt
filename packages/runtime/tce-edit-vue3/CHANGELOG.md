@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.4
+
+### Patch Changes
+
+- Display toolbar validation messages in a tooltip.
+
 ## 0.6.3
 
 ### Patch Changes
