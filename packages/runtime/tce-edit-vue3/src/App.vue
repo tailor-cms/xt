@@ -236,6 +236,23 @@ const updateElementData = async (data) => {
   min-height: 5.5rem;
   padding: 0.5rem 2rem;
   border-bottom: 4px solid #cfd8dc;
+
+  :deep(.v-input) {
+    position: relative;
+
+    .v-input__details {
+      position: absolute;
+      padding: 0 !important;
+
+      .v-messages {
+        margin-top: 0.5rem;
+        border-radius: 4px;
+        padding: 0.5rem 0.75rem;
+        background-color: #424242;
+        color: #fff !important;
+      }
+    }
+  }
 }
 
 .edit-frame {
