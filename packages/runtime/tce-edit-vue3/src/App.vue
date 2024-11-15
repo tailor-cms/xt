@@ -31,7 +31,10 @@
             </div>
             <VSheet class="pa-8" color="white" elevation="3" rounded="lg">
               <VSheet
-                v-click-outside="unfocusElement"
+                v-click-outside="{
+                  handler: unfocusElement,
+                  include,
+                }"
                 :class="{ focused: isFocused }"
                 class="edit-frame"
                 @click="focusElement"
@@ -54,7 +57,7 @@
         </VRow>
         <VRow v-if="TopToolbar">
           <VCol>
-            <div>
+            <div class="d-flex align-center">
               <VChip
                 class="elevation-2 my-3 body-2 font-weight-bold"
                 color="grey-darken-3"
@@ -62,38 +65,62 @@
               >
                 Top toolbar
               </VChip>
-            </div>
-            <VSheet class="top-toolbar" color="white" elevation="1">
-              <component
-                :is="TopToolbar"
-                v-if="element?.data"
-                :element="element"
-                :is-focused="isFocused"
-                @delete="onDelete"
-                @save="onSave"
+              <VSpacer />
+              <VSwitch
+                v-model="persistTopToolbar"
+                label="Persist"
+                hide-details
               />
-            </VSheet>
+            </div>
+            <VSlideYTransition>
+              <VSheet
+                v-if="element?.data && (isFocused || persistTopToolbar)"
+                class="top-toolbar"
+                color="white"
+                elevation="1"
+              >
+                <component
+                  :is="TopToolbar"
+                  :element="element"
+                  @delete="onDelete"
+                  @save="onSave"
+                />
+              </VSheet>
+            </VSlideYTransition>
           </VCol>
         </VRow>
         <VRow v-if="SideToolbar">
           <VCol>
-            <VChip
-              class="elevation-2 my-3 body-2 font-weight-bold"
-              color="grey-darken-3"
-              label
-            >
-              Side toolbar
-            </VChip>
-            <VSheet class="side-toolbar" color="primary-darken-2" elevation="5">
-              <component
-                :is="SideToolbar"
-                v-if="element?.data"
-                :element="element"
-                :is-focused="isFocused"
-                @delete="onDelete"
-                @save="onSave"
+            <div class="d-flex align-center">
+              <VChip
+                class="elevation-2 my-3 body-2 font-weight-bold"
+                color="grey-darken-3"
+                label
+              >
+                Side toolbar
+              </VChip>
+              <VSpacer />
+              <VSwitch
+                v-model="persistSideToolbar"
+                label="Persist"
+                hide-details
               />
-            </VSheet>
+            </div>
+            <VSlideXTransition>
+              <VSheet
+                v-if="element?.data && (isFocused || persistSideToolbar)"
+                class="side-toolbar"
+                color="primary-darken-2"
+                elevation="5"
+              >
+                <component
+                  :is="SideToolbar"
+                  :element="element"
+                  @delete="onDelete"
+                  @save="onSave"
+                />
+              </VSheet>
+            </VSlideXTransition>
           </VCol>
         </VRow>
       </VContainer>
@@ -144,10 +171,17 @@ const emit = defineEmits(['save', 'delete']);
 const element = ref({});
 const isFocused = ref(false);
 const isDisabled = ref(false);
+const persistSideToolbar = ref(false);
+const persistTopToolbar = ref(false);
 const isGraded = ref(props.gradingType === 'GRADED' || false);
 const isLinkDialogVisible = ref(false);
 
 provide('$storageService', assetApi);
+
+const include = () => [
+  document.querySelector('.top-toolbar'),
+  document.querySelector('.side-toolbar'),
+];
 
 onMounted(async () => {
   await getElement();
