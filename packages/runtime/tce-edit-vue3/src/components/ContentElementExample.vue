@@ -1,5 +1,5 @@
 <template>
-  <VSheet class="d-flex flex-column align-center pa-12" rounded="lg">
+  <VSheet class="d-flex flex-column align-center pa-12" rounded="lg" border>
     <VAvatar class="mb-4" color="primary-darken-4" size="x-large">
       <VIcon color="white" icon="mdi-cube" size="x-large" />
     </VAvatar>

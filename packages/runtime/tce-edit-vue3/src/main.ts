@@ -13,8 +13,8 @@ const gradingType = element.default.gradingType;
 
 const app = createApp(App, { isQuestion, gradingType });
 const radio = Radio.getInstance();
+app.provide('$eventBus', radio);
 app.provide('$elementBus', radio.channel('app'));
-app.provide('$eventBus', radio.channel('app'));
 app.use(vuetify);
 app.component(
   'EmbeddedContainer',

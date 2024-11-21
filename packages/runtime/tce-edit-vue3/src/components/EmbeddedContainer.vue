@@ -64,6 +64,7 @@ import { v4 } from 'uuid';
 import ContentElementExample from './ContentElementExample.vue';
 
 const eventBus = inject('$eventBus') as any;
+const appChannel = eventBus.channel('app');
 
 interface Props {
   types?: string[];
@@ -108,7 +109,7 @@ const save = (item, key, value) => {
 };
 
 const requestDeleteConfirmation = (element) => {
-  return eventBus.emit('showConfirmationModal', {
+  return appChannel.emit('showConfirmationModal', {
     title: 'Delete element?',
     message: 'Are you sure you want to delete element?',
     action: () => emit('delete', element),

@@ -40,6 +40,7 @@ const createContext = () => ({
 });
 
 const eventBus = inject('$eventBus') as any;
+const appChannel = eventBus.channel('app');
 
 const isVisible = ref(false);
 const context = ref(createContext());
@@ -64,6 +65,6 @@ const confirm = () => {
   close();
 };
 
-onMounted(() => eventBus.on('showConfirmationModal', open));
-onBeforeUnmount(() => eventBus.off('showConfirmationModal', open));
+onMounted(() => appChannel.on('showConfirmationModal', open));
+onBeforeUnmount(() => appChannel.off('showConfirmationModal', open));
 </script>
