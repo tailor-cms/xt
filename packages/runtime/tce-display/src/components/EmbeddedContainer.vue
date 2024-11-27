@@ -10,8 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
-
 import ContentElement from './ContentElementExample.vue';
 
 defineProps<{ elements: any[] }>();

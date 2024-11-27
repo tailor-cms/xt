@@ -1,5 +1,5 @@
 <template>
-  <div class="embedded-container pa-4">
+  <div class="embedded-container">
     <div v-for="element in embeds" :key="element.id" class="position-relative">
       <ContentElementExample
         :id="element.id"
@@ -22,14 +22,7 @@
     </div>
     <VBottomSheet v-if="!isDisabled" class="mx-5" close-on-content-click>
       <template #activator="{ props: bottomSheetProps }">
-        <VBtn
-          v-bind="bottomSheetProps"
-          class="mt-2"
-          color="primary-darken-2"
-          icon="mdi-plus"
-          size="small"
-          variant="tonal"
-        />
+        <VBtn v-bind="{ ...bottomSheetProps, ...addBtnProps }" class="mt-2" />
       </template>
       <VSheet class="pa-6">
         <div class="text-subtitle-2 mb-4">Example Elements</div>
@@ -56,35 +49,62 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, inject } from 'vue';
+import { computed, inject } from 'vue';
 import cloneDeep from 'lodash/cloneDeep.js';
 import sortBy from 'lodash/sortBy.js';
 import { v4 } from 'uuid';
+import type { VBtn } from 'vuetify/components';
 
 import ContentElementExample from './ContentElementExample.vue';
 
-const eventBus = inject('$eventBus') as any;
-const appChannel = eventBus.channel('app');
+interface AddElementOptions {
+  large: boolean;
+  label: string;
+  icon: string;
+  color: string;
+  variant: VBtn['variant'];
+}
 
 interface Props {
   types?: string[];
   container: { embeds: Record<string, any> };
-  addElementOptions?: Record<string, any>;
+  addElementOptions?: AddElementOptions;
   isDisabled?: boolean;
   enableAdd?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   types: () => ['HTML', 'IMAGE', 'VIDEO'],
-  addElementOptions: () => ({}),
+  addElementOptions: () => ({
+    large: false,
+    label: 'Add content',
+    icon: 'mdi-plus',
+    color: 'primary-darken-4',
+    variant: 'tonal',
+  }),
   isDisabled: false,
   enableAdd: true,
 });
 const emit = defineEmits(['delete', 'save']);
 
+const eventBus = inject('$eventBus') as any;
+const appChannel = eventBus.channel('app');
+
 const embeds = computed(() => {
   const items = Object.values(props.container.embeds ?? {});
   return sortBy(items, 'position');
+});
+
+const addBtnProps = computed(() => {
+  const {
+    large = false,
+    label = 'Add content',
+    icon = 'mdi-plus',
+    color = 'primary-darken-4',
+    variant = 'tonal',
+  } = props.addElementOptions;
+  if (!large) return { icon, color, variant, size: 'small' };
+  return { text: label, prependIcon: icon, color, variant };
 });
 
 const createEmbedElement = (type) => ({

@@ -151,7 +151,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, getCurrentInstance, onMounted, provide, ref } from 'vue';
+import { getCurrentInstance, onMounted, provide, ref } from 'vue';
 import ky from 'ky';
 
 import assetApi from './api/asset';
