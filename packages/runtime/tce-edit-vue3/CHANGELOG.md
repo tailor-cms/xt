@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.6
+
+### Patch Changes
+
+- Fixed eventBus injections, updated content element example card styles.
+
 ## 0.6.5
 
 ### Patch Changes
