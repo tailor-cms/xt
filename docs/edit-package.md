@@ -196,10 +196,10 @@ watch(
 
 Content elements can be configured as composite elements using the `isComposite`
 flag in the manifest. To include a list of composite elements, utilize the
-`EmbeddedContainer` global component. Tailor CMS will render the appropriate
+`TailorEmbeddedContainer` global component. Tailor CMS will render the appropriate
 element list, while the CEK runtime will mock example elements.
 
-The `EmbeddedContainer` component accepts the following props:
+The `TailorEmbeddedContainer` component accepts the following props:
 - `:container`: object; Data field of the element containing `embeds` in a key-value format.
 - `:types`: array; Array of element types allowed to be embedded.
 - `:isDisabled`: boolean; Indicates if the element should be disabled. Defaults to `false`.

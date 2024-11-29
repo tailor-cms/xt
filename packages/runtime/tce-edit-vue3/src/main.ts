@@ -17,7 +17,7 @@ app.provide('$eventBus', radio);
 app.provide('$elementBus', radio.channel('app'));
 app.use(vuetify);
 app.component(
-  'EmbeddedContainer',
+  'TailorEmbeddedContainer',
   isComposite ? EmbeddedContainer : NotCompositeAlert,
 );
 app.component('Edit', element.Edit);
