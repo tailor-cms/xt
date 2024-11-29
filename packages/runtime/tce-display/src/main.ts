@@ -11,7 +11,7 @@ const isComposite = !!element.default.isComposite;
 const app = createApp(App);
 app.use(vuetify);
 app.component(
-  'EmbeddedContainer',
+  'TailorEmbeddedContainer',
   isComposite ? EmbeddedContainer : NotCompositeAlert,
 );
 app.mount('#app');

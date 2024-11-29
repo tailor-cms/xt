@@ -75,11 +75,11 @@ state persistance or any other additional behaviour.
 ## Composite Elements
 
 Composite content elements can be configured using the `isComposite` flag in the
-manifest. To render a list of composite elements, use the `EmbeddedContainer`
+manifest. To render a list of composite elements, use the `TailorEmbeddedContainer`
 global component. Each learning platform that integrates composite content
-elements should have a globally registered `EmbeddedContainer` component to
+elements should have a globally registered `TailorEmbeddedContainer` component to
 handle the rendering and listing of embedded elements. The CEK runtime provides
 a global component that mocks example elements when running inside the CEK environment.
 
-The `EmbeddedContainer` component accepts the following props:
+The `TailorEmbeddedContainer` component accepts the following props:
 - `:elements`: Array; An array of embedded content elements.

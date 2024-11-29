@@ -20,7 +20,7 @@ export interface ElementManifest {
   // Human readable name of the content element
   name: string;
   // Declare content element as a composite type. Should be true if
-  // EmbeddedContainer will be used
+  // TailorEmbeddedContainer will be used
   isComposite: boolean;
   // Declare content element as question type
   isQuestion: boolean;
