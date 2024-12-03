@@ -21,8 +21,7 @@
               />
               <VCheckbox
                 v-if="isQuestion"
-                v-model="isGraded"
-                :disabled="!!gradingType"
+                v-model="isGradeable"
                 class="ml-2"
                 color="primary"
                 label="Graded"
@@ -45,7 +44,7 @@
                     element,
                     isDisabled,
                     isFocused,
-                    ...(isQuestion && { isGraded }),
+                    ...(isQuestion && { isGradeable }),
                   }"
                   @delete="onDelete"
                   @link="onLink"
@@ -165,7 +164,7 @@ const api = ky.create({ prefixUrl: apiPrefix });
 const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
 const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
-const props = defineProps<{ isQuestion: boolean; gradingType?: string }>();
+defineProps<{ isQuestion: boolean; }>();
 const emit = defineEmits(['save', 'delete']);
 
 const element = ref({});
@@ -173,7 +172,7 @@ const isFocused = ref(false);
 const isDisabled = ref(false);
 const persistSideToolbar = ref(false);
 const persistTopToolbar = ref(false);
-const isGraded = ref(props.gradingType === 'GRADED' || false);
+const isGradeable = ref(true);
 const isLinkDialogVisible = ref(false);
 
 provide('$storageService', assetApi);
