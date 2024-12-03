@@ -164,7 +164,7 @@ const api = ky.create({ prefixUrl: apiPrefix });
 const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
 const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
-defineProps<{ isQuestion: boolean; }>();
+defineProps<{ isQuestion: boolean }>();
 const emit = defineEmits(['save', 'delete']);
 
 const element = ref({});
