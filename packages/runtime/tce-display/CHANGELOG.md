@@ -1,5 +1,11 @@
 # @tailor-cms/tce-display-runtime
 
+## 0.6.3
+
+### Patch Changes
+
+- Updated EmbeddedContainer component display.
+
 ## 0.6.2
 
 ### Patch Changes
