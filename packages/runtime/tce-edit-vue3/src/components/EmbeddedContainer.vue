@@ -24,7 +24,7 @@
       <template #activator="{ props: bottomSheetProps }">
         <VBtn v-bind="{ ...bottomSheetProps, ...addBtnProps }" class="mt-2" />
       </template>
-      <VSheet class="pa-6">
+      <VSheet class="text-left pa-6">
         <div class="text-subtitle-2 mb-4">Example Elements</div>
         <div class="d-flex flex-wrap ga-5 w-100">
           <VBtn
