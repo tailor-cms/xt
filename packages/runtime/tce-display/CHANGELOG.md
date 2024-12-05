@@ -1,5 +1,11 @@
 # @tailor-cms/tce-display-runtime
 
+## 0.6.4
+
+### Patch Changes
+
+- Add attach to overlays to prevent losing element focus.
+
 ## 0.6.3
 
 ### Patch Changes
