@@ -136,3 +136,9 @@ const requestDeleteConfirmation = (element) => {
   });
 };
 </script>
+
+<style lang="scss" scoped>
+.embedded-container {
+  padding: 0.625rem 1.5rem;
+}
+</style>
