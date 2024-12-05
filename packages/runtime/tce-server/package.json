@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-server-runtime",
   "description": "Teaching element server runtime",
   "author": "underscope@gmail.com",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "type": "module",
   "scripts": {
     "dev": "node --experimental-specifier-resolution=node --loader ts-node/esm ./boot.ts",

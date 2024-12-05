@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.13
+
+### Patch Changes
+
+- Added reset element upon switching 'Gradeable' flag.
+
 ## 0.6.12
 
 ### Patch Changes
