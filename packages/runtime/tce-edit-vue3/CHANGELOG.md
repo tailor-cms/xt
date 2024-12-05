@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.10
+
+### Patch Changes
+
+- Tweaked EmbeddedContainer styling.
+
 ## 0.6.9
 
 ### Patch Changes
