@@ -22,10 +22,12 @@
               <VCheckbox
                 v-if="isQuestion"
                 v-model="isGradeable"
+                v-tooltip="'Switching will reset the element data!'"
                 class="ml-2"
                 color="primary"
-                label="Graded"
+                label="Gradeable"
                 hide-details
+                @update:model-value="resetElement"
               />
             </div>
             <VSheet class="pa-8" color="white" elevation="3" rounded="lg">
@@ -232,9 +234,21 @@ const getElement = async () => {
     }).json();
     if (response === null) return;
     element.value = response?.element;
+    if (!isGradeable.value) delete element.value.data.correct;
   } catch (error) {
     console.log('Error on element get', error);
     setTimeout(() => getElement(), 2000);
+  }
+};
+
+const resetElement = async () => {
+  try {
+    element.value = await api
+      .post(`content-element/${element.value.id}/reset-element`)
+      .json();
+    if (!isGradeable.value) delete element.value.data.correct;
+  } catch (error) {
+    console.log('Error on element update', error);
   }
 };
 

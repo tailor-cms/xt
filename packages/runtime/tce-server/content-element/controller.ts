@@ -44,8 +44,13 @@ export default ({ type, initState, hookMap }) => {
   }
 
   async function resetAuthoringState({ element }, res) {
-    await element.update({ type, data: initState(), meta: {}, refs: {} });
-    return res.status(200).end();
+    const outputData = await element.update({
+      type,
+      data: initState(),
+      meta: {},
+      refs: {},
+    });
+    return res.json(outputData);
   }
 
   function resetUserStateContext({ element }, res) {
