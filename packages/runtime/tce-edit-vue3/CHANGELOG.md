@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.12
+
+### Patch Changes
+
+- Align EmbeddecContainer add dialog title.
+
 ## 0.6.11
 
 ### Patch Changes
