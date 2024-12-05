@@ -20,7 +20,7 @@
         @click="requestDeleteConfirmation(element)"
       />
     </div>
-    <VBottomSheet v-if="!isDisabled" class="mx-5" close-on-content-click>
+    <VBottomSheet v-if="!isDisabled" class="mx-5" attach close-on-content-click>
       <template #activator="{ props: bottomSheetProps }">
         <VBtn v-bind="{ ...bottomSheetProps, ...addBtnProps }" class="mt-2" />
       </template>

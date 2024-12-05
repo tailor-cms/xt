@@ -124,7 +124,7 @@
         </VRow>
       </VContainer>
     </VMain>
-    <VDialog v-model="isLinkDialogVisible" width="500" persistent>
+    <VDialog v-model="isLinkDialogVisible" width="500" attach persistent>
       <VCard>
         <VCardTitle class="text-h5">Link element dialog</VCardTitle>
         <VCardText>
