@@ -21,13 +21,12 @@
               />
               <VCheckbox
                 v-if="isQuestion"
-                v-model="isGradeable"
-                v-tooltip="'Switching will reset the element data!'"
+                :model-value="isGradeable"
                 class="ml-2"
                 color="primary"
                 label="Gradeable"
                 hide-details
-                @update:model-value="resetElement"
+                @click.prevent="confirmGradeableToggle"
               />
             </div>
             <VSheet class="pa-8" color="white" elevation="3" rounded="lg">
@@ -152,7 +151,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getCurrentInstance, onMounted, provide, ref } from 'vue';
+import { getCurrentInstance, inject, onMounted, provide, ref } from 'vue';
 import ky from 'ky';
 
 import assetApi from './api/asset';
@@ -168,6 +167,9 @@ const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
 defineProps<{ isQuestion: boolean }>();
 const emit = defineEmits(['save', 'delete']);
+
+const eventBus = inject<any>('$eventBus');
+const appChannel = eventBus.channel('app');
 
 const element = ref({});
 const isFocused = ref(false);
@@ -234,23 +236,26 @@ const getElement = async () => {
     }).json();
     if (response === null) return;
     element.value = response?.element;
-    if (!isGradeable.value) delete element.value.data.correct;
+    isGradeable.value = 'correct' in element.value.data;
   } catch (error) {
     console.log('Error on element get', error);
     setTimeout(() => getElement(), 2000);
   }
 };
 
-const resetElement = async () => {
-  try {
-    element.value = await api
-      .post(`content-element/${element.value.id}/reset-element`)
-      .json();
-    if (!isGradeable.value) delete element.value.data.correct;
-  } catch (error) {
-    console.log('Error on element update', error);
-  }
+const toggleGradeable = async () => {
+  isGradeable.value = !isGradeable.value;
+  const { initState } = await import(import.meta.env.MANIFEST_DIR);
+  const data = initState();
+  if (!isGradeable.value) delete data.correct;
+  await updateElementData(data);
+  return resetState();
 };
+
+const resetState = async () =>
+  api
+    .post(`content-element/${element.value.id}/reset-state`)
+    .catch((error) => console.log('Error on state reset', error));
 
 const updateElementData = async (data) => {
   try {
@@ -262,6 +267,14 @@ const updateElementData = async (data) => {
   } catch (error) {
     console.log('Error on element update', error);
   }
+};
+
+const confirmGradeableToggle = (element) => {
+  return appChannel.emit('showConfirmationModal', {
+    title: 'Are you sure?',
+    message: 'This action will reset element data and state',
+    action: toggleGradeable,
+  });
 };
 </script>
 

@@ -33,6 +33,7 @@ export default defineConfig(({ mode }): any => {
     },
     define: {
       'import.meta.env.EDIT_DIR': JSON.stringify(env.TCE_EDIT_DIR),
+      'import.meta.env.MANIFEST_DIR': JSON.stringify(env.TCE_MANIFEST_DIR),
     },
     optimizeDeps: {
       include: [
