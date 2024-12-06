@@ -21,12 +21,12 @@
               />
               <VCheckbox
                 v-if="isQuestion"
-                v-model="isGraded"
-                :disabled="!!gradingType"
+                :model-value="isGradeable"
                 class="ml-2"
                 color="primary"
-                label="Graded"
+                label="Gradeable"
                 hide-details
+                @click.prevent="confirmGradeableToggle"
               />
             </div>
             <VSheet class="pa-8" color="white" elevation="3" rounded="lg">
@@ -45,7 +45,7 @@
                     element,
                     isDisabled,
                     isFocused,
-                    ...(isQuestion && { isGraded }),
+                    ...(isQuestion && { isGradeable }),
                   }"
                   @delete="onDelete"
                   @link="onLink"
@@ -125,7 +125,7 @@
         </VRow>
       </VContainer>
     </VMain>
-    <VDialog v-model="isLinkDialogVisible" width="500" persistent>
+    <VDialog v-model="isLinkDialogVisible" width="500" attach persistent>
       <VCard>
         <VCardTitle class="text-h5">Link element dialog</VCardTitle>
         <VCardText>
@@ -151,7 +151,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getCurrentInstance, onMounted, provide, ref } from 'vue';
+import { getCurrentInstance, inject, onMounted, provide, ref } from 'vue';
 import ky from 'ky';
 
 import assetApi from './api/asset';
@@ -165,15 +165,18 @@ const api = ky.create({ prefixUrl: apiPrefix });
 const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
 const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
-const props = defineProps<{ isQuestion: boolean; gradingType?: string }>();
+defineProps<{ isQuestion: boolean }>();
 const emit = defineEmits(['save', 'delete']);
+
+const eventBus = inject<any>('$eventBus');
+const appChannel = eventBus.channel('app');
 
 const element = ref({});
 const isFocused = ref(false);
 const isDisabled = ref(false);
 const persistSideToolbar = ref(false);
 const persistTopToolbar = ref(false);
-const isGraded = ref(props.gradingType === 'GRADED' || false);
+const isGradeable = ref(true);
 const isLinkDialogVisible = ref(false);
 
 provide('$storageService', assetApi);
@@ -233,11 +236,26 @@ const getElement = async () => {
     }).json();
     if (response === null) return;
     element.value = response?.element;
+    isGradeable.value = 'correct' in element.value.data;
   } catch (error) {
     console.log('Error on element get', error);
     setTimeout(() => getElement(), 2000);
   }
 };
+
+const toggleGradeable = async () => {
+  isGradeable.value = !isGradeable.value;
+  const { initState } = await import(import.meta.env.MANIFEST_DIR);
+  const data = initState();
+  if (!isGradeable.value) delete data.correct;
+  await updateElementData(data);
+  return resetState();
+};
+
+const resetState = async () =>
+  api
+    .post(`content-element/${element.value.id}/reset-state`)
+    .catch((error) => console.log('Error on state reset', error));
 
 const updateElementData = async (data) => {
   try {
@@ -249,6 +267,14 @@ const updateElementData = async (data) => {
   } catch (error) {
     console.log('Error on element update', error);
   }
+};
+
+const confirmGradeableToggle = (element) => {
+  return appChannel.emit('showConfirmationModal', {
+    title: 'Are you sure?',
+    message: 'This action will reset element data and state',
+    action: toggleGradeable,
+  });
 };
 </script>
 

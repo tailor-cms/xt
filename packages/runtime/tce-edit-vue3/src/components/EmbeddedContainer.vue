@@ -20,11 +20,11 @@
         @click="requestDeleteConfirmation(element)"
       />
     </div>
-    <VBottomSheet v-if="!isDisabled" class="mx-5" close-on-content-click>
+    <VBottomSheet v-if="!isDisabled" class="mx-5" attach close-on-content-click>
       <template #activator="{ props: bottomSheetProps }">
         <VBtn v-bind="{ ...bottomSheetProps, ...addBtnProps }" class="mt-2" />
       </template>
-      <VSheet class="pa-6">
+      <VSheet class="text-left pa-6">
         <div class="text-subtitle-2 mb-4">Example Elements</div>
         <div class="d-flex flex-wrap ga-5 w-100">
           <VBtn
@@ -136,3 +136,9 @@ const requestDeleteConfirmation = (element) => {
   });
 };
 </script>
+
+<style lang="scss" scoped>
+.embedded-container {
+  padding: 0.625rem 1.5rem;
+}
+</style>

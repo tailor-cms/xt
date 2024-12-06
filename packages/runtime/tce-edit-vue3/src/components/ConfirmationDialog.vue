@@ -1,5 +1,11 @@
 <template>
-  <VDialog v-model="isVisible" width="500" persistent @click:outside="close">
+  <VDialog
+    v-model="isVisible"
+    width="500"
+    attach
+    persistent
+    @click:outside="close"
+  >
     <VCard
       :text="context.message"
       :title="context.title"

@@ -38,9 +38,10 @@ props:
 - `:isFocused`: boolean; Is element selected
 - `:isDragged`: boolean; Is element being dragged; e.g. upon reordering
 - `:isDisabled`: boolean; Should element be disabled; e.g. upon copy element seleciton
-- `:isGraded`: boolean; This is specific to the question content elements. This is
-forwarded to the component in case question gradingType has been undefined meaning
-it can be configured as both graded and ungraded question type.
+- `:isGradeable`: boolean; This is specific to the question content elements.
+Defines if question element has been configured as gradeable or non-gradeable
+type. This is defined through the tailor schema and then passed down to the
+content element.
 
 and observed for element related events:
 
@@ -171,26 +172,11 @@ presentation is used for various features like observing Content Element
 diff or for copy functionality (Content Element needs to be previewed in
 order to be selected).
 
-## Graded state
+## Gradeable state
 
 Each Question Content Element can be implemented to support graded and ungraded
-configuration. This is defined in the `gradingType` in manifest. If `gradingType`
-is not defined that means element supports both behaviours so both cases need
-to be implemented dependent on the `isGraded` prop passed to the component.
-Regardless of grading type, `isGraded` should be stored to the element data.
-
-Example on how to handle storing `isGraded` to the element data.
-
-```ts
-watch(
-  () =>  props.isGraded,
-  (isGraded) => {
-    if (props.element.data.isGraded === isGraded) return;
-    emit('save', { ...props.element.data, isGraded: props.isGraded });
-  },
-  { immediate: true }
-);
-```
+configuration. `isGradeable` prop is passed to the component and each question
+can be implemented to support gradeable and/or non-gradeable variant/s.
 
 ## Composite Elements
 
@@ -201,7 +187,27 @@ element list, while the CEK runtime will mock example elements.
 
 The `TailorEmbeddedContainer` component accepts the following props:
 - `:container`: object; Data field of the element containing `embeds` in a key-value format.
-- `:types`: array; Array of element types allowed to be embedded.
+- `:types`: array; Array of element types allowed to be embedded. Usually equals to the `allowedEmbedTypes` prop passed to the Edit package.
 - `:isDisabled`: boolean; Indicates if the element should be disabled. Defaults to `false`.
 - `:enableAdd`: boolean; Indicates if adding new elements is allowed. Defaults to `true`.
 - `:addElementOptions`: object; Additional options passed to the AddElement core component.
+
+## Question Elements
+
+Content elements can be configured as composite elements using the `isQuestion`
+flag in the manifest. Each question can utilize `QuestionContainer` component
+from `@tailor-cms/core-components` package which is used to wrap the component
+in the container with the question prompt, content element slot, hint,
+optionally feedback and save and cancel actions. If `QuestionContainer` is
+used content element must also be configured as `isComposite` in the manifest
+because Question prompt is utilizing `TailorEmbeddedContainer` under the hood.
+
+The `QuestionContainer` component accepts the following props:
+- `:elementData`: object; Element entity containing all element related data
+- `:isDirty`: boolean; Indicates if element data has been changed, used to enable
+save and cancel actions.
+- `:showFeedback`: boolean; Controls whether QustionContainer should render
+feedback component.
+- `:allowedPromptTypes`: array; array of element types allowed for the Question prompt
+- `:isDisabled`: boolean; Should element be disabled; e.g. upon copy element seleciton
+- `:isGradeable`: boolean; Is element configured as gradeable.
