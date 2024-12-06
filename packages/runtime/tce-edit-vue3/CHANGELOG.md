@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.14
+
+### Patch Changes
+
+- Refactor the way toggling gradeable flag is handled.
+
 ## 0.6.13
 
 ### Patch Changes
