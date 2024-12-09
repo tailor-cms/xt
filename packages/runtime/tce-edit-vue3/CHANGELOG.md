@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.16
+
+### Patch Changes
+
+- Fixed toggling gradeable state.
+
 ## 0.6.15
 
 ### Patch Changes
