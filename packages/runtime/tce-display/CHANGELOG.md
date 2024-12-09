@@ -1,5 +1,11 @@
 # @tailor-cms/tce-display-runtime
 
+## 0.6.5
+
+### Patch Changes
+
+- Added key to the edit components to force re-render.
+
 ## 0.6.4
 
 ### Patch Changes

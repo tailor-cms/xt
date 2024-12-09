@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.15
+
+### Patch Changes
+
+- Added key to the edit components to force re-render.
+
 ## 0.6.14
 
 ### Patch Changes
