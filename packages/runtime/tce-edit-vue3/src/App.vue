@@ -247,11 +247,12 @@ const getElement = async () => {
 };
 
 const toggleGradeable = async () => {
-  isGradeable.value = !isGradeable.value;
+  const newGradeableValue = !isGradeable.value;
   const { initState } = await import(import.meta.env.MANIFEST_DIR);
   const data = initState();
-  if (!isGradeable.value) delete data.correct;
+  if (!newGradeableValue) delete data.correct;
   await updateElementData(data);
+  isGradeable.value = newGradeableValue;
   return resetState();
 };
 
