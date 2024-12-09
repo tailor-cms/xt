@@ -47,6 +47,7 @@
                     isFocused,
                     ...(isQuestion && { isGradeable }),
                   }"
+                  :key="isGradeable"
                   @delete="onDelete"
                   @link="onLink"
                   @save="onSave"
@@ -81,6 +82,7 @@
               >
                 <component
                   :is="TopToolbar"
+                  :key="isGradeable"
                   :element="element"
                   @delete="onDelete"
                   @save="onSave"
@@ -115,6 +117,7 @@
               >
                 <component
                   :is="SideToolbar"
+                  :key="isGradeable"
                   :element="element"
                   @delete="onDelete"
                   @save="onSave"
