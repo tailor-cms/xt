@@ -1,5 +1,53 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.16
+
+### Patch Changes
+
+- Fixed toggling gradeable state.
+
+## 0.6.15
+
+### Patch Changes
+
+- Added key to the edit components to force re-render.
+
+## 0.6.14
+
+### Patch Changes
+
+- Refactor the way toggling gradeable flag is handled.
+
+## 0.6.13
+
+### Patch Changes
+
+- Added reset element upon switching 'Gradeable' flag.
+
+## 0.6.12
+
+### Patch Changes
+
+- Align EmbeddecContainer add dialog title.
+
+## 0.6.11
+
+### Patch Changes
+
+- Add attach to overlays to prevent losing element focus.
+
+## 0.6.10
+
+### Patch Changes
+
+- Tweaked EmbeddedContainer styling.
+
+## 0.6.9
+
+### Patch Changes
+
+- Renamed isGraded to isGradablea, updated docs.
+
 ## 0.6.8
 
 ### Patch Changes
