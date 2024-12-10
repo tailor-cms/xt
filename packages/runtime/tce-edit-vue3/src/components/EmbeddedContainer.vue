@@ -1,61 +1,61 @@
 <template>
-  <div class="embedded-container">
-    <div v-for="element in embeds" :key="element.id" class="position-relative">
-      <ContentElementExample
-        :id="element.id"
-        :data="element.data"
-        :is-disabled="isDisabled"
-        :type="element.type"
-        class="mb-2"
-        @save="save(element, 'data', $event)"
-      />
-      <VBtn
-        v-if="!isDisabled && enableAdd"
-        class="position-absolute ma-4 top-0 right-0"
-        color="secondary"
-        density="comfortable"
-        icon="mdi-delete-outline"
-        size="small"
-        variant="tonal"
-        @click="requestDeleteConfirmation(element)"
-      />
+  <div class="embedded-container align-center">
+    <div class="d-flex flex-column ga-4">
+      <div
+        v-for="element in embeds"
+        :key="element.id"
+        class="element-wrapper text-center position-relative pa-12"
+      >
+        <VAvatar class="mb-4" color="primary-darken-4" size="x-large">
+          <VIcon color="white" icon="mdi-cube" size="x-large" />
+        </VAvatar>
+        <div class="text-grey-darken-4 text-h5">Example Content Element</div>
+        <VChip class="mt-2" color="grey-darken-1" rounded="pill">
+          ID: {{ element.id }}
+        </VChip>
+        <VBtn
+          v-if="!isDisabled && enableAdd"
+          class="position-absolute ma-4 top-0 right-0"
+          color="secondary"
+          density="comfortable"
+          icon="mdi-delete-outline"
+          size="small"
+          variant="tonal"
+          @click="requestDeleteConfirmation(element)"
+        />
+      </div>
     </div>
-    <VBottomSheet v-if="!isDisabled" class="mx-5" attach close-on-content-click>
-      <template #activator="{ props: bottomSheetProps }">
-        <VBtn v-bind="{ ...bottomSheetProps, ...addBtnProps }" class="mt-2" />
-      </template>
-      <VSheet class="text-left pa-6">
-        <div class="text-subtitle-2 mb-4">Example Elements</div>
-        <div class="d-flex flex-wrap ga-5 w-100">
+    <VBtn v-bind="addBtnProps" class="flex-grow-0 my-4" @click="addItem" />
+    <VDialog v-model="isDialogVisible" width="500" attach persistent>
+      <VCard>
+        <VCardTitle class="text-h5">Add content element</VCardTitle>
+        <VCardText>
+          In Tailor, this action will open a dialog to select a content element
+          type to add. Allowed element types are defined through the schema
+          configuration.
+        </VCardText>
+        <VDivider />
+        <VCardActions>
+          <VSpacer />
           <VBtn
-            v-for="type in types"
-            :key="type"
-            class="pa-4"
-            color="primary-darken-3"
-            height="auto"
-            prepend-icon="mdi-cube"
-            rounded="lg"
-            variant="tonal"
-            width="120"
-            stacked
-            @click="addItem(type)"
+            color="blue-grey-darken-2"
+            variant="text"
+            @click="isDialogVisible = false"
           >
-            Example {{ type }}
+            Close
           </VBtn>
-        </div>
-      </VSheet>
-    </VBottomSheet>
+        </VCardActions>
+      </VCard>
+    </VDialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, inject } from 'vue';
+import { computed, inject, ref } from 'vue';
 import cloneDeep from 'lodash/cloneDeep.js';
 import sortBy from 'lodash/sortBy.js';
 import { v4 } from 'uuid';
 import type { VBtn } from 'vuetify/components';
-
-import ContentElementExample from './ContentElementExample.vue';
 
 interface AddElementOptions {
   large: boolean;
@@ -66,7 +66,6 @@ interface AddElementOptions {
 }
 
 interface Props {
-  types?: string[];
   container: { embeds: Record<string, any> };
   addElementOptions?: AddElementOptions;
   isDisabled?: boolean;
@@ -74,7 +73,6 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  types: () => ['HTML', 'IMAGE', 'VIDEO'],
   addElementOptions: () => ({
     large: false,
     label: 'Add content',
@@ -89,6 +87,8 @@ const emit = defineEmits(['delete', 'save']);
 
 const eventBus = inject('$eventBus') as any;
 const appChannel = eventBus.channel('app');
+
+const isDialogVisible = ref(false);
 
 const embeds = computed(() => {
   const items = Object.values(props.container.embeds ?? {});
@@ -107,24 +107,19 @@ const addBtnProps = computed(() => {
   return { text: label, prependIcon: icon, color, variant };
 });
 
-const createEmbedElement = (type) => ({
+const createEmbedElement = () => ({
   id: v4(),
-  data: { title: `Example Element` },
+  data: {},
   embedded: true,
   position: embeds.value.length,
-  type,
+  type: 'EXAMPLE',
 });
 
-const addItem = (type: string) => {
-  const item = createEmbedElement(type);
+const addItem = () => {
+  isDialogVisible.value = true;
+  const item = createEmbedElement();
   const container = cloneDeep(props.container);
   Object.assign(container.embeds, { [item.id]: item });
-  emit('save', container);
-};
-
-const save = (item, key, value) => {
-  const container = cloneDeep(props.container);
-  Object.assign(container.embeds[item.id], { [key]: value });
   emit('save', container);
 };
 
@@ -140,5 +135,11 @@ const requestDeleteConfirmation = (element) => {
 <style lang="scss" scoped>
 .embedded-container {
   padding: 0.625rem 1.5rem;
+}
+
+.element-wrapper {
+  border: 1px solid #e1e1e1;
+  padding: 0.625rem 1.25rem;
+  width: 100%;
 }
 </style>
