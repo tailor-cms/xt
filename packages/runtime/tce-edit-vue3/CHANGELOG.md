@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.19
+
+### Patch Changes
+
+- Fix alert text slot name.
+
 ## 0.6.18
 
 ### Patch Changes
