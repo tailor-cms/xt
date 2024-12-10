@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.18
+
+### Patch Changes
+
+- Added text-left align on the info dialog.
+
 ## 0.6.17
 
 ### Patch Changes
