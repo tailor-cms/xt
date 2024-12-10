@@ -32,7 +32,7 @@
         prepend-icon="mdi-information-variant-circle"
         title="Add content element"
       >
-        <template #title>
+        <template #text>
           In Tailor, this action will open a dialog to select a content element
           type to add. Allowed element types are defined through the schema
           configuration.
