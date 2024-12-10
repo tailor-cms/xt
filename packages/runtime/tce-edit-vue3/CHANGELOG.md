@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.17
+
+### Patch Changes
+
+- Updated EmbeddedContainer display to get red of unecessary dialog.
+
 ## 0.6.16
 
 ### Patch Changes
