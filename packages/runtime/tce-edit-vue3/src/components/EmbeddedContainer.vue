@@ -27,13 +27,16 @@
     </div>
     <VBtn v-bind="addBtnProps" class="flex-grow-0 my-4" @click="addItem" />
     <VDialog v-model="isDialogVisible" width="500" attach persistent>
-      <VCard>
-        <VCardTitle class="text-h5">Add content element</VCardTitle>
-        <VCardText>
+      <VCard
+        class="text-left"
+        prepend-icon="mdi-information-variant-circle"
+        title="Add content element"
+      >
+        <template #title>
           In Tailor, this action will open a dialog to select a content element
           type to add. Allowed element types are defined through the schema
           configuration.
-        </VCardText>
+        </template>
         <VDivider />
         <VCardActions>
           <VSpacer />
