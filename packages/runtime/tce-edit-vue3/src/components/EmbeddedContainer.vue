@@ -10,14 +10,19 @@
           <VIcon color="white" icon="mdi-cube" size="x-large" />
         </VAvatar>
         <div class="text-grey-darken-4 text-h5">Example Content Element</div>
+        <VChip class="mt-2" color="grey-darken-1" rounded="pill">
+          ID: {{ element.id }}
+        </VChip>
         <VTextarea
-          class="mt-4"
-          max-rows="4"
+          :model-value="element.data.content"
+          class="mt-4 mx-auto"
+          max-width="500"
           placeholder="Content"
+          rows="2"
           variant="outlined"
           auto-grow
           hide-details
-          @save="save(element, 'data', { content: $event })"
+          @change="save(element, 'data', { content: $event.target.value })"
         />
         <VBtn
           v-if="!isDisabled && enableAdd"
