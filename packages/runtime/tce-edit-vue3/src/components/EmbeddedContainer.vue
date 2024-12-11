@@ -10,9 +10,14 @@
           <VIcon color="white" icon="mdi-cube" size="x-large" />
         </VAvatar>
         <div class="text-grey-darken-4 text-h5">Example Content Element</div>
-        <VChip class="mt-2" color="grey-darken-1" rounded="pill">
-          ID: {{ element.id }}
-        </VChip>
+        <VTextarea
+          class="mt-4"
+          max-width="400"
+          placeholder="Content"
+          variant="outlined"
+          auto-grow
+          hide-details
+        />
         <VBtn
           v-if="!isDisabled && enableAdd"
           class="position-absolute ma-4 top-0 right-0"
@@ -112,11 +117,19 @@ const addBtnProps = computed(() => {
 
 const createEmbedElement = () => ({
   id: v4(),
-  data: {},
+  data: {
+    content: '',
+  },
   embedded: true,
   position: embeds.value.length,
   type: 'EXAMPLE',
 });
+
+const save = (item, key, value) => {
+  const container = cloneDeep(props.container);
+  Object.assign(container.embeds[item.id], { [key]: value });
+  emit('save', container);
+};
 
 const addItem = () => {
   isDialogVisible.value = true;

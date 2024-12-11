@@ -15,6 +15,7 @@
       <VChip class="mt-2" color="grey-darken-1" rounded="pill">
         ID: {{ element.id }}
       </VChip>
+      <div class="mt-2">{{ element.data.content }}</div>
     </VSheet>
   </div>
 </template>
