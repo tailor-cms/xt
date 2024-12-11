@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.22
+
+### Patch Changes
+
+- Fixed Authoring embedded container.
+
 ## 0.6.21
 
 ### Patch Changes
