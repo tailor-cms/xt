@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.21
+
+### Patch Changes
+
+- Fix updating EmbeddedContainer data content.
+
 ## 0.6.20
 
 ### Patch Changes
