@@ -12,11 +12,12 @@
         <div class="text-grey-darken-4 text-h5">Example Content Element</div>
         <VTextarea
           class="mt-4"
-          max-width="400"
+          max-rows="4"
           placeholder="Content"
           variant="outlined"
           auto-grow
           hide-details
+          @save="save(element, 'data', { content: $event })"
         />
         <VBtn
           v-if="!isDisabled && enableAdd"
