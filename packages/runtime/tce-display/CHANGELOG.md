@@ -1,5 +1,11 @@
 # @tailor-cms/tce-display-runtime
 
+## 0.6.7
+
+### Patch Changes
+
+- Updated EmbeddedContainer to contain text inputs.
+
 ## 0.6.6
 
 ### Patch Changes

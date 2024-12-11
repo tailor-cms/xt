@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.20
+
+### Patch Changes
+
+- Updated EmbeddedContainer to contain text inputs.
+
 ## 0.6.19
 
 ### Patch Changes
