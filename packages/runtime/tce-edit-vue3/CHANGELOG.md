@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.27
+
+### Patch Changes
+
+- Updated condition for disabling gradable checkbox.
+
 ## 0.6.26
 
 ### Patch Changes
