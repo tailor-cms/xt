@@ -1,8 +1,12 @@
 import initServerRuntime from './index';
 
-const elementManifest = await import(process.env.TCE_SERVER_DIR);
+const serverManifest = await import(process.env.TCE_SERVER_DIR);
+const manifest = await import(process.env.TCE_MANIFEST_DIR);
+
 const processedManifest = {
-  ...elementManifest,
-  mocks: elementManifest.mocks || {},
+  ...serverManifest,
+  isQuestion: manifest.default.isQuestion,
+  isGradable: manifest.default.isGradable,
+  mocks: serverManifest.mocks || {},
 };
 await initServerRuntime(processedManifest);

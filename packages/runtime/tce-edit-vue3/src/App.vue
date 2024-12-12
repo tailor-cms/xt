@@ -21,6 +21,7 @@
               />
               <VCheckbox
                 v-if="isQuestion"
+                :disabled="props.isGradable === undefined"
                 :model-value="isGradable"
                 class="ml-2"
                 color="primary"
@@ -176,7 +177,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   isQuestion: false,
-  isGradable: true,
+  isGradable: undefined,
 });
 
 const emit = defineEmits(['save', 'delete']);
@@ -189,7 +190,7 @@ const isFocused = ref(false);
 const isDisabled = ref(false);
 const persistSideToolbar = ref(false);
 const persistTopToolbar = ref(false);
-const isGradable = ref(props.isGradable);
+const isGradable = ref(props.isGradable ?? true);
 const isLinkDialogVisible = ref(false);
 
 provide('$storageService', assetApi);
