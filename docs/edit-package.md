@@ -38,10 +38,6 @@ props:
 - `:isFocused`: boolean; Is element selected
 - `:isDragged`: boolean; Is element being dragged; e.g. upon reordering
 - `:isDisabled`: boolean; Should element be disabled; e.g. upon copy element seleciton
-- `:isGradeable`: boolean; This is specific to the question content elements.
-Defines if question element has been configured as gradeable or non-gradeable
-type. This is defined through the tailor schema and then passed down to the
-content element.
 
 and observed for element related events:
 
@@ -172,11 +168,6 @@ presentation is used for various features like observing Content Element
 diff or for copy functionality (Content Element needs to be previewed in
 order to be selected).
 
-## Gradeable state
-
-Each Question Content Element can be implemented to support graded and ungraded
-configuration. `isGradeable` prop is passed to the component and each question
-can be implemented to support gradeable and/or non-gradeable variant/s.
 
 ## Composite Elements
 
@@ -210,4 +201,3 @@ save and cancel actions.
 feedback component.
 - `:allowedPromptTypes`: array; array of element types allowed for the Question prompt
 - `:isDisabled`: boolean; Should element be disabled; e.g. upon copy element seleciton
-- `:isGradeable`: boolean; Is element configured as gradeable.
