@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.26
+
+### Patch Changes
+
+- Passed manifest data to server runtime.
+
 ## 0.6.25
 
 ### Patch Changes

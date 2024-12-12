@@ -1,5 +1,11 @@
 # @tailor-cms/tce-server-runtime
 
+## 0.5.5
+
+### Patch Changes
+
+- Passed manifest data to server runtime.
+
 ## 0.5.4
 
 ### Patch Changes

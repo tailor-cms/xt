@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-edit-next-runtime",
   "description": "Edit content element Vue 3 runtime",
   "author": "Studion <info@gostudion.com>",
-  "version": "0.6.25",
+  "version": "0.6.26",
   "type": "module",
   "scripts": {
     "dev": "vite",
