@@ -20,7 +20,7 @@
                 hide-details
               />
               <VCheckbox
-                v-if="manifest.isQuestion"
+                v-if="isQuestion"
                 :model-value="isGradable"
                 class="ml-2"
                 color="primary"
@@ -160,7 +160,6 @@ import assetApi from './api/asset';
 import ConfirmationDialog from './components/ConfirmationDialog.vue';
 
 const { TopToolbar, SideToolbar } = getCurrentInstance().appContext.components;
-const manifest = await import(import.meta.env.MANIFEST_DIR);
 
 const appUrl = new URL(window.location.href);
 const apiPrefix = '/tce-server';
@@ -168,17 +167,29 @@ const api = ky.create({ prefixUrl: apiPrefix });
 const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
 const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
+type ContentElement = Record<string, any>;
+
+interface Props {
+  isQuestion?: boolean;
+  isGradable?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  isQuestion: false,
+  isGradable: true,
+});
+
 const emit = defineEmits(['save', 'delete']);
 
 const eventBus = inject<any>('$eventBus');
 const appChannel = eventBus.channel('app');
 
-const element = ref({});
+const element = ref<ContentElement>({});
 const isFocused = ref(false);
 const isDisabled = ref(false);
 const persistSideToolbar = ref(false);
 const persistTopToolbar = ref(false);
-const isGradable = ref(manifest.isGradable ?? true);
+const isGradable = ref(props.isGradable);
 const isLinkDialogVisible = ref(false);
 
 provide('$storageService', assetApi);
@@ -233,7 +244,7 @@ const onLink = async () => {
 
 const getElement = async () => {
   try {
-    const response = await api('content-element', {
+    const response: { element: ContentElement } = await api('content-element', {
       searchParams: { runtime: 'authoring' },
     }).json();
     if (response === null) return;
@@ -246,8 +257,9 @@ const getElement = async () => {
 };
 
 const toggleGradable = async () => {
+  const { initState } = await import(import.meta.env.MANIFEST_DIR);
   const newGradableValue = !isGradable.value;
-  const data = manifest.initState();
+  const data = initState();
   data.isGradable = newGradableValue;
   if (!newGradableValue) delete data.correct;
   await updateElementData(data);

@@ -7,9 +7,9 @@ import Radio from './radio';
 import vuetify from './plugins/vuetify';
 
 const element = await import(import.meta.env.EDIT_DIR);
-const isComposite = !!element.default.isComposite;
+const { isComposite = false, isQuestion, isGradable } = element.default;
 
-const app = createApp(App);
+const app = createApp(App, { isQuestion, isGradable });
 const radio = Radio.getInstance();
 app.provide('$eventBus', radio);
 app.provide('$elementBus', radio.channel('app'));
