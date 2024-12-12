@@ -20,13 +20,13 @@
                 hide-details
               />
               <VCheckbox
-                v-if="isQuestion"
-                :model-value="isGradeable"
+                v-if="manifest.isQuestion"
+                :model-value="isGradable"
                 class="ml-2"
                 color="primary"
-                label="Gradeable"
+                label="Gradable"
                 hide-details
-                @click.prevent="confirmGradeableToggle"
+                @click.prevent="confirmGradableToggle"
               />
             </div>
             <VSheet class="pa-8" color="white" elevation="3" rounded="lg">
@@ -45,9 +45,8 @@
                     element,
                     isDisabled,
                     isFocused,
-                    ...(isQuestion && { isGradeable }),
                   }"
-                  :key="isGradeable"
+                  :key="isGradable"
                   @delete="onDelete"
                   @link="onLink"
                   @save="onSave"
@@ -82,7 +81,7 @@
               >
                 <component
                   :is="TopToolbar"
-                  :key="isGradeable"
+                  :key="isGradable"
                   :element="element"
                   @delete="onDelete"
                   @save="onSave"
@@ -117,7 +116,7 @@
               >
                 <component
                   :is="SideToolbar"
-                  :key="isGradeable"
+                  :key="isGradable"
                   :element="element"
                   @delete="onDelete"
                   @save="onSave"
@@ -161,6 +160,7 @@ import assetApi from './api/asset';
 import ConfirmationDialog from './components/ConfirmationDialog.vue';
 
 const { TopToolbar, SideToolbar } = getCurrentInstance().appContext.components;
+const manifest = await import(import.meta.env.MANIFEST_DIR);
 
 const appUrl = new URL(window.location.href);
 const apiPrefix = '/tce-server';
@@ -168,7 +168,6 @@ const api = ky.create({ prefixUrl: apiPrefix });
 const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
 const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
-defineProps<{ isQuestion: boolean }>();
 const emit = defineEmits(['save', 'delete']);
 
 const eventBus = inject<any>('$eventBus');
@@ -179,7 +178,7 @@ const isFocused = ref(false);
 const isDisabled = ref(false);
 const persistSideToolbar = ref(false);
 const persistTopToolbar = ref(false);
-const isGradeable = ref(true);
+const isGradable = ref(manifest.isGradable ?? true);
 const isLinkDialogVisible = ref(false);
 
 provide('$storageService', assetApi);
@@ -239,20 +238,23 @@ const getElement = async () => {
     }).json();
     if (response === null) return;
     element.value = response?.element;
-    isGradeable.value = 'correct' in element.value.data;
   } catch (error) {
     console.log('Error on element get', error);
-    setTimeout(() => getElement(), 2000);
+    return setTimeout(() => getElement(), 2000);
   }
+  if (!manifest.isQuestion) return;
+  const elementData = element.value.data;
+  if ('isGradable' in elementData) isGradable.value = elementData.isGradable;
+  else updateElementData({ ...elementData, isGradable: isGradable.value });
 };
 
-const toggleGradeable = async () => {
-  const newGradeableValue = !isGradeable.value;
-  const { initState } = await import(import.meta.env.MANIFEST_DIR);
-  const data = initState();
-  if (!newGradeableValue) delete data.correct;
+const toggleGradable = async () => {
+  const newGradableValue = !isGradable.value;
+  const data = manifest.initState();
+  data.isGradable = newGradableValue;
+  if (!newGradableValue) delete data.correct;
   await updateElementData(data);
-  isGradeable.value = newGradeableValue;
+  isGradable.value = data.isGradable;
   return resetState();
 };
 
@@ -273,11 +275,11 @@ const updateElementData = async (data) => {
   }
 };
 
-const confirmGradeableToggle = (element) => {
+const confirmGradableToggle = () => {
   return appChannel.emit('showConfirmationModal', {
     title: 'Are you sure?',
     message: 'This action will reset element data and state',
-    action: toggleGradeable,
+    action: toggleGradable,
   });
 };
 </script>
