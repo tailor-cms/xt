@@ -238,14 +238,11 @@ const getElement = async () => {
     }).json();
     if (response === null) return;
     element.value = response?.element;
+    isGradable.value = element.value.data.isGradable;
   } catch (error) {
     console.log('Error on element get', error);
-    return setTimeout(() => getElement(), 2000);
+    setTimeout(() => getElement(), 2000);
   }
-  if (!manifest.isQuestion) return;
-  const elementData = element.value.data;
-  if ('isGradable' in elementData) isGradable.value = elementData.isGradable;
-  else updateElementData({ ...elementData, isGradable: isGradable.value });
 };
 
 const toggleGradable = async () => {
