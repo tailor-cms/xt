@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.23
+
+### Patch Changes
+
+- Updated question handling.
+
 ## 0.6.22
 
 ### Patch Changes
