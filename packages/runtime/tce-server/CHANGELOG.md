@@ -1,5 +1,11 @@
 # @tailor-cms/tce-server-runtime
 
+## 0.5.4
+
+### Patch Changes
+
+- Updated gradable state to be handled on server
+
 ## 0.5.3
 
 ### Patch Changes

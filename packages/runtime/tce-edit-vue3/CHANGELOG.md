@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.24
+
+### Patch Changes
+
+- Updated gradable state to be handled on server
+
 ## 0.6.23
 
 ### Patch Changes
