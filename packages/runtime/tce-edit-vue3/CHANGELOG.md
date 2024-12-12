@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.25
+
+### Patch Changes
+
+- Updated edit runtime to properly handle isGradable
+
 ## 0.6.24
 
 ### Patch Changes
