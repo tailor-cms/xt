@@ -178,7 +178,7 @@ element list, while the CEK runtime will mock example elements.
 
 The `TailorEmbeddedContainer` component accepts the following props:
 - `:container`: object; Data field of the element containing `embeds` in a key-value format.
-- `:types`: array; Array of element types allowed to be embedded. Usually equals to the `allowedEmbedTypes` prop passed to the Edit package.
+- `:types`: array; Array of element types allowed to be embedded. Usually equals to the `embedTypes` prop passed to the Edit package.
 - `:isDisabled`: boolean; Indicates if the element should be disabled. Defaults to `false`.
 - `:enableAdd`: boolean; Indicates if adding new elements is allowed. Defaults to `true`.
 - `:addElementOptions`: object; Additional options passed to the AddElement core component.
@@ -194,10 +194,12 @@ used content element must also be configured as `isComposite` in the manifest
 because Question prompt is utilizing `TailorEmbeddedContainer` under the hood.
 
 The `QuestionContainer` component accepts the following props:
+- `:type`: string; Content element type to display in toolbar, can be passed from `manifest.name`.
+- `:icon`: string Content element icon to display in toolbar, can be passed from `manifest.ui.icon`.
 - `:elementData`: object; Element entity containing all element related data
 - `:isDirty`: boolean; Indicates if element data has been changed, used to enable
 save and cancel actions.
 - `:showFeedback`: boolean; Controls whether QustionContainer should render
 feedback component.
-- `:allowedPromptTypes`: array; array of element types allowed for the Question prompt
+- `:embedTypes`: array; array of element types allowed for the Question prompt
 - `:isDisabled`: boolean; Should element be disabled; e.g. upon copy element seleciton
