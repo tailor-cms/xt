@@ -1,5 +1,119 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.27
+
+### Patch Changes
+
+- Updated condition for disabling gradable checkbox.
+
+## 0.6.26
+
+### Patch Changes
+
+- Passed manifest data to server runtime.
+
+## 0.6.25
+
+### Patch Changes
+
+- Updated edit runtime to properly handle isGradable
+
+## 0.6.24
+
+### Patch Changes
+
+- Updated gradable state to be handled on server
+
+## 0.6.23
+
+### Patch Changes
+
+- Updated question handling.
+
+## 0.6.22
+
+### Patch Changes
+
+- Fixed Authoring embedded container.
+
+## 0.6.21
+
+### Patch Changes
+
+- Fix updating EmbeddedContainer data content.
+
+## 0.6.20
+
+### Patch Changes
+
+- Updated EmbeddedContainer to contain text inputs.
+
+## 0.6.19
+
+### Patch Changes
+
+- Fix alert text slot name.
+
+## 0.6.18
+
+### Patch Changes
+
+- Added text-left align on the info dialog.
+
+## 0.6.17
+
+### Patch Changes
+
+- Updated EmbeddedContainer display to get red of unecessary dialog.
+
+## 0.6.16
+
+### Patch Changes
+
+- Fixed toggling gradeable state.
+
+## 0.6.15
+
+### Patch Changes
+
+- Added key to the edit components to force re-render.
+
+## 0.6.14
+
+### Patch Changes
+
+- Refactor the way toggling gradeable flag is handled.
+
+## 0.6.13
+
+### Patch Changes
+
+- Added reset element upon switching 'Gradeable' flag.
+
+## 0.6.12
+
+### Patch Changes
+
+- Align EmbeddecContainer add dialog title.
+
+## 0.6.11
+
+### Patch Changes
+
+- Add attach to overlays to prevent losing element focus.
+
+## 0.6.10
+
+### Patch Changes
+
+- Tweaked EmbeddedContainer styling.
+
+## 0.6.9
+
+### Patch Changes
+
+- Renamed isGraded to isGradablea, updated docs.
+
 ## 0.6.8
 
 ### Patch Changes

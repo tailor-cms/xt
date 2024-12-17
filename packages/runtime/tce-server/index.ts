@@ -17,7 +17,7 @@ import storageRouter from './storage/storage.router';
 
 const cookieParserMw = cookieParser();
 
-function initApp({ type, initState, hookMap, mocks }) {
+function initApp({ type, initState, isQuestion, isGradable, hookMap, mocks }) {
   DisplayContextService.initialize(mocks.displayContexts);
   const app = express();
   app.use(cors());
@@ -33,7 +33,13 @@ function initApp({ type, initState, hookMap, mocks }) {
     }
     next();
   });
-  const router = contentElement.initRouter({ type, initState, hookMap });
+  const router = contentElement.initRouter({
+    type,
+    initState,
+    isQuestion,
+    isGradable,
+    hookMap,
+  });
   app.use(contentElement.path, router);
   app.use(storageRouter.path, storageRouter.router);
   app.use(express.static(storageConfig.storagePath));
@@ -55,7 +61,14 @@ function initApp({ type, initState, hookMap, mocks }) {
   return { httpServer, wsServer };
 }
 
-export default async function run({ type, initState, hookMap, mocks }) {
+export default async function run({
+  type,
+  initState,
+  isQuestion,
+  isGradable,
+  hookMap,
+  mocks,
+}) {
   await initDb(hookMap);
-  return initApp({ type, initState, hookMap, mocks });
+  return initApp({ type, initState, isQuestion, isGradable, hookMap, mocks });
 }

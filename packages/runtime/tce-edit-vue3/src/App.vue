@@ -21,12 +21,13 @@
               />
               <VCheckbox
                 v-if="isQuestion"
-                v-model="isGraded"
-                :disabled="!!gradingType"
+                :disabled="props.isGradable !== undefined"
+                :model-value="isGradable"
                 class="ml-2"
                 color="primary"
-                label="Graded"
+                label="Gradable"
                 hide-details
+                @click.prevent="confirmGradableToggle"
               />
             </div>
             <VSheet class="pa-8" color="white" elevation="3" rounded="lg">
@@ -45,8 +46,8 @@
                     element,
                     isDisabled,
                     isFocused,
-                    ...(isQuestion && { isGraded }),
                   }"
+                  :key="isGradable"
                   @delete="onDelete"
                   @link="onLink"
                   @save="onSave"
@@ -81,6 +82,7 @@
               >
                 <component
                   :is="TopToolbar"
+                  :key="isGradable"
                   :element="element"
                   @delete="onDelete"
                   @save="onSave"
@@ -115,6 +117,7 @@
               >
                 <component
                   :is="SideToolbar"
+                  :key="isGradable"
                   :element="element"
                   @delete="onDelete"
                   @save="onSave"
@@ -125,7 +128,7 @@
         </VRow>
       </VContainer>
     </VMain>
-    <VDialog v-model="isLinkDialogVisible" width="500" persistent>
+    <VDialog v-model="isLinkDialogVisible" width="500" attach persistent>
       <VCard>
         <VCardTitle class="text-h5">Link element dialog</VCardTitle>
         <VCardText>
@@ -151,7 +154,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getCurrentInstance, onMounted, provide, ref } from 'vue';
+import { getCurrentInstance, inject, onMounted, provide, ref } from 'vue';
 import ky from 'ky';
 
 import assetApi from './api/asset';
@@ -165,15 +168,29 @@ const api = ky.create({ prefixUrl: apiPrefix });
 const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
 const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
-const props = defineProps<{ isQuestion: boolean; gradingType?: string }>();
+type ContentElement = Record<string, any>;
+
+interface Props {
+  isQuestion?: boolean;
+  isGradable?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  isQuestion: false,
+  isGradable: undefined,
+});
+
 const emit = defineEmits(['save', 'delete']);
 
-const element = ref({});
+const eventBus = inject<any>('$eventBus');
+const appChannel = eventBus.channel('app');
+
+const element = ref<ContentElement>({});
 const isFocused = ref(false);
 const isDisabled = ref(false);
 const persistSideToolbar = ref(false);
 const persistTopToolbar = ref(false);
-const isGraded = ref(props.gradingType === 'GRADED' || false);
+const isGradable = ref(props.isGradable ?? true);
 const isLinkDialogVisible = ref(false);
 
 provide('$storageService', assetApi);
@@ -228,16 +245,33 @@ const onLink = async () => {
 
 const getElement = async () => {
   try {
-    const response = await api('content-element', {
+    const response: { element: ContentElement } = await api('content-element', {
       searchParams: { runtime: 'authoring' },
     }).json();
     if (response === null) return;
     element.value = response?.element;
+    isGradable.value = element.value.data.isGradable;
   } catch (error) {
     console.log('Error on element get', error);
     setTimeout(() => getElement(), 2000);
   }
 };
+
+const toggleGradable = async () => {
+  const { initState } = await import(import.meta.env.MANIFEST_DIR);
+  const newGradableValue = !isGradable.value;
+  const data = initState();
+  data.isGradable = newGradableValue;
+  if (!newGradableValue) delete data.correct;
+  await updateElementData(data);
+  isGradable.value = data.isGradable;
+  return resetState();
+};
+
+const resetState = async () =>
+  api
+    .post(`content-element/${element.value.id}/reset-state`)
+    .catch((error) => console.log('Error on state reset', error));
 
 const updateElementData = async (data) => {
   try {
@@ -249,6 +283,14 @@ const updateElementData = async (data) => {
   } catch (error) {
     console.log('Error on element update', error);
   }
+};
+
+const confirmGradableToggle = () => {
+  return appChannel.emit('showConfirmationModal', {
+    title: 'Are you sure?',
+    message: 'This action will reset element data and state',
+    action: toggleGradable,
+  });
 };
 </script>
 

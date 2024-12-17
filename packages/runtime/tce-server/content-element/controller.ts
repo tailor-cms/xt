@@ -6,16 +6,17 @@ import { emitter } from '../common/emitter';
 import { getTceConfig } from '../common/config';
 import initHooks from './hooks';
 
-export default ({ type, initState, hookMap }) => {
+export default ({ type, isQuestion, isGradable, initState, hookMap }) => {
   const { applyFetchHooks, beforeDisplay, processInteraction } =
     initHooks(hookMap);
 
   async function get(req, res) {
-    const defaults = { type, data: initState() };
+    const data = initState();
+    if (isQuestion) data.isGradable = isGradable ?? true;
     // Find or create session content element
     const element = await ContentElementService.findOrCreate(
       req.cookies.cekClientId,
-      defaults,
+      { type, data },
     );
     const processedElement = await applyFetchHooks(
       element,
