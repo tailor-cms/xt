@@ -3,7 +3,7 @@ import express from 'express';
 import ContentElement from './model';
 import initController from './controller';
 
-function initRouter({ type, initState, hookMap }) {
+function initRouter({ type, initState, isQuestion, isGradable, hookMap }) {
   const {
     get: getCtrl,
     getUserStateContexts,
@@ -15,6 +15,8 @@ function initRouter({ type, initState, hookMap }) {
   } = initController({
     type,
     initState,
+    isQuestion,
+    isGradable,
     hookMap,
   });
 

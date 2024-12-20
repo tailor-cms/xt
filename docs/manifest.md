@@ -24,10 +24,9 @@ export interface ElementManifest {
   isComposite: boolean;
   // Declare content element as question type
   isQuestion: boolean;
-  // Accompanies the 'isQuestion' field, indicates whether the question content
-  // element is graded or ungraded. If omitted, the question can be configured
-  // to be either of two types.
-  gradingType?: 'GRADED' | 'UNGRADED'
+  // Accompanies the 'isQuestion' field, indicating whether the question type is
+  // gradable or ungradable. If both are supported, this field should be omitted.
+  isGradable?: boolean;
   // The goal of the initState function is to properly initialize the 'data'
   // field upon the Content Element creation. The 'data' field is the Content
   // Element property storing authors input.

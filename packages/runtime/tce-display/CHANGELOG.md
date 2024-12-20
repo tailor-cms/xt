@@ -1,5 +1,35 @@
 # @tailor-cms/tce-display-runtime
 
+## 0.6.7
+
+### Patch Changes
+
+- Updated EmbeddedContainer to contain text inputs.
+
+## 0.6.6
+
+### Patch Changes
+
+- Updated EmbeddedContainer display to get red of unecessary dialog.
+
+## 0.6.5
+
+### Patch Changes
+
+- Added key to the edit components to force re-render.
+
+## 0.6.4
+
+### Patch Changes
+
+- Add attach to overlays to prevent losing element focus.
+
+## 0.6.3
+
+### Patch Changes
+
+- Tweaked EmbeddedContainer styling.
+
 ## 0.6.2
 
 ### Patch Changes
