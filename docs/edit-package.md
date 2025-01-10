@@ -178,7 +178,7 @@ element list, while the CEK runtime will mock example elements.
 
 The `TailorEmbeddedContainer` component accepts the following props:
 - `:container`: object; Data field of the element containing `embeds` in a key-value format.
-- `:types`: array; Array of element types allowed to be embedded. Usually equals to the `embedTypes` prop passed to the Edit package.
+- `:allowed-elements-config`: array; Array of element configs allowed to be embedded. Usually equals to the `embedElementConfig` prop passed to the Edit package.
 - `:isDisabled`: boolean; Indicates if the element should be disabled. Defaults to `false`.
 - `:enableAdd`: boolean; Indicates if adding new elements is allowed. Defaults to `true`.
 - `:addElementOptions`: object; Additional options passed to the AddElement core component.
@@ -201,5 +201,5 @@ The `QuestionContainer` component accepts the following props:
 save and cancel actions.
 - `:showFeedback`: boolean; Controls whether QustionContainer should render
 feedback component.
-- `:embedTypes`: array; array of element types allowed for the Question prompt
+- `:embedElementConfig`: array; array of element configs allowed for the Question prompt
 - `:isDisabled`: boolean; Should element be disabled; e.g. upon copy element seleciton
