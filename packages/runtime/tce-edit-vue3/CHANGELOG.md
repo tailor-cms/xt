@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.28
+
+### Patch Changes
+
+- Hide add element icon when isDisabled is true.
+
 ## 0.6.27
 
 ### Patch Changes
