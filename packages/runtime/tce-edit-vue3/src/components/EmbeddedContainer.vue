@@ -25,7 +25,7 @@
           @change="save(element, 'data', { content: $event.target.value })"
         />
         <VBtn
-          v-if="!isDisabled && enableAdd"
+          v-if="!isDisabled"
           class="position-absolute ma-4 top-0 right-0"
           color="secondary"
           density="comfortable"
@@ -36,7 +36,12 @@
         />
       </div>
     </div>
-    <VBtn v-bind="addBtnProps" class="flex-grow-0 my-4" @click="addItem" />
+    <VBtn
+      v-if="!isDisabled && enableAdd"
+      v-bind="addBtnProps"
+      class="flex-grow-0 my-4"
+      @click="addItem"
+    />
     <VDialog v-model="isDialogVisible" width="500" attach persistent>
       <VCard
         class="text-left"
