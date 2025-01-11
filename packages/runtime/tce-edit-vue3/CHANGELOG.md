@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.29
+
+### Patch Changes
+
+- Fixed disabled state for textarea in embedded container.
+
 ## 0.6.28
 
 ### Patch Changes
