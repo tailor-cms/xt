@@ -15,6 +15,7 @@
         </VChip>
         <VTextarea
           :model-value="element.data.content"
+          :readonly="isDisabled"
           class="mt-4 mx-auto"
           max-width="500"
           placeholder="Content"
