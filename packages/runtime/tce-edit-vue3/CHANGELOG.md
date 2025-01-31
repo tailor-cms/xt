@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.31
+
+### Patch Changes
+
+- Updated lodash imports.
+
 ## 0.6.30
 
 ### Patch Changes
