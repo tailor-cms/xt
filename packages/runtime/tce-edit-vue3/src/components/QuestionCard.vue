@@ -35,8 +35,8 @@
 
 <script lang="ts" setup>
 import { computed, reactive, ref, watch } from 'vue';
-import cloneDeep from 'lodash/cloneDeep';
-import isEqual from 'lodash/isEqual';
+import cloneDeep from 'lodash/cloneDeep.js';
+import isEqual from 'lodash/isEqual.js';
 
 interface Props {
   element: any;
