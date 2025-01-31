@@ -49,21 +49,15 @@ interface Props {
   icon?: string;
   isDisabled?: boolean;
   isFocused?: boolean;
-  isDragged?: boolean;
-  dense?: boolean;
-  showFeedback?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  embedElementConfig: () => [],
   type: 'Question element',
   icon: 'mdi-help-circle-outline',
   isDisabled: false,
-  isDragged: false,
   isFocused: false,
-  showFeedback: true,
-  dense: false,
 });
+
 const emit = defineEmits([
   'add',
   'cancel',
