@@ -1,18 +1,13 @@
 <!-- eslint-disable vue/no-undef-components -->
 <template>
-  <VCard class="question-container" color="grey-lighten-5">
+  <VCard color="grey-lighten-5">
     <VToolbar class="px-4" color="primary-darken-2" height="36">
       <VIcon :icon="icon" color="secondary-lighten-2" size="18" start />
       <span class="text-subtitle-2">{{ type }}</span>
     </VToolbar>
     <VForm ref="form" class="content text-left pa-6" validate-on="submit">
       <Edit
-        v-bind="{
-          ...$attrs,
-          element: editedElement,
-          isFocused,
-          isDisabled,
-        }"
+        v-bind="{ element: editedElement, isFocused, isDisabled }"
         @delete="emit('delete')"
         @link="emit('link', $event)"
         @save="save"
@@ -20,7 +15,7 @@
       />
       <VFadeTransition>
         <div v-if="!isDisabled && isDirty" class="d-flex justify-end">
-          <VBtn color="primary-darken-4" variant="text" @click="cancel">
+          <VBtn color="primary-darken-4" variant="text" @click="resetData">
             Cancel
           </VBtn>
           <VBtn
@@ -45,15 +40,13 @@ import isEqual from 'lodash/isEqual';
 
 interface Props {
   element: any;
-  type?: string;
-  icon?: string;
+  type: string;
+  icon: string;
   isDisabled?: boolean;
   isFocused?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  type: 'Question element',
-  icon: 'mdi-help-circle-outline',
   isDisabled: false,
   isFocused: false,
 });
@@ -81,16 +74,13 @@ const save = async () => {
   if (valid) emit('save', editedElement.data);
 };
 
-const cancel = () => {
+const resetData = () => {
   editedElement.data = cloneDeep(props.element.data);
 };
 
 watch(
   () => props.element,
-  () => {
-    if (!isDirty.value) return;
-    editedElement.data = cloneDeep(props.element.data);
-  },
+  () => isDirty.value && resetData(),
 );
 </script>
 

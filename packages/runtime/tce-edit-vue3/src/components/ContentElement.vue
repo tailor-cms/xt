@@ -34,7 +34,6 @@
 
 <script setup lang="ts">
 import { inject } from 'vue';
-import { VFadeTransition, type VBtn } from 'vuetify/components';
 
 interface Props {
   element: Record<string, any>;

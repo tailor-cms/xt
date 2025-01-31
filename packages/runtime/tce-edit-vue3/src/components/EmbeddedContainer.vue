@@ -1,5 +1,5 @@
 <template>
-  <div class="embedded-container align-center">
+  <div class="embedded-container align-center px-12 py-4">
     <div class="d-flex flex-column ga-6 my-2">
       <ContentElement
         v-for="element in embeds"
@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue';
+import { computed, ref } from 'vue';
 import cloneDeep from 'lodash/cloneDeep.js';
 import sortBy from 'lodash/sortBy.js';
 import { v4 } from 'uuid';
@@ -121,9 +121,3 @@ const addItem = () => {
   emit('save', container);
 };
 </script>
-
-<style lang="scss" scoped>
-.embedded-container {
-  padding: 1rem 3rem;
-}
-</style>

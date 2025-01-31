@@ -1,5 +1,5 @@
 <template>
-  <VSheet class="d-flex flex-column px-4 py-2 ga-2" border rounded>
+  <VSheet class="embedded-container d-flex flex-column ga-2">
     <div v-for="element in elements" :key="element.id" class="content-element">
       {{ element.data.content }}
     </div>

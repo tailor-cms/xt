@@ -40,18 +40,32 @@
                 class="edit-frame"
                 @click="focusElement"
               >
-                <Edit
-                  v-if="element?.data"
-                  v-bind="{
-                    element,
-                    isDisabled,
-                    isFocused,
-                  }"
-                  :key="isGradable"
-                  @delete="onDelete"
-                  @link="onLink"
-                  @save="onSave"
-                />
+                <template v-if="element?.data">
+                  <QuestionCard
+                    v-if="isQuestion"
+                    v-bind="{
+                      type,
+                      icon,
+                      element,
+                      isDisabled,
+                      isFocused,
+                    }"
+                    @delete="onDelete"
+                    @link="onLink"
+                    @save="onSave"
+                  />
+                  <Edit
+                    v-else
+                    v-bind="{
+                      element,
+                      isDisabled,
+                      isFocused,
+                    }"
+                    @delete="onDelete"
+                    @link="onLink"
+                    @save="onSave"
+                  />
+                </template>
               </VSheet>
             </VSheet>
           </VCol>
@@ -159,6 +173,7 @@ import ky from 'ky';
 
 import assetApi from './api/asset';
 import ConfirmationDialog from './components/ConfirmationDialog.vue';
+import QuestionCard from './components/QuestionCard.vue';
 
 const { TopToolbar, SideToolbar } = getCurrentInstance().appContext.components;
 
@@ -173,11 +188,15 @@ type ContentElement = Record<string, any>;
 interface Props {
   isQuestion?: boolean;
   isGradable?: boolean;
+  type?: string;
+  icon?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   isQuestion: false,
   isGradable: undefined,
+  type: 'Content Element',
+  icon: 'mdi-cube',
 });
 
 const emit = defineEmits(['save', 'delete']);
