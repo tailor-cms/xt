@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 
 import App from './App.vue';
+import ContentElement from './components/ContentElement.vue';
 import EmbeddedContainer from './components/EmbeddedContainer.vue';
 import NotCompositeAlert from './components/NotCompositeAlert.vue';
 import Radio from './radio';
@@ -25,6 +26,7 @@ const radio = Radio.getInstance();
 app.provide('$eventBus', radio);
 app.provide('$elementBus', radio.channel('app'));
 app.use(vuetify);
+app.component('TailorContentElement', ContentElement);
 app.component(
   'TailorEmbeddedContainer',
   isComposite ? EmbeddedContainer : NotCompositeAlert,
