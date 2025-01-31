@@ -1,40 +1,40 @@
 <template>
-  <div class="element-wrapper text-center position-relative pa-12">
-    <VAvatar class="mb-4" color="primary-darken-4" size="x-large">
-      <VIcon color="white" icon="mdi-cube" size="x-large" />
-    </VAvatar>
-    <div class="text-grey-darken-4 text-h5">Example Content Element</div>
-    <VChip class="mt-2" color="grey-darken-1" rounded="pill">
-      ID: {{ element.id }}
-    </VChip>
-    <VTextarea
-      :model-value="element.data.content"
-      :readonly="isDisabled"
-      class="mt-4 mx-auto"
-      max-width="500"
-      placeholder="Content"
-      rows="2"
-      variant="outlined"
-      auto-grow
-      hide-details
-      @change="$emit('save', { content: $event.target.value })"
-    />
-    <VBtn
-      v-if="!isDisabled"
-      class="position-absolute ma-4 top-0 right-0"
-      color="secondary"
-      density="comfortable"
-      icon="mdi-delete-outline"
-      size="small"
-      variant="tonal"
-      @click="requestDeleteConfirmation(element)"
-    />
-  </div>
+  <VHover v-slot="{ isHovering, props: hoverProps }">
+    <div
+      v-bind="hoverProps"
+      class="element-wrapper text-center position-relative px-3"
+    >
+      <VTextarea
+        :model-value="element.data.content"
+        :readonly="isDisabled"
+        bg-color="transparent"
+        placeholder="Enter your text..."
+        rows="3"
+        variant="solo"
+        auto-grow
+        flat
+        hide-details
+        @change="$emit('save', { content: $event.target.value })"
+      />
+      <VFadeTransition>
+        <VBtn
+          v-if="!isDisabled && isHovering"
+          class="delete-btn"
+          color="secondary"
+          density="comfortable"
+          icon="mdi-delete-outline"
+          size="small"
+          variant="tonal"
+          @click="requestDeleteConfirmation(element)"
+        />
+      </VFadeTransition>
+    </div>
+  </VHover>
 </template>
 
 <script setup lang="ts">
 import { inject } from 'vue';
-import type { VBtn } from 'vuetify/components';
+import { VFadeTransition, type VBtn } from 'vuetify/components';
 
 interface Props {
   element: Record<string, any>;
@@ -59,13 +59,13 @@ const requestDeleteConfirmation = (element) => {
 </script>
 
 <style lang="scss" scoped>
-.embedded-container {
-  padding: 0.625rem 1.5rem;
-}
-
 .element-wrapper {
   border: 1px solid #e1e1e1;
-  padding: 0.625rem 1.25rem;
-  width: 100%;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 0.125rem;
+  right: -2.25rem;
 }
 </style>

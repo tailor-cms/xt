@@ -1,6 +1,6 @@
 <template>
   <div class="embedded-container align-center">
-    <div class="d-flex flex-column ga-4">
+    <div class="d-flex flex-column ga-6 my-2">
       <ContentElement
         v-for="element in embeds"
         :key="element.id"
@@ -124,12 +124,6 @@ const addItem = () => {
 
 <style lang="scss" scoped>
 .embedded-container {
-  padding: 0.625rem 1.5rem;
-}
-
-.element-wrapper {
-  border: 1px solid #e1e1e1;
-  padding: 0.625rem 1.25rem;
-  width: 100%;
+  padding: 1rem 3rem;
 }
 </style>

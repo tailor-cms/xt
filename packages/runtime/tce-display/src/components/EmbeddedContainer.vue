@@ -1,23 +1,9 @@
 <template>
-  <div class="embedded-container d-flex flex-column ga-2">
-    <VSheet
-      v-for="element in elements"
-      :key="element.id"
-      class="text-center pa-12"
-      color="grey-lighten-5"
-      border
-      rounded
-    >
-      <VAvatar class="mb-4" color="grey-darken-4" size="x-large">
-        <VIcon icon="mdi-cube" size="x-large" />
-      </VAvatar>
-      <div class="text-h5">Example Content Element</div>
-      <VChip class="mt-2" color="grey-darken-1" rounded="pill">
-        ID: {{ element.id }}
-      </VChip>
-      <div class="mt-2">{{ element.data.content }}</div>
-    </VSheet>
-  </div>
+  <VSheet class="d-flex flex-column px-4 py-2 ga-2" border rounded>
+    <div v-for="element in elements" :key="element.id" class="content-element">
+      {{ element.data.content }}
+    </div>
+  </VSheet>
 </template>
 
 <script setup lang="ts">
@@ -25,7 +11,7 @@ defineProps<{ elements: any[] }>();
 </script>
 
 <style scoped>
-.text-subtitle-1 {
-  line-height: 1;
+.content-element {
+  white-space: pre-wrap;
 }
 </style>
