@@ -16,10 +16,12 @@
         hide-details
         @change="$emit('save', { content: $event.target.value })"
       />
-      <VFadeTransition>
+      <div
+        v-if="!isDisabled"
+        :class="{ 'is-visible': isHovering }"
+        class="element-actions"
+      >
         <VBtn
-          v-if="!isDisabled && isHovering"
-          class="delete-btn"
           color="secondary"
           density="comfortable"
           icon="mdi-delete-outline"
@@ -27,7 +29,7 @@
           variant="tonal"
           @click="requestDeleteConfirmation(element)"
         />
-      </VFadeTransition>
+      </div>
     </div>
   </VHover>
 </template>
@@ -62,9 +64,16 @@ const requestDeleteConfirmation = (element) => {
   border: 1px solid #e1e1e1;
 }
 
-.delete-btn {
+.element-actions {
   position: absolute;
+  height: 100%;
   top: 0.125rem;
   right: -2.25rem;
+  opacity: 0;
+  transition: opacity 0.3s linear;
+
+  &.is-visible {
+    opacity: 1;
+  }
 }
 </style>
