@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.30
+
+### Patch Changes
+
+- Tweaked embedded container, extracted ContentElement component and wrapped questions in Question Card.
+
 ## 0.6.29
 
 ### Patch Changes
