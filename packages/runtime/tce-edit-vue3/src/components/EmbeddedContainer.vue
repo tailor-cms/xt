@@ -1,41 +1,12 @@
 <template>
-  <div class="embedded-container align-center">
-    <div class="d-flex flex-column ga-4">
-      <div
+  <div class="embedded-container align-center px-12 py-4">
+    <div class="d-flex flex-column ga-6 my-2">
+      <ContentElement
         v-for="element in embeds"
         :key="element.id"
-        class="element-wrapper text-center position-relative pa-12"
-      >
-        <VAvatar class="mb-4" color="primary-darken-4" size="x-large">
-          <VIcon color="white" icon="mdi-cube" size="x-large" />
-        </VAvatar>
-        <div class="text-grey-darken-4 text-h5">Example Content Element</div>
-        <VChip class="mt-2" color="grey-darken-1" rounded="pill">
-          ID: {{ element.id }}
-        </VChip>
-        <VTextarea
-          :model-value="element.data.content"
-          :readonly="isDisabled"
-          class="mt-4 mx-auto"
-          max-width="500"
-          placeholder="Content"
-          rows="2"
-          variant="outlined"
-          auto-grow
-          hide-details
-          @change="save(element, 'data', { content: $event.target.value })"
-        />
-        <VBtn
-          v-if="!isDisabled"
-          class="position-absolute ma-4 top-0 right-0"
-          color="secondary"
-          density="comfortable"
-          icon="mdi-delete-outline"
-          size="small"
-          variant="tonal"
-          @click="requestDeleteConfirmation(element)"
-        />
-      </div>
+        v-bind="{ element, isDisabled }"
+        @save="save(element, 'data', $event)"
+      />
     </div>
     <VBtn
       v-if="!isDisabled && enableAdd"
@@ -71,11 +42,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue';
+import { computed, ref } from 'vue';
 import cloneDeep from 'lodash/cloneDeep.js';
 import sortBy from 'lodash/sortBy.js';
 import { v4 } from 'uuid';
 import type { VBtn } from 'vuetify/components';
+
+import ContentElement from './ContentElement.vue';
 
 interface AddElementOptions {
   large: boolean;
@@ -104,9 +77,6 @@ const props = withDefaults(defineProps<Props>(), {
   enableAdd: true,
 });
 const emit = defineEmits(['delete', 'save']);
-
-const eventBus = inject('$eventBus') as any;
-const appChannel = eventBus.channel('app');
 
 const isDialogVisible = ref(false);
 
@@ -150,24 +120,4 @@ const addItem = () => {
   Object.assign(container.embeds, { [item.id]: item });
   emit('save', container);
 };
-
-const requestDeleteConfirmation = (element) => {
-  return appChannel.emit('showConfirmationModal', {
-    title: 'Delete element?',
-    message: 'Are you sure you want to delete element?',
-    action: () => emit('delete', element),
-  });
-};
 </script>
-
-<style lang="scss" scoped>
-.embedded-container {
-  padding: 0.625rem 1.5rem;
-}
-
-.element-wrapper {
-  border: 1px solid #e1e1e1;
-  padding: 0.625rem 1.25rem;
-  width: 100%;
-}
-</style>

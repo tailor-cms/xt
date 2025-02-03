@@ -40,6 +40,7 @@ export default defineConfig(({ mode }): any => {
         editModulePath.replace(/\/dist$/, ''),
         'lodash/cloneDeep.js',
         'lodash/invoke.js',
+        'lodash/isEqual.js',
         'lodash/sortBy.js',
       ],
     },

@@ -1,5 +1,11 @@
 # @tailor-cms/tce-display-runtime
 
+## 0.6.8
+
+### Patch Changes
+
+- Tweaked embedded container, extracted ContentElement component and wrapped questions in Question Card.
+
 ## 0.6.7
 
 ### Patch Changes
