@@ -1,5 +1,11 @@
 # @tailor-cms/tce-edit-next-runtime
 
+## 0.6.33
+
+### Patch Changes
+
+- Fixed deleting embedded element.
+
 ## 0.6.32
 
 ### Patch Changes
