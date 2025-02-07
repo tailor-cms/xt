@@ -8,7 +8,6 @@ import debounce from 'lodash/debounce.js';
 import open from 'open';
 
 import {
-  isTailorNext,
   packageDirs,
   runtimeLog,
   serverConfig,
@@ -28,9 +27,8 @@ const packageWatchers =
 // Commands for spining the runtimes (edit, server, preview)
 // Display runtime is running separatley to enable plugging in custom one
 const require = createRequire(import.meta.url);
-const EDIT_RUNTIME_NAME = isTailorNext ? 'edit-next' : 'edit';
 const runtimes = await Promise.all(
-  ['server', EDIT_RUNTIME_NAME, 'preview'].map(async (name, index) => {
+  ['server', 'edit', 'preview'].map(async (name, index) => {
     // Figure out runtime package location
     const pkgRef = `@tailor-cms/tce-${name}-runtime/package.json`;
     const pkgPath = await require.resolve(pkgRef);

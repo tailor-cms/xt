@@ -41,9 +41,6 @@ EDIT_RUNTIME_URL=http://localhost:8002
 DISPLAY_RUNTIME_URL=http://localhost:8003
 SERVER_RUNTIME_URL=http://localhost:8004
 
-# Target >=7.x.x Tailor release
-TAILOR_NEXT=true
-
 # Content Element env variables; TCE_ prefix is required
 # Will be loaded to the server runtime
 TCE_TEST=123
@@ -53,6 +50,3 @@ TCE_TEST=123
 Upon changing the service runtime ports, make sure that external url has the
 matching port (or is pointing to service).
 :::
-
-From version >=0.5.0, Vue 3 based authoring runtime is available, targeting
-the >=7.x.x Tailor release. To use it set the `TAILOR_NEXT=true`.

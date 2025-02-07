@@ -2,13 +2,6 @@
 
 ## Overview
 
-::: tip Info
-From the version >=0.5.0 Vue 3 based runtime is available (targeting the Tailor
-v7 release). To use Vue 3 based runtime set `TAILOR_NEXT` env variable to `true`.
-To learn more, see the
-[configuration section](https://tailor-cms.github.io/xt/enviroment-variables.html).
-:::
-
 Edit is the subpackage located under `packages/edit` exposing `Vue 2` or `Vue 3`
 components (depending on the targeted Tailor CMS version). It is used by the
 Content Element authors to create a Content Element. It consists of three main
