@@ -2,10 +2,9 @@
 
 ## Overview
 
-Edit is the subpackage located under `packages/edit` exposing `Vue 2` or `Vue 3`
-components (depending on the targeted Tailor CMS version). It is used by the
-Content Element authors to create a Content Element. It consists of three main
-components:
+Edit is the subpackage located under `packages/edit` exposing `Vue 3`
+components. It is used by the Content Element authors to create a Content
+Element. It consists of three main components:
 
 - Edit component; main authoring component, required
 - Top Toolbar component; exposing Content Element controls within
