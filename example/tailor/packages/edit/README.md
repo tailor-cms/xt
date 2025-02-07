@@ -1,1 +1,0 @@
-# Content element `Edit` component
