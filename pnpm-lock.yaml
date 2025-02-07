@@ -4,8 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-packageExtensionsChecksum: ec9ef8c1f59f2012c5f48437186d43d8
-
 importers:
 
   .:
@@ -145,7 +143,7 @@ importers:
         version: 4.4.9(@types/node@20.17.8)(sass@1.68.0)
       vue-tsc:
         specifier: ^1.8.5
-        version: 1.8.13(typescript@5.2.2)(vue@3.3.4)
+        version: 1.8.13(typescript@5.2.2)
 
   example/tailor/packages/edit:
     dependencies:
@@ -176,7 +174,7 @@ importers:
         version: 3.3.4
       vue-tsc:
         specifier: ^1.8.5
-        version: 1.8.13(typescript@5.2.2)(vue@3.3.4)
+        version: 1.8.13(typescript@5.2.2)
 
   example/tailor/packages/manifest:
     devDependencies:
@@ -317,7 +315,7 @@ importers:
         version: 3.3.4
       vue-tsc:
         specifier: 1.8.13
-        version: 1.8.13(typescript@5.2.2)(vue@3.3.4)
+        version: 1.8.13(typescript@5.2.2)
       vuetify:
         specifier: 3.4.0
         version: 3.4.0(typescript@5.2.2)(vite-plugin-vuetify@1.0.2)(vue@3.3.4)
@@ -375,7 +373,7 @@ importers:
         version: 3.3.4
       vue-tsc:
         specifier: 1.8.13
-        version: 1.8.13(typescript@5.2.2)(vue@3.3.4)
+        version: 1.8.13(typescript@5.2.2)
       vuetify:
         specifier: 3.7.3
         version: 3.7.3(typescript@5.2.2)(vite-plugin-vuetify@1.0.2)(vue@3.3.4)
@@ -454,7 +452,7 @@ importers:
         version: 3.3.4
       vue-tsc:
         specifier: 1.8.13
-        version: 1.8.13(typescript@5.2.2)(vue@3.3.4)
+        version: 1.8.13(typescript@5.2.2)
       vuetify:
         specifier: 3.7.3
         version: 3.7.3(typescript@5.2.2)(vite-plugin-vuetify@1.0.2)(vue@3.3.4)
@@ -4211,8 +4209,6 @@ packages:
 
   vue-template-compiler@2.7.14:
     resolution: {integrity: sha512-zyA5Y3ArvVG0NacJDkkzJuPQDF8RFeRlzV2vLeSnhSpieO6LK2OVbdLPi5MPPs09Ii+gMO8nY4S3iKQxBxDmWQ==}
-    peerDependencies:
-      vue: 2.7.14
 
   vue-tsc@1.8.13:
     resolution: {integrity: sha512-Hl8zUXPVK2KzPtbXeMCN0CSFkwvD96YOtYt9KvJPG9W8QGcNpGk9KHwPuGMxA8blWXSIli7gtsoC+clICEVdVg==}
@@ -5255,7 +5251,7 @@ snapshots:
 
   '@vue/devtools-api@6.6.4': {}
 
-  '@vue/language-core@1.8.13(typescript@5.2.2)(vue@3.3.4)':
+  '@vue/language-core@1.8.13(typescript@5.2.2)':
     dependencies:
       '@volar/language-core': 1.10.10
       '@volar/source-map': 1.10.10
@@ -5264,11 +5260,9 @@ snapshots:
       '@vue/shared': 3.5.13
       minimatch: 9.0.5
       muggle-string: 0.3.1
-      vue-template-compiler: 2.7.14(vue@3.3.4)
+      vue-template-compiler: 2.7.14
     optionalDependencies:
       typescript: 5.2.2
-    transitivePeerDependencies:
-      - vue
 
   '@vue/reactivity-transform@3.3.4':
     dependencies:
@@ -5319,13 +5313,12 @@ snapshots:
 
   '@vue/shared@3.5.13': {}
 
-  '@vue/typescript@1.8.13(typescript@5.2.2)(vue@3.3.4)':
+  '@vue/typescript@1.8.13(typescript@5.2.2)':
     dependencies:
       '@volar/typescript': 1.10.10
-      '@vue/language-core': 1.8.13(typescript@5.2.2)(vue@3.3.4)
+      '@vue/language-core': 1.8.13(typescript@5.2.2)
     transitivePeerDependencies:
       - typescript
-      - vue
 
   '@vuetify/loader-shared@1.7.1(vue@3.3.4)(vuetify@3.4.0)':
     dependencies:
@@ -8336,20 +8329,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vue-template-compiler@2.7.14(vue@3.3.4):
+  vue-template-compiler@2.7.14:
     dependencies:
       de-indent: 1.0.2
       he: 1.2.0
-      vue: 3.3.4
 
-  vue-tsc@1.8.13(typescript@5.2.2)(vue@3.3.4):
+  vue-tsc@1.8.13(typescript@5.2.2):
     dependencies:
-      '@vue/language-core': 1.8.13(typescript@5.2.2)(vue@3.3.4)
-      '@vue/typescript': 1.8.13(typescript@5.2.2)(vue@3.3.4)
+      '@vue/language-core': 1.8.13(typescript@5.2.2)
+      '@vue/typescript': 1.8.13(typescript@5.2.2)
       semver: 7.6.3
       typescript: 5.2.2
-    transitivePeerDependencies:
-      - vue
 
   vue@3.3.4:
     dependencies:
