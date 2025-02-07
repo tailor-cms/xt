@@ -5,6 +5,7 @@
         v-for="element in embeds"
         :key="element.id"
         v-bind="{ element, isDisabled }"
+        @delete="emit('delete', element)"
         @save="save(element, 'data', $event)"
       />
     </div>
