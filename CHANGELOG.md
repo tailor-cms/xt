@@ -1,5 +1,11 @@
 # Changelog
 
+### v1.0.0 2024-02-07
+
+#### Changes
+- Vue 2 based authoring runtime package has been removed and
+  `/packages/runtime/tce-edit` is now Vue 3 based
+
 ### v0.5.0 2024-04-05
 
 #### Changes
