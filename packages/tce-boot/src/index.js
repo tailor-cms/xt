@@ -73,8 +73,7 @@ try {
 if (!runtimeLog.initialBootAt) {
   // If first run, reboot; wait for optimize deps step
   await setTimeout(10 * 1000);
-  const editRuntimeCmdName = `${EDIT_RUNTIME_NAME}-runtime`;
-  const editRuntime = commands.find(it => it.name === editRuntimeCmdName);
+  const editRuntime = commands.find(it => it.name === 'edit-runtime');
   await restartCmd(editRuntime, serverConfig.editRuntimePort, 8000);
   saveRuntimeInit();
 }

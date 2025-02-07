@@ -45,7 +45,7 @@ interface Props {
   isDisabled?: boolean;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   isDisabled: false,
 });
 const emit = defineEmits(['delete', 'save']);
