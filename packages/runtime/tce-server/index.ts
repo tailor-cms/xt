@@ -44,7 +44,7 @@ function initApp({ type, initState, isQuestion, isGradable, hookMap, mocks }) {
   app.use(storageRouter.path, storageRouter.router);
   app.use(express.static(storageConfig.storagePath));
 
-  const httpServer = http.createServer(app);
+  const httpServer = http.createServer(app); // eslint-disable-line @typescript-eslint/no-misused-promises
   httpServer.listen(port, () => {
     console.log(`Tailor content element backend listening on port ${port}`);
   });
