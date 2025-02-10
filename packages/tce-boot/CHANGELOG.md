@@ -1,8 +1,20 @@
 # @tailor-cms/tce-boot
 
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies.
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@0.6.9
+  - @tailor-cms/tce-server-runtime@0.5.6
+  - @tailor-cms/tce-edit-runtime@1.0.1
+  - @tailor-cms/tce-preview-runtime@0.5.1
+
 ## 1.0.0
 
 ### Major Changes
+
 - Edit Runtime is now Vue 3 based, dropping support for Vue 2
 - Updated dependencies
   - @tailor-cms/tce-edit-runtime@1.0.0
