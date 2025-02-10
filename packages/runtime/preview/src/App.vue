@@ -70,7 +70,7 @@ async function resetState() {
 </script>
 
 <template>
-  <v-app>
+  <VApp>
     <AppBar />
     <MainLayout
       :element="element"
@@ -79,7 +79,7 @@ async function resetState() {
       @reset-element="resetElement"
       @reset-state="resetState"
     />
-  </v-app>
+  </VApp>
 </template>
 
 <style>
