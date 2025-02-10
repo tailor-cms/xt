@@ -1,6 +1,6 @@
 import forEach from 'lodash/forEach';
 import get from 'lodash/get';
-import hash from 'hash-obj';
+import hash from 'hash-object';
 import set from 'lodash/set';
 
 import storageConfig from '../storage/config';

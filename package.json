@@ -11,10 +11,10 @@
     "release": "pnpm test && changelogen --release && npm publish && git push --follow-tags"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.7",
+    "@changesets/cli": "^2.27.12",
     "@tailor-cms/eslint-config": "workspace:*",
-    "@typescript-eslint/eslint-plugin": ">=6.4.0",
-    "@typescript-eslint/parser": ">=6.4.0",
+    "@typescript-eslint/eslint-plugin": ">=8.23.0",
+    "@typescript-eslint/parser": ">=8.23.0",
     "changelogen": "^0.5.3"
   },
   "packageManager": "pnpm@7.33.0"
