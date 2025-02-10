@@ -9,12 +9,11 @@ import open from 'open';
 
 import {
   packageDirs,
-  runtimeLog,
   serverConfig,
   serverPorts,
   termColors
 } from './config.js';
-import { envToName, freeUpPorts, restartCmd, saveRuntimeInit } from './utils.js';
+import { envToName, freeUpPorts, restartCmd } from './utils.js';
 
 // Commands for watching and rebuilding kit packages
 const packageWatchers =
@@ -67,21 +66,6 @@ try {
 } catch {
   console.log('Could not open browser!');
 }
-
-// TODO: Temp initial reboot due to the vite first run issues
-// Optimize pre-build step
-if (!runtimeLog.initialBootAt) {
-  // If first run, reboot; wait for optimize deps step
-  await setTimeout(10 * 1000);
-  const editRuntime = commands.find(it => it.name === 'edit-runtime');
-  await restartCmd(editRuntime, serverConfig.editRuntimePort, 8000);
-  saveRuntimeInit();
-}
-
-// Restart preview runtime
-await setTimeout(4000);
-const previewRuntime = commands.find(it => it.name === 'preview-runtime');
-await restartCmd(previewRuntime, serverConfig.previewRuntimePort, 2000);
 
 // Delay server package watcher
 await setTimeout(5000);
