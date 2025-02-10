@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-edit-runtime",
   "description": "Edit content element client side runtime",
   "author": "Studion <info@gostudion.com>",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@mdi/font": "7.4.47",
-    "@tailor-cms/cek-common": "0.0.3",
+    "@tailor-cms/cek-common": "0.0.4",
     "@vitejs/plugin-vue": "5.2.1",
     "@vue/reactivity": "^3.5.13",
     "@vue/runtime-core": "^3.5.13",

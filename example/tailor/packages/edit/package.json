@@ -2,7 +2,7 @@
   "name": "tce-edit",
   "private": true,
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -23,7 +23,7 @@
     "vue": "^3.5.13"
   },
   "dependencies": {
-    "@tailor-cms/cek-common": "0.0.3"
+    "@tailor-cms/cek-common": "0.0.4"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "0.0.2",

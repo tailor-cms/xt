@@ -3,7 +3,7 @@
   "description": "Content element kit shared util library",
   "author": "ExtensionEngine <info@extensionengine.com>",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "exports": {
     ".": {
       "import": "./dist/index.js",
