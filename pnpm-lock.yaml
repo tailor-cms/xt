@@ -4,8 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-packageExtensionsChecksum: ec9ef8c1f59f2012c5f48437186d43d8
-
 importers:
 
   .:
@@ -115,194 +113,6 @@ importers:
       validate-npm-package-name:
         specifier: ^4.0.0
         version: 4.0.0
-      vue:
-        specifier: 2.7.14
-        version: 2.7.14
-      vue-template-compiler:
-        specifier: 2.7.14
-        version: 2.7.14(vue@2.7.14)
-
-  example/tailor-next:
-    devDependencies:
-      '@npmcli/package-json':
-        specifier: ^2.0.0
-        version: 2.0.0
-      '@tailor-cms/eslint-config':
-        specifier: 0.0.2
-        version: 0.0.2(tcj3uiscdbc3cwdun5ztxe2byy)
-      '@tailor-cms/tce-boot':
-        specifier: workspace:*
-        version: link:../../packages/tce-boot
-      '@tailor-cms/tce-display-runtime':
-        specifier: workspace:*
-        version: link:../../packages/runtime/tce-display
-      '@types/node':
-        specifier: ^20.5.7
-        version: 20.17.8
-      '@typescript-eslint/eslint-plugin':
-        specifier: '>=6.4.0'
-        version: 6.21.0(@typescript-eslint/parser@6.21.0(eslint@8.57.1)(typescript@5.2.2))(eslint@8.57.1)(typescript@5.2.2)
-      '@typescript-eslint/parser':
-        specifier: '>=6.4.0'
-        version: 6.21.0(eslint@8.57.1)(typescript@5.2.2)
-      boxen:
-        specifier: ^7.1.1
-        version: 7.1.1
-      chalk:
-        specifier: ^4.1.2
-        version: 4.1.2
-      concurrently:
-        specifier: ^8.2.0
-        version: 8.2.2
-      degit:
-        specifier: ^2.8.4
-        version: 2.8.4
-      enquirer:
-        specifier: ^2.4.1
-        version: 2.4.1
-      eslint:
-        specifier: '>=8.13.0'
-        version: 8.57.1
-      eslint-config-prettier:
-        specifier: '>=9.0.0'
-        version: 9.1.0(eslint@8.57.1)
-      eslint-config-semistandard:
-        specifier: '>=17.0.0'
-        version: 17.0.0(eslint-config-standard@17.1.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@6.21.0(eslint@8.57.1)(typescript@5.2.2))(eslint@8.57.1))(eslint-plugin-n@16.6.2(eslint@8.57.1))(eslint-plugin-promise@6.6.0(eslint@8.57.1))(eslint@8.57.1))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@6.21.0(eslint@8.57.1)(typescript@5.2.2))(eslint@8.57.1))(eslint-plugin-n@16.6.2(eslint@8.57.1))(eslint-plugin-promise@6.6.0(eslint@8.57.1))(eslint@8.57.1)
-      eslint-config-standard:
-        specifier: '>=17.1.0'
-        version: 17.1.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@6.21.0(eslint@8.57.1)(typescript@5.2.2))(eslint@8.57.1))(eslint-plugin-n@16.6.2(eslint@8.57.1))(eslint-plugin-promise@6.6.0(eslint@8.57.1))(eslint@8.57.1)
-      eslint-plugin-import:
-        specifier: '>=2.28.1'
-        version: 2.31.0(@typescript-eslint/parser@6.21.0(eslint@8.57.1)(typescript@5.2.2))(eslint@8.57.1)
-      eslint-plugin-n:
-        specifier: '>=15.0.0'
-        version: 16.6.2(eslint@8.57.1)
-      eslint-plugin-prettier:
-        specifier: '>=4.2.1'
-        version: 4.2.1(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint@8.57.1)(prettier@2.8.8)
-      eslint-plugin-promise:
-        specifier: '>=6.1.1'
-        version: 6.6.0(eslint@8.57.1)
-      eslint-plugin-vue:
-        specifier: '>=9.17.0'
-        version: 9.31.0(eslint@8.57.1)
-      eslint-plugin-vuejs-accessibility:
-        specifier: '>=2.2.0'
-        version: 2.4.1(eslint@8.57.1)
-      has-flag:
-        specifier: ^5.0.1
-        version: 5.0.1
-      prettier:
-        specifier: ^2.7.1
-        version: 2.8.8
-      shelljs:
-        specifier: ^0.8.5
-        version: 0.8.5
-      typescript:
-        specifier: ^5.1.6
-        version: 5.2.2
-      validate-npm-package-name:
-        specifier: ^4.0.0
-        version: 4.0.0
-
-  example/tailor-next/packages/display:
-    dependencies:
-      stringify-object:
-        specifier: ^5.0.0
-        version: 5.0.0
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.4
-    devDependencies:
-      '@tailor-cms/eslint-config':
-        specifier: 0.0.2
-        version: 0.0.2(tcj3uiscdbc3cwdun5ztxe2byy)
-      '@vitejs/plugin-vue':
-        specifier: ^4.2.3
-        version: 4.3.4(vite@4.4.9(@types/node@20.17.8)(sass@1.68.0))(vue@3.3.4)
-      eslint:
-        specifier: '>=8.13.0'
-        version: 8.57.1
-      tce-manifest:
-        specifier: workspace:*
-        version: link:../../../tailor/packages/manifest
-      typescript:
-        specifier: ^5.1.6
-        version: 5.2.2
-      vite:
-        specifier: ^4.4.5
-        version: 4.4.9(@types/node@20.17.8)(sass@1.68.0)
-      vue-tsc:
-        specifier: ^1.8.5
-        version: 1.8.13(typescript@5.2.2)(vue@3.3.4)
-
-  example/tailor-next/packages/edit:
-    dependencies:
-      '@tailor-cms/cek-common':
-        specifier: 0.0.3
-        version: 0.0.3
-    devDependencies:
-      '@tailor-cms/eslint-config':
-        specifier: 0.0.2
-        version: 0.0.2(tcj3uiscdbc3cwdun5ztxe2byy)
-      '@vitejs/plugin-vue':
-        specifier: ^4.2.3
-        version: 4.3.4(vite@4.4.9(@types/node@20.17.8)(sass@1.68.0))(vue@3.3.4)
-      eslint:
-        specifier: '>=8.13.0'
-        version: 8.57.1
-      tce-manifest:
-        specifier: workspace:^0.0.1
-        version: link:../../../tailor/packages/manifest
-      typescript:
-        specifier: ^5.1.6
-        version: 5.2.2
-      vite:
-        specifier: ^4.4.5
-        version: 4.4.9(@types/node@20.17.8)(sass@1.68.0)
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.4
-      vue-tsc:
-        specifier: ^1.8.5
-        version: 1.8.13(typescript@5.2.2)(vue@3.3.4)
-
-  example/tailor-next/packages/manifest:
-    devDependencies:
-      '@tailor-cms/eslint-config':
-        specifier: 0.0.2
-        version: 0.0.2(tcj3uiscdbc3cwdun5ztxe2byy)
-      eslint:
-        specifier: '>=8.13.0'
-        version: 8.57.1
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(postcss@8.4.49)(ts-node@10.9.2(@types/node@20.17.8)(typescript@5.2.2))(typescript@5.2.2)
-      typescript:
-        specifier: ^5.1.6
-        version: 5.2.2
-
-  example/tailor-next/packages/server:
-    devDependencies:
-      '@tailor-cms/cek-common':
-        specifier: 0.0.3
-        version: 0.0.3
-      '@tailor-cms/eslint-config':
-        specifier: 0.0.2
-        version: 0.0.2(tcj3uiscdbc3cwdun5ztxe2byy)
-      eslint:
-        specifier: '>=8.13.0'
-        version: 8.57.1
-      tce-manifest:
-        specifier: workspace:*
-        version: link:../../../tailor/packages/manifest
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(postcss@8.4.49)(ts-node@10.9.2(@types/node@20.17.8)(typescript@5.2.2))(typescript@5.2.2)
-      typescript:
-        specifier: ^5.1.6
-        version: 5.2.2
 
   example/tailor/packages/display:
     dependencies:
@@ -333,28 +143,25 @@ importers:
         version: 4.4.9(@types/node@20.17.8)(sass@1.68.0)
       vue-tsc:
         specifier: ^1.8.5
-        version: 1.8.13(typescript@5.2.2)(vue@3.3.4)
+        version: 1.8.13(typescript@5.2.2)
 
   example/tailor/packages/edit:
     dependencies:
       '@tailor-cms/cek-common':
         specifier: 0.0.3
         version: 0.0.3
-      vue:
-        specifier: ^2.7.13
-        version: 2.7.14
     devDependencies:
       '@tailor-cms/eslint-config':
         specifier: 0.0.2
         version: 0.0.2(tcj3uiscdbc3cwdun5ztxe2byy)
-      '@vitejs/plugin-vue2':
-        specifier: ^2.2.0
-        version: 2.2.0(vite@4.4.9(@types/node@20.17.8)(sass@1.68.0))(vue@2.7.14)
+      '@vitejs/plugin-vue':
+        specifier: ^4.2.3
+        version: 4.3.4(vite@4.4.9(@types/node@20.17.8)(sass@1.68.0))(vue@3.3.4)
       eslint:
         specifier: '>=8.13.0'
         version: 8.57.1
       tce-manifest:
-        specifier: workspace:*
+        specifier: workspace:^0.0.1
         version: link:../manifest
       typescript:
         specifier: ^5.1.6
@@ -362,9 +169,12 @@ importers:
       vite:
         specifier: ^4.4.5
         version: 4.4.9(@types/node@20.17.8)(sass@1.68.0)
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
       vue-tsc:
         specifier: ^1.8.5
-        version: 1.8.13(typescript@5.2.2)(vue@2.7.14)
+        version: 1.8.13(typescript@5.2.2)
 
   example/tailor/packages/manifest:
     devDependencies:
@@ -505,7 +315,7 @@ importers:
         version: 3.3.4
       vue-tsc:
         specifier: 1.8.13
-        version: 1.8.13(typescript@5.2.2)(vue@3.3.4)
+        version: 1.8.13(typescript@5.2.2)
       vuetify:
         specifier: 3.4.0
         version: 3.4.0(typescript@5.2.2)(vite-plugin-vuetify@1.0.2)(vue@3.3.4)
@@ -563,7 +373,7 @@ importers:
         version: 3.3.4
       vue-tsc:
         specifier: 1.8.13
-        version: 1.8.13(typescript@5.2.2)(vue@3.3.4)
+        version: 1.8.13(typescript@5.2.2)
       vuetify:
         specifier: 3.7.3
         version: 3.7.3(typescript@5.2.2)(vite-plugin-vuetify@1.0.2)(vue@3.3.4)
@@ -582,64 +392,6 @@ importers:
         version: 1.6.35
 
   packages/runtime/tce-edit:
-    dependencies:
-      '@extensionengine/vue-radio':
-        specifier: 1.0.0-beta.5
-        version: 1.0.0-beta.5
-      '@mdi/font':
-        specifier: 7.2.96
-        version: 7.2.96
-      '@tailor-cms/cek-common':
-        specifier: 0.0.3
-        version: 0.0.3
-      '@vitejs/plugin-vue2':
-        specifier: 2.2.0
-        version: 2.2.0(vite@4.4.9(@types/node@20.17.8)(sass@1.32.13))(vue@2.7.14)
-      axios:
-        specifier: ^1.5.1
-        version: 1.7.8
-      ky:
-        specifier: 1.0.1
-        version: 1.0.1
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      sass:
-        specifier: ~1.32.12
-        version: 1.32.13
-      typescript:
-        specifier: 5.2.2
-        version: 5.2.2
-      unplugin-vue-components:
-        specifier: 0.25.2
-        version: 0.25.2(@babel/parser@7.26.2)(rollup@4.27.4)(vue@2.7.14)
-      url-join:
-        specifier: ^5.0.0
-        version: 5.0.0
-      vite:
-        specifier: 4.4.9
-        version: 4.4.9(@types/node@20.17.8)(sass@1.32.13)
-      vue:
-        specifier: 2.7.14
-        version: 2.7.14
-      vue-template-compiler:
-        specifier: 2.7.14
-        version: 2.7.14(vue@2.7.14)
-      vue-tsc:
-        specifier: 1.8.13
-        version: 1.8.13(typescript@5.2.2)(vue@2.7.14)
-      vuetify:
-        specifier: 2.7.1
-        version: 2.7.1(vue@2.7.14)
-    devDependencies:
-      '@tailor-cms/eslint-config':
-        specifier: workspace:*
-        version: link:../../eslint
-      '@types/node':
-        specifier: ^20.8.6
-        version: 20.17.8
-
-  packages/runtime/tce-edit-vue3:
     dependencies:
       '@mdi/font':
         specifier: 7.4.47
@@ -700,7 +452,7 @@ importers:
         version: 3.3.4
       vue-tsc:
         specifier: 1.8.13
-        version: 1.8.13(typescript@5.2.2)(vue@3.3.4)
+        version: 1.8.13(typescript@5.2.2)
       vuetify:
         specifier: 3.7.3
         version: 3.7.3(typescript@5.2.2)(vite-plugin-vuetify@1.0.2)(vue@3.3.4)
@@ -799,9 +551,6 @@ importers:
       '@tailor-cms/tce-display-runtime':
         specifier: workspace:*
         version: link:../runtime/tce-display
-      '@tailor-cms/tce-edit-next-runtime':
-        specifier: workspace:*
-        version: link:../runtime/tce-edit-vue3
       '@tailor-cms/tce-edit-runtime':
         specifier: workspace:*
         version: link:../runtime/tce-edit
@@ -1332,9 +1081,6 @@ packages:
     resolution: {integrity: sha512-d9zaMRSTIKDLhctzH12MtXvJKSSUhaHcjV+2Z+GK+EEY7XKpP5yR4x+N3TAcHTcu963nIr+TMcCb4DBCYX1z6Q==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
-  '@extensionengine/vue-radio@1.0.0-beta.5':
-    resolution: {integrity: sha512-3HCuel2YFS7qaaEzvfSnip/qiY1M1BwcmFm8kXCz8eCF5+mhK/Vg9uvQN0/MQ8CCUfA0/AbZCHE6SrM31ZMhOQ==}
-
   '@gar/promisify@1.1.3':
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
 
@@ -1703,13 +1449,6 @@ packages:
   '@ungap/structured-clone@1.2.0':
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
-  '@vitejs/plugin-vue2@2.2.0':
-    resolution: {integrity: sha512-1km7zEuZ/9QRPvzXSjikbTYGQPG86Mq1baktpC4sXqsXlb02HQKfi+fl8qVS703JM7cgm24Ga9j+RwKmvFn90A==}
-    engines: {node: ^14.18.0 || >= 16.0.0}
-    peerDependencies:
-      vite: ^3.0.0 || ^4.0.0
-      vue: ^2.7.0-0
-
   '@vitejs/plugin-vue@4.3.4':
     resolution: {integrity: sha512-ciXNIHKPriERBisHFBvnTbfKa6r9SAesOYXeGDzgegcvy9Q4xdScSHAmKbNT0M3O0S9LKhIf5/G+UYG4NnnzYw==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -1737,9 +1476,6 @@ packages:
 
   '@vue/compiler-dom@3.5.13':
     resolution: {integrity: sha512-ZOJ46sMOKUjO3e94wPdCzQ6P1Lx/vhp2RSvfaab88Ajexs0AHeV0uasYhi99WPaogmBlRHNRuly8xV75cNTMDA==}
-
-  '@vue/compiler-sfc@2.7.14':
-    resolution: {integrity: sha512-aNmNHyLPsw+sVvlQFQ2/8sjNuLtK54TC6cuKnVzAY93ks4ZBrvwQSnkkIh7bsbNhum5hJBS00wSDipQ937f5DA==}
 
   '@vue/compiler-sfc@3.3.4':
     resolution: {integrity: sha512-6y/d8uw+5TkCuzBkgLS0v3lSM3hJDntFEiUORM11pQ/hKvkhSKZrXW6i69UyXlJQisJxuUEJKAWEqWbWsLeNKQ==}
@@ -3899,11 +3635,6 @@ packages:
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  sass@1.32.13:
-    resolution: {integrity: sha512-dEgI9nShraqP7cXQH+lEXVf73WOPCse0QlFzSD8k+1TcOxCMwVXfQlr0jtoluZysQOyJGnfr21dLvYKDJq8HkA==}
-    engines: {node: '>=8.9.0'}
-    hasBin: true
-
   sass@1.68.0:
     resolution: {integrity: sha512-Lmj9lM/fef0nQswm1J2HJcEsBUba4wgNx2fea6yJHODREoMFnwRpZydBnX/RjyXw2REIwdkbqE4hrTo4qfDBUA==}
     engines: {node: '>=14.0.0'}
@@ -4048,10 +3779,6 @@ packages:
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
-    engines: {node: '>=0.10.0'}
-
-  source-map@0.6.1:
-    resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
 
   source-map@0.8.0-beta.0:
@@ -4482,8 +4209,6 @@ packages:
 
   vue-template-compiler@2.7.14:
     resolution: {integrity: sha512-zyA5Y3ArvVG0NacJDkkzJuPQDF8RFeRlzV2vLeSnhSpieO6LK2OVbdLPi5MPPs09Ii+gMO8nY4S3iKQxBxDmWQ==}
-    peerDependencies:
-      vue: 2.7.14
 
   vue-tsc@1.8.13:
     resolution: {integrity: sha512-Hl8zUXPVK2KzPtbXeMCN0CSFkwvD96YOtYt9KvJPG9W8QGcNpGk9KHwPuGMxA8blWXSIli7gtsoC+clICEVdVg==}
@@ -4491,17 +4216,8 @@ packages:
     peerDependencies:
       typescript: '*'
 
-  vue@2.7.14:
-    resolution: {integrity: sha512-b2qkFyOM0kwqWFuQmgd4o+uHGU7T+2z3T+WQp8UBjADfEv2n4FEMffzBmCKNP0IGzOEEfYjvtcC62xaSKeQDrQ==}
-    deprecated: Vue 2 has reached EOL and is no longer actively maintained. See https://v2.vuejs.org/eol/ for more details.
-
   vue@3.3.4:
     resolution: {integrity: sha512-VTyEYn3yvIeY1Py0WaYGZsXnz3y5UnGi62GjVEqvEGPl6nxbOrCXbVOTQWBEJUqAyTUk2uJ5JLVnYJ6ZzGbrSw==}
-
-  vuetify@2.7.1:
-    resolution: {integrity: sha512-DVFmRsDtYrITw9yuGLwpFWngFYzEgk0KwloDCIV3+vhZw+NBFJOSzdbttbYmOwtqvQlhDxUyIRQolrRbSFAKlg==}
-    peerDependencies:
-      vue: ^2.6.4
 
   vuetify@3.4.0:
     resolution: {integrity: sha512-aW3bJGCUN3fhl62yvsb+Hv6TtMWDqiadN0PTbEB8jd9z46/X1ddzQ/fhMjkqBX69sMFtZvENl3YFGU5c88/8qw==}
@@ -5100,8 +4816,6 @@ snapshots:
 
   '@eslint/js@8.57.1': {}
 
-  '@extensionengine/vue-radio@1.0.0-beta.5': {}
-
   '@gar/promisify@1.1.3':
     optional: true
 
@@ -5469,16 +5183,6 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@vitejs/plugin-vue2@2.2.0(vite@4.4.9(@types/node@20.17.8)(sass@1.32.13))(vue@2.7.14)':
-    dependencies:
-      vite: 4.4.9(@types/node@20.17.8)(sass@1.32.13)
-      vue: 2.7.14
-
-  '@vitejs/plugin-vue2@2.2.0(vite@4.4.9(@types/node@20.17.8)(sass@1.68.0))(vue@2.7.14)':
-    dependencies:
-      vite: 4.4.9(@types/node@20.17.8)(sass@1.68.0)
-      vue: 2.7.14
-
   '@vitejs/plugin-vue@4.3.4(vite@4.4.9(@types/node@20.17.8)(sass@1.68.0))(vue@3.3.4)':
     dependencies:
       vite: 4.4.9(@types/node@20.17.8)(sass@1.68.0)
@@ -5527,12 +5231,6 @@ snapshots:
       '@vue/compiler-core': 3.5.13
       '@vue/shared': 3.5.13
 
-  '@vue/compiler-sfc@2.7.14':
-    dependencies:
-      '@babel/parser': 7.26.2
-      postcss: 8.4.49
-      source-map: 0.6.1
-
   '@vue/compiler-sfc@3.3.4':
     dependencies:
       '@babel/parser': 7.26.2
@@ -5553,7 +5251,7 @@ snapshots:
 
   '@vue/devtools-api@6.6.4': {}
 
-  '@vue/language-core@1.8.13(typescript@5.2.2)(vue@2.7.14)':
+  '@vue/language-core@1.8.13(typescript@5.2.2)':
     dependencies:
       '@volar/language-core': 1.10.10
       '@volar/source-map': 1.10.10
@@ -5562,26 +5260,9 @@ snapshots:
       '@vue/shared': 3.5.13
       minimatch: 9.0.5
       muggle-string: 0.3.1
-      vue-template-compiler: 2.7.14(vue@2.7.14)
+      vue-template-compiler: 2.7.14
     optionalDependencies:
       typescript: 5.2.2
-    transitivePeerDependencies:
-      - vue
-
-  '@vue/language-core@1.8.13(typescript@5.2.2)(vue@3.3.4)':
-    dependencies:
-      '@volar/language-core': 1.10.10
-      '@volar/source-map': 1.10.10
-      '@vue/compiler-dom': 3.5.13
-      '@vue/reactivity': 3.5.13
-      '@vue/shared': 3.5.13
-      minimatch: 9.0.5
-      muggle-string: 0.3.1
-      vue-template-compiler: 2.7.14(vue@3.3.4)
-    optionalDependencies:
-      typescript: 5.2.2
-    transitivePeerDependencies:
-      - vue
 
   '@vue/reactivity-transform@3.3.4':
     dependencies:
@@ -5632,21 +5313,12 @@ snapshots:
 
   '@vue/shared@3.5.13': {}
 
-  '@vue/typescript@1.8.13(typescript@5.2.2)(vue@2.7.14)':
+  '@vue/typescript@1.8.13(typescript@5.2.2)':
     dependencies:
       '@volar/typescript': 1.10.10
-      '@vue/language-core': 1.8.13(typescript@5.2.2)(vue@2.7.14)
+      '@vue/language-core': 1.8.13(typescript@5.2.2)
     transitivePeerDependencies:
       - typescript
-      - vue
-
-  '@vue/typescript@1.8.13(typescript@5.2.2)(vue@3.3.4)':
-    dependencies:
-      '@volar/typescript': 1.10.10
-      '@vue/language-core': 1.8.13(typescript@5.2.2)(vue@3.3.4)
-    transitivePeerDependencies:
-      - typescript
-      - vue
 
   '@vuetify/loader-shared@1.7.1(vue@3.3.4)(vuetify@3.4.0)':
     dependencies:
@@ -7993,10 +7665,6 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sass@1.32.13:
-    dependencies:
-      chokidar: 3.6.0
-
   sass@1.68.0:
     dependencies:
       chokidar: 3.6.0
@@ -8156,8 +7824,6 @@ snapshots:
     optional: true
 
   source-map-js@1.2.1: {}
-
-  source-map@0.6.1: {}
 
   source-map@0.8.0-beta.0:
     dependencies:
@@ -8498,25 +8164,6 @@ snapshots:
 
   unpipe@1.0.0: {}
 
-  unplugin-vue-components@0.25.2(@babel/parser@7.26.2)(rollup@4.27.4)(vue@2.7.14):
-    dependencies:
-      '@antfu/utils': 0.7.10
-      '@rollup/pluginutils': 5.1.3(rollup@4.27.4)
-      chokidar: 3.6.0
-      debug: 4.3.7
-      fast-glob: 3.3.2
-      local-pkg: 0.4.3
-      magic-string: 0.30.14
-      minimatch: 9.0.5
-      resolve: 1.22.8
-      unplugin: 1.16.0
-      vue: 2.7.14
-    optionalDependencies:
-      '@babel/parser': 7.26.2
-    transitivePeerDependencies:
-      - rollup
-      - supports-color
-
   unplugin-vue-components@0.25.2(@babel/parser@7.26.2)(rollup@4.27.4)(vue@3.3.4):
     dependencies:
       '@antfu/utils': 0.7.10
@@ -8602,16 +8249,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vite@4.4.9(@types/node@20.17.8)(sass@1.32.13):
-    dependencies:
-      esbuild: 0.18.20
-      postcss: 8.4.49
-      rollup: 3.29.5
-    optionalDependencies:
-      '@types/node': 20.17.8
-      fsevents: 2.3.3
-      sass: 1.32.13
-
   vite@4.4.9(@types/node@20.17.8)(sass@1.68.0):
     dependencies:
       esbuild: 0.18.20
@@ -8692,40 +8329,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vue-template-compiler@2.7.14(vue@2.7.14):
+  vue-template-compiler@2.7.14:
     dependencies:
       de-indent: 1.0.2
       he: 1.2.0
-      vue: 2.7.14
 
-  vue-template-compiler@2.7.14(vue@3.3.4):
+  vue-tsc@1.8.13(typescript@5.2.2):
     dependencies:
-      de-indent: 1.0.2
-      he: 1.2.0
-      vue: 3.3.4
-
-  vue-tsc@1.8.13(typescript@5.2.2)(vue@2.7.14):
-    dependencies:
-      '@vue/language-core': 1.8.13(typescript@5.2.2)(vue@2.7.14)
-      '@vue/typescript': 1.8.13(typescript@5.2.2)(vue@2.7.14)
+      '@vue/language-core': 1.8.13(typescript@5.2.2)
+      '@vue/typescript': 1.8.13(typescript@5.2.2)
       semver: 7.6.3
       typescript: 5.2.2
-    transitivePeerDependencies:
-      - vue
-
-  vue-tsc@1.8.13(typescript@5.2.2)(vue@3.3.4):
-    dependencies:
-      '@vue/language-core': 1.8.13(typescript@5.2.2)(vue@3.3.4)
-      '@vue/typescript': 1.8.13(typescript@5.2.2)(vue@3.3.4)
-      semver: 7.6.3
-      typescript: 5.2.2
-    transitivePeerDependencies:
-      - vue
-
-  vue@2.7.14:
-    dependencies:
-      '@vue/compiler-sfc': 2.7.14
-      csstype: 3.1.3
 
   vue@3.3.4:
     dependencies:
@@ -8734,10 +8348,6 @@ snapshots:
       '@vue/runtime-dom': 3.3.4
       '@vue/server-renderer': 3.3.4(vue@3.3.4)
       '@vue/shared': 3.3.4
-
-  vuetify@2.7.1(vue@2.7.14):
-    dependencies:
-      vue: 2.7.14
 
   vuetify@3.4.0(typescript@5.2.2)(vite-plugin-vuetify@1.0.2)(vue@3.3.4):
     dependencies:

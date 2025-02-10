@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-boot",
   "description": "Content element runtime boot script",
   "author": "ExtensionEngine <info@extensionengine.com>",
-  "version": "0.6.33",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "start": "node src/index.js",
@@ -12,7 +12,6 @@
   "dependencies": {
     "@tailor-cms/tce-display-runtime": "workspace:*",
     "@tailor-cms/tce-edit-runtime": "workspace:*",
-    "@tailor-cms/tce-edit-next-runtime": "workspace:*",
     "@tailor-cms/tce-preview-runtime": "workspace:*",
     "@tailor-cms/tce-server-runtime": "workspace:*",
     "boxen": "^7.1.1",
@@ -34,15 +33,6 @@
     "eslint-plugin-prettier": ">=4.2.1",
     "eslint-plugin-promise": ">=6.1.1",
     "prettier": "^2.7.1"
-  },
-  "pnpm": {
-    "packageExtensions": {
-      "vue-template-compiler": {
-        "peerDependencies": {
-          "vue": "2.7.14"
-        }
-      }
-    }
   },
   "publishConfig": {
     "access": "public"

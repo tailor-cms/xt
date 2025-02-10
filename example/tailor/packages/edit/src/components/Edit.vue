@@ -9,7 +9,7 @@
           id="backgroundInput"
           accept="image/png, image/jpeg"
           type="file"
-          @change="(e) => upload(e)"
+          @change="upload"
         />
       </label>
       <ul v-if="element.data.key" class="upload-details">
@@ -17,7 +17,7 @@
         <li><b>Internal url:</b>{{ element.data.assets?.backgroundUrl }}</li>
         <li>
           <b>Public url:</b>
-          <a :href="element.data.backgroundUrl" target="_blank">
+          <a :to="element.data.backgroundUrl" target="_blank">
             {{ element.data.backgroundUrl }}
           </a>
         </li>
@@ -37,10 +37,10 @@
 </template>
 
 <script setup lang="ts">
+import { defineEmits, defineProps, inject } from 'vue';
 import type { InputFileEvent, StorageApi } from '@tailor-cms/cek-common';
 import { createUploadForm } from '@tailor-cms/cek-common';
 import { Element } from 'tce-manifest';
-import { inject } from 'vue';
 
 const storageService = inject('$storageService') as StorageApi;
 const elementBus = inject('$elementBus') as any;
@@ -49,7 +49,7 @@ const props = defineProps<{ element: Element; isFocused: boolean }>();
 const emit = defineEmits(['save', 'link']);
 
 const increment = () => {
-  const { data } = props.element;
+  const data = props.element.data;
   const count = data.count + 1;
   emit('save', { ...data, count });
 };
@@ -74,9 +74,6 @@ const upload = (e: InputFileEvent | any) => {
 <style scoped>
 .tce-container {
   background-color: transparent;
-  margin-top: 1rem;
-  padding: 1rem;
-  border: 2px dashed #888;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
   overflow-x: hidden;

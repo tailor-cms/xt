@@ -1,13 +1,37 @@
-import Radio from '@extensionengine/vue-radio';
-import Vue from 'vue';
+import { createApp } from 'vue';
 
 import App from './App.vue';
+import ContentElement from './components/ContentElement.vue';
+import EmbeddedContainer from './components/EmbeddedContainer.vue';
+import NotCompositeAlert from './components/NotCompositeAlert.vue';
+import Radio from './radio';
 import vuetify from './plugins/vuetify';
 
-Vue.config.productionTip = false;
-Vue.use(Radio);
+const element = await import(import.meta.env.EDIT_DIR);
+const {
+  isComposite = false,
+  isQuestion,
+  isGradable,
+  name,
+  ui,
+} = element.default;
 
-new Vue({
-  vuetify,
-  render: (h) => h(App),
-}).$mount('#app');
+const app = createApp(App, {
+  isQuestion,
+  isGradable,
+  type: name,
+  icon: ui.icon,
+});
+const radio = Radio.getInstance();
+app.provide('$eventBus', radio);
+app.provide('$elementBus', radio.channel('app'));
+app.use(vuetify);
+app.component('TailorContentElement', ContentElement);
+app.component(
+  'TailorEmbeddedContainer',
+  isComposite ? EmbeddedContainer : NotCompositeAlert,
+);
+app.component('Edit', element.Edit);
+if (element.TopToolbar) app.component('TopToolbar', element.TopToolbar);
+if (element.SideToolbar) app.component('SideToolbar', element.SideToolbar);
+app.mount('#app');

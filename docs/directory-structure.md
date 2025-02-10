@@ -12,8 +12,7 @@ main subpackages (targeting different systems):
 │  └─ /server
 ```
 
-- `edit` (authoring) front-end package; implemented using Vue 2 or Vue 3 UI
-  library (depending on the targeted Tailor CMS version).
+- `edit` (authoring) front-end package; implemented using Vue 3 UI library.
 - `display` (end-user) front-end package; implemented using Vue 3 UI library.
 - `server` package; for implementing server side functionality.
 

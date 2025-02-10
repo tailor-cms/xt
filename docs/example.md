@@ -76,9 +76,7 @@ by displaying updated type and setting the `data.count` value to `0`:
 Now that we set the basic properties and specified how to initialize the
 component state, we can create Authoring component for our counter. It is
 not going to be the worlds most complex or usefull component; Author will
-have an option to click on a button, each time incrementing a counter. Since
-latest Tailor CMS develop uses `Vue 2.7`, we can use `Composition API`
-to achive consistency with our `Display` component codebase (`Vue 3`). Navigate
+have an option to click on a button, each time incrementing a counter. Navigate
 to `packages/edit/src/components/Edit.vue` and paste the following code
 for our simple counter:
 

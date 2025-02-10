@@ -17,8 +17,7 @@ is organized as a monorepo, consisting of three main subpackages:
 
 - `edit package`; providing means for Author to create a Content
   Element. This package targets Tailor CMS frontend, so components need to be
-  implemented using the Vue 2 or Vue 3 UI library, depending on the targeted
-  Tailor CMS version.
+  implemented using the Vue 3 UI library.
 - `display package`; for rendering the authored state. This package is used for
   target system and in theory can be implemented using any UI library. This
   version of Content Element Kit supports only Vue 3.

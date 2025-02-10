@@ -8,14 +8,12 @@ import debounce from 'lodash/debounce.js';
 import open from 'open';
 
 import {
-  isTailorNext,
   packageDirs,
-  runtimeLog,
   serverConfig,
   serverPorts,
   termColors
 } from './config.js';
-import { envToName, freeUpPorts, restartCmd, saveRuntimeInit } from './utils.js';
+import { envToName, freeUpPorts, restartCmd } from './utils.js';
 
 // Commands for watching and rebuilding kit packages
 const packageWatchers =
@@ -28,9 +26,8 @@ const packageWatchers =
 // Commands for spining the runtimes (edit, server, preview)
 // Display runtime is running separatley to enable plugging in custom one
 const require = createRequire(import.meta.url);
-const EDIT_RUNTIME_NAME = isTailorNext ? 'edit-next' : 'edit';
 const runtimes = await Promise.all(
-  ['server', EDIT_RUNTIME_NAME, 'preview'].map(async (name, index) => {
+  ['server', 'edit', 'preview'].map(async (name, index) => {
     // Figure out runtime package location
     const pkgRef = `@tailor-cms/tce-${name}-runtime/package.json`;
     const pkgPath = await require.resolve(pkgRef);
@@ -69,22 +66,6 @@ try {
 } catch {
   console.log('Could not open browser!');
 }
-
-// TODO: Temp initial reboot due to the vite first run issues
-// Optimize pre-build step
-if (!runtimeLog.initialBootAt) {
-  // If first run, reboot; wait for optimize deps step
-  await setTimeout(10 * 1000);
-  const editRuntimeCmdName = `${EDIT_RUNTIME_NAME}-runtime`;
-  const editRuntime = commands.find(it => it.name === editRuntimeCmdName);
-  await restartCmd(editRuntime, serverConfig.editRuntimePort, 8000);
-  saveRuntimeInit();
-}
-
-// Restart preview runtime
-await setTimeout(4000);
-const previewRuntime = commands.find(it => it.name === 'preview-runtime');
-await restartCmd(previewRuntime, serverConfig.previewRuntimePort, 2000);
 
 // Delay server package watcher
 await setTimeout(5000);

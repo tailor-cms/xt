@@ -39,14 +39,6 @@ export const saveRuntimeLog = (data) => {
   return true;
 };
 
-export const saveRuntimeInit = () => {
-  const log = getRuntimeLog();
-  return saveRuntimeLog({
-    ...log,
-    initialBootAt: new Date().getTime()
-  });
-};
-
 export const freeUpPorts = async (ports) => {
   for (const port of ports) {
     try {
