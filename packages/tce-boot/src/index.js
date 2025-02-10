@@ -67,6 +67,11 @@ try {
   console.log('Could not open browser!');
 }
 
+// Restart preview runtime
+await setTimeout(4000);
+const previewRuntime = commands.find(it => it.name === 'preview-runtime');
+await restartCmd(previewRuntime, serverConfig.previewRuntimePort, 2000);
+
 // Delay server package watcher
 await setTimeout(5000);
 const serverPackage = commands.find(it => it.name === 'server-package');
