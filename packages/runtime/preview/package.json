@@ -1,6 +1,7 @@
 {
   "name": "@tailor-cms/tce-preview-runtime",
   "version": "0.5.1",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
