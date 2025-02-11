@@ -1,5 +1,14 @@
 # @tailor-cms/tce-boot
 
+## 1.0.2
+
+### Patch Changes
+
+- Remove first boot delay, cleanup.
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@0.6.10
+  - @tailor-cms/tce-preview-runtime@0.5.2
+
 ## 1.0.1
 
 ### Patch Changes
