@@ -151,8 +151,8 @@ importers:
   example/tailor/packages/edit:
     dependencies:
       '@tailor-cms/cek-common':
-        specifier: 0.0.3
-        version: 0.0.3
+        specifier: 0.0.4
+        version: 0.0.4
     devDependencies:
       '@tailor-cms/eslint-config':
         specifier: 0.0.2
@@ -197,8 +197,8 @@ importers:
   example/tailor/packages/server:
     devDependencies:
       '@tailor-cms/cek-common':
-        specifier: 0.0.3
-        version: 0.0.3
+        specifier: 0.0.4
+        version: 0.0.4
       '@tailor-cms/eslint-config':
         specifier: 0.0.2
         version: 0.0.2(f4izvuryvmcbdt6uwyexfh63ay)
@@ -1400,8 +1400,8 @@ packages:
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
 
-  '@tailor-cms/cek-common@0.0.3':
-    resolution: {integrity: sha512-QZGKfGb8sdmS/4U2ZdbG8VKD816Q2AoL4t23/WGXyo5wgpdjw4n9eNYNTwv8kp/pE02LzSBG+CUOMTb3UAqPoA==}
+  '@tailor-cms/cek-common@0.0.4':
+    resolution: {integrity: sha512-IBsWhMc8QVplCOQTFRejFPGPKYPUEifyNXMbJcVcDNZFVwJxEcWQ6jRoLgc8EHHjKPRM3tF9FHQWjCbE7CQuVA==}
 
   '@tailor-cms/eslint-config@0.0.2':
     resolution: {integrity: sha512-hFp01eUgxULxgbT33K5Y6NGKhwHGMQVL8Qa5ZT39614r4WA7/+JGNwlrvsZI5oH2PZgjDBv4BPGK88U0m+QX4A==}
@@ -5483,7 +5483,7 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
-  '@tailor-cms/cek-common@0.0.3': {}
+  '@tailor-cms/cek-common@0.0.4': {}
 
   '@tailor-cms/eslint-config@0.0.2(f4izvuryvmcbdt6uwyexfh63ay)':
     dependencies:

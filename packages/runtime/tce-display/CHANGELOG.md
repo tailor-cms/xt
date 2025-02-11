@@ -1,5 +1,11 @@
 # @tailor-cms/tce-display-runtime
 
+## 0.6.11
+
+### Patch Changes
+
+- Cleanup vite.config.
+
 ## 0.6.10
 
 ### Patch Changes
