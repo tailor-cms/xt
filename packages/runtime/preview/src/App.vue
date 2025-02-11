@@ -14,13 +14,13 @@ const appUrl = new URL(window.location.href);
 const apiPrefix = '/tce-server';
 const api = ky.create({ prefixUrl: apiPrefix });
 const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
-const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
 
 const element = ref<ContentElement>();
 const userState = ref({});
 
 onMounted(async () => {
   await getElement();
+  const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
   ws.addEventListener('message', (message) => {
     const event = JSON.parse(message.data);
     const elementUid = element.value?.uid;

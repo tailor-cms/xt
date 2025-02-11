@@ -1,11 +1,3 @@
-<script setup lang="ts">
-import logoUrl from '../assets/logo.png';
-import { useGlobalState } from '../state';
-import { version } from './../../package.json';
-
-const { showEdit, showDisplay, showBothComponents } = useGlobalState();
-</script>
-
 <template>
   <VAppBar color="blue-grey-darken-4" elevation="6">
     <template #prepend>
@@ -47,3 +39,11 @@ const { showEdit, showDisplay, showBothComponents } = useGlobalState();
     </VBtn>
   </VAppBar>
 </template>
+
+<script setup lang="ts">
+import logoUrl from '../assets/logo.png';
+import { useGlobalState } from '../state';
+import { version } from './../../package.json';
+
+const { showEdit, showDisplay, showBothComponents } = useGlobalState();
+</script>

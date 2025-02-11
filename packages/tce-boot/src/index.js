@@ -32,15 +32,11 @@ const runtimes = await Promise.all(
     const pkgRef = `@tailor-cms/tce-${name}-runtime/package.json`;
     const pkgPath = await require.resolve(pkgRef);
     const cmdDir = path.dirname(pkgPath);
-    // Resolve start command
-    const command = name === 'edit'
-      ? `cd ${cmdDir} && pnpm vite optimize && pnpm dev`
-      : `cd ${cmdDir} && pnpm dev`;
     return {
       name: `${name}-runtime`,
       prefixColor: termColors[index],
       path: cmdDir,
-      command
+      command: `cd ${cmdDir} && pnpm dev`
     };
   })
 );
@@ -66,11 +62,6 @@ try {
 } catch {
   console.log('Could not open browser!');
 }
-
-// Restart preview runtime
-await setTimeout(4000);
-const previewRuntime = commands.find(it => it.name === 'preview-runtime');
-await restartCmd(previewRuntime, serverConfig.previewRuntimePort, 2000);
 
 // Delay server package watcher
 await setTimeout(5000);
