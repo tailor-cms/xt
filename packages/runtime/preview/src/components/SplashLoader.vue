@@ -7,11 +7,6 @@
         </div>
         <div class="splash-loader__text text-body-1">
           <div>Booting Content Element Kit....</div>
-          <v-progress-linear
-            v-if="isFirstBoot"
-            :model-value="progress"
-            class="my-3"
-          />
           <div class="font-weight-bold">Beta preview v{{ version }}</div>
         </div>
       </div>
@@ -19,57 +14,30 @@
   </transition>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import { onMounted } from 'vue';
+
 import logoUrl from '../assets/logo.png';
 import { version } from './../../package.json';
 
-export default {
-  props: {
-    isVisible: {
-      type: Boolean,
-      required: true,
-    },
-    isFirstBoot: {
-      type: Boolean,
-      required: true,
-    },
-    logo: {
-      type: String,
-      default: logoUrl,
-    },
-    color: {
-      type: String,
-      default: '#00bfa5',
-    },
-    backgroundColor: {
-      type: String,
-      default: '#fff',
-    },
-  },
-  data: () => ({
-    interval: 0,
-    progress: 0,
-  }),
-  computed: {
-    version: () => version,
-  },
-  mounted() {
-    this.setColor();
-    if (!this.isFirstBoot) return;
-    this.interval = setInterval(() => {
-      this.progress += 1;
-      if (this.progress === 100) clearInterval(this.interval);
-    }, 200);
-  },
-  beforeUnmount() {
-    clearInterval(this.interval);
-  },
-  methods: {
-    setColor() {
-      document.documentElement.style.setProperty('--splash-color', this.color);
-    },
-  },
-};
+interface Props {
+  isVisible: boolean;
+  logo?: string;
+  color?: string;
+  backgroundColor?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  isVisible: true,
+  logo: logoUrl,
+  color: '#00bfa5',
+  backgroundColor: '#fff',
+});
+
+onMounted(() => {
+  const color = props.color || '#00bfa5';
+  document.documentElement.style.setProperty('--splash-color', color);
+});
 </script>
 
 <style lang="scss" scoped>
