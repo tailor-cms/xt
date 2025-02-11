@@ -23,15 +23,7 @@ cd tce-counter
 pnpm dev
 ```
 
-your browser should pop up and display the preview. During the initial boot
-components will reload few times, and it might take some time for `Edit`
-component (left panel) to show up.
-
-::: tip Note ☝️
-In case that Edit component does not show up within 30 seconds, please restart.
-There is a reported defect appearing on the first boot while dependencies
-are being optimized.
-:::
+your browser should pop up and display the preview.
 
 ![First run](./assets/example/first_run.png)
 
