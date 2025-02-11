@@ -14,4 +14,5 @@ app.component(
   'TailorEmbeddedContainer',
   isComposite ? EmbeddedContainer : NotCompositeAlert,
 );
+app.component('Edit', element.Edit);
 app.mount('#app');
