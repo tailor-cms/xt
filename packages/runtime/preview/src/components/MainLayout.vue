@@ -35,7 +35,9 @@ onMounted(() => {
     direction: 'vertical',
     sizes: [70, 30],
   });
-  setTimeout(() => { isLoaded.value = true; }, 5000);
+  setTimeout(() => {
+    isLoaded.value = true;
+  }, 5000);
 });
 </script>
 
