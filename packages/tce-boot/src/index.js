@@ -64,7 +64,7 @@ try {
 }
 
 // Delay server package watcher
-await setTimeout(5000);
+await setTimeout(2500);
 const serverPackage = commands.find(it => it.name === 'server-package');
 const serverRuntime = commands.find(it => it.name === 'server-runtime');
 const restartServerRuntime = debounce(
