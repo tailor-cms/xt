@@ -37,7 +37,7 @@
 
 <script lang="ts" setup>
 import { inject, onBeforeUnmount, onMounted, ref } from 'vue';
-import invoke from 'lodash/invoke.js';
+import { invoke } from 'lodash-es';
 
 const createContext = () => ({
   title: '',

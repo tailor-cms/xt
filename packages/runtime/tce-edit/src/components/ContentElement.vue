@@ -38,12 +38,13 @@ import { inject } from 'vue';
 
 interface Props {
   element: Record<string, any>;
-  parent: Record<string, any>;
+  parent?: Record<string, any> | null;
   isDisabled?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
   isDisabled: false,
+  parent: null,
 });
 const emit = defineEmits(['delete', 'save']);
 

@@ -44,8 +44,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import cloneDeep from 'lodash/cloneDeep.js';
-import sortBy from 'lodash/sortBy.js';
+import { cloneDeep, sortBy } from 'lodash-es';
 import { v4 } from 'uuid';
 import type { VBtn } from 'vuetify/components';
 
