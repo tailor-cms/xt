@@ -153,6 +153,9 @@ importers:
       '@tailor-cms/cek-common':
         specifier: 0.0.4
         version: 0.0.4
+      vue:
+        specifier: ^3.5.13
+        version: 3.5.13(typescript@5.7.3)
     devDependencies:
       '@tailor-cms/eslint-config':
         specifier: 0.0.2
@@ -164,7 +167,7 @@ importers:
         specifier: '>=8.13.0'
         version: 8.57.1
       tce-manifest:
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../manifest
       typescript:
         specifier: ^5.7.3
@@ -172,9 +175,6 @@ importers:
       vite:
         specifier: ^6.1.0
         version: 6.1.0(@types/node@22.13.1)(jiti@1.21.6)(sass@1.84.0)(yaml@2.6.1)
-      vue:
-        specifier: ^3.5.13
-        version: 3.5.13(typescript@5.7.3)
       vue-tsc:
         specifier: ^2.2.0
         version: 2.2.0(typescript@5.7.3)
@@ -391,7 +391,7 @@ importers:
         specifier: ^4.17.12
         version: 4.17.12
       '@types/node':
-        specifier: 22.13.1
+        specifier: ^22.13.1
         version: 22.13.1
       '@types/webfontloader':
         specifier: 1.6.38
