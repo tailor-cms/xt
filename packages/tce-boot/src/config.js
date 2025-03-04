@@ -2,8 +2,6 @@ import dotenv from 'dotenv';
 import defaults from 'lodash/defaults.js';
 import { number, object, string } from 'yup';
 
-import { getRuntimeLog } from './utils.js';
-
 export const termColors = ['magenta', 'green', 'blue', 'cyan', 'yellow'];
 
 const env = process.env;
@@ -72,11 +70,6 @@ export const packageDirs = {
 };
 // Use built packages; located in /dist
 Object.keys(packageDirs).forEach((k) => (env[k] = `${packageDirs[k]}/dist`));
-
-// Load runtime log
-// Used to determine if this is the first boot of the runtime
-export const runtimeLog = getRuntimeLog();
-env.VITE_RUNTIME_ID = runtimeLog.id;
 
 // Can be used to determine if a component is running in a CEK runtime
 env.CEK_RUNTIME = true;
