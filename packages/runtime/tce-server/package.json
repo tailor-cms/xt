@@ -1,7 +1,7 @@
 {
   "name": "@tailor-cms/tce-server-runtime",
   "description": "Teaching element server runtime",
-  "author": "underscope@gmail.com",
+  "author": "Studion <info@gostudion.com>",
   "version": "0.5.6",
   "type": "module",
   "scripts": {

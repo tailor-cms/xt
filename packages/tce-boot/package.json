@@ -1,7 +1,7 @@
 {
   "name": "@tailor-cms/tce-boot",
   "description": "Content element runtime boot script",
-  "author": "ExtensionEngine <info@extensionengine.com>",
+  "author": "Studion <info@gostudion.com>",
   "version": "1.0.4",
   "type": "module",
   "scripts": {

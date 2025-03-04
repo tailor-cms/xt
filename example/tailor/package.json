@@ -2,7 +2,7 @@
   "name": "@tailor-cms/example",
   "description": "Content element template",
   "version": "0.0.1",
-  "author": "ExtensionEngine <info@extensionengine.com>",
+  "author": "Studion <info@gostudion.com>",
   "type": "module",
   "exports": {
     "./edit": {
