@@ -1,5 +1,16 @@
 # @tailor-cms/tce-boot
 
+## 1.0.5
+
+### Patch Changes
+
+- Extracted free-ports script to separate file. Decrease load delay.
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@0.6.12
+  - @tailor-cms/tce-server-runtime@0.5.7
+  - @tailor-cms/tce-edit-runtime@1.0.3
+  - @tailor-cms/tce-preview-runtime@0.5.3
+
 ## 1.0.4
 
 ### Patch Changes

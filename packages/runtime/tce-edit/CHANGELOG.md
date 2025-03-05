@@ -1,5 +1,13 @@
 # @tailor-cms/tce-edit-runtime
 
+## 1.0.3
+
+### Patch Changes
+
+- Replaced lodash with lodash-es, updated optimizeDeps, update author.
+- Updated dependencies
+  - @tailor-cms/cek-common@0.0.5
+
 ## 1.0.2
 
 ### Patch Changes
