@@ -12,8 +12,10 @@ export default defineConfig(({ mode }): any => {
   const env = loadEnv(mode, process.cwd(), '');
   const viteConfigPath = fileURLToPath(import.meta.url);
   const editModulePath = path.relative(viteConfigPath, env.TCE_EDIT_DIR);
-  const manifestModulePath = path.relative(viteConfigPath, env.TCE_MANIFEST_DIR);
-
+  const manifestModulePath = path.relative(
+    viteConfigPath,
+    env.TCE_MANIFEST_DIR,
+  );
   const EDIT_RUNTIME_PORT = env.EDIT_RUNTIME_PORT || '8010';
   const SERVER_RUNTIME_URL = env.SERVER_RUNTIME_URL || 'http://localhost:8030';
   return {

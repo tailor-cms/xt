@@ -277,7 +277,9 @@ const getElement = async () => {
 };
 
 const toggleGradable = async () => {
-  const { initState } = await import(/* @vite-ignore */  import.meta.env.MANIFEST_DIR);
+  const { initState } = await import(
+    /* @vite-ignore */ import.meta.env.MANIFEST_DIR
+  );
   const newGradableValue = !isGradable.value;
   const data = initState();
   data.isGradable = newGradableValue;

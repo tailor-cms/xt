@@ -43,8 +43,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
 import { cloneDeep, sortBy } from 'lodash-es';
+import { computed, ref } from 'vue';
 import { v4 } from 'uuid';
 import type { VBtn } from 'vuetify/components';
 

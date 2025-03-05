@@ -42,9 +42,7 @@ export default defineConfig((): UserConfig => {
       'import.meta.env.DISPLAY_DIR': JSON.stringify(env.TCE_DISPLAY_DIR),
     },
     optimizeDeps: {
-      include: [
-        displayModulePath.replace(/\/dist$/, ''),
-      ],
+      include: [displayModulePath.replace(/\/dist$/, '')],
     },
     plugins: [vue(), vuetify({ autoImport: true })],
   };

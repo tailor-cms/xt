@@ -34,8 +34,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, reactive, ref, watch } from 'vue';
 import { cloneDeep, isEqual } from 'lodash-es';
+import { computed, reactive, ref, watch } from 'vue';
 
 interface Props {
   element: any;
