@@ -5,7 +5,7 @@ import EmbeddedContainer from './components/EmbeddedContainer.vue';
 import NotCompositeAlert from './components/NotCompositeAlert.vue';
 import vuetify from './plugins/vuetify';
 
-const element = await import(import.meta.env.DISPLAY_DIR);
+const element = await import(/* @vite-ignore */ import.meta.env.DISPLAY_DIR);
 const isComposite = !!element.default.isComposite;
 
 const app = createApp(App);
