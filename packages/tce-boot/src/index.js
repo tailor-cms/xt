@@ -10,10 +10,9 @@ import open from 'open';
 import {
   packageDirs,
   serverConfig,
-  serverPorts,
   termColors
 } from './config.js';
-import { envToName, freeUpPorts, restartCmd } from './utils.js';
+import { envToName, restartCmd } from './utils.js';
 
 // Commands for watching and rebuilding kit packages
 const packageWatchers =
@@ -41,9 +40,6 @@ const runtimes = await Promise.all(
   })
 );
 
-// Make sure ports are free before starting the kit
-await freeUpPorts(serverPorts);
-
 // Run
 console.log(
   boxen('🚀 Content Element Kit', {
@@ -64,7 +60,7 @@ try {
 }
 
 // Delay server package watcher
-await setTimeout(5000);
+await setTimeout(2500);
 const serverPackage = commands.find(it => it.name === 'server-package');
 const serverRuntime = commands.find(it => it.name === 'server-runtime');
 const restartServerRuntime = debounce(

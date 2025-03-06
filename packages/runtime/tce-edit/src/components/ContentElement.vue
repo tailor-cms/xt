@@ -1,10 +1,7 @@
 <template>
-  <div>
+  <div class="element-wrapper text-center position-relative px-3">
     <VHover v-slot="{ isHovering, props: hoverProps }">
-      <div
-        v-bind="hoverProps"
-        class="element-wrapper text-center position-relative px-3"
-      >
+      <div v-bind="hoverProps">
         <VTextarea
           :model-value="element.data.content"
           :readonly="isDisabled"
@@ -41,12 +38,13 @@ import { inject } from 'vue';
 
 interface Props {
   element: Record<string, any>;
-  parent: Record<string, any>;
+  parent?: Record<string, any> | null;
   isDisabled?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
   isDisabled: false,
+  parent: null,
 });
 const emit = defineEmits(['delete', 'save']);
 

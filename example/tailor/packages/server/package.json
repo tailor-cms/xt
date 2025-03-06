@@ -1,7 +1,7 @@
 {
   "name": "tce-server",
   "description": "Content element server module",
-  "author": "ExtensionEngine <info@extensionengine.com>",
+  "author": "Studion <info@gostudion.com>",
   "type": "module",
   "version": "0.0.1",
   "exports": {
@@ -22,7 +22,7 @@
     "lint:fix": "pnpm lint --fix"
   },
   "devDependencies": {
-    "@tailor-cms/cek-common": "0.0.4",
+    "@tailor-cms/cek-common": "0.0.5",
     "@tailor-cms/eslint-config": "0.0.2",
     "eslint": ">=8.13.0",
     "tce-manifest": "workspace:*",

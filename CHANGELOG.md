@@ -4,7 +4,8 @@
 
 #### Changes
 - Vue 2 based authoring runtime package has been removed and
-  `/packages/runtime/tce-edit` is now Vue 3 based
+  `/packages/runtime/tce-edit` is now Vue 3 based. As result boot process
+  has been also cleaned up to spin up faster.
 
 ### v0.5.0 2024-04-05
 

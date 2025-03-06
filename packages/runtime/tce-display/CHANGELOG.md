@@ -1,5 +1,17 @@
 # @tailor-cms/tce-display-runtime
 
+## 0.6.13
+
+### Patch Changes
+
+- Fix lint errors.
+
+## 0.6.12
+
+### Patch Changes
+
+- Replaced lodash with lodash-es, updated optimizeDeps, update author.
+
 ## 0.6.11
 
 ### Patch Changes

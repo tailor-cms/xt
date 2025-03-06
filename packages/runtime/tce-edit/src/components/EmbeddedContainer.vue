@@ -43,9 +43,8 @@
 </template>
 
 <script setup lang="ts">
+import { cloneDeep, sortBy } from 'lodash-es';
 import { computed, ref } from 'vue';
-import cloneDeep from 'lodash/cloneDeep.js';
-import sortBy from 'lodash/sortBy.js';
 import { v4 } from 'uuid';
 import type { VBtn } from 'vuetify/components';
 

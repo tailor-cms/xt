@@ -1,5 +1,11 @@
 # @tailor-cms/tce-preview-runtime
 
+## 0.5.3
+
+### Patch Changes
+
+- Decrease load delay.
+
 ## 0.5.2
 
 ### Patch Changes

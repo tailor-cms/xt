@@ -1,5 +1,11 @@
 # @tailor-cms/tce-server-runtime
 
+## 0.5.7
+
+### Patch Changes
+
+- Update author.
+
 ## 0.5.6
 
 ### Patch Changes

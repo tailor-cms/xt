@@ -1,9 +1,9 @@
 {
   "name": "@tailor-cms/cek-common",
   "description": "Content element kit shared util library",
-  "author": "ExtensionEngine <info@extensionengine.com>",
+  "author": "Studion <info@gostudion.com>",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "exports": {
     ".": {
       "import": "./dist/index.js",

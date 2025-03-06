@@ -7,7 +7,7 @@ import NotCompositeAlert from './components/NotCompositeAlert.vue';
 import Radio from './radio';
 import vuetify from './plugins/vuetify';
 
-const element = await import(import.meta.env.EDIT_DIR);
+const element = await import(/* @vite-ignore */ import.meta.env.EDIT_DIR);
 const {
   isComposite = false,
   isQuestion,

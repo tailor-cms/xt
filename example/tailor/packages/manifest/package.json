@@ -1,7 +1,7 @@
 {
   "name": "tce-manifest",
   "description": "Content element manifest",
-  "author": "ExtensionEngine <info@extensionengine.com>",
+  "author": "Studion <info@gostudion.com>",
   "type": "module",
   "version": "0.0.1",
   "exports": {

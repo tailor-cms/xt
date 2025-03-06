@@ -1,19 +1,19 @@
 <template>
-  <v-app>
-    <v-main class="pa-4">
-      <v-container>
-        <v-row>
-          <v-col>
+  <VApp>
+    <VMain class="pa-4">
+      <VContainer>
+        <VRow>
+          <VCol>
             <div class="d-flex pb-1">
-              <v-chip
+              <VChip
                 class="text-body-2 font-weight-bold"
                 color="#E0FB61"
                 variant="elevated"
                 label
               >
                 End-user component
-              </v-chip>
-              <v-spacer />
+              </VChip>
+              <VSpacer />
               <VSelect
                 v-model="selectedStateContext"
                 :items="displayStateContexts"
@@ -30,16 +30,16 @@
               :user-state="userState"
               @interaction="onInteraction"
             />
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
+          </VCol>
+        </VRow>
+      </VContainer>
+    </VMain>
+  </VApp>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import findIndex from 'lodash/findIndex.js';
+import { findIndex } from 'lodash-es';
 import ky from 'ky';
 
 const appUrl = new URL(window.location.href);
