@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import logoUrl from '../assets/logo.png';
+import logoUrl from '../assets/logo-new.svg';
 import { useGlobalState } from '../state';
 import { version } from './../../package.json';
 
