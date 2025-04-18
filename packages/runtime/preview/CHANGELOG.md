@@ -1,5 +1,11 @@
 # @tailor-cms/tce-preview-runtime
 
+## 0.5.4
+
+### Patch Changes
+
+- Updated logo to match Tailor.
+
 ## 0.5.3
 
 ### Patch Changes
