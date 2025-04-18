@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue';
 
-import logoUrl from '../assets/logo.png';
+import logoUrl from '../assets/logo-new.svg';
 import { version } from './../../package.json';
 
 interface Props {
