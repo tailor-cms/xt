@@ -3,10 +3,12 @@ import pick from 'lodash/pick';
 import vue from '@vitejs/plugin-vue';
 import vuetify from 'vite-plugin-vuetify';
 
-const config = pick(process.env, [
+const env = process.env;
+const config = pick(env, [
   'EDIT_RUNTIME_URL',
   'DISPLAY_RUNTIME_URL',
   'SERVER_RUNTIME_URL',
+  'PREVIEW_RUNTIME_URL',
   'PREVIEW_RUNTIME_PORT',
 ]);
 

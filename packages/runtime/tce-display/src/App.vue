@@ -42,11 +42,12 @@ import { onMounted, ref } from 'vue';
 import { findIndex } from 'lodash-es';
 import ky from 'ky';
 
-const appUrl = new URL(window.location.href);
+const { VITE_SERVER_RUNTIME_URL } = import.meta.env;
+const serverRuntimeUrl = new URL(VITE_SERVER_RUNTIME_URL);
 const apiPrefix = '/tce-server';
 const api = ky.create({ prefixUrl: apiPrefix });
-const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
-const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
+const wsProtocol = serverRuntimeUrl.protocol === 'http:' ? 'ws:' : 'wss:';
+const ws = new WebSocket(`${wsProtocol}//${serverRuntimeUrl.host}${apiPrefix}`);
 
 const element: any = ref({});
 const userState: any = ref({});

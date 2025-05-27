@@ -9,18 +9,20 @@ interface ContentElement {
   id: number;
   uid: string;
 }
-
-const appUrl = new URL(window.location.href);
+const { VITE_SERVER_RUNTIME_URL } = import.meta.env;
+const serverRuntimeUrl = new URL(VITE_SERVER_RUNTIME_URL);
 const apiPrefix = '/tce-server';
 const api = ky.create({ prefixUrl: apiPrefix });
-const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
+const wsProtocol = serverRuntimeUrl.protocol === 'http:' ? 'ws:' : 'wss:';
 
 const element = ref<ContentElement>();
 const userState = ref({});
 
 onMounted(async () => {
   await getElement();
-  const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
+  const ws = new WebSocket(
+    `${wsProtocol}//${serverRuntimeUrl.host}${apiPrefix}`,
+  );
   ws.addEventListener('message', (message) => {
     const event = JSON.parse(message.data);
     const elementUid = element.value?.uid;
