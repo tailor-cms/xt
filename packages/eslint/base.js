@@ -1,9 +1,7 @@
-'use strict';
+import prettier from 'eslint-plugin-prettier/recommended';
+import tseslint from 'typescript-eslint';
 
-const tsRules = require('./rules/ts.js');
+import semistandard from './rules/semistandard.js';
+import tsConfig from './rules/ts.js';
 
-/** @type {import('@types/eslint').Linter.Config} */
-module.exports = {
-  extends: ['standard', 'plugin:prettier/recommended'],
-  overrides: [tsRules],
-};
+export default tseslint.config(...semistandard, ...tsConfig, prettier);

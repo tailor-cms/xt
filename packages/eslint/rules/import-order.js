@@ -1,24 +1,11 @@
-'use strict';
-
-module.exports = {
+export default {
   'import/order': [
     'error',
-    {
-      groups: ['external', 'internal'],
-      'newlines-between': 'always',
-    },
+    { groups: ['external', 'internal'], 'newlines-between': 'always' },
   ],
-  'sort-imports': [
-    'error',
-    {
-      allowSeparatedGroups: true,
-      ignoreCase: true,
-    },
-  ],
+  'sort-imports': ['error', { allowSeparatedGroups: true, ignoreCase: true }],
   'import/no-extraneous-dependencies': [
     'error',
-    {
-      optionalDependencies: false,
-    },
+    { optionalDependencies: false },
   ],
 };
