@@ -177,11 +177,12 @@ import QuestionCard from './components/QuestionCard.vue';
 
 const { TopToolbar, SideToolbar } = getCurrentInstance().appContext.components;
 
-const appUrl = new URL(window.location.href);
+const { VITE_SERVER_RUNTIME_URL } = import.meta.env;
+const serverRuntimeUrl = new URL(VITE_SERVER_RUNTIME_URL);
 const apiPrefix = '/tce-server';
 const api = ky.create({ prefixUrl: apiPrefix });
-const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
-const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
+const wsProtocol = serverRuntimeUrl.protocol === 'http:' ? 'ws:' : 'wss:';
+const ws = new WebSocket(`${wsProtocol}//${serverRuntimeUrl.host}${apiPrefix}`);
 
 type ContentElement = Record<string, any>;
 

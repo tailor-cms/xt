@@ -1,9 +1,22 @@
 import { defineConfig, loadEnv } from 'vite';
+import pick from 'lodash-es/pick';
 import vue from '@vitejs/plugin-vue';
 import vuetify from 'vite-plugin-vuetify';
 
 import { fileURLToPath } from 'url';
 import path from 'node:path';
+
+const env = process.env;
+
+// Expose to Frontend by prefixing with VITE_
+// Frontend exposure od resolved url
+const runtimeUrls = pick(env, [
+  'EDIT_RUNTIME_URL',
+  'DISPLAY_RUNTIME_URL',
+  'SERVER_RUNTIME_URL',
+  'PREVIEW_RUNTIME_PORT',
+]);
+Object.entries(runtimeUrls).forEach(([k, v]) => (process.env[`VITE_${k}`] = v));
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }): any => {
@@ -16,8 +29,7 @@ export default defineConfig(({ mode }): any => {
     viteConfigPath,
     env.TCE_MANIFEST_DIR,
   );
-  const EDIT_RUNTIME_PORT = env.EDIT_RUNTIME_PORT || '8010';
-  const SERVER_RUNTIME_URL = env.SERVER_RUNTIME_URL || 'http://localhost:8030';
+  const { EDIT_RUNTIME_PORT, SERVER_RUNTIME_URL } = env;
   return {
     root: './src',
     logLevel: 'error',
