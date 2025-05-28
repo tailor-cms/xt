@@ -29,7 +29,7 @@ function initApp({ type, initState, isQuestion, isGradable, hookMap, mocks }) {
   app.use((req, res, next) => {
     if (!req.cookies.cekClientId) {
       res.statusMessage = 'cekClientId cookie is missing';
-      res.status(400).end();
+      return res.status(400).end();
     }
     next();
   });

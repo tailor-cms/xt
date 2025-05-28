@@ -87,3 +87,4 @@ Object.keys(packageDirs).forEach((k) => (env[k] = `${packageDirs[k]}/dist`));
 
 // Can be used to determine if a component is running in a CEK runtime
 env.CEK_RUNTIME = true;
+env.VITE_CODESPACE_DOMAIN = env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN;
