@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
-import defaults from 'lodash/defaults.js';
 import { number, object, string } from 'yup';
+import { defaults } from 'lodash-es';
+import dotenv from 'dotenv';
 
 export const termColors = ['magenta', 'green', 'blue', 'cyan', 'yellow'];
 
@@ -26,7 +26,7 @@ const validationSchema = object({
   serverRuntimePort: isValidPort(),
   serverRuntimeUrl: isValidUrl(),
   previewRuntimePort: isValidPort(),
-  previewRuntimeUrl: isValidUrl()
+  previewRuntimeUrl: isValidUrl(),
 });
 
 // Assign default values to env variables
@@ -38,7 +38,7 @@ const defaultConfig = {
   SERVER_RUNTIME_PORT: '8030',
   SERVER_RUNTIME_URL: 'http://localhost:8030',
   PREVIEW_RUNTIME_PORT: '8080',
-  PREVIEW_RUNTIME_URL: 'http://localhost:8080'
+  PREVIEW_RUNTIME_URL: 'http://localhost:8080',
 };
 defaults(process.env, defaultConfig);
 
@@ -51,13 +51,13 @@ export const serverConfig = validationSchema.cast({
   serverRuntimePort: env.SERVER_RUNTIME_PORT,
   serverRuntimeUrl: env.SERVER_RUNTIME_URL,
   previewRuntimePort: env.PREVIEW_RUNTIME_PORT,
-  previewRuntimeUrl: env.PREVIEW_RUNTIME_URL
+  previewRuntimeUrl: env.PREVIEW_RUNTIME_URL,
 });
 export const serverPorts = [
   serverConfig.editRuntimePort,
   serverConfig.displayRuntimePort,
   serverConfig.serverRuntimePort,
-  serverConfig.previewRuntimePort
+  serverConfig.previewRuntimePort,
 ];
 
 // Set target dirs for runtimes
@@ -66,7 +66,7 @@ export const packageDirs = {
   TCE_DISPLAY_DIR: `${baseDir}/packages/display`,
   TCE_EDIT_DIR: `${baseDir}/packages/edit`,
   TCE_SERVER_DIR: `${baseDir}/packages/server`,
-  TCE_MANIFEST_DIR: `${baseDir}/packages/manifest`
+  TCE_MANIFEST_DIR: `${baseDir}/packages/manifest`,
 };
 // Use built packages; located in /dist
 Object.keys(packageDirs).forEach((k) => (env[k] = `${packageDirs[k]}/dist`));

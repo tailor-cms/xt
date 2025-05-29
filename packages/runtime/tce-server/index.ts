@@ -1,8 +1,7 @@
+import { get as getVal, set } from 'lodash-es';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
-import getVal from 'lodash/get';
-import set from 'lodash/set';
 import { v4 as uuid } from '@lukeed/uuid/secure';
 import { WebSocketServer } from 'ws';
 

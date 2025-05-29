@@ -37,10 +37,10 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, inject } from 'vue';
 import type { InputFileEvent, StorageApi } from '@tailor-cms/cek-common';
 import { createUploadForm } from '@tailor-cms/cek-common';
 import { Element } from 'tce-manifest';
+import { inject } from 'vue';
 
 const storageService = inject('$storageService') as StorageApi;
 const elementBus = inject('$elementBus') as any;
@@ -59,15 +59,13 @@ elementBus.on('decrement', ({ count }: any) => console.log(count));
 const upload = (e: InputFileEvent | any) => {
   const form = createUploadForm(e);
   if (!form) return;
-  return storageService.upload(form).then(({ key, url }) => {
+  return storageService.upload(form).then(({ key, url }) =>
     emit('save', {
       ...props.element.data,
       key,
-      assets: {
-        backgroundUrl: url,
-      },
-    });
-  });
+      assets: { backgroundUrl: url },
+    }),
+  );
 };
 </script>
 

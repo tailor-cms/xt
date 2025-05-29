@@ -1,5 +1,6 @@
 import fkill from 'fkill';
 import { portToPid } from 'pid-port';
+
 import { setTimeout } from 'node:timers/promises';
 
 export const getPidFromPort = async (port) => {
@@ -35,4 +36,5 @@ export const restartCmd = async (command, port, restartDelay = 3000) => {
 };
 
 // Extract tce package name from env variable name
-export const envToName = envKey => envKey.match(/TCE_(.*?)_DIR/)[1].toLowerCase();
+export const envToName = (envKey) =>
+  envKey.match(/TCE_(.*?)_DIR/)[1].toLowerCase();

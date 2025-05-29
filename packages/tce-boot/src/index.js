@@ -1,27 +1,21 @@
+import boxen from 'boxen';
+import concurrently from 'concurrently';
+import { debounce } from 'lodash';
+import open from 'open';
+
+import { envToName, restartCmd } from './utils.js';
+import { packageDirs, serverConfig, termColors } from './config.js';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { setTimeout } from 'node:timers/promises';
 
-import boxen from 'boxen';
-import concurrently from 'concurrently';
-import debounce from 'lodash/debounce.js';
-import open from 'open';
-
-import {
-  packageDirs,
-  serverConfig,
-  termColors
-} from './config.js';
-import { envToName, restartCmd } from './utils.js';
-
 // Commands for watching and rebuilding kit packages
-const packageWatchers =
-  Object.keys(packageDirs).map((key, index) =>
-    ({
-      name: `${envToName(key)}-package`,
-      prefixColor: termColors[index],
-      command: `cd ${packageDirs[key]} && pnpm dev`
-    }));
+const packageWatchers = Object.keys(packageDirs).map((key, index) => ({
+  name: `${envToName(key)}-package`,
+  prefixColor: termColors[index],
+  command: `cd ${packageDirs[key]} && pnpm dev`,
+}));
+
 // Commands for spining the runtimes (edit, server, preview)
 // Display runtime is running separatley to enable plugging in custom one
 const require = createRequire(import.meta.url);
@@ -35,9 +29,9 @@ const runtimes = await Promise.all(
       name: `${name}-runtime`,
       prefixColor: termColors[index],
       path: cmdDir,
-      command: `cd ${cmdDir} && pnpm dev`
+      command: `cd ${cmdDir} && pnpm dev`,
     };
-  })
+  }),
 );
 
 // Run
@@ -46,8 +40,8 @@ console.log(
     titleAlignment: 'center',
     padding: 1,
     margin: 1,
-    borderColor: 'cyan'
-  })
+    borderColor: 'cyan',
+  }),
 );
 const { commands } = concurrently([...packageWatchers, ...runtimes]);
 
@@ -61,10 +55,12 @@ try {
 
 // Delay server package watcher
 await setTimeout(2500);
-const serverPackage = commands.find(it => it.name === 'server-package');
-const serverRuntime = commands.find(it => it.name === 'server-runtime');
+const serverPackage = commands.find((it) => it.name === 'server-package');
+const serverRuntime = commands.find((it) => it.name === 'server-runtime');
 const restartServerRuntime = debounce(
-  () => restartCmd(serverRuntime, serverConfig.serverRuntimePort, 1000), 4000);
+  () => restartCmd(serverRuntime, serverConfig.serverRuntimePort, 1000),
+  4000,
+);
 
 serverPackage.stdout.subscribe((msg) => {
   if (msg && msg.includes('success')) restartServerRuntime();

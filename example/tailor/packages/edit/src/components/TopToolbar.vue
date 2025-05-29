@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, inject } from 'vue';
 import { Element } from 'tce-manifest';
+import { inject } from 'vue';
 
 const elementBus = inject('$elementBus') as any;
 

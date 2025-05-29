@@ -1,4 +1,4 @@
-import pick from 'lodash/pick';
+import { pick } from 'lodash-es';
 
 import ContentElementService from './ContentElementService';
 import DisplayContextService from './DisplayContextService';

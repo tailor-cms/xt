@@ -33,6 +33,12 @@ export const mocks = {
   ],
 };
 
+const ai = {
+  prompt: (topic: string, location: string, level: string) => `
+    Create a counter for ${topic} in ${location} with level ${level}
+  `,
+};
+
 const manifest: ElementManifest = {
   type,
   version: '1.0',
@@ -40,6 +46,7 @@ const manifest: ElementManifest = {
   initState,
   ui,
   mocks,
+  ai,
 };
 
 export default manifest;
