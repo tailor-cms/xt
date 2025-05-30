@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node src/free-ports.js && node src/index.js",
-    "lint": "eslint --ext .js .",
+    "lint": "eslint .",
     "lint:fix": "pnpm lint --fix"
   },
   "dependencies": {
