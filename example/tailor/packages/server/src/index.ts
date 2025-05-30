@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { HookServices, ServerRuntime } from '@tailor-cms/cek-common';
 import { initState, mocks, type } from 'tce-manifest';
 import type { Element } from 'tce-manifest';
 
 const userStateMock: any = {};
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
 export function beforeSave(element: Element, services: HookServices) {
   if (element.data.count >= 10) {
     element.data = {
@@ -39,14 +39,12 @@ export function afterRetrieve(
   return element;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function beforeDisplay(element: Element, context: any) {
   console.log('beforeDisplay hook');
   console.log('beforeDisplay context', context);
   return { ...context, ...userStateMock };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function onUserInteraction(
   element: Element,
   context: any,

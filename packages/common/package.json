@@ -24,6 +24,7 @@
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/node": "^22.13.1",
+    "eslint": ">=9.27.0",
     "tsup": "^8.3.6",
     "typescript": "^5.7.3"
   },

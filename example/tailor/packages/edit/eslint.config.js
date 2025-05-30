@@ -3,7 +3,9 @@ import tailorConfig from '@tailor-cms/eslint-config';
 export default [
   ...tailorConfig,
   {
-    ignores: ['eslint.config.js', '**/components.d.ts', 'dist/**'],
+    ignores: ['dist/**'],
+  },
+  {
     languageOptions: {
       parserOptions: {
         projectService: true,

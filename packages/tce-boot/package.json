@@ -25,7 +25,8 @@
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
-    "@types/lodash-es": "^4.17.12"
+    "@types/lodash-es": "^4.17.12",
+    "eslint": ">=9.27.0"
   },
   "publishConfig": {
     "access": "public"

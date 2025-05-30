@@ -1,11 +1,11 @@
 {
   "name": "@tailor-cms/tce-preview-runtime",
+  "description": "Preview content element client side runtime",
+  "author": "Studion <info@gostudion.com>",
   "version": "0.5.4",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "serve": "vite preview",
     "lint": "eslint --ext .ts,.vue .",
     "lint:fix": "pnpm lint --fix"
   },
@@ -31,7 +31,8 @@
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/lodash-es": "^4.17.12",
-    "@types/stringify-object": "^4.0.5"
+    "@types/stringify-object": "^4.0.5",
+    "eslint": ">=9.27.0"
   },
   "publishConfig": {
     "access": "public"
