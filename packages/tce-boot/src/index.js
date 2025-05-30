@@ -1,6 +1,6 @@
 import boxen from 'boxen';
 import concurrently from 'concurrently';
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 import open from 'open';
 
 import { envToName, restartCmd } from './utils.js';
