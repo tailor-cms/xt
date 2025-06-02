@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { HookServices, ServerRuntime } from '@tailor-cms/cek-common';
 import { initState, mocks, type } from 'tce-manifest';
 import type { Element } from 'tce-manifest';
 
 const userStateMock: any = {};
 
-export function beforeSave(element: Element, services: HookServices) {
+export function beforeSave(element: Element, _services: HookServices) {
   if (element.data.count >= 10) {
     element.data = {
       ...element.data,
@@ -16,14 +15,14 @@ export function beforeSave(element: Element, services: HookServices) {
   return element;
 }
 
-export function afterSave(element: Element, services: HookServices) {
+export function afterSave(element: Element, _services: HookServices) {
   console.log('After save hook');
   return element;
 }
 
 export function afterLoaded(
   element: Element,
-  services: HookServices,
+  _services: HookServices,
   runtime: ServerRuntime,
 ) {
   console.log('After loaded hook', runtime);
@@ -32,23 +31,23 @@ export function afterLoaded(
 
 export function afterRetrieve(
   element: Element,
-  services: HookServices,
+  _services: HookServices,
   runtime: ServerRuntime,
 ) {
   console.log('After retrieve hook', runtime);
   return element;
 }
 
-export function beforeDisplay(element: Element, context: any) {
+export function beforeDisplay(_element: Element, context: any) {
   console.log('beforeDisplay hook');
   console.log('beforeDisplay context', context);
   return { ...context, ...userStateMock };
 }
 
 export function onUserInteraction(
-  element: Element,
+  _element: Element,
   context: any,
-  payload: any,
+  _payload: any,
 ): any {
   // Can have arbitrary return value
   // displayState is passed to the client if defined
