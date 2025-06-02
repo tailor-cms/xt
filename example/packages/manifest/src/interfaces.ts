@@ -42,7 +42,4 @@ export interface ElementManifest {
   mocks?: {
     displayContexts: Array<{ name: string; data: any }>;
   };
-  ai?: {
-    prompt: (topic: string, location: string, level: string) => string;
-  };
 }
