@@ -11,8 +11,8 @@
     "release": "pnpm lint && changelogen --release && npm publish && git push --follow-tags"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.12",
-    "changelogen": "^0.5.3"
+    "@changesets/cli": "^2.29.4",
+    "changelogen": "^0.6.1"
   },
   "packageManager": "pnpm@7.33.0"
 }

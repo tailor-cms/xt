@@ -14,19 +14,19 @@
     "@tailor-cms/tce-edit-runtime": "workspace:*",
     "@tailor-cms/tce-preview-runtime": "workspace:*",
     "@tailor-cms/tce-server-runtime": "workspace:*",
-    "boxen": "^7.1.1",
+    "boxen": "^8.0.1",
     "concurrently": "^9.1.2",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.5.0",
     "fkill": "^9.0.0",
     "lodash-es": "^4.17.21",
-    "open": "^10.0.0",
+    "open": "^10.1.2",
     "pid-port": "^1.0.2",
     "yup": "^1.6.1"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/lodash-es": "^4.17.12",
-    "eslint": ">=9.27.0"
+    "eslint": ">=9.28.0"
   },
   "publishConfig": {
     "access": "public"

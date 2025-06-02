@@ -22,19 +22,12 @@
     "build": "pnpm -r run build"
   },
   "devDependencies": {
-    "@npmcli/package-json": "^2.0.0",
     "@tailor-cms/eslint-config": "workspace:*",
     "@tailor-cms/tce-boot": "workspace:*",
     "@tailor-cms/tce-display-runtime": "workspace:*",
-    "@types/node": "^20.5.7",
-    "boxen": "^7.1.1",
-    "chalk": "^4.1.2",
-    "concurrently": "^8.2.0",
-    "degit": "^2.8.4",
-    "enquirer": "^2.4.1",
-    "has-flag": "^5.0.1",
-    "shelljs": "^0.8.5",
-    "typescript": "^5.7.3",
-    "validate-npm-package-name": "^4.0.0"
+    "@types/node": "^22.15.29",
+    "concurrently": "^9.1.2",
+    "prettier": "3.5.3",
+    "typescript": "^5.8.3"
   }
 }
