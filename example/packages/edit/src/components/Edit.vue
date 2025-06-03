@@ -83,7 +83,7 @@ const upload = (e: InputFileEvent | any) => {
 }
 
 .background-input-container {
-  margin: 1rem 0;a
+  margin: 1rem 0;
 }
 
 button {
