@@ -22,7 +22,8 @@ const decrement = () => {
 <style scoped>
 button {
   padding: 0.5rem 1rem;
+  background-color: #eee;
   border: 1px solid #444;
-  background-color: #fff;
+  border-radius: 0.125rem;
 }
 </style>
