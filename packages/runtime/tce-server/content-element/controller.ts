@@ -1,23 +1,16 @@
 import pick from 'lodash/pick';
 
-import ContentElementService from './ContentElementService';
 import DisplayContextService from './DisplayContextService';
 import { emitter } from '../common/emitter';
 import { getTceConfig } from '../common/config';
 import initHooks from './hooks';
 
-export default ({ type, isQuestion, isGradable, initState, hookMap }) => {
+export default ({ type, initState, hookMap }) => {
   const { applyFetchHooks, beforeDisplay, processInteraction } =
     initHooks(hookMap);
 
   async function get(req, res) {
-    const data = initState();
-    if (isQuestion) data.isGradable = isGradable ?? true;
-    // Find or create session content element
-    const element = await ContentElementService.findOrCreate(
-      req.cookies.cekClientId,
-      { type, data },
-    );
+    const { element } = req;
     const processedElement = await applyFetchHooks(
       element,
       getTceConfig(process.env),

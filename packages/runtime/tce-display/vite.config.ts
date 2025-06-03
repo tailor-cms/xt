@@ -27,7 +27,7 @@ Object.entries(runtimeUrls).forEach(([k, v]) => (process.env[`VITE_${k}`] = v));
 // https://vitejs.dev/config/
 export default defineConfig((): UserConfig => {
   const viteConfigPath = fileURLToPath(import.meta.url);
-  const { DISPLAY_RUNTIME_PORT, SERVER_RUNTIME_URL } = env;
+  const { DISPLAY_RUNTIME_PORT } = env;
   const displayModulePath = path.relative(viteConfigPath, TCE_DISPLAY_DIR);
   return {
     root: './src',
@@ -36,14 +36,6 @@ export default defineConfig((): UserConfig => {
       // Accept connections from any host (Docker)
       host: '0.0.0.0',
       port: parseInt(DISPLAY_RUNTIME_PORT, 10),
-      proxy: {
-        '/tce-server': {
-          target: SERVER_RUNTIME_URL,
-          ws: true,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/tce-server/, ''),
-        },
-      },
     },
     resolve: {
       preserveSymlinks: true,

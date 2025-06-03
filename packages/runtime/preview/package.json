@@ -1,6 +1,6 @@
 {
   "name": "@tailor-cms/tce-preview-runtime",
-  "version": "0.5.5-beta.4",
+  "version": "0.5.5-beta.6",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@lukeed/uuid": "^2.0.1",
+    "@lukeed/csprng": "^1.0.2",
     "@mdi/font": "7.4.47",
     "@vitejs/plugin-vue": "5.2.1",
     "@vueuse/core": "12.5.0",

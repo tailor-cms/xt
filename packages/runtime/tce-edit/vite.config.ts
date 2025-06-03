@@ -29,21 +29,13 @@ export default defineConfig(({ mode }): any => {
     viteConfigPath,
     env.TCE_MANIFEST_DIR,
   );
-  const { EDIT_RUNTIME_PORT, SERVER_RUNTIME_URL } = env;
+  const { EDIT_RUNTIME_PORT } = env;
   return {
     root: './src',
     logLevel: 'error',
     server: {
       host: '0.0.0.0', // Accept connections from any host (Docker)
       port: parseInt(EDIT_RUNTIME_PORT, 10),
-      proxy: {
-        '/tce-server': {
-          target: SERVER_RUNTIME_URL,
-          ws: true,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/tce-server/, ''),
-        },
-      },
     },
     resolve: {
       preserveSymlinks: true,

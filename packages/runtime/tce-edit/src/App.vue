@@ -170,6 +170,7 @@
 <script lang="ts" setup>
 import { getCurrentInstance, inject, onMounted, provide, ref } from 'vue';
 import ky from 'ky';
+import { v4 as uuid } from '@lukeed/uuid/secure';
 
 import assetApi from './api/asset';
 import ConfirmationDialog from './components/ConfirmationDialog.vue';
@@ -179,10 +180,7 @@ const { TopToolbar, SideToolbar } = getCurrentInstance().appContext.components;
 
 const { VITE_SERVER_RUNTIME_URL } = import.meta.env;
 const serverRuntimeUrl = new URL(VITE_SERVER_RUNTIME_URL);
-const apiPrefix = '/tce-server';
-const api = ky.create({ prefixUrl: apiPrefix });
-const wsProtocol = serverRuntimeUrl.protocol === 'http:' ? 'ws:' : 'wss:';
-const ws = new WebSocket(`${wsProtocol}//${serverRuntimeUrl.host}${apiPrefix}`);
+const api = ky.create({ prefixUrl: VITE_SERVER_RUNTIME_URL });
 
 type ContentElement = Record<string, any>;
 
@@ -221,7 +219,17 @@ const include = () => [
 ];
 
 onMounted(async () => {
-  await getElement();
+  const url = new URL(window.location.href);
+  const elementId = url.searchParams.get('id');
+  if (!elementId) {
+    url.searchParams.set('id', uuid());
+    window.location.href = url.toString();
+    return;
+  }
+  await getElement(elementId);
+  const wsProtocol = serverRuntimeUrl.protocol === 'http:' ? 'ws:' : 'wss:';
+  const wsUrl = `${wsProtocol}//${serverRuntimeUrl.host}?id=${elementId}`;
+  const ws = new WebSocket(wsUrl);
   ws.addEventListener('message', (event) => {
     const data = JSON.parse(event.data);
     if (data.type !== 'element:update') return;
@@ -259,13 +267,14 @@ const onLink = async () => {
     ],
   };
   await api
-    .patch(`content-element/${element.value.id}`, { json: { refs } })
+    .patch(`content-element/${element.value.uid}`, { json: { refs } })
     .json();
 };
 
-const getElement = async () => {
+const getElement = async (elementId: string) => {
   try {
-    const response: { element: ContentElement } = await api('content-element', {
+    const apiUrl = `content-element/${elementId}`;
+    const response: { element: ContentElement } = await api(apiUrl, {
       searchParams: { runtime: 'authoring' },
     }).json();
     if (response === null) return;
@@ -273,7 +282,7 @@ const getElement = async () => {
     isGradable.value = element.value.data.isGradable;
   } catch (error) {
     console.log('Error on element get', error);
-    setTimeout(() => getElement(), 2000);
+    setTimeout(() => getElement(elementId), 2000);
   }
 };
 
@@ -292,13 +301,13 @@ const toggleGradable = async () => {
 
 const resetState = async () =>
   api
-    .post(`content-element/${element.value.id}/reset-state`)
+    .post(`content-element/${element.value.uid}/reset-state`)
     .catch((error) => console.log('Error on state reset', error));
 
 const updateElementData = async (data) => {
   try {
     const response = await api
-      .patch(`content-element/${element.value.id}`, { json: { data } })
+      .patch(`content-element/${element.value.uid}`, { json: { data } })
       .json();
 
     element.value = response;

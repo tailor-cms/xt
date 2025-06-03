@@ -1,6 +1,6 @@
 import express from 'express';
 
-import ContentElement from './model';
+import ContentElementService from './ContentElementService';
 import initController from './controller';
 
 function initRouter({ type, initState, isQuestion, isGradable, hookMap }) {
@@ -15,15 +15,16 @@ function initRouter({ type, initState, isQuestion, isGradable, hookMap }) {
   } = initController({
     type,
     initState,
-    isQuestion,
-    isGradable,
     hookMap,
   });
 
   /* eslint-disable @typescript-eslint/no-misused-promises */
   const router = express.Router();
-  router.param('id', getContentElement);
-  router.route('/').get(getCtrl);
+  router.param(
+    'id',
+    getContentElementMw({ type, initState, isQuestion, isGradable }),
+  );
+  router.route('/:id').get(getCtrl);
   router.route('/:id').patch(patchCtrl);
   router.route('/:id/activity').post(onUserInteraction);
   router.route('/:id/reset-element').post(resetAuthoringState);
@@ -33,18 +34,24 @@ function initRouter({ type, initState, isQuestion, isGradable, hookMap }) {
   return router;
 }
 
-async function getContentElement(req, _res, next, id) {
-  try {
-    const element = await ContentElement.findByPk(id);
-    if (!element) {
-      return next(new Error('Failed to find the element'));
+const getContentElementMw =
+  ({ type, initState, isQuestion, isGradable }) =>
+  async (req, _res, next, id) => {
+    try {
+      const data = initState();
+      if (isQuestion) data.isGradable = isGradable ?? true;
+      const payload = { type, data };
+      const element = await ContentElementService.findOrCreate(id, payload);
+      if (!element) {
+        return next(new Error('Failed to find the element'));
+      }
+      req.element = element;
+      return next();
+    } catch (error) {
+      console.error('Error in getContentElementMw:', error);
+      return next(error);
     }
-    req.element = element;
-    return next();
-  } catch (error) {
-    next(error);
-  }
-}
+  };
 
 export default {
   path: '/content-element',

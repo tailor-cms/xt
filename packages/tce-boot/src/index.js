@@ -5,6 +5,7 @@ import { setTimeout } from 'node:timers/promises';
 import boxen from 'boxen';
 import concurrently from 'concurrently';
 import debounce from 'lodash/debounce.js';
+import hasFlag from 'has-flag';
 import open from 'open';
 
 import {
@@ -22,11 +23,15 @@ const packageWatchers =
       prefixColor: termColors[index],
       command: `cd ${packageDirs[key]} && pnpm dev`
     }));
+
 // Commands for spining the runtimes (edit, server, preview)
-// Display runtime is running separatley to enable plugging in custom one
+// Display runtime can be separate, to enable plugging in custom one
 const require = createRequire(import.meta.url);
+const runtimePackages = ['server', 'edit', 'preview'];
+if (hasFlag('default-display')) runtimePackages.push('display');
+
 const runtimes = await Promise.all(
-  ['server', 'edit', 'preview'].map(async (name, index) => {
+  runtimePackages.map(async (name, index) => {
     // Figure out runtime package location
     const pkgRef = `@tailor-cms/tce-${name}-runtime/package.json`;
     const pkgPath = await require.resolve(pkgRef);

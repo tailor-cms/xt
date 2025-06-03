@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-display-runtime",
   "description": "Display content element client side runtime",
   "author": "Studion <info@gostudion.com>",
-  "version": "0.6.14-beta.3",
+  "version": "0.6.14-beta.6",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,6 +10,8 @@
     "lint:fix": "pnpm lint --fix"
   },
   "dependencies": {
+    "@lukeed/uuid": "^2.0.1",
+    "@lukeed/csprng": "^1.0.2",
     "@mdi/font": "7.4.47",
     "@vitejs/plugin-vue": "5.2.1",
     "@vue/reactivity": "^3.5.13",

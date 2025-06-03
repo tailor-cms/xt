@@ -1,21 +1,27 @@
 <template>
   <main :class="{ 'dark-theme': isDark }">
-    <SplashLoader :is-visible="!isLoaded" />
-    <PreviewPanel id="panelTop" :is-loaded="isLoaded" />
-    <BottomPanel
-      id="panelBottom"
-      :element="props.element"
-      :is-loaded="isLoaded"
-      :user-state="props.userState"
-      class="preview-panel-bottom"
-      @reset-element="$emit('resetElement')"
-      @reset-state="$emit('resetState')"
-    />
+    <SplashLoader :is-visible="!isInitialized" />
+    <template v-if="isInitialized">
+      <PreviewPanel
+        id="panelTop"
+        :element-id="element?.uid"
+        :is-loaded="true"
+      />
+      <BottomPanel
+        id="panelBottom"
+        :element="props.element"
+        :is-loaded="true"
+        :user-state="props.userState"
+        class="preview-panel-bottom"
+        @reset-element="$emit('resetElement')"
+        @reset-state="$emit('resetState')"
+      />
+    </template>
   </main>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import Split from 'split.js';
 
 import BottomPanel from './BottomPanel.vue';
@@ -27,18 +33,30 @@ defineEmits(['resetElement', 'resetState']);
 const props = defineProps<{ element: any; userState: any }>();
 
 const { isDark } = useGlobalState();
+
 const isLoaded = ref(false);
+const isMounted = ref(false);
+const isInitialized = computed(() => isMounted.value && props.element?.uid);
+
+watch(isInitialized, (val) => {
+  if (val) setupPreview();
+});
 
 onMounted(() => {
-  // Client/server vertical split
-  Split([`#panelTop`, `#panelBottom`], {
-    direction: 'vertical',
-    sizes: [70, 30],
-  });
+  isMounted.value = true;
+});
+
+const setupPreview = () => {
+  setTimeout(() => {
+    Split([`#panelTop`, `#panelBottom`], {
+      direction: 'vertical',
+      sizes: [70, 30],
+    });
+  }, 50);
   setTimeout(() => {
     isLoaded.value = true;
-  }, 2500);
-});
+  }, 2000);
+};
 </script>
 
 <style>

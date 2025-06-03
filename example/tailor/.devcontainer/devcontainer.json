@@ -1,0 +1,48 @@
+{
+	"name": "Tailor - File Content Element",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+	"features": {
+		"ghcr.io/devcontainers-extra/features/pnpm:2": {}
+	},
+	"forwardPorts": [8001, 8002, 8003, 8004],
+	"portsAttributes": {
+		"8001": {
+			"label": "Content Element Kit preview",
+			"onAutoForward": "notify"
+		},
+		"8002": {
+			"label": "Edit runtime",
+			"onAutoForward": "silent"
+		},
+		"8003": {
+			"label": "Display runtime",
+			"onAutoForward": "silent"
+		},
+		"8004": {
+			"label": "Server runtime",
+			"onAutoForward": "silent"
+		}
+	},
+	"postCreateCommand": "pnpm i",
+	"postStartCommand": "nohup bash -c 'pnpm dev &'",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"akamud.vscode-theme-onedark",
+				"dbaeumer.vscode-eslint",
+				"esbenp.prettier-vscode",
+				"formulahendry.auto-close-tag",
+				"formulahendry.auto-rename-tag",
+				"mikestead.dotenv",
+				"ms-playwright.playwright",
+				"sainoba.px-to-rem",
+				"stylelint.vscode-stylelint",
+				"vscode-icons-team.vscode-icons",
+				"zhuangtongfa.material-theme",
+				"EditorConfig.EditorConfig",
+				"Vue.volar",
+				"GitHub.copilot"
+			]
+		}
+	}
+}
