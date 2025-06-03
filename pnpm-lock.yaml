@@ -111,6 +111,10 @@ importers:
         version: 2.2.10(typescript@5.8.3)
 
   example/packages/manifest:
+    dependencies:
+      '@tailor-cms/cek-common':
+        specifier: workspace:*
+        version: link:../../../packages/common
     devDependencies:
       '@tailor-cms/eslint-config':
         specifier: workspace:*
@@ -257,9 +261,6 @@ importers:
       '@types/stringify-object':
         specifier: ^4.0.5
         version: 4.0.5
-      eslint:
-        specifier: '>=9.28.0'
-        version: 9.28.0(jiti@2.4.2)
 
   packages/runtime/tce-display:
     dependencies:
@@ -537,9 +538,6 @@ importers:
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
-      eslint:
-        specifier: '>=9.28.0'
-        version: 9.28.0(jiti@2.4.2)
 
 packages:
 

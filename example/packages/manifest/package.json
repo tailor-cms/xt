@@ -21,6 +21,9 @@
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix"
   },
+  "dependencies": {
+    "@tailor-cms/cek-common": "workspace:*"
+  },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "eslint": ">=9.28.0",
