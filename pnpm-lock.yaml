@@ -176,6 +176,9 @@ importers:
       eslint:
         specifier: ^9.28.0
         version: 9.28.0(jiti@2.4.2)
+      eslint-config-prettier:
+        specifier: ^10.1.5
+        version: 10.1.5(eslint@9.28.0(jiti@2.4.2))
       eslint-plugin-import:
         specifier: ^2.31.0
         version: 2.31.0(@typescript-eslint/parser@8.33.0(eslint@9.28.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.28.0(jiti@2.4.2))
@@ -261,6 +264,9 @@ importers:
       '@types/stringify-object':
         specifier: ^4.0.5
         version: 4.0.5
+      eslint:
+        specifier: '>=9.28.0'
+        version: 9.28.0(jiti@2.4.2)
 
   packages/runtime/tce-display:
     dependencies:
@@ -538,6 +544,9 @@ importers:
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
+      eslint:
+        specifier: '>=9.28.0'
+        version: 9.28.0(jiti@2.4.2)
 
 packages:
 
@@ -7504,7 +7513,6 @@ snapshots:
   eslint-config-prettier@10.1.5(eslint@9.28.0(jiti@2.4.2)):
     dependencies:
       eslint: 9.28.0(jiti@2.4.2)
-    optional: true
 
   eslint-import-context@0.1.6(unrs-resolver@1.7.4):
     dependencies:
