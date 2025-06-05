@@ -12,7 +12,10 @@ export const name = 'Simple counter';
 
 // Function which inits element state (data property on the Content Element
 // entity)
-export const initState: DataInitializer = (): ElementData => ({ count: 0 });
+export const initState: DataInitializer = (): ElementData => ({
+  count: 0,
+  description: '',
+});
 
 // Can be loaded from package.json
 export const version = '1.0';

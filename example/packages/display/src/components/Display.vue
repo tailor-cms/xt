@@ -1,11 +1,19 @@
 <template>
   <div class="tce-root">
+    <VAlert
+      v-if="data.description"
+      class="mb-6"
+      color="primary"
+      variant="tonal"
+    >
+      {{ data.description }}
+    </VAlert>
     <div class="d-flex align-center text-h5">
       Author clicked
       <span class="counter">{{ data.count }}</span>
       times!
     </div>
-    <v-btn class="my-8" @click="submit">Submit interaction</v-btn>
+    <VBtn class="my-8" @click="submit">Submit interaction</VBtn>
     <div>
       <div class="text-body-2 font-weight-bold">User state:</div>
       <pre class="my-1 text-body-2">{{

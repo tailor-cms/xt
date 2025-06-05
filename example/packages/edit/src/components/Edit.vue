@@ -1,5 +1,12 @@
 <template>
   <div class="tce-container">
+    <VTextField
+      :model-value="element.data.description"
+      :readonly="isDisabled"
+      label="Description"
+      rows="2"
+      @update:model-value="updateDescription"
+    />
     <div>Times clicked: {{ element.data.count }}</div>
     <button :disabled="isDisabled" @click="increment">Increment</button>
     <div class="background-input-container">
@@ -59,6 +66,11 @@ const increment = () => {
   emit('save', { ...data, count });
 };
 
+const updateDescription = (description: string) => {
+  const data = props.element.data;
+  emit('save', { ...data, description });
+};
+
 elementBus.on('decrement', ({ count }: any) => console.log(count));
 
 const upload = (e: InputFileEvent | any) => {
@@ -79,7 +91,6 @@ const upload = (e: InputFileEvent | any) => {
   background-color: transparent;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
-  overflow-x: hidden;
 }
 
 .background-input-container {
