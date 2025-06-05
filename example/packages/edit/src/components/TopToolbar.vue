@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, inject } from 'vue';
 import { Element } from 'tce-manifest';
+import { inject } from 'vue';
 
 const elementBus = inject('$elementBus') as any;
 
@@ -22,7 +22,8 @@ const decrement = () => {
 <style scoped>
 button {
   padding: 0.5rem 1rem;
+  background-color: #eee;
   border: 1px solid #444;
-  background-color: #fff;
+  border-radius: 0.125rem;
 }
 </style>

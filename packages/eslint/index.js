@@ -1,10 +1,15 @@
-'use strict';
+import eslint from '@eslint/js';
+import prettier from 'eslint-plugin-prettier/recommended';
+import tseslint from 'typescript-eslint';
 
-const tsRules = require('./rules/ts.js');
-const vueRules = require('./rules/vue.js');
+import semistandard from './rules/semistandard.js';
+import tsConfig from './rules/ts.js';
+import vueConfig from './rules/vue.js';
 
-/** @type {import('@types/eslint').Linter.Config} */
-module.exports = {
-  extends: ['standard', 'plugin:prettier/recommended'],
-  overrides: [tsRules, vueRules],
-};
+export default tseslint.config(
+  eslint.configs.recommended,
+  ...semistandard,
+  ...vueConfig,
+  ...tsConfig,
+  prettier,
+);

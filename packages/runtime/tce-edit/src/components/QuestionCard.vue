@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-undef-components -->
 <template>
   <VCard color="grey-lighten-5">
     <VToolbar class="px-4" color="primary-darken-2" height="36">

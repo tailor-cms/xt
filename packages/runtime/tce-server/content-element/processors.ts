@@ -1,7 +1,5 @@
-import forEach from 'lodash/forEach';
-import get from 'lodash/get';
+import { forEach, get, set } from 'lodash-es';
 import hash from 'hash-object';
-import set from 'lodash/set';
 
 import storageConfig from '../storage/config';
 import StorageService from '../storage/storage.service';

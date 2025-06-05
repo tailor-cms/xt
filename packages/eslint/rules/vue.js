@@ -1,19 +1,22 @@
-'use strict';
+import { config, parser } from 'typescript-eslint';
+import pluginVue from 'eslint-plugin-vue';
+import pluginVueAccessibility from 'eslint-plugin-vuejs-accessibility';
+import vueParser from 'vue-eslint-parser';
 
-const importOrderRules = require('./import-order.js');
-
-module.exports = {
-  files: '*.vue',
-  parserOptions: {
-    ecmaVersion: 2022,
-    sourceType: 'module',
-    parser: 'eslint-plugin-vue',
-  },
-  plugins: ['@typescript-eslint', 'vue', 'vuejs-accessibility'],
+export default config({
   extends: [
-    'plugin:vue/vue3-recommended',
-    'plugin:vuejs-accessibility/recommended',
+    ...pluginVue.configs['flat/recommended'],
+    ...pluginVueAccessibility.configs['flat/recommended'],
   ],
+  files: ['**/*.vue'],
+  languageOptions: {
+    parser: vueParser,
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    parserOptions: {
+      parser,
+    },
+  },
   rules: {
     'vue/no-undef-components': [
       'error',
@@ -36,10 +39,9 @@ module.exports = {
     'vue/multi-word-component-names': [
       'error',
       {
-        ignores: ['index'],
+        ignores: ['index', 'Edit', 'Display'],
       },
     ],
-    ...importOrderRules,
     'vue/attributes-order': [
       'error',
       {
@@ -65,4 +67,4 @@ module.exports = {
     'vue/script-setup-no-uses-vars': 'off',
     'vue/singleline-html-element-content-newline': 'off',
   },
-};
+});
