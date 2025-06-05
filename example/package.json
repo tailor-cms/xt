@@ -22,7 +22,7 @@
     "build": "pnpm -r run build"
   },
   "devDependencies": {
-    "@tailor-cms/eslint-config": "workspace:*",
+    "@tailor-cms/eslint-config": "0.0.3",
     "@tailor-cms/tce-boot": "workspace:*",
     "@tailor-cms/tce-display-runtime": "workspace:*",
     "@types/node": "^22.15.29",
