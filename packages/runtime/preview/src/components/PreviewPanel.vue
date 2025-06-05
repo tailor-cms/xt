@@ -32,7 +32,7 @@ import { PANELS, useGlobalState } from '../state';
 const { VITE_DISPLAY_RUNTIME_URL, VITE_EDIT_RUNTIME_URL } = import.meta.env;
 const { previewPanelSplit } = useGlobalState();
 
-defineProps<{ isLoaded: Boolean, elementId: string }>();
+defineProps<{ isLoaded: Boolean; elementId: string }>();
 
 const initPanels = () => {
   previewPanelSplit.value = Split([`#${PANELS.EDIT}`, `#${PANELS.DISPLAY}`], {
