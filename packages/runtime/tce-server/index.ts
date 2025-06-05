@@ -5,6 +5,7 @@ import express from 'express';
 import { v4 as uuid } from '@lukeed/uuid/secure';
 import { WebSocketServer } from 'ws';
 
+import ai from './ai/index';
 import contentElement from './content-element/index';
 import DisplayContextService from './content-element/DisplayContextService';
 import http from 'node:http';
@@ -16,7 +17,15 @@ import storageRouter from './storage/storage.router';
 
 const cookieParserMw = cookieParser();
 
-function initApp({ type, initState, isQuestion, isGradable, hookMap, mocks }) {
+function initApp({
+  type,
+  initState,
+  aiSchema,
+  isQuestion,
+  isGradable,
+  hookMap,
+  mocks,
+}) {
   DisplayContextService.initialize(mocks.displayContexts);
   const app = express();
   app.use(cors());
@@ -32,14 +41,16 @@ function initApp({ type, initState, isQuestion, isGradable, hookMap, mocks }) {
     }
     next();
   });
-  const router = contentElement.initRouter({
+  const contentElementRouter = contentElement.initRouter({
     type,
     initState,
     isQuestion,
     isGradable,
     hookMap,
   });
-  app.use(contentElement.path, router);
+  app.use(contentElement.path, contentElementRouter);
+  const aiRouter = ai.initRouter({ aiSchema });
+  app.use(ai.path, aiRouter);
   app.use(storageRouter.path, storageRouter.router);
   app.use(express.static(storageConfig.storagePath));
 
@@ -63,11 +74,20 @@ function initApp({ type, initState, isQuestion, isGradable, hookMap, mocks }) {
 export default async function run({
   type,
   initState,
+  aiSchema,
   isQuestion,
   isGradable,
   hookMap,
   mocks,
 }) {
   await initDb(hookMap);
-  return initApp({ type, initState, isQuestion, isGradable, hookMap, mocks });
+  return initApp({
+    type,
+    initState,
+    isQuestion,
+    isGradable,
+    hookMap,
+    mocks,
+    aiSchema,
+  });
 }
