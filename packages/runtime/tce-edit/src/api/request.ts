@@ -1,10 +1,7 @@
 import axios from 'axios';
-import urlJoin from 'url-join';
-
-const apiPrefix = '/tce-server';
 
 const config = {
-  baseURL: urlJoin(window.location.href, apiPrefix),
+  baseURL: import.meta.env.VITE_SERVER_RUNTIME_URL,
   headers: { 'Content-Type': 'application/json' },
 };
 const client = axios.create(config);
