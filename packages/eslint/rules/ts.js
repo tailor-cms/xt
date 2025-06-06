@@ -1,26 +1,21 @@
-'use strict';
+import { config, configs, parser } from 'typescript-eslint';
 
-const importOrderRules = require('./import-order.js');
-
-module.exports = {
-  files: ['*.ts', '*.tsx'],
-  parserOptions: {
-    project: ['./tsconfig.json'],
-    parser: '@typescript-eslint/parser',
+export default config({
+  extends: [configs.recommended, configs.recommendedTypeChecked],
+  files: ['**/*.ts', '**/*.tsx'],
+  languageOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    parser,
   },
-  plugins: ['@typescript-eslint'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
-  ],
   rules: {
-    ...importOrderRules,
     '@typescript-eslint/dot-notation': [
       'error',
       {
         allowPrivateClassPropertyAccess: true,
       },
     ],
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unsafe-call': 'off',
     '@typescript-eslint/no-unsafe-argument': 'off',
@@ -34,4 +29,4 @@ module.exports = {
     'no-useless-constructor': 'off',
     'dot-notation': 'off',
   },
-};
+});

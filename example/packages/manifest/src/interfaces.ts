@@ -1,0 +1,12 @@
+import common from '@tailor-cms/cek-common';
+
+export interface ElementData {
+  count: number;
+  key?: string;
+  backgroundUrl?: string;
+  assets?: { backgroundUrl: string };
+}
+
+export type DataInitializer = common.DataInitializer<ElementData>;
+export type Element = common.Element<ElementData>;
+export type ElementManifest = common.ElementManifest<ElementData>;

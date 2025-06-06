@@ -1,0 +1,32 @@
+{
+  "name": "@tailor-cms/example",
+  "description": "Content element template",
+  "version": "0.0.1",
+  "author": "Studion <info@gostudion.com>",
+  "type": "module",
+  "exports": {
+    "./edit": {
+      "import": "./packages/edit/dist/index.js",
+      "require": "./packages/edit/dist/index.umd.cjs"
+    },
+    "./display": {
+      "import": "./packages/display/dist/index.js",
+      "require": "./packages/display/dist/index.umd.cjs"
+    },
+    "./server": "./packages/server/dist/index.js"
+  },
+  "scripts": {
+    "dev": "pnpm boot:cek",
+    "boot:cek": "cd ./node_modules/@tailor-cms/tce-boot && pnpm start --default-display",
+    "build": "pnpm -r run build"
+  },
+  "devDependencies": {
+    "@tailor-cms/eslint-config": "0.0.3",
+    "@tailor-cms/tce-boot": "workspace:*",
+    "@tailor-cms/tce-display-runtime": "workspace:*",
+    "@types/node": "^22.15.29",
+    "concurrently": "^9.1.2",
+    "prettier": "3.5.3",
+    "typescript": "^5.8.3"
+  }
+}

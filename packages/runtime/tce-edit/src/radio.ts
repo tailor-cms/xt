@@ -9,7 +9,6 @@ const requestEvent = (id: string) => `request->${id}`;
 const replyEvent = (id: string) => `reply->${id}`;
 
 type Events = Emitter<Record<EventType, unknown>>;
-
 interface ExtendedMitt extends Events {
   once<Key extends keyof Events>(
     type: Key,
@@ -20,8 +19,7 @@ interface ExtendedMitt extends Events {
 export function extendedMitt<Events extends Record<EventType, unknown>>(
   all?: EventHandlerMap<Events>,
 ) {
-  const instance = mitt(all);
-  // @ts-expect-error - once is not part of the original mitt API
+  const instance = mitt(all) as ExtendedMitt;
   instance.once = (type: any, fn: any) => {
     instance.on(type, fn);
     instance.on(type, instance.off.bind(instance, type, fn));
@@ -71,7 +69,6 @@ class Channel {
 }
 
 export default class Radio {
-  // eslint-disable-next-line no-use-before-define
   private static instance: Radio;
   private static channels = new Map();
   private static bus = extendedMitt();

@@ -1,4 +1,4 @@
-import pick from 'lodash/pick';
+import { pick } from 'lodash-es';
 
 import DisplayContextService from './DisplayContextService';
 import { emitter } from '../common/emitter';

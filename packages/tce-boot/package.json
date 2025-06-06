@@ -2,11 +2,11 @@
   "name": "@tailor-cms/tce-boot",
   "description": "Content element runtime boot script",
   "author": "Studion <info@gostudion.com>",
-  "version": "1.0.8-beta.6",
+  "version": "1.0.9-beta.1",
   "type": "module",
   "scripts": {
     "start": "node src/free-ports.js && node src/index.js",
-    "lint": "eslint --ext .js .",
+    "lint": "eslint .",
     "lint:fix": "pnpm lint --fix"
   },
   "dependencies": {
@@ -14,26 +14,20 @@
     "@tailor-cms/tce-edit-runtime": "workspace:*",
     "@tailor-cms/tce-preview-runtime": "workspace:*",
     "@tailor-cms/tce-server-runtime": "workspace:*",
-    "boxen": "^7.1.1",
+    "boxen": "^8.0.1",
     "concurrently": "^9.1.2",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.5.0",
     "fkill": "^9.0.0",
     "has-flag": "^5.0.1",
-    "lodash": "^4.17.21",
-    "open": "^10.0.0",
+    "lodash-es": "^4.17.21",
+    "open": "^10.1.2",
     "pid-port": "^1.0.2",
     "yup": "^1.6.1"
   },
   "devDependencies": {
-    "eslint": ">=8.5.0",
-    "eslint-config-prettier": ">=9.0.0",
-    "eslint-config-semistandard": ">=17.0.0",
-    "eslint-config-standard": ">=17.1.0",
-    "eslint-plugin-import": ">=2.28.0",
-    "eslint-plugin-n": ">=16.0.1",
-    "eslint-plugin-prettier": ">=4.2.1",
-    "eslint-plugin-promise": ">=6.1.1",
-    "prettier": "^2.7.1"
+    "@tailor-cms/eslint-config": "0.0.3",
+    "@types/lodash-es": "^4.17.12",
+    "eslint": ">=9.28.0"
   },
   "publishConfig": {
     "access": "public"

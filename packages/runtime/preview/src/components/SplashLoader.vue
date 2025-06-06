@@ -21,7 +21,7 @@ import logoUrl from '../assets/logo-new.svg';
 import { version } from './../../package.json';
 
 interface Props {
-  isVisible: boolean;
+  isVisible?: boolean;
   logo?: string;
   color?: string;
   backgroundColor?: string;

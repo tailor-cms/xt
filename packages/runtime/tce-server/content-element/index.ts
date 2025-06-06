@@ -18,7 +18,6 @@ function initRouter({ type, initState, isQuestion, isGradable, hookMap }) {
     hookMap,
   });
 
-  /* eslint-disable @typescript-eslint/no-misused-promises */
   const router = express.Router();
   router.param(
     'id',

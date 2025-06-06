@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import pick from 'lodash/pick';
+import { pick } from 'lodash-es';
 import vue from '@vitejs/plugin-vue';
 import vuetify from 'vite-plugin-vuetify';
 
@@ -13,9 +13,7 @@ const config = pick(env, [
 ]);
 
 // Expose to Frontend by prefixing with VITE_
-Object.entries(config).forEach(
-  ([k, v]) => (process.env[`VITE_${k}`] = v as string),
-);
+Object.entries(config).forEach(([k, v]) => (process.env[`VITE_${k}`] = v));
 
 // https://vitejs.dev/config/
 export default defineConfig((): any => {

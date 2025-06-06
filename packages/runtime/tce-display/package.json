@@ -6,35 +6,36 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "lint": "eslint --ext .ts,.vue .",
+    "lint": "eslint .",
     "lint:fix": "pnpm lint --fix"
   },
   "dependencies": {
     "@lukeed/uuid": "^2.0.1",
     "@lukeed/csprng": "^1.0.2",
     "@mdi/font": "7.4.47",
-    "@vitejs/plugin-vue": "5.2.1",
-    "@vue/reactivity": "^3.5.13",
-    "@vue/runtime-core": "^3.5.13",
-    "@vue/runtime-dom": "^3.5.13",
-    "@vue/shared": "^3.5.13",
-    "dotenv": "^16.4.7",
-    "ky": "1.7.4",
+    "@vitejs/plugin-vue": "5.2.4",
+    "@vue/reactivity": "^3.5.16",
+    "@vue/runtime-core": "^3.5.16",
+    "@vue/runtime-dom": "^3.5.16",
+    "@vue/shared": "^3.5.16",
+    "dotenv": "^16.5.0",
+    "ky": "1.8.1",
     "lodash-es": "^4.17.21",
-    "sass": "1.84.0",
-    "typescript": "5.7.3",
-    "vite": "6.1.0",
-    "vite-plugin-vuetify": "2.1.0",
-    "vue": "3.5.13",
-    "vue-tsc": "2.2.0",
-    "vuetify": "3.7.11",
+    "sass": "1.89.1",
+    "typescript": "5.8.3",
+    "vite": "6.3.5",
+    "vite-plugin-vuetify": "2.1.1",
+    "vue": "3.5.16",
+    "vue-tsc": "2.2.10",
+    "vuetify": "3.8.7",
     "webfontloader": "1.6.28"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^22.13.1",
-    "@types/webfontloader": "1.6.38"
+    "@types/node": "^22.15.29",
+    "@types/webfontloader": "1.6.38",
+    "eslint": ">=9.28.00"
   },
   "publishConfig": {
     "access": "public"

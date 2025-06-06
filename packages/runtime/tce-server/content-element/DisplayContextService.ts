@@ -1,4 +1,4 @@
-import cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash-es';
 
 const DEFAULT_CONTEXTS = [{ name: 'Default context', data: {} }];
 
