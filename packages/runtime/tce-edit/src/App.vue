@@ -14,6 +14,7 @@
               </VChip>
               <VSpacer />
               <VBtn
+                :disabled="isDisabled || isLoading"
                 class="mr-2"
                 color="indigo-darken-2"
                 prepend-icon="mdi-creation"
@@ -33,41 +34,51 @@
                     variant="tonal"
                   />
                 </template>
-                <VCard>
-                  <VCardText>
-                    <VCheckbox
-                      v-model="isDisabled"
-                      color="primary"
-                      density="comfortable"
-                      label="Disabled"
-                      hide-details
-                    />
-                    <VCheckbox
-                      v-model="persistFocus"
-                      :disabled="isDisabled"
-                      color="primary"
-                      density="comfortable"
-                      label="Persist element focus"
-                      hide-details
-                    />
-                    <VCheckbox
-                      v-if="isQuestion"
-                      :disabled="props.isGradable !== undefined"
-                      :model-value="isGradable"
-                      class="ml-2"
-                      color="primary"
-                      label="Gradable"
-                      hide-details
-                      @click.prevent="confirmGradableToggle"
-                    />
-                    <VTextarea
-                      v-if="isAiEnabled"
-                      v-model="aiContext"
-                      class="mt-2"
-                      label="AI Context"
-                      variant="outlined"
-                    />
-                  </VCardText>
+                <VCard class="pa-4">
+                  <div
+                    class="d-flex align-center text-overline font-weight-bold"
+                  >
+                    <VIcon icon="mdi-cube-outline" start />
+                    Element Props
+                  </div>
+                  <VCheckbox
+                    v-model="isDisabled"
+                    color="primary"
+                    density="comfortable"
+                    label="Disabled"
+                    hide-details
+                  />
+                  <VCheckbox
+                    :disabled="props.isGradable !== undefined"
+                    :model-value="isGradable"
+                    color="primary"
+                    density="comfortable"
+                    label="Gradable"
+                    hide-details
+                    @click.prevent="confirmGradableToggle"
+                  />
+                  <div
+                    class="d-flex align-center text-overline mt-4 font-weight-bold"
+                  >
+                    <VIcon icon="mdi-cog-outline" start />
+                    CEK Configuration
+                  </div>
+                  <VCheckbox
+                    v-model="persistFocus"
+                    :disabled="isDisabled"
+                    color="primary"
+                    density="comfortable"
+                    label="Persist element focus"
+                    hide-details
+                  />
+                  <VTextarea
+                    v-if="isAiEnabled"
+                    v-model="aiContext"
+                    class="mt-4"
+                    label="AI Context"
+                    variant="outlined"
+                    hide-details
+                  />
                 </VCard>
               </VMenu>
             </div>
