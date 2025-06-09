@@ -2,15 +2,14 @@ import { number, object, string } from 'yup';
 import { defaults } from 'lodash-es';
 import dotenv from 'dotenv';
 
-
 export const termColors = ['magenta', 'green', 'blue', 'cyan', 'yellow'];
 
 const env = process.env;
 
-const resolveAppUrl = port => {
+const resolveAppUrl = (port) => {
   const {
     CODESPACE_NAME: codespaceName,
-    GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN: codespaceDomain
+    GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN: codespaceDomain,
   } = env;
   return codespaceName && codespaceDomain
     ? `https://${codespaceName}-${port}.${codespaceDomain}`
@@ -53,7 +52,7 @@ const defaultUrlConfig = {
   EDIT_RUNTIME_URL: resolveAppUrl(env.EDIT_RUNTIME_PORT),
   DISPLAY_RUNTIME_URL: resolveAppUrl(env.DISPLAY_RUNTIME_PORT),
   SERVER_RUNTIME_URL: resolveAppUrl(env.SERVER_RUNTIME_PORT),
-  PREVIEW_RUNTIME_URL: resolveAppUrl(env.PREVIEW_RUNTIME_PORT)
+  PREVIEW_RUNTIME_URL: resolveAppUrl(env.PREVIEW_RUNTIME_PORT),
 };
 defaults(process.env, defaultUrlConfig);
 
