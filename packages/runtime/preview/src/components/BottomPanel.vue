@@ -1,5 +1,5 @@
 <template>
-  <div v-show="isLoaded">
+  <div>
     <VTabs v-model="state.selectedTab">
       <VTab :value="1">
         <VChip append-icon="mdi-pen" class="mr-2" color="indigo" size="small">
@@ -58,7 +58,6 @@ import MutationList from './MutationList.vue';
 
 defineEmits(['resetElement', 'resetState']);
 const props = defineProps<{
-  isLoaded: Boolean;
   element: any;
   userState: any;
 }>();

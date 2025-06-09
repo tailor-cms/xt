@@ -2,16 +2,11 @@
   <main :class="{ 'dark-theme': isDark }">
     <SplashLoader :is-visible="!isInitialized" />
     <template v-if="isInitialized">
-      <PreviewPanel
-        id="panelTop"
-        :element-id="element?.uid"
-        :is-loaded="true"
-      />
+      <PreviewPanel id="panelTop" :element-id="element.uid" />
       <BottomPanel
         id="panelBottom"
-        :element="props.element"
-        :is-loaded="true"
-        :user-state="props.userState"
+        :element="element"
+        :user-state="userState"
         class="preview-panel-bottom"
         @reset-element="$emit('resetElement')"
         @reset-state="$emit('resetState')"
@@ -33,17 +28,15 @@ defineEmits(['resetElement', 'resetState']);
 const props = defineProps<{ element: any; userState: any }>();
 
 const { isDark } = useGlobalState();
-
-const isLoaded = ref(false);
 const isMounted = ref(false);
 const isInitialized = computed(() => isMounted.value && props.element?.uid);
 
-watch(isInitialized, (val) => {
-  if (val) setupPreview();
-});
-
 onMounted(() => {
   isMounted.value = true;
+});
+
+watch(isInitialized, (val) => {
+  if (val) setupPreview();
 });
 
 const setupPreview = () => {
@@ -53,9 +46,6 @@ const setupPreview = () => {
       sizes: [70, 30],
     });
   }, 50);
-  setTimeout(() => {
-    isLoaded.value = true;
-  }, 2000);
 };
 </script>
 
