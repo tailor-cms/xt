@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "0.0.3",
+    "@types/json-schema": "^7.0.15",
     "@types/node": "^22.15.29",
     "eslint": ">=9.28.0",
     "tsup": "^8.5.0",
@@ -47,5 +48,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "json-schema": "^0.4.0"
   }
 }

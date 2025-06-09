@@ -16,9 +16,12 @@ const {
   ui,
 } = element.default;
 
+const isAiEnabled = import.meta.env.AI_UI_ENABLED;
+
 const app = createApp(App, {
   isQuestion,
   isGradable,
+  isAiEnabled,
   type: name,
   icon: ui.icon,
 });

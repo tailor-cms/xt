@@ -13,32 +13,94 @@
                 Authoring component
               </VChip>
               <VSpacer />
-              <VCheckbox
-                v-model="isDisabled"
-                color="primary"
-                label="Disabled"
-                hide-details
+              <VBtn
+                class="mr-2"
+                color="indigo-darken-2"
+                prepend-icon="mdi-creation"
+                size="small"
+                text="Do the magic"
+                variant="tonal"
+                @click="doTheMagic"
               />
-              <VCheckbox
-                v-if="isQuestion"
-                :disabled="props.isGradable !== undefined"
-                :model-value="isGradable"
-                class="ml-2"
-                color="primary"
-                label="Gradable"
-                hide-details
-                @click.prevent="confirmGradableToggle"
-              />
+              <VMenu :close-on-content-click="false" width="300" offset-y>
+                <template #activator="{ props: menuProps }">
+                  <VBtn
+                    v-bind="menuProps"
+                    color="primary-darken-2"
+                    prepend-icon="mdi-cog"
+                    size="small"
+                    text="Settings"
+                    variant="tonal"
+                  />
+                </template>
+                <VCard>
+                  <VCardText>
+                    <VCheckbox
+                      v-model="isDisabled"
+                      color="primary"
+                      density="comfortable"
+                      label="Disabled"
+                      hide-details
+                    />
+                    <VCheckbox
+                      v-model="persistFocus"
+                      :disabled="isDisabled"
+                      color="primary"
+                      density="comfortable"
+                      label="Persist element focus"
+                      hide-details
+                    />
+                    <VCheckbox
+                      v-if="isQuestion"
+                      :disabled="props.isGradable !== undefined"
+                      :model-value="isGradable"
+                      class="ml-2"
+                      color="primary"
+                      label="Gradable"
+                      hide-details
+                      @click.prevent="confirmGradableToggle"
+                    />
+                    <VTextarea
+                      v-if="isAiEnabled"
+                      v-model="aiContext"
+                      class="mt-2"
+                      label="AI Context"
+                      variant="outlined"
+                    />
+                  </VCardText>
+                </VCard>
+              </VMenu>
             </div>
             <VSheet class="pa-8" color="white" elevation="3" rounded="lg">
+              <div
+                v-if="isLoading"
+                class="d-flex flex-wrap justify-center py-16"
+              >
+                <VProgressCircular
+                  class="w-100"
+                  color="primary-darken-2"
+                  size="68"
+                  indeterminate
+                >
+                  <img
+                    alt="Tailor logo"
+                    src="https://avatars.githubusercontent.com/u/142484057"
+                    width="32"
+                  />
+                </VProgressCircular>
+                <div class="mt-8 text-primary-darken-4 font-weight-bold">
+                  <span>Content generation in progress...</span>
+                </div>
+              </div>
               <VSheet
+                v-else
                 v-click-outside="{
-                  handler: unfocusElement,
+                  handler: () => !persistFocus && unfocusElement(),
                   include,
                 }"
                 :class="{ focused: isFocused }"
                 class="edit-frame"
-                @click="focusElement"
+                @click="!persistFocus && focusElement()"
               >
                 <template v-if="element?.data">
                   <QuestionCard
@@ -80,16 +142,10 @@
               >
                 Top toolbar
               </VChip>
-              <VSpacer />
-              <VSwitch
-                v-model="persistTopToolbar"
-                label="Persist"
-                hide-details
-              />
             </div>
             <VSlideYTransition>
               <VSheet
-                v-if="element?.data && (isFocused || persistTopToolbar)"
+                v-if="element?.data && isFocused"
                 class="top-toolbar"
                 color="white"
                 elevation="1"
@@ -115,16 +171,10 @@
               >
                 Side toolbar
               </VChip>
-              <VSpacer />
-              <VSwitch
-                v-model="persistSideToolbar"
-                label="Persist"
-                hide-details
-              />
             </div>
             <VSlideXTransition>
               <VSheet
-                v-if="element?.data && (isFocused || persistSideToolbar)"
+                v-if="element?.data && isFocused"
                 class="side-toolbar"
                 color="primary-darken-2"
                 elevation="5"
@@ -168,7 +218,14 @@
 </template>
 
 <script lang="ts" setup>
-import { getCurrentInstance, inject, onMounted, provide, ref } from 'vue';
+import {
+  getCurrentInstance,
+  inject,
+  onMounted,
+  provide,
+  ref,
+  watch,
+} from 'vue';
 import ky from 'ky';
 
 import assetApi from './api/asset';
@@ -188,6 +245,7 @@ type ContentElement = Record<string, any>;
 interface Props {
   isQuestion?: boolean;
   isGradable?: boolean;
+  isAiEnabled?: boolean;
   type?: string;
   icon?: string;
 }
@@ -205,12 +263,13 @@ const eventBus = inject<any>('$eventBus');
 const appChannel = eventBus.channel('app');
 
 const element = ref<ContentElement>({});
+const persistFocus = ref(false);
 const isFocused = ref(false);
 const isDisabled = ref(false);
-const persistSideToolbar = ref(false);
-const persistTopToolbar = ref(false);
 const isGradable = ref(props.isGradable ?? true);
 const isLinkDialogVisible = ref(false);
+const isLoading = ref(false);
+const aiContext = ref('Generate content element.');
 
 provide('$storageService', assetApi);
 
@@ -244,6 +303,17 @@ const onSave = (data) => {
 
 const onDelete = () => {
   emit('delete');
+};
+
+const doTheMagic = async () => {
+  isLoading.value = true;
+  const context = aiContext.value.trim();
+  const res = (await api
+    .post('ai/generate', { json: { context } })
+    .json()) as any;
+  console.log(res.data);
+  await updateElementData(res.data);
+  isLoading.value = false;
 };
 
 const onLink = async () => {
@@ -313,6 +383,16 @@ const confirmGradableToggle = () => {
     action: toggleGradable,
   });
 };
+
+watch(persistFocus, (val) => {
+  if (val) isFocused.value = true;
+});
+
+watch(isDisabled, (val) => {
+  if (!val) return;
+  persistFocus.value = false;
+  isFocused.value = false;
+});
 </script>
 
 <style lang="scss" scoped>

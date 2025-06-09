@@ -1,3 +1,11 @@
+import type { JSONSchema7 } from 'json-schema';
+
+export interface OpenAISchema {
+  type: 'json_schema';
+  name: string;
+  schema: JSONSchema7;
+}
+
 type ElementData = Record<string, unknown>;
 type Meta = Record<string, unknown>;
 type Refs = Record<string, unknown>;
@@ -99,6 +107,20 @@ export interface ElementManifest<TData = ElementData> {
      * full width
      */
     forceFullWidth: boolean;
+  };
+  ai?: {
+    /**
+     * Prompt used to describe the response structure
+     */
+    getPrompt: (context: any) => string;
+    /**
+     * JSON schema for the OpenAI response formatting
+     */
+    Schema?: OpenAISchema;
+    /**
+     * Function for additional response processing & validation
+     */
+    processResponse?: (val: any) => any;
   };
   mocks?: {
     /**
