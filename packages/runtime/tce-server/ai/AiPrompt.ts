@@ -17,12 +17,12 @@ export class AiPrompt {
   private schemaDescription: string;
   private responseProcessor: (val: string) => any;
 
-  constructor(client: OpenAI, context: string, aiSchema: any) {
+  constructor(client: OpenAI, context: string, ai: any) {
     this.client = client;
     this.context = context;
-    this.format = aiSchema?.Schema;
-    this.schemaDescription = aiSchema?.getPrompt();
-    this.responseProcessor = aiSchema?.processResponse;
+    this.format = ai?.Schema;
+    this.schemaDescription = ai?.getPrompt();
+    this.responseProcessor = ai?.processResponse;
   }
 
   async execute() {

@@ -1,4 +1,4 @@
-import common from '@tailor-cms/cek-common';
+import * as common from '@tailor-cms/cek-common';
 
 export interface ElementData {
   count: number;

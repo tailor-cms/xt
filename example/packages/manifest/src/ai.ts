@@ -1,4 +1,6 @@
-export const Schema = {
+import { OpenAISchema } from '@tailor-cms/cek-common';
+
+export const Schema: OpenAISchema = {
   type: 'json_schema',
   name: 'ce_counter',
   schema: {
@@ -13,7 +15,7 @@ export const Schema = {
 };
 
 export const getPrompt = () => `
-  Response should be a JSON object with the following properties:
+  Generate counter content element as an object with the following properties:
   {
     "description": "",
     "count": 0

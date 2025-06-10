@@ -9,6 +9,7 @@ import vuetify from './plugins/vuetify';
 
 const element = await import(/* @vite-ignore */ import.meta.env.EDIT_DIR);
 const {
+  ai,
   isComposite = false,
   isQuestion,
   isGradable,
@@ -16,7 +17,7 @@ const {
   ui,
 } = element.default;
 
-const isAiEnabled = import.meta.env.AI_UI_ENABLED;
+const isAiEnabled = import.meta.env.AI_UI_ENABLED && ai;
 
 const app = createApp(App, {
   isQuestion,

@@ -74,7 +74,7 @@ function initApp({
 export default async function run({
   type,
   initState,
-  aiSchema,
+  ai: aiSchema,
   isQuestion,
   isGradable,
   hookMap,
