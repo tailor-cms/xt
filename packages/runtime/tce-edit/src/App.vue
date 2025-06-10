@@ -14,6 +14,7 @@
               </VChip>
               <VSpacer />
               <VBtn
+                v-if="isAiEnabled"
                 :disabled="isDisabled || isLoading"
                 class="mr-2"
                 color="indigo-darken-2"
@@ -38,7 +39,7 @@
                   <div
                     class="d-flex align-center text-overline font-weight-bold"
                   >
-                    <VIcon icon="mdi-cube-outline" start />
+                    <VIcon icon="mdi-format-list-bulleted" start />
                     Element Props
                   </div>
                   <VCheckbox
@@ -49,7 +50,8 @@
                     hide-details
                   />
                   <VCheckbox
-                    :disabled="props.isGradable !== undefined"
+                    v-if="isQuestion"
+                    :disabled="isGradable !== undefined"
                     :model-value="isGradable"
                     color="primary"
                     density="comfortable"
@@ -68,7 +70,7 @@
                     :disabled="isDisabled"
                     color="primary"
                     density="comfortable"
-                    label="Persist element focus"
+                    label="Persist focus"
                     hide-details
                   />
                   <VTextarea
@@ -76,6 +78,7 @@
                     v-model="aiContext"
                     class="mt-4"
                     label="AI Context"
+                    rows="3"
                     variant="outlined"
                     hide-details
                   />
@@ -280,7 +283,7 @@ const isDisabled = ref(false);
 const isGradable = ref(props.isGradable ?? true);
 const isLinkDialogVisible = ref(false);
 const isLoading = ref(false);
-const aiContext = ref('Generate content element.');
+const aiContext = ref(`Generate ${props.type} content element.`);
 
 provide('$storageService', assetApi);
 

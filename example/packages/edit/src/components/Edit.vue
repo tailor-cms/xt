@@ -3,8 +3,8 @@
     <VTextField
       :model-value="element.data.description"
       :readonly="isDisabled"
+      class="mt-4"
       label="Description"
-      rows="2"
       @update:model-value="updateDescription"
     />
     <div>Times clicked: {{ element.data.count }}</div>
