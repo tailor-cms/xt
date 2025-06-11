@@ -161,7 +161,7 @@ importers:
   packages/runtime/preview:
     specifiers:
       '@mdi/font': 7.4.47
-      '@tailor-cms/cek-common': workspace:^0.0.6
+      '@tailor-cms/cek-common': workspace:*
       '@tailor-cms/eslint-config': workspace:*
       '@types/lodash-es': ^4.17.12
       '@types/stringify-object': ^4.0.5
@@ -206,7 +206,7 @@ importers:
   packages/runtime/tce-display:
     specifiers:
       '@mdi/font': 7.4.47
-      '@tailor-cms/cek-common': workspace:0.0.6
+      '@tailor-cms/cek-common': workspace:*
       '@tailor-cms/eslint-config': workspace:*
       '@types/lodash-es': ^4.17.12
       '@types/node': ^22.15.29
@@ -257,7 +257,7 @@ importers:
   packages/runtime/tce-edit:
     specifiers:
       '@mdi/font': 7.4.47
-      '@tailor-cms/cek-common': workspace:0.0.6
+      '@tailor-cms/cek-common': workspace:*
       '@tailor-cms/eslint-config': workspace:*
       '@types/lodash-es': ^4.17.12
       '@types/node': ^22.15.29

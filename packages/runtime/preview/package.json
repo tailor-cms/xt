@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@mdi/font": "7.4.47",
-    "@tailor-cms/cek-common": "workspace:^0.0.6",
+    "@tailor-cms/cek-common": "workspace:*",
     "@vitejs/plugin-vue": "5.2.4",
     "@vueuse/core": "13.3.0",
     "date-fns": "^4.1.0",
