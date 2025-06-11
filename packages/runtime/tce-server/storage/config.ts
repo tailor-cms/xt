@@ -8,7 +8,7 @@ const config = {
   provider: 'filesystem',
   storagePath: path.join(currentDirectory, 'tmp'),
   protocol: 'storage://',
-  origin: `http://localhost:${port}`,
+  origin: `${url}:${port}`,
 };
 
 export default config;

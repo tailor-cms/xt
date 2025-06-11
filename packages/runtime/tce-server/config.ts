@@ -1,4 +1,6 @@
-const { SERVER_RUNTIME_PORT } = process.env;
+const { SERVER_RUNTIME_PORT, SERVER_RUNTIME_URL } = process.env;
+
+export const url = SERVER_RUNTIME_URL;
 
 export const port = SERVER_RUNTIME_PORT
   ? parseInt(SERVER_RUNTIME_PORT, 10)
