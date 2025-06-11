@@ -21,7 +21,7 @@
               />
               <VCheckbox
                 v-if="isQuestion"
-                :disabled="isGradable !== undefined"
+                :disabled="props.isGradable !== undefined"
                 :model-value="isGradable"
                 class="ml-2"
                 color="primary"
