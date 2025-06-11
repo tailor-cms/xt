@@ -21,20 +21,19 @@ class FilesystemStorage {
     return new FilesystemStorage(config);
   }
 
-  path(...segments) {
-    segments = [this.root, ...segments];
-    return path.join(...segments);
+  getPath(...segments) {
+    return path.join(this.root, ...segments);
   }
 
   getFile(key, options = {}) {
-    return fsp.readFile(this.path(key), options).catch((err) => {
+    return fsp.readFile(this.getPath(key), options).catch((err) => {
       if (isNotFound(err)) return null;
       return Promise.reject(err);
     });
   }
 
   saveFile(key, data, options = {}) {
-    const filePath = this.path(key);
+    const filePath = this.getPath(key);
     return mkdirp(path.dirname(filePath)).then(() =>
       fsp.writeFile(filePath, data, options),
     );
