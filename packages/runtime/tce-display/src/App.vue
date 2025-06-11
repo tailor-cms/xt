@@ -59,7 +59,7 @@ const selectedStateContext = ref(null);
 onMounted(async () => {
   const elementId = resolveElementId();
   if (!elementId) return;
-  await getElement(elementId);
+  await load(elementId);
   const ws = initWebSocket(serverRuntimeUrl, elementId);
   ws.addEventListener('message', (event) => {
     const { entityId, type: eventName, payload } = JSON.parse(event.data);
@@ -70,12 +70,12 @@ onMounted(async () => {
       const contextName = displayStateContexts.value[payload.index].name;
       if (selectedStateContext.value === contextName) return;
       // Different browser tab
-      getElement(elementId);
+      load(elementId);
     }
   });
 });
 
-const getElement = async (id: string) => {
+const load = async (id: string) => {
   try {
     const response = await api.getElement(id);
     if (!response?.element) return;
@@ -88,14 +88,14 @@ const getElement = async (id: string) => {
   } catch (error) {
     console.log('Error on element get', error);
     // Retry
-    setTimeout(() => getElement(id), 2000);
+    setTimeout(() => load(id), 2000);
   }
 };
 
 async function onContextChange(name) {
   const index = findIndex(displayStateContexts.value, { name });
   await api.setState(element.value.uid, index);
-  await getElement(element.value.uid);
+  await load(element.value.uid);
 }
 
 const onInteraction = async (data) => {

@@ -9,7 +9,6 @@ import path from 'node:path';
 const env = process.env;
 
 // Expose to Frontend by prefixing with VITE_
-// Frontend exposure od resolved url
 const runtimeUrls = pick(env, [
   'EDIT_RUNTIME_URL',
   'DISPLAY_RUNTIME_URL',

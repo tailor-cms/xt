@@ -17,9 +17,10 @@ const api = getApiClient(VITE_SERVER_RUNTIME_URL);
 const element = ref<Element>();
 const userState = ref({});
 
-const timeout = (ms: number) => new Promise((res) => setTimeout(res, ms));
+const timeout = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
 
-async function getElement(id: string): Promise<void> {
+async function load(id: string): Promise<any> {
   try {
     const res = await api.getElement(id);
     element.value = res.element;
@@ -28,7 +29,7 @@ async function getElement(id: string): Promise<void> {
     console.log('Error on element get', error);
     await timeout(2000);
     console.log('Retrying element get...');
-    return getElement(id);
+    return load(id);
   }
 }
 
@@ -40,14 +41,14 @@ async function resetElement(id: string) {
 onMounted(async () => {
   const elementId = resolveElementId();
   if (!elementId) return;
-  await getElement(elementId);
+  await load(elementId);
   const ws = initWebSocket(serverRuntimeUrl, elementId);
   ws.addEventListener('message', (message) => {
     const event = JSON.parse(message.data);
     if (elementId && elementId !== event.entityId) return;
     if (event.type === 'userState:update') userState.value = event.payload;
     if (event.type === 'element:update') element.value = event.payload;
-    if (event.type === 'userContext:change') getElement(elementId);
+    if (event.type === 'userContext:change') load(elementId);
   });
 });
 </script>

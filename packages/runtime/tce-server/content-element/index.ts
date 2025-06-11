@@ -40,11 +40,7 @@ const getContentElementMw =
       const data = initState();
       if (isQuestion) data.isGradable = isGradable ?? true;
       const payload = { type, data };
-      const element = await ContentElementService.findOrCreate(id, payload);
-      if (!element) {
-        return next(new Error('Failed to find the element'));
-      }
-      req.element = element;
+      req.element = await ContentElementService.findOrCreate(id, payload);
       return next();
     } catch (error) {
       console.error('Error in getContentElementMw:', error);

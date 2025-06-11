@@ -224,7 +224,7 @@ const include = () => [
 onMounted(async () => {
   const elementId = resolveElementId();
   if (!elementId) return;
-  await getElement(elementId);
+  await load(elementId);
   const ws = initWebSocket(serverRuntimeUrl, elementId);
   ws.addEventListener('message', (event) => {
     const data = JSON.parse(event.data);
@@ -264,7 +264,7 @@ const onLink = () => {
   return api.updateElement(element.value.uid, { refs });
 };
 
-const getElement = async (elementId: string) => {
+const load = async (elementId: string) => {
   try {
     const response = await api.getElement(elementId);
     if (response === null) return;
@@ -272,7 +272,7 @@ const getElement = async (elementId: string) => {
     isGradable.value = element.value.data.isGradable as boolean;
   } catch (error) {
     console.log('Error on element get', error);
-    setTimeout(() => getElement(elementId), 2000);
+    setTimeout(() => load(elementId), 2000);
   }
 };
 
