@@ -115,11 +115,18 @@ importers:
 
   packages/common:
     specifiers:
+      '@lukeed/csprng': ^1.0.2
+      '@lukeed/uuid': ^2.0.1
       '@tailor-cms/eslint-config': 0.0.3
       '@types/node': ^22.15.29
       eslint: '>=9.28.0'
+      ky: 1.8.1
       tsup: ^8.5.0
       typescript: ^5.8.3
+    dependencies:
+      '@lukeed/csprng': 1.1.0
+      '@lukeed/uuid': 2.0.1
+      ky: 1.8.1
     devDependencies:
       '@tailor-cms/eslint-config': link:../eslint
       '@types/node': 22.15.30
@@ -153,9 +160,8 @@ importers:
 
   packages/runtime/preview:
     specifiers:
-      '@lukeed/csprng': ^1.0.2
-      '@lukeed/uuid': ^2.0.1
       '@mdi/font': 7.4.47
+      '@tailor-cms/cek-common': workspace:^0.0.6
       '@tailor-cms/eslint-config': workspace:*
       '@types/lodash-es': ^4.17.12
       '@types/stringify-object': ^4.0.5
@@ -169,16 +175,14 @@ importers:
       split.js: 1.6.5
       stringify-object: ^5.0.0
       typescript: 5.8.3
-      universal-cookie: ^8.0.1
       vite: 6.3.5
       vite-plugin-vuetify: 2.1.1
       vue: 3.5.16
       vue-tsc: 2.2.10
       vuetify: 3.8.7
     dependencies:
-      '@lukeed/csprng': 1.1.0
-      '@lukeed/uuid': 2.0.1
       '@mdi/font': 7.4.47
+      '@tailor-cms/cek-common': link:../../common
       '@vitejs/plugin-vue': 5.2.4_vite@6.3.5+vue@3.5.16
       '@vueuse/core': 13.3.0_vue@3.5.16
       date-fns: 4.1.0
@@ -188,7 +192,6 @@ importers:
       split.js: 1.6.5
       stringify-object: 5.0.0
       typescript: 5.8.3
-      universal-cookie: 8.0.1
       vite: 6.3.5_sass@1.89.1
       vite-plugin-vuetify: 2.1.1_6d5jh4cv4dv4picqfpf6lclvqm
       vue: 3.5.16_typescript@5.8.3
@@ -202,9 +205,8 @@ importers:
 
   packages/runtime/tce-display:
     specifiers:
-      '@lukeed/csprng': ^1.0.2
-      '@lukeed/uuid': ^2.0.1
       '@mdi/font': 7.4.47
+      '@tailor-cms/cek-common': workspace:0.0.6
       '@tailor-cms/eslint-config': workspace:*
       '@types/lodash-es': ^4.17.12
       '@types/node': ^22.15.29
@@ -227,9 +229,8 @@ importers:
       vuetify: 3.8.7
       webfontloader: 1.6.28
     dependencies:
-      '@lukeed/csprng': 1.1.0
-      '@lukeed/uuid': 2.0.1
       '@mdi/font': 7.4.47
+      '@tailor-cms/cek-common': link:../../common
       '@vitejs/plugin-vue': 5.2.4_vite@6.3.5+vue@3.5.16
       '@vue/reactivity': 3.5.16
       '@vue/runtime-core': 3.5.16
@@ -255,10 +256,8 @@ importers:
 
   packages/runtime/tce-edit:
     specifiers:
-      '@lukeed/csprng': ^1.0.2
-      '@lukeed/uuid': ^2.0.1
       '@mdi/font': 7.4.47
-      '@tailor-cms/cek-common': 0.0.6
+      '@tailor-cms/cek-common': workspace:0.0.6
       '@tailor-cms/eslint-config': workspace:*
       '@types/lodash-es': ^4.17.12
       '@types/node': ^22.15.29
@@ -285,8 +284,6 @@ importers:
       vuetify: 3.8.7
       webfontloader: 1.6.28
     dependencies:
-      '@lukeed/csprng': 1.1.0
-      '@lukeed/uuid': 2.0.1
       '@mdi/font': 7.4.47
       '@tailor-cms/cek-common': link:../../common
       '@vitejs/plugin-vue': 5.2.4_vite@6.3.5+vue@3.5.16
@@ -3368,11 +3365,6 @@ packages:
   /cookie/0.7.2:
     resolution: {integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==}
     engines: {node: '>= 0.6'}
-    dev: false
-
-  /cookie/1.0.2:
-    resolution: {integrity: sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA==}
-    engines: {node: '>=18'}
     dev: false
 
   /copy-anything/3.0.5:
@@ -7791,12 +7783,6 @@ packages:
       unist-util-is: 6.0.0
       unist-util-visit-parents: 6.0.1
     dev: true
-
-  /universal-cookie/8.0.1:
-    resolution: {integrity: sha512-B6ks9FLLnP1UbPPcveOidfvB9pHjP+wekP2uRYB9YDfKVpvcjKgy1W5Zj+cEXJ9KTPnqOKGfVDQBmn8/YCQfRg==}
-    dependencies:
-      cookie: 1.0.2
-    dev: false
 
   /universalify/0.1.2:
     resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}

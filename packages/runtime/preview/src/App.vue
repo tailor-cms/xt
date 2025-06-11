@@ -1,34 +1,29 @@
 <script setup lang="ts">
+import {
+  getApiClient,
+  initWebSocket,
+  resolveElementId,
+} from '@tailor-cms/cek-common';
 import { onMounted, ref } from 'vue';
-import ky from 'ky';
-import { v4 as uuid } from '@lukeed/uuid/secure';
+import type { Element } from '@tailor-cms/cek-common';
 
 import AppBar from './components/AppBar.vue';
 import MainLayout from './components/MainLayout.vue';
 
-interface ContentElement {
-  id: number;
-  uid: string;
-}
-
 const { VITE_SERVER_RUNTIME_URL } = import.meta.env;
 const serverRuntimeUrl = new URL(VITE_SERVER_RUNTIME_URL);
-const wsProtocol = serverRuntimeUrl.protocol === 'http:' ? 'ws:' : 'wss:';
+const api = getApiClient(VITE_SERVER_RUNTIME_URL);
 
-const api = ky.create({ prefixUrl: VITE_SERVER_RUNTIME_URL });
-
-const element = ref<ContentElement>();
+const element = ref<Element>();
 const userState = ref({});
 
-const getElementRoute = (id: string) => `content-element/${id}`;
 const timeout = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 async function getElement(id: string): Promise<void> {
   try {
-    const res = await api(getElementRoute(id)).json();
-    const { element: elementVal, userState: userStateVal } = res as any;
-    element.value = elementVal;
-    userState.value = userStateVal;
+    const res = await api.getElement(id);
+    element.value = res.element;
+    userState.value = res.userState;
   } catch (error) {
     console.log('Error on element get', error);
     await timeout(2000);
@@ -38,34 +33,20 @@ async function getElement(id: string): Promise<void> {
 }
 
 async function resetElement(id: string) {
-  await resetState(id);
-  return api.post(`${getElementRoute(id)}/reset-element`);
-}
-
-async function resetState(id: string) {
-  return api.post(`${getElementRoute(id)}/reset-state`);
+  await api.resetState(id);
+  return api.resetElement(id);
 }
 
 onMounted(async () => {
-  const url = new URL(window.location.href);
-  const elementId = url.searchParams.get('id');
-  if (!elementId) {
-    url.searchParams.set('id', uuid());
-    window.location.href = url.toString();
-    return;
-  }
+  const elementId = resolveElementId();
+  if (!elementId) return;
   await getElement(elementId);
-  const wsUrl = `${wsProtocol}//${serverRuntimeUrl.host}?id=${elementId}`;
-  const ws = new WebSocket(wsUrl);
+  const ws = initWebSocket(serverRuntimeUrl, elementId);
   ws.addEventListener('message', (message) => {
     const event = JSON.parse(message.data);
     if (elementId && elementId !== event.entityId) return;
-    if (event.type === 'userState:update') {
-      userState.value = event.payload;
-    }
-    if (event.type === 'element:update') {
-      element.value = event.payload;
-    }
+    if (event.type === 'userState:update') userState.value = event.payload;
+    if (event.type === 'element:update') element.value = event.payload;
     if (event.type === 'userContext:change') getElement(elementId);
   });
 });
@@ -79,7 +60,7 @@ onMounted(async () => {
       :user-state="userState"
       class="mt-14"
       @reset-element="element && resetElement(element.uid)"
-      @reset-state="element && resetState(element.uid)"
+      @reset-state="element && api.resetState(element.uid)"
     />
   </VApp>
 </template>
