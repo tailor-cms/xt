@@ -27,11 +27,12 @@ export const restartCmd = async (command, port, restartDelay = 3000) => {
   try {
     const pid = await getPidFromPort(port);
     if (pid) await fkill(pid, { force: true });
-  } catch (e) {
-    console.log(`Could not stop the process running on port ${port}!`);
   } finally {
     await setTimeout(restartDelay);
-    command.start();
+    const pid = await getPidFromPort(port);
+    if (!pid) {
+      command.start();
+    }
   }
 };
 
