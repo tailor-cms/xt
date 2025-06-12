@@ -101,7 +101,7 @@ watch(
     });
     state.selectedTab = 1;
   },
-  { deep: true },
+  { deep: true, immediate: true },
 );
 
 watch(
@@ -114,6 +114,6 @@ watch(
     });
     state.selectedTab = 2;
   },
-  { deep: true },
+  { deep: true, immediate: true },
 );
 </script>
