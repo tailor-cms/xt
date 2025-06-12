@@ -42,14 +42,10 @@ onMounted(async () => {
   const elementId = resolveElementId();
   if (!elementId) return;
   await load(elementId);
-  const ws = initWebSocket(serverRuntimeUrl, elementId);
-  ws.addEventListener('message', (message) => {
-    const event = JSON.parse(message.data);
-    if (elementId && elementId !== event.entityId) return;
-    if (event.type === 'userState:update') userState.value = event.payload;
-    if (event.type === 'element:update') element.value = event.payload;
-    if (event.type === 'userContext:change') load(elementId);
-  });
+  const wsBus = initWebSocket(serverRuntimeUrl, elementId);
+  wsBus.on('element:update', (v: Element) => (element.value = v));
+  wsBus.on('userState:update', (v: any) => (userState.value = v));
+  wsBus.on('userContext:change', (v: { index: number }) => load(elementId));
 });
 </script>
 

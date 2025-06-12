@@ -225,12 +225,8 @@ onMounted(async () => {
   const elementId = resolveElementId();
   if (!elementId) return;
   await load(elementId);
-  const ws = initWebSocket(serverRuntimeUrl, elementId);
-  ws.addEventListener('message', (event) => {
-    const data = JSON.parse(event.data);
-    if (data.type !== 'element:update' || elementId !== data.entityId) return;
-    element.value = data.payload;
-  });
+  const wsBus = initWebSocket(serverRuntimeUrl, elementId);
+  wsBus.on('element:update', (v: Element) => (element.value = v));
 });
 
 const focusElement = () => {

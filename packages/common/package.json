@@ -51,6 +51,7 @@
   "dependencies": {
     "@lukeed/csprng": "^1.0.2",
     "@lukeed/uuid": "^2.0.1",
-    "ky": "1.8.1"
+    "ky": "1.8.1",
+    "mitt": "^3.0.1"
   }
 }

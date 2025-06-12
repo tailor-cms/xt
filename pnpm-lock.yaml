@@ -121,12 +121,14 @@ importers:
       '@types/node': ^22.15.29
       eslint: '>=9.28.0'
       ky: 1.8.1
+      mitt: ^3.0.1
       tsup: ^8.5.0
       typescript: ^5.8.3
     dependencies:
       '@lukeed/csprng': 1.1.0
       '@lukeed/uuid': 2.0.1
       ky: 1.8.1
+      mitt: 3.0.1
     devDependencies:
       '@tailor-cms/eslint-config': link:../eslint
       '@types/node': 22.15.30

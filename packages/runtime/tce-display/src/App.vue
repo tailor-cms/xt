@@ -60,18 +60,14 @@ onMounted(async () => {
   const elementId = resolveElementId();
   if (!elementId) return;
   await load(elementId);
-  const ws = initWebSocket(serverRuntimeUrl, elementId);
-  ws.addEventListener('message', (event) => {
-    const { entityId, type: eventName, payload } = JSON.parse(event.data);
-    if (elementId && elementId !== entityId) return;
-    if (eventName === 'element:update') element.value = payload;
-    if (eventName === 'userState:update') userState.value = payload;
-    if (eventName === 'userContext:change') {
-      const contextName = displayStateContexts.value[payload.index].name;
-      if (selectedStateContext.value === contextName) return;
-      // Different browser tab
-      load(elementId);
-    }
+  const wsBus = initWebSocket(serverRuntimeUrl, elementId);
+  wsBus.on('element:update', (v: Element) => (element.value = v));
+  wsBus.on('userState:update', (v: any) => (userState.value = v));
+  wsBus.on('userContext:change', (v: { index: number }) => {
+    const contextName = displayStateContexts.value[v.index].name;
+    if (selectedStateContext.value === contextName) return;
+    // Different browser tab
+    load(elementId);
   });
 });
 

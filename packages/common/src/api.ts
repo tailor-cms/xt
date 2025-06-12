@@ -1,4 +1,5 @@
 import ky from 'ky';
+import mitt from 'mitt';
 
 const endpoint = {
   base: 'content-element',
@@ -49,11 +50,34 @@ export const getApiClient = (
   };
 };
 
-export const getWsRoute = (serverRuntimeUrl: URL, elementId: string) => {
+interface ServerEvent {
+  type: string;
+  entityId: string;
+  payload: any;
+}
+
+const serverEventBus = mitt();
+const getWsRoute = (serverRuntimeUrl: URL, elementId: string) => {
   const wsProtocol = serverRuntimeUrl.protocol === 'http:' ? 'ws:' : 'wss:';
   return `${wsProtocol}//${serverRuntimeUrl.host}?id=${elementId}`;
 };
 
 export const initWebSocket = (serverRuntimeUrl: URL, elementId: string) => {
-  return new WebSocket(getWsRoute(serverRuntimeUrl, elementId));
+  const ws = new WebSocket(getWsRoute(serverRuntimeUrl, elementId));
+  ws.onmessage = (e) => {
+    const { entityId, type, payload } = JSON.parse(e?.data) as ServerEvent;
+    if (entityId !== elementId) return;
+    serverEventBus.emit(type, payload);
+  };
+  ws.onclose = (e) => {
+    const retryInterval = 3000; // 3 seconds
+    const msg = `Connection closed. Retry in ${retryInterval / 1000}s...`;
+    console.log(msg, e?.reason);
+    setTimeout(() => initWebSocket(serverRuntimeUrl, elementId), retryInterval);
+  };
+  ws.onerror = () => {
+    console.error('Socket encountered error, closing socket...');
+    ws.close();
+  };
+  return serverEventBus;
 };
