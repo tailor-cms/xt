@@ -62,10 +62,10 @@ await setTimeout(2500);
 const serverPackage = commands.find((it) => it.name === 'server-package');
 const serverRuntime = commands.find((it) => it.name === 'server-runtime');
 const restartServerRuntime = debounce(
-  () => restartCmd(serverRuntime, serverConfig.serverRuntimePort, 1000),
-  4000,
+  () => restartCmd(serverRuntime, serverConfig.serverRuntimePort),
+  3000,
 );
 
 serverPackage.stdout.subscribe((msg) => {
-  if (msg && msg.includes('success')) restartServerRuntime();
+  if (msg && /CJS.*Build success/.test(msg)) restartServerRuntime();
 });

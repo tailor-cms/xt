@@ -1,5 +1,5 @@
 {
-  "name": "Tailor - File Content Element",
+  "name": "Tailor - Content Element",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
   "features": {
     "ghcr.io/devcontainers-extra/features/pnpm:2": {},
