@@ -168,8 +168,13 @@
 </template>
 
 <script lang="ts" setup>
+import {
+  getApiClient,
+  initWebSocket,
+  resolveElementId,
+} from '@tailor-cms/cek-common';
 import { getCurrentInstance, inject, onMounted, provide, ref } from 'vue';
-import ky from 'ky';
+import type { Element } from '@tailor-cms/cek-common';
 
 import assetApi from './api/asset';
 import ConfirmationDialog from './components/ConfirmationDialog.vue';
@@ -177,13 +182,14 @@ import QuestionCard from './components/QuestionCard.vue';
 
 const { TopToolbar, SideToolbar } = getCurrentInstance().appContext.components;
 
-const appUrl = new URL(window.location.href);
-const apiPrefix = '/tce-server';
-const api = ky.create({ prefixUrl: apiPrefix });
-const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
-const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
+const { VITE_SERVER_RUNTIME_URL } = import.meta.env;
+const serverRuntimeUrl = new URL(VITE_SERVER_RUNTIME_URL);
+const api = getApiClient(VITE_SERVER_RUNTIME_URL);
 
-type ContentElement = Record<string, any>;
+provide('$storageService', assetApi);
+
+const eventBus = inject<any>('$eventBus');
+const appChannel = eventBus.channel('app');
 
 interface Props {
   isQuestion?: boolean;
@@ -201,18 +207,14 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits(['save', 'delete']);
 
-const eventBus = inject<any>('$eventBus');
-const appChannel = eventBus.channel('app');
-
-const element = ref<ContentElement>({});
+const element = ref<Element>();
 const isFocused = ref(false);
 const isDisabled = ref(false);
 const persistSideToolbar = ref(false);
 const persistTopToolbar = ref(false);
-const isGradable = ref(props.isGradable ?? true);
-const isLinkDialogVisible = ref(false);
 
-provide('$storageService', assetApi);
+const isLinkDialogVisible = ref(false);
+const isGradable = ref(props.isGradable ?? true);
 
 const include = () => [
   document.querySelector('.top-toolbar'),
@@ -220,13 +222,11 @@ const include = () => [
 ];
 
 onMounted(async () => {
-  await getElement();
-  ws.addEventListener('message', (event) => {
-    const data = JSON.parse(event.data);
-    if (data.type !== 'element:update') return;
-    if (element.value?.uid && element.value?.uid !== data.entityId) return;
-    element.value = data.payload;
-  });
+  const elementId = resolveElementId();
+  if (!elementId) return;
+  await load(elementId);
+  const wsBus = initWebSocket(serverRuntimeUrl, elementId);
+  wsBus.on('element:update', (v: Element) => (element.value = v));
 });
 
 const focusElement = () => {
@@ -246,7 +246,7 @@ const onDelete = () => {
   emit('delete');
 };
 
-const onLink = async () => {
+const onLink = () => {
   isLinkDialogVisible.value = true;
   const refs = {
     linked: [
@@ -257,22 +257,31 @@ const onLink = async () => {
       },
     ],
   };
-  await api
-    .patch(`content-element/${element.value.id}`, { json: { refs } })
-    .json();
+  return api.updateElement(element.value.uid, { refs });
 };
 
-const getElement = async () => {
+const load = async (elementId: string) => {
   try {
-    const response: { element: ContentElement } = await api('content-element', {
-      searchParams: { runtime: 'authoring' },
-    }).json();
+    const response = await api.getElement(elementId);
     if (response === null) return;
     element.value = response?.element;
-    isGradable.value = element.value.data.isGradable;
+    isGradable.value = element.value.data.isGradable as boolean;
   } catch (error) {
     console.log('Error on element get', error);
-    setTimeout(() => getElement(), 2000);
+    setTimeout(() => load(elementId), 2000);
+  }
+};
+
+const resetState = () =>
+  api
+    .resetState(element.value.uid)
+    .catch((error) => console.log('Error on state reset', error));
+
+const updateElementData = async (data) => {
+  try {
+    element.value = await api.updateElement(element.value.uid, { data });
+  } catch (error) {
+    console.log('Error on element update', error);
   }
 };
 
@@ -287,23 +296,6 @@ const toggleGradable = async () => {
   await updateElementData(data);
   isGradable.value = data.isGradable;
   return resetState();
-};
-
-const resetState = async () =>
-  api
-    .post(`content-element/${element.value.id}/reset-state`)
-    .catch((error) => console.log('Error on state reset', error));
-
-const updateElementData = async (data) => {
-  try {
-    const response = await api
-      .patch(`content-element/${element.value.id}`, { json: { data } })
-      .json();
-
-    element.value = response;
-  } catch (error) {
-    console.log('Error on element update', error);
-  }
 };
 
 const confirmGradableToggle = () => {

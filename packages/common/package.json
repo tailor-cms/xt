@@ -3,7 +3,7 @@
   "description": "Content element kit shared util library",
   "author": "Studion <info@gostudion.com>",
   "type": "module",
-  "version": "0.0.6",
+  "version": "1.1.0",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -47,5 +47,11 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@lukeed/csprng": "^1.0.2",
+    "@lukeed/uuid": "^2.0.1",
+    "ky": "1.8.1",
+    "mitt": "^3.0.1"
   }
 }

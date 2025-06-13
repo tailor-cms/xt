@@ -1,72 +1,52 @@
 <script setup lang="ts">
+import {
+  getApiClient,
+  initWebSocket,
+  resolveElementId,
+} from '@tailor-cms/cek-common';
 import { onMounted, ref } from 'vue';
-import ky from 'ky';
+import type { Element } from '@tailor-cms/cek-common';
 
 import AppBar from './components/AppBar.vue';
 import MainLayout from './components/MainLayout.vue';
 
-interface ContentElement {
-  id: number;
-  uid: string;
-}
+const { VITE_SERVER_RUNTIME_URL } = import.meta.env;
+const serverRuntimeUrl = new URL(VITE_SERVER_RUNTIME_URL);
+const api = getApiClient(VITE_SERVER_RUNTIME_URL);
 
-const appUrl = new URL(window.location.href);
-const apiPrefix = '/tce-server';
-const api = ky.create({ prefixUrl: apiPrefix });
-const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
-
-const element = ref<ContentElement>();
+const element = ref<Element>();
 const userState = ref({});
 
-onMounted(async () => {
-  await getElement();
-  const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
-  ws.addEventListener('message', (message) => {
-    const event = JSON.parse(message.data);
-    const elementUid = element.value?.uid;
-    if (elementUid && elementUid !== event.entityId) return;
-    if (event.type === 'userState:update') {
-      userState.value = event.payload;
-    }
-    if (event.type === 'element:update') {
-      element.value = event.payload;
-    }
-    if (event.type === 'userContext:change') getElement();
-  });
-});
+const timeout = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
 
-function timeout(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-async function getElement(): Promise<any> {
+async function load(id: string): Promise<any> {
   try {
-    const res = await api('content-element').json();
-    const { element: elementVal, userState: userStateVal } = res as any;
-    element.value = elementVal;
-    userState.value = userStateVal;
+    const res = await api.getElement(id);
+    element.value = res.element;
+    userState.value = res.userState;
   } catch (error) {
     console.log('Error on element get', error);
     await timeout(2000);
     console.log('Retrying element get...');
-    return getElement();
+    return load(id);
   }
 }
 
-async function resetElement() {
-  const id = element.value?.id;
-  if (!id) return;
-  await resetState();
-  const path = `content-element/${id}/reset-element`;
-  return api.post(path);
+async function resetElement(id: string) {
+  await api.resetState(id);
+  return api.resetElement(id);
 }
 
-async function resetState() {
-  const id = element.value?.id;
-  if (!id) return;
-  const path = `content-element/${id}/reset-state`;
-  return api.post(path);
-}
+onMounted(async () => {
+  const elementId = resolveElementId();
+  if (!elementId) return;
+  await load(elementId);
+  const wsBus = initWebSocket(serverRuntimeUrl, elementId);
+  wsBus.on('element:update', (v: Element) => (element.value = v));
+  wsBus.on('userState:update', (v: any) => (userState.value = v));
+  wsBus.on('userContext:change', (v: { index: number }) => load(elementId));
+});
 </script>
 
 <template>
@@ -76,8 +56,8 @@ async function resetState() {
       :element="element"
       :user-state="userState"
       class="mt-14"
-      @reset-element="resetElement"
-      @reset-state="resetState"
+      @reset-element="element && resetElement(element.uid)"
+      @reset-state="element && api.resetState(element.uid)"
     />
   </VApp>
 </template>
