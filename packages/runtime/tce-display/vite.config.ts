@@ -1,5 +1,6 @@
 import { defineConfig, UserConfig } from 'vite';
 import dotenv from 'dotenv';
+import pick from 'lodash-es/pick';
 import vue from '@vitejs/plugin-vue';
 import vuetify from 'vite-plugin-vuetify';
 
@@ -12,12 +13,20 @@ const TCE_ROOT_DIR = TCE_DISPLAY_DIR.replace('/packages/display/dist', '');
 dotenv.config({ path: `${TCE_ROOT_DIR}/.env` });
 
 const env = process.env;
-const DISPLAY_RUNTIME_PORT = env.DISPLAY_RUNTIME_PORT || '8020';
-const SERVER_RUNTIME_URL = env.SERVER_RUNTIME_URL || 'http://localhost:8030';
+
+// Expose to Frontend by prefixing with VITE_
+const runtimeUrls = pick(env, [
+  'EDIT_RUNTIME_URL',
+  'DISPLAY_RUNTIME_URL',
+  'SERVER_RUNTIME_URL',
+  'PREVIEW_RUNTIME_PORT',
+]);
+Object.entries(runtimeUrls).forEach(([k, v]) => (process.env[`VITE_${k}`] = v));
 
 // https://vitejs.dev/config/
 export default defineConfig((): UserConfig => {
   const viteConfigPath = fileURLToPath(import.meta.url);
+  const { DISPLAY_RUNTIME_PORT } = env;
   const displayModulePath = path.relative(viteConfigPath, TCE_DISPLAY_DIR);
   return {
     root: './src',
@@ -26,14 +35,6 @@ export default defineConfig((): UserConfig => {
       // Accept connections from any host (Docker)
       host: '0.0.0.0',
       port: parseInt(DISPLAY_RUNTIME_PORT, 10),
-      proxy: {
-        '/tce-server': {
-          target: SERVER_RUNTIME_URL,
-          ws: true,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/tce-server/, ''),
-        },
-      },
     },
     resolve: {
       preserveSymlinks: true,

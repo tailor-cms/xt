@@ -23,14 +23,12 @@ export const freeUpPorts = async (ports) => {
 };
 
 // Restart command spawned by the 'concurrently' package
-export const restartCmd = async (command, port, restartDelay = 3000) => {
+export const restartCmd = async (command, port) => {
   try {
     const pid = await getPidFromPort(port);
     if (pid) await fkill(pid, { force: true });
-  } catch (e) {
-    console.log(`Could not stop the process running on port ${port}!`);
+    await setTimeout(1000);
   } finally {
-    await setTimeout(restartDelay);
     command.start();
   }
 };

@@ -25,7 +25,7 @@
               />
             </div>
             <Display
-              v-if="element.data"
+              v-if="element?.data"
               v-bind="element"
               :user-state="userState"
               @interaction="onInteraction"
@@ -38,72 +38,65 @@
 </template>
 
 <script setup lang="ts">
+import {
+  getApiClient,
+  initWebSocket,
+  resolveElementId,
+} from '@tailor-cms/cek-common';
 import { onMounted, ref } from 'vue';
+import type { Element } from '@tailor-cms/cek-common';
 import { findIndex } from 'lodash-es';
-import ky from 'ky';
 
-const appUrl = new URL(window.location.href);
-const apiPrefix = '/tce-server';
-const api = ky.create({ prefixUrl: apiPrefix });
-const wsProtocol = appUrl.protocol === 'http:' ? 'ws:' : 'wss:';
-const ws = new WebSocket(`${wsProtocol}//${appUrl.host}${apiPrefix}`);
+const { VITE_SERVER_RUNTIME_URL } = import.meta.env;
+const serverRuntimeUrl = new URL(VITE_SERVER_RUNTIME_URL);
+const api = getApiClient(VITE_SERVER_RUNTIME_URL);
 
-const element: any = ref({});
+const element = ref<Element>();
 const userState: any = ref({});
 const displayStateContexts = ref([]);
 const selectedStateContext = ref(null);
 
-onMounted(() => {
-  getElement();
-  ws.addEventListener('message', (event) => {
-    const data = JSON.parse(event.data);
-    const elementUid = element.value?.uid;
-    if (elementUid && elementUid !== data.entityId) return;
-    if (data.type === 'element:update') element.value = data.payload;
-    if (data.type === 'userState:update') userState.value = data.payload;
-    if (data.type === 'userContext:change') {
-      const { index } = data.payload;
-      const contextName = displayStateContexts.value[index].name;
-      if (selectedStateContext.value === contextName) return;
-      // Different browser tab
-      getElement();
-    }
+onMounted(async () => {
+  const elementId = resolveElementId();
+  if (!elementId) return;
+  await load(elementId);
+  const wsBus = initWebSocket(serverRuntimeUrl, elementId);
+  wsBus.on('element:update', (v: Element) => (element.value = v));
+  wsBus.on('userState:update', (v: any) => (userState.value = v));
+  wsBus.on('userContext:change', (v: { index: number }) => {
+    const contextName = displayStateContexts.value[v.index].name;
+    if (selectedStateContext.value === contextName) return;
+    // Different browser tab
+    load(elementId);
   });
 });
 
-const getElement = async () => {
+const load = async (id: string) => {
   try {
-    const response: any = await api('content-element', {
-      searchParams: { runtime: 'delivery' },
-    }).json();
+    const response = await api.getElement(id);
     if (!response?.element) return;
     element.value = response.element;
     userState.value = response?.userState;
-    const contextsPath = `content-element/${element.value.id}/state-contexts`;
-    const contextData: any = await api(contextsPath).json();
+    const contextData = await api.getContexts(id);
     const { contexts, currentContextIndex } = contextData;
     displayStateContexts.value = contexts;
     selectedStateContext.value = contexts[currentContextIndex].name;
   } catch (error) {
     console.log('Error on element get', error);
     // Retry
-    setTimeout(() => getElement(), 2000);
+    setTimeout(() => load(id), 2000);
   }
 };
 
 async function onContextChange(name) {
   const index = findIndex(displayStateContexts.value, { name });
-  const contextsPath = `content-element/${element.value.id}/set-state`;
-  await api.post(contextsPath, { json: { index } });
-  await getElement();
+  await api.setState(element.value.uid, index);
+  await load(element.value.uid);
 }
 
 const onInteraction = async (data) => {
   try {
-    const response: any = await api.post(
-      `content-element/${element.value.id}/activity`,
-      { json: data },
-    );
+    const response = await api.reportUserActivity(element.value.uid, data);
     if (response.status === 204) return;
     userState.value = await response.json();
   } catch (error) {

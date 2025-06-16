@@ -6,6 +6,16 @@ export const termColors = ['magenta', 'green', 'blue', 'cyan', 'yellow'];
 
 const env = process.env;
 
+const resolveAppUrl = (port) => {
+  const {
+    CODESPACE_NAME: codespaceName,
+    GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN: codespaceDomain,
+  } = env;
+  return codespaceName && codespaceDomain
+    ? `https://${codespaceName}-${port}.${codespaceDomain}`
+    : `http://localhost:${port}`;
+};
+
 // Determine project root dir
 const { PWD } = env;
 export const baseDir = PWD.includes('/node_modules/')
@@ -30,17 +40,21 @@ const validationSchema = object({
 });
 
 // Assign default values to env variables
-const defaultConfig = {
+const defaultPortConfig = {
   EDIT_RUNTIME_PORT: '8010',
-  EDIT_RUNTIME_URL: 'http://localhost:8010',
   DISPLAY_RUNTIME_PORT: '8020',
-  DISPLAY_RUNTIME_URL: 'http://localhost:8020',
   SERVER_RUNTIME_PORT: '8030',
-  SERVER_RUNTIME_URL: 'http://localhost:8030',
   PREVIEW_RUNTIME_PORT: '8080',
-  PREVIEW_RUNTIME_URL: 'http://localhost:8080',
 };
-defaults(process.env, defaultConfig);
+defaults(process.env, defaultPortConfig);
+
+const defaultUrlConfig = {
+  EDIT_RUNTIME_URL: resolveAppUrl(env.EDIT_RUNTIME_PORT),
+  DISPLAY_RUNTIME_URL: resolveAppUrl(env.DISPLAY_RUNTIME_PORT),
+  SERVER_RUNTIME_URL: resolveAppUrl(env.SERVER_RUNTIME_PORT),
+  PREVIEW_RUNTIME_URL: resolveAppUrl(env.PREVIEW_RUNTIME_PORT),
+};
+defaults(process.env, defaultUrlConfig);
 
 // Parse and validate env variables
 export const serverConfig = validationSchema.cast({
@@ -73,3 +87,4 @@ Object.keys(packageDirs).forEach((k) => (env[k] = `${packageDirs[k]}/dist`));
 
 // Can be used to determine if a component is running in a CEK runtime
 env.CEK_RUNTIME = true;
+env.VITE_CODESPACE_DOMAIN = env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN;
