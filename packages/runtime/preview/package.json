@@ -30,8 +30,7 @@
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/lodash-es": "^4.17.12",
-    "@types/stringify-object": "^4.0.5",
-    "eslint": ">=9.28.0"
+    "@types/stringify-object": "^4.0.5"
   },
   "publishConfig": {
     "access": "public"

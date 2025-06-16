@@ -33,8 +33,7 @@
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.15.29",
-    "@types/webfontloader": "1.6.38",
-    "eslint": ">=9.28.00"
+    "@types/webfontloader": "1.6.38"
   },
   "publishConfig": {
     "access": "public"

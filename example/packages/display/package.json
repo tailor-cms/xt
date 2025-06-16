@@ -26,7 +26,6 @@
     "@tailor-cms/eslint-config": "0.0.3",
     "@types/stringify-object": "^4.0.5",
     "@vitejs/plugin-vue": "^5.2.4",
-    "eslint": ">=9.28.0",
     "tce-manifest": "workspace:*",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
