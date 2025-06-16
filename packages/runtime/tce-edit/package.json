@@ -17,12 +17,12 @@
     "@vue/runtime-core": "^3.5.16",
     "@vue/runtime-dom": "^3.5.16",
     "@vue/shared": "^3.5.16",
-    "axios": "^1.9.0",
+    "axios": "^1.10.0",
     "dotenv": "^16.5.0",
     "ky": "1.8.1",
     "lodash-es": "^4.17.21",
     "mitt": "^3.0.1",
-    "sass": "1.89.1",
+    "sass": "1.89.2",
     "typescript": "5.8.3",
     "url-join": "^5.0.0",
     "uuid": "^11.1.0",
@@ -30,13 +30,13 @@
     "vite-plugin-vuetify": "2.1.1",
     "vue": "3.5.16",
     "vue-tsc": "2.2.10",
-    "vuetify": "3.8.7",
+    "vuetify": "3.8.9",
     "webfontloader": "1.6.28"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^22.15.29",
+    "@types/node": "^24.0.3",
     "@types/webfontloader": "1.6.38"
   },
   "publishConfig": {

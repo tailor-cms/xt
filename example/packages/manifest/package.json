@@ -25,7 +25,7 @@
     "@tailor-cms/cek-common": "workspace:*"
   },
   "devDependencies": {
-    "@tailor-cms/eslint-config": "0.0.3",
+    "@tailor-cms/eslint-config": "workspace:*",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3"
   },

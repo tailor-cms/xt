@@ -23,10 +23,10 @@
     "vue": "^3.5.13"
   },
   "dependencies": {
-    "@tailor-cms/cek-common": "0.0.6"
+    "@tailor-cms/cek-common": "workspace:*"
   },
   "devDependencies": {
-    "@tailor-cms/eslint-config": "0.0.3",
+    "@tailor-cms/eslint-config": "workspace:*",
     "@vitejs/plugin-vue": "^5.2.4",
     "tce-manifest": "workspace:*",
     "typescript": "^5.8.3",
