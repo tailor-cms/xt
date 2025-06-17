@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node src/free-ports.js && node src/index.js",
     "lint": "eslint .",
-    "lint:fix": "pnpm lint --fix"
+    "lint:fix": "pnpm lint --fix",
+    "nuke": "pnpm dlx del-cli node_modules"
   },
   "dependencies": {
     "@tailor-cms/tce-display-runtime": "workspace:*",

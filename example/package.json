@@ -18,7 +18,8 @@
   "scripts": {
     "dev": "pnpm boot:cek",
     "boot:cek": "cd ./node_modules/@tailor-cms/tce-boot && pnpm start --default-display",
-    "build": "pnpm -r run build"
+    "build": "pnpm -r run build",
+    "nuke": "pnpm -r run nuke && pnpm dlx del-cli node_modules"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "0.0.3",

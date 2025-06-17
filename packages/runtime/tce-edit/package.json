@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "vite",
     "lint": "eslint .",
-    "lint:fix": "pnpm lint --fix"
+    "lint:fix": "pnpm lint --fix",
+    "nuke": "pnpm dlx del-cli node_modules"
   },
   "dependencies": {
     "@mdi/font": "7.4.47",

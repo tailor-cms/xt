@@ -19,7 +19,9 @@
     "dev": "tsup --watch src --watch ../manifest/dist",
     "build": "tsup",
     "lint": "eslint .",
-    "lint:fix": "pnpm lint --fix"
+    "lint:fix": "pnpm lint --fix",
+    "nuke": "pnpm dlx del-cli dist node_modules",
+    "prepublish": "pnpm nuke && pnpm install && pnpm build"
   },
   "devDependencies": {
     "@tailor-cms/cek-common": "workspace:*",

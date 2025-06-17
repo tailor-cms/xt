@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "lint": "eslint .",
-    "release": "npx np"
+    "release": "npx np",
+    "nuke": "pnpm dlx del-cli node_modules"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
