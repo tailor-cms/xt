@@ -19,6 +19,7 @@
     "dev": "pnpm boot:cek",
     "boot:cek": "cd ./node_modules/@tailor-cms/tce-boot && pnpm start --default-display",
     "build": "pnpm -r run build",
+    "nuke:dist": "pnpm -r run nuke:dist",
     "nuke": "pnpm -r run nuke && pnpm dlx del-cli node_modules"
   },
   "devDependencies": {
