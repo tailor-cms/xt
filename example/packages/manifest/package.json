@@ -17,11 +17,12 @@
   ],
   "scripts": {
     "dev": "tsup --watch",
-    "build": "tsup",
+    "build": "pnpm nuke:dist && tsup",
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
     "nuke": "pnpm dlx del-cli dist node_modules",
-    "prepublish": "pnpm nuke && pnpm install && pnpm build"
+    "nuke:dist": "pnpm dlx del-cli dist",
+    "prepublish": "pnpm build"
   },
   "dependencies": {
     "@tailor-cms/cek-common": "workspace:*"

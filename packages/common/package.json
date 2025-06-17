@@ -17,10 +17,12 @@
   ],
   "scripts": {
     "dev": "tsup --watch",
-    "build": "tsup",
+    "build": "nuke:dist && tsup",
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
-    "nuke": "pnpm dlx del-cli dist node_modules"
+    "nuke": "pnpm dlx del-cli dist node_modules",
+    "nuke:dist": "pnpm dlx del-cli dist",
+    "prepublish": "pnpm build"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "0.0.3",
