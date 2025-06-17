@@ -15,7 +15,7 @@
               <VSpacer />
               <VBtn
                 v-if="isAiEnabled"
-                :disabled="isDisabled || isLoading"
+                :disabled="isDisabled || isGeneratingContent"
                 class="mr-2"
                 color="indigo-darken-2"
                 prepend-icon="mdi-creation"
@@ -51,7 +51,7 @@
                   />
                   <VCheckbox
                     v-if="isQuestion"
-                    :disabled="isGradable !== undefined"
+                    :disabled="isToggleGradableDisabled"
                     :model-value="isGradable"
                     color="primary"
                     density="comfortable"
@@ -87,7 +87,7 @@
             </div>
             <VSheet class="pa-8" color="white" elevation="3" rounded="lg">
               <div
-                v-if="isLoading"
+                v-if="isGeneratingContent"
                 class="d-flex flex-wrap justify-center py-16"
               >
                 <VProgressCircular
@@ -286,9 +286,13 @@ const persistFocus = ref(false);
 
 const isLinkDialogVisible = ref(false);
 const isGradable = ref(props.isGradable ?? true);
-const isLoading = ref(false);
+const isGeneratingContent = ref(false);
 
 const aiContext = ref(`Generate ${props.type} content element.`);
+
+const isToggleGradableDisabled = ref(
+  props.isQuestion && props.isGradable !== undefined,
+);
 
 const include = () => [
   document.querySelector('.top-toolbar'),
@@ -321,14 +325,10 @@ const onDelete = () => {
 };
 
 const doTheMagic = async () => {
-  isLoading.value = true;
-  const context = aiContext.value.trim();
-  const res = (await api
-    .post('ai/generate', { json: { context } })
-    .json()) as any;
-  console.log(res.data);
+  isGeneratingContent.value = true;
+  const res = await api.generateContent(aiContext.value.trim());
   await updateElementData(res.data);
-  isLoading.value = false;
+  isGeneratingContent.value = false;
 };
 
 const onLink = () => {
