@@ -19,34 +19,50 @@
     </VBtn>
     <div class="my-4">
       <VFileInput
-        v-if="!isDisabled"
+        v-if="!isDisabled && !element.data.key"
         accept="image/png, image/jpeg"
         label="Set background"
         hide-details
         prepend-icon
-        @change="upload"
+        @change="uploadImage"
       />
-      <ul v-if="element.data.key" class="upload-details">
-        <VSheet class="py-2 px-4" color="grey-lighten-3" rounded="lg" tag="li">
+      <VSheet
+        v-if="element.data.key"
+        class="upload-details d-flex flex-column ga-4 pa-4"
+        color="grey-lighten-3"
+        tag="ul"
+        rounded
+      >
+        <div class="d-flex">
+          <VSpacer />
+          <VBtn
+            color="grey-darken-4"
+            icon="mdi-close"
+            size="small"
+            variant="tonal"
+            @click="removeImage"
+          />
+        </div>
+        <VSheet class="py-2 px-4" rounded="lg" tag="li">
           <b>Storage key:</b>{{ element.data.key }}
         </VSheet>
-        <VSheet class="py-2 px-4" color="grey-lighten-3" rounded="lg" tag="li">
+        <VSheet class="py-2 px-4" rounded="lg" tag="li">
           <b>Internal url:</b>{{ element.data.assets?.backgroundUrl }}
         </VSheet>
-        <VSheet class="py-2 px-4" color="grey-lighten-3" rounded="lg" tag="li">
+        <VSheet class="py-2 px-4" rounded="lg" tag="li">
           <b>Public url:</b>
           <a :to="element.data.backgroundUrl" target="_blank">
             {{ element.data.backgroundUrl }}
           </a>
         </VSheet>
-      </ul>
+        <VImg
+          v-if="element.data.backgroundUrl"
+          :src="element.data.backgroundUrl"
+          alt="Background image"
+          width="200"
+        />
+      </VSheet>
     </div>
-    <VImg
-      v-if="element.data.backgroundUrl"
-      :src="element.data.backgroundUrl"
-      alt="Background image"
-      width="200"
-    />
     <VBtn v-if="!isDisabled" class="my-3" variant="tonal" @click="emit('link')">
       Link example
     </VBtn>
@@ -82,7 +98,7 @@ const updateDescription = (description: string) => {
 
 elementBus.on('decrement', ({ count }: any) => console.log(count));
 
-const upload = (e: InputFileEvent | any) => {
+const uploadImage = (e: InputFileEvent | any) => {
   const form = createUploadForm(e);
   if (!form) return;
   return storageService.upload(form).then(({ key, url }) =>
@@ -93,6 +109,15 @@ const upload = (e: InputFileEvent | any) => {
     }),
   );
 };
+
+const removeImage = () => {
+  emit('save', {
+    ...props.element.data,
+    key: undefined,
+    assets: undefined,
+    backgroundUrl: undefined,
+  });
+};
 </script>
 
 <style scoped>
@@ -102,9 +127,7 @@ const upload = (e: InputFileEvent | any) => {
 }
 
 .upload-details > li {
-  margin: 1rem 0;
-  overflow-x: hidden;
-  text-overflow: ellipsis;
+  word-break: break-word;
 
   > b {
     display: inline-block;
