@@ -1,5 +1,9 @@
 <template>
-  <button @click="decrement">Decrement</button>
+  <VToolbarItems>
+    <VBtn color="grey-darken-4" prepend-icon="mdi-minus" @click="decrement">
+      Decrement
+    </VBtn>
+  </VToolbarItems>
 </template>
 
 <script setup lang="ts">
@@ -18,12 +22,3 @@ const decrement = () => {
   elementBus.emit('decrement', { count });
 };
 </script>
-
-<style scoped>
-button {
-  padding: 0.5rem 1rem;
-  background-color: #eee;
-  border: 1px solid #444;
-  border-radius: 0.125rem;
-}
-</style>

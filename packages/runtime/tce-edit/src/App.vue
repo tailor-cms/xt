@@ -76,6 +76,7 @@
                   <VTextarea
                     v-if="isAiEnabled"
                     v-model="aiContext"
+                    :placeholder="`Generate ${type} content element.`"
                     class="mt-4"
                     label="AI Context"
                     rows="3"
@@ -288,7 +289,7 @@ const isLinkDialogVisible = ref(false);
 const isGradable = ref(props.isGradable ?? true);
 const isGeneratingContent = ref(false);
 
-const aiContext = ref(`Generate ${props.type} content element.`);
+const aiContext = ref('');
 
 const isToggleGradableDisabled = ref(
   props.isQuestion && props.isGradable !== undefined,

@@ -8,39 +8,48 @@
       @update:model-value="updateDescription"
     />
     <div>Times clicked: {{ element.data.count }}</div>
-    <button :disabled="isDisabled" @click="increment">Increment</button>
-    <div class="background-input-container">
-      <label for="backgroundInput">
-        Set background:
-        <input
-          id="backgroundInput"
-          :disabled="isDisabled"
-          accept="image/png, image/jpeg"
-          type="file"
-          @change="upload"
-        />
-      </label>
+    <VBtn
+      v-if="!isDisabled"
+      class="my-3"
+      prepend-icon="mdi-plus"
+      variant="tonal"
+      @click="increment"
+    >
+      Increment
+    </VBtn>
+    <div class="my-4">
+      <VFileInput
+        v-if="!isDisabled"
+        accept="image/png, image/jpeg"
+        label="Set background"
+        hide-details
+        prepend-icon
+        @change="upload"
+      />
       <ul v-if="element.data.key" class="upload-details">
-        <li><b>Storage key:</b>{{ element.data.key }}</li>
-        <li><b>Internal url:</b>{{ element.data.assets?.backgroundUrl }}</li>
-        <li>
+        <VSheet class="py-2 px-4" color="grey-lighten-3" rounded="lg" tag="li">
+          <b>Storage key:</b>{{ element.data.key }}
+        </VSheet>
+        <VSheet class="py-2 px-4" color="grey-lighten-3" rounded="lg" tag="li">
+          <b>Internal url:</b>{{ element.data.assets?.backgroundUrl }}
+        </VSheet>
+        <VSheet class="py-2 px-4" color="grey-lighten-3" rounded="lg" tag="li">
           <b>Public url:</b>
           <a :to="element.data.backgroundUrl" target="_blank">
             {{ element.data.backgroundUrl }}
           </a>
-        </li>
+        </VSheet>
       </ul>
     </div>
-    <img
+    <VImg
       v-if="element.data.backgroundUrl"
       :src="element.data.backgroundUrl"
       alt="Background image"
-      class="my-7"
-      width="200px"
+      width="200"
     />
-    <div class="my-3">
-      <button :disabled="isDisabled" @click="emit('link')">Link example</button>
-    </div>
+    <VBtn v-if="!isDisabled" class="my-3" variant="tonal" @click="emit('link')">
+      Link example
+    </VBtn>
   </div>
 </template>
 
@@ -88,43 +97,17 @@ const upload = (e: InputFileEvent | any) => {
 
 <style scoped>
 .tce-container {
-  background-color: transparent;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
 }
 
-.background-input-container {
+.upload-details > li {
   margin: 1rem 0;
-}
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 
-button {
-  margin-top: 1rem;
-  padding: 0.125rem 0.625rem;
-  background-color: #eee;
-  border: 1px solid #444;
-  border-radius: 0.125rem;
-
-  &:disabled {
-    background-color: #eee;
-    border-color: #d6d6d6;
-  }
-}
-
-.upload-details {
-  padding: 0;
-  list-style: none;
-
-  > li {
-    margin: 1rem 0;
-    padding: 0.5rem;
-    background-color: #ddd;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-
-    > b {
-      display: inline-block;
-      padding-right: 0.5rem;
-    }
+  > b {
+    display: inline-block;
   }
 }
 </style>
