@@ -327,8 +327,14 @@ const onDelete = () => {
 
 const doTheMagic = async () => {
   isGeneratingContent.value = true;
-  const res = await api.generateContent(aiContext.value.trim());
-  await updateElementData(res.data);
+  try {
+    const res = await api.generateContent(aiContext.value.trim());
+    await updateElementData(res.data);
+  } catch (error) {
+    console.log('Error on element content generate:', error);
+  } finally {
+    isGeneratingContent.value = false;
+  }
   isGeneratingContent.value = false;
 };
 

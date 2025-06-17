@@ -4,12 +4,12 @@ import { set } from 'lodash-es';
 import { v4 as uuid } from '@lukeed/uuid/secure';
 import { WebSocketServer } from 'ws';
 
+import { ai as aiConfig, port } from './config';
 import ai from './ai/index';
 import contentElement from './content-element/index';
 import DisplayContextService from './content-element/DisplayContextService';
 import http from 'node:http';
 import { initDb } from './db';
-import { port } from './config';
 import PubSubService from './PubSubService';
 import storageConfig from './storage/config';
 import storageRouter from './storage/storage.router';
@@ -36,8 +36,10 @@ function initApp({
     hookMap,
   });
   app.use(contentElement.path, contentElementRouter);
-  const aiRouter = ai.initRouter({ aiSchema });
-  app.use(ai.path, aiRouter);
+  if (aiConfig.isConfigured) {
+    const aiRouter = ai.initRouter({ aiSchema });
+    app.use(ai.path, aiRouter);
+  }
   app.use(storageRouter.path, storageRouter.router);
   app.use(express.static(storageConfig.storagePath));
 
