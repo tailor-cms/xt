@@ -8,7 +8,7 @@
     "dev": "node --experimental-specifier-resolution=node --loader ts-node/esm ./boot.ts",
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
-    "nuke": "pnpm dlx del-cli node_modules"
+    "nuke": "pnpm dlx del-cli node_modules storage/tmp/*"
   },
   "dependencies": {
     "@lukeed/uuid": "^2.0.1",
