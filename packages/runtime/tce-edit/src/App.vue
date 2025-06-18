@@ -13,32 +13,109 @@
                 Authoring component
               </VChip>
               <VSpacer />
-              <VCheckbox
-                v-model="isDisabled"
-                color="primary"
-                label="Disabled"
-                hide-details
+              <VBtn
+                v-if="isAiEnabled"
+                :disabled="isDisabled || isGeneratingContent"
+                class="mr-2"
+                color="indigo-darken-2"
+                prepend-icon="mdi-creation"
+                size="small"
+                text="Do the magic"
+                variant="tonal"
+                @click="doTheMagic"
               />
-              <VCheckbox
-                v-if="isQuestion"
-                :disabled="props.isGradable !== undefined"
-                :model-value="isGradable"
-                class="ml-2"
-                color="primary"
-                label="Gradable"
-                hide-details
-                @click.prevent="confirmGradableToggle"
-              />
+              <VMenu :close-on-content-click="false" width="300" offset-y>
+                <template #activator="{ props: menuProps }">
+                  <VBtn
+                    v-bind="menuProps"
+                    color="primary-darken-2"
+                    prepend-icon="mdi-cog"
+                    size="small"
+                    text="Settings"
+                    variant="tonal"
+                  />
+                </template>
+                <VCard class="pa-4">
+                  <div
+                    class="d-flex align-center text-overline font-weight-bold"
+                  >
+                    <VIcon icon="mdi-format-list-bulleted" start />
+                    Element Props
+                  </div>
+                  <VCheckbox
+                    v-model="isDisabled"
+                    color="primary"
+                    density="comfortable"
+                    label="Disabled"
+                    hide-details
+                  />
+                  <VCheckbox
+                    v-if="isQuestion"
+                    :disabled="isToggleGradableDisabled"
+                    :model-value="isGradable"
+                    color="primary"
+                    density="comfortable"
+                    label="Gradable"
+                    hide-details
+                    @click.prevent="confirmGradableToggle"
+                  />
+                  <div
+                    class="d-flex align-center text-overline mt-4 font-weight-bold"
+                  >
+                    <VIcon icon="mdi-cog-outline" start />
+                    CEK Configuration
+                  </div>
+                  <VCheckbox
+                    v-model="persistFocus"
+                    :disabled="isDisabled"
+                    color="primary"
+                    density="comfortable"
+                    label="Persist focus"
+                    hide-details
+                  />
+                  <VTextarea
+                    v-if="isAiEnabled"
+                    v-model="aiContext"
+                    :placeholder="`Generate ${type} content element.`"
+                    class="mt-4"
+                    label="AI Context"
+                    rows="3"
+                    variant="outlined"
+                    hide-details
+                  />
+                </VCard>
+              </VMenu>
             </div>
             <VSheet class="pa-8" color="white" elevation="3" rounded="lg">
+              <div
+                v-if="isGeneratingContent"
+                class="d-flex flex-wrap justify-center py-16"
+              >
+                <VProgressCircular
+                  class="w-100"
+                  color="primary-darken-2"
+                  size="68"
+                  indeterminate
+                >
+                  <img
+                    alt="Tailor logo"
+                    src="https://avatars.githubusercontent.com/u/142484057"
+                    width="32"
+                  />
+                </VProgressCircular>
+                <div class="mt-8 text-primary-darken-4 font-weight-bold">
+                  <span>Content generation in progress...</span>
+                </div>
+              </div>
               <VSheet
+                v-else
                 v-click-outside="{
-                  handler: unfocusElement,
+                  handler: () => !persistFocus && unfocusElement(),
                   include,
                 }"
                 :class="{ focused: isFocused }"
                 class="edit-frame"
-                @click="focusElement"
+                @click="!persistFocus && focusElement()"
               >
                 <template v-if="element?.data">
                   <QuestionCard
@@ -80,16 +157,10 @@
               >
                 Top toolbar
               </VChip>
-              <VSpacer />
-              <VSwitch
-                v-model="persistTopToolbar"
-                label="Persist"
-                hide-details
-              />
             </div>
             <VSlideYTransition>
               <VSheet
-                v-if="element?.data && (isFocused || persistTopToolbar)"
+                v-if="element?.data && isFocused"
                 class="top-toolbar"
                 color="white"
                 elevation="1"
@@ -115,16 +186,10 @@
               >
                 Side toolbar
               </VChip>
-              <VSpacer />
-              <VSwitch
-                v-model="persistSideToolbar"
-                label="Persist"
-                hide-details
-              />
             </div>
             <VSlideXTransition>
               <VSheet
-                v-if="element?.data && (isFocused || persistSideToolbar)"
+                v-if="element?.data && isFocused"
                 class="side-toolbar"
                 color="primary-darken-2"
                 elevation="5"
@@ -173,7 +238,14 @@ import {
   initWebSocket,
   resolveElementId,
 } from '@tailor-cms/cek-common';
-import { getCurrentInstance, inject, onMounted, provide, ref } from 'vue';
+import {
+  getCurrentInstance,
+  inject,
+  onMounted,
+  provide,
+  ref,
+  watch,
+} from 'vue';
 import type { Element } from '@tailor-cms/cek-common';
 
 import assetApi from './api/asset';
@@ -194,6 +266,7 @@ const appChannel = eventBus.channel('app');
 interface Props {
   isQuestion?: boolean;
   isGradable?: boolean;
+  isAiEnabled?: boolean;
   type?: string;
   icon?: string;
 }
@@ -210,11 +283,17 @@ const emit = defineEmits(['save', 'delete']);
 const element = ref<Element>();
 const isFocused = ref(false);
 const isDisabled = ref(false);
-const persistSideToolbar = ref(false);
-const persistTopToolbar = ref(false);
+const persistFocus = ref(false);
 
 const isLinkDialogVisible = ref(false);
 const isGradable = ref(props.isGradable ?? true);
+const isGeneratingContent = ref(false);
+
+const aiContext = ref('');
+
+const isToggleGradableDisabled = ref(
+  props.isQuestion && props.isGradable !== undefined,
+);
 
 const include = () => [
   document.querySelector('.top-toolbar'),
@@ -244,6 +323,19 @@ const onSave = (data) => {
 
 const onDelete = () => {
   emit('delete');
+};
+
+const doTheMagic = async () => {
+  isGeneratingContent.value = true;
+  try {
+    const res = await api.generateContent(aiContext.value.trim());
+    await updateElementData(res.data);
+  } catch (error) {
+    console.log('Error on element content generate:', error);
+  } finally {
+    isGeneratingContent.value = false;
+  }
+  isGeneratingContent.value = false;
 };
 
 const onLink = () => {
@@ -305,6 +397,16 @@ const confirmGradableToggle = () => {
     action: toggleGradable,
   });
 };
+
+watch(persistFocus, (val) => {
+  if (val) isFocused.value = true;
+});
+
+watch(isDisabled, (val) => {
+  if (!val) return;
+  persistFocus.value = false;
+  isFocused.value = false;
+});
 </script>
 
 <style lang="scss" scoped>
@@ -352,6 +454,20 @@ const confirmGradableToggle = () => {
     border: 1px dashed #1de9b6;
     border-right-width: 2px;
     border-right-style: solid;
+  }
+}
+
+:deep(.v-input.required) {
+  .v-field-label {
+    padding-inline-end: 0.5rem;
+
+    &::after {
+      position: absolute;
+      content: '*';
+      top: 0;
+      // support also RTL direction
+      inset-inline-end: 0;
+    }
   }
 }
 </style>

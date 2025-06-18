@@ -19,7 +19,7 @@
           variant="text"
           @click="close"
         >
-          Close
+          Cancel
         </VBtn>
         <VBtn
           :focus="isVisible"

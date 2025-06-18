@@ -4,7 +4,7 @@
       <VContainer>
         <VRow>
           <VCol>
-            <div class="d-flex pb-1">
+            <div class="d-flex mb-1">
               <VChip
                 class="text-body-2 font-weight-bold"
                 color="#E0FB61"
@@ -24,12 +24,14 @@
                 @update:model-value="onContextChange"
               />
             </div>
-            <Display
-              v-if="element?.data"
-              v-bind="element"
-              :user-state="userState"
-              @interaction="onInteraction"
-            />
+            <VSheet class="pa-8" color="white" elevation="3" rounded="lg">
+              <Display
+                v-if="element?.data"
+                v-bind="element"
+                :user-state="userState"
+                @interaction="onInteraction"
+              />
+            </VSheet>
           </VCol>
         </VRow>
       </VContainer>

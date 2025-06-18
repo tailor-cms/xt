@@ -4,29 +4,42 @@ import { set } from 'lodash-es';
 import { v4 as uuid } from '@lukeed/uuid/secure';
 import { WebSocketServer } from 'ws';
 
+import { ai as aiConfig, port } from './config';
+import ai from './ai/index';
 import contentElement from './content-element/index';
 import DisplayContextService from './content-element/DisplayContextService';
 import http from 'node:http';
 import { initDb } from './db';
-import { port } from './config';
 import PubSubService from './PubSubService';
 import storageConfig from './storage/config';
 import storageRouter from './storage/storage.router';
 
-function initApp({ type, initState, isQuestion, isGradable, hookMap, mocks }) {
+function initApp({
+  type,
+  initState,
+  aiSchema,
+  isQuestion,
+  isGradable,
+  hookMap,
+  mocks,
+}) {
   DisplayContextService.initialize(mocks.displayContexts);
   const app = express();
   app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
-  const router = contentElement.initRouter({
+  const contentElementRouter = contentElement.initRouter({
     type,
     initState,
     isQuestion,
     isGradable,
     hookMap,
   });
-  app.use(contentElement.path, router);
+  app.use(contentElement.path, contentElementRouter);
+  if (aiConfig.isConfigured) {
+    const aiRouter = ai.initRouter({ aiSchema });
+    app.use(ai.path, aiRouter);
+  }
   app.use(storageRouter.path, storageRouter.router);
   app.use(express.static(storageConfig.storagePath));
 
@@ -49,11 +62,20 @@ function initApp({ type, initState, isQuestion, isGradable, hookMap, mocks }) {
 export default async function run({
   type,
   initState,
+  ai: aiSchema,
   isQuestion,
   isGradable,
   hookMap,
   mocks,
 }) {
   await initDb(hookMap);
-  return initApp({ type, initState, isQuestion, isGradable, hookMap, mocks });
+  return initApp({
+    type,
+    initState,
+    isQuestion,
+    isGradable,
+    hookMap,
+    mocks,
+    aiSchema,
+  });
 }

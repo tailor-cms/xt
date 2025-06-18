@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "node --experimental-specifier-resolution=node --loader ts-node/esm ./boot.ts",
     "lint": "eslint .",
-    "lint:fix": "pnpm lint --fix"
+    "lint:fix": "pnpm lint --fix",
+    "nuke": "pnpm dlx del-cli node_modules storage/tmp/*"
   },
   "dependencies": {
     "@lukeed/uuid": "^2.0.1",
@@ -19,8 +20,8 @@
     "hash-object": "^5.0.1",
     "lodash-es": "^4.17.21",
     "mkdirp": "^3.0.1",
-    "multer": "2.0.0",
-    "nodemon": "3.1.10",
+    "multer": "2.0.1",
+    "openai": "^5.4.0",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7",
     "ts-node": "^10.9.2",
@@ -31,10 +32,10 @@
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
-    "@types/cors": "^2.8.18",
-    "@types/express": "^5.0.2",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^22.15.29",
+    "@types/node": "^24.0.3",
     "@types/ws": "^8.18.1"
   },
   "publishConfig": {

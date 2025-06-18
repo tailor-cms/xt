@@ -2,13 +2,14 @@ import ky from 'ky';
 import mitt from 'mitt';
 
 const endpoint = {
-  base: 'content-element',
-  element: (id: string) => `${endpoint.base}/${id}`,
+  elementBase: 'content-element',
+  element: (id: string) => `${endpoint.elementBase}/${id}`,
   resetElement: (id: string) => `${endpoint.element(id)}/reset-element`,
   setState: (id: string) => `${endpoint.element(id)}/set-state`,
   resetState: (id: string) => `${endpoint.element(id)}/reset-state`,
   getContexts: (id: string) => `${endpoint.element(id)}/state-contexts`,
   reportActivity: (id: string) => `${endpoint.element(id)}/activity`,
+  generateContent: 'ai/generate',
 };
 
 export const getApiClient = (
@@ -39,6 +40,9 @@ export const getApiClient = (
   const reportUserActivity = (id: string, data: any): Promise<any> =>
     api.post(endpoint.reportActivity(id), { json: data });
 
+  const generateContent = (context: string): Promise<any> =>
+    api.post(endpoint.generateContent, { json: { context } }).json();
+
   return {
     getElement,
     updateElement,
@@ -47,6 +51,7 @@ export const getApiClient = (
     resetState,
     getContexts,
     reportUserActivity,
+    generateContent,
   };
 };
 

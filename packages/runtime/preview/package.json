@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "vite",
     "lint": "eslint .",
-    "lint:fix": "pnpm lint --fix"
+    "lint:fix": "pnpm lint --fix",
+    "nuke": "pnpm dlx del-cli node_modules"
   },
   "dependencies": {
     "@mdi/font": "7.4.47",
@@ -17,7 +18,7 @@
     "date-fns": "^4.1.0",
     "ky": "1.8.1",
     "lodash-es": "^4.17.21",
-    "sass": "1.89.1",
+    "sass": "1.89.2",
     "split.js": "1.6.5",
     "stringify-object": "^5.0.0",
     "typescript": "5.8.3",
@@ -25,13 +26,12 @@
     "vite-plugin-vuetify": "2.1.1",
     "vue": "3.5.16",
     "vue-tsc": "2.2.10",
-    "vuetify": "3.8.7"
+    "vuetify": "3.8.9"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/lodash-es": "^4.17.12",
-    "@types/stringify-object": "^4.0.5",
-    "eslint": ">=9.28.0"
+    "@types/stringify-object": "^4.0.5"
   },
   "publishConfig": {
     "access": "public"

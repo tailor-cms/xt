@@ -1,7 +1,8 @@
-import common from '@tailor-cms/cek-common';
+import * as common from '@tailor-cms/cek-common';
 
 export interface ElementData {
   count: number;
+  description: string;
   key?: string;
   backgroundUrl?: string;
   assets?: { backgroundUrl: string };

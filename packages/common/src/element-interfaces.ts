@@ -1,3 +1,11 @@
+import type { JSONSchema7 } from 'json-schema';
+
+export interface OpenAISchema {
+  type: 'json_schema';
+  name: string;
+  schema: JSONSchema7;
+}
+
 type ElementData = Record<string, unknown>;
 type Meta = Record<string, unknown>;
 type Refs = Record<string, unknown>;
@@ -32,11 +40,11 @@ export interface ElementManifest<TData = ElementData> {
    */
   type: string;
   /**
-   * Version of the content element (e.g. '1.0')
+   * Version of the content element (e.g. '1.0').
    */
   version: string;
   /**
-   * Human readable name of the content element
+   * Human readable name of the content element.
    */
   name: string;
   /**
@@ -47,13 +55,10 @@ export interface ElementManifest<TData = ElementData> {
    * Declare content element as a composite type. Should be true if
    * TailorEmbeddedContainer will be used.
    */
-  // Declare content element as a composite type. Should be true if
-  // TailorEmbeddedContainer will be used
   isComposite?: boolean;
   /**
-   * Declare content element as a question type
+   * Declare content element as a question type.
    */
-  // Declare content element as question type
   isQuestion?: boolean;
   /**
    * Accompanies the 'isQuestion' field, indicating whether the question type is
@@ -72,38 +77,56 @@ export interface ElementManifest<TData = ElementData> {
   Edit?: object;
   /**
    * TopToolbar component of the Content Element Edit component
-   * (Used for authoring purposes)
+   * (Used for authoring purposes).
    */
   TopToolbar?: object;
   /**
    * SideToolbar component of the Content Element Edit component
-   * (Used for authoring purposes)
+   * (Used for authoring purposes).
    */
   SideToolbar?: object;
   /**
    * Display component of the Content Element
-   * (end-user facing; presentation component)
+   * (end-user facing; presentation component).
    */
   Display?: object;
   /**
-   * Display component of the Content Element
-   * (end-user facing; presentation component)
+   * UI configuration for the authoring tool.
    */
   ui: {
     /**
-     * mdi icon name to represent the element within the authoring system
+     * mdi icon name to represent the element within the authoring system.
      */
     icon: string;
     /**
      * Does the element support layouts (e.g. 50/50) or it needs to be
-     * full width
+     * full width.
      */
     forceFullWidth: boolean;
+  };
+  ai?: {
+    /**
+     * Prompt used to describe the response structure.
+     */
+    getPrompt: (context: any) => string;
+    /**
+     * JSON schema for the OpenAI response formatting.
+     */
+    Schema?: OpenAISchema;
+    /**
+     * Function for additional response processing & validation.
+     */
+    processResponse?: (val: any) => any;
+    /**
+     * Indicates whether the AI generation tool should be used when generating
+     * content for this element.
+     */
+    useImageGenerationTool?: boolean;
   };
   mocks?: {
     /**
      * Provide end-user system context mock (used for user state hooks)
-     * See https://tailor-cms.github.io/xt/server-package.html#user-state-hooks
+     * See https://tailor-cms.github.io/xt/server-package.html#user-state-hooks.
      */
     displayContexts: Array<{ name: string; data: any }>;
   };

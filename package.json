@@ -7,12 +7,15 @@
   "type": "module",
   "scripts": {
     "lint": "pnpm -r run lint",
-    "prepack": "pnpm run build",
-    "release": "pnpm lint && changelogen --release && npm publish && git push --follow-tags"
+    "start:example": "pnpm -r --filter=./example run dev",
+    "build": "pnpm -r --filter=!./example/packages/** run build",
+    "nuke:dist": "pnpm -r -filter=!./example/packages/** run nuke:dist",
+    "nuke": "pnpm -r -filter=!./example/packages/** run nuke && pnpm dlx del-cli node_modules"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.4",
-    "changelogen": "^0.6.1"
+    "eslint": "^9.29.0",
+    "prettier": "3.5.3"
   },
   "packageManager": "pnpm@7.33.0"
 }

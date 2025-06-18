@@ -1,5 +1,5 @@
+import { ai, initState, mocks, type } from 'tce-manifest';
 import type { HookServices, ServerRuntime } from '@tailor-cms/cek-common';
-import { initState, mocks, type } from 'tce-manifest';
 import type { Element } from 'tce-manifest';
 
 const userStateMock: any = {};
@@ -80,4 +80,4 @@ export default {
   mocks,
 };
 
-export { type, initState, mocks };
+export { type, initState, mocks, ai };

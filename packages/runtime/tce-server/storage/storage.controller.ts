@@ -3,13 +3,14 @@ import config from './config';
 import path from 'node:path';
 import StorageService from './storage.service';
 
+const { getFileUrl, getPath } = StorageService;
 const getStorageUrl = (key) => `${config.protocol}${key}`;
 
 function getUrl(req, res) {
   const {
     query: { key },
   } = req;
-  return StorageService.getFileUrl(key).then((url) => res.json({ url }));
+  return getFileUrl(key).then((url) => res.json({ url }));
 }
 
 async function upload({ file }, res) {
@@ -28,7 +29,7 @@ async function uploadFile(file, name) {
   const hash = sha256(file.originalname, buffer);
   const extension = path.extname(file.originalname);
   const fileName = `${hash}___${name}${extension}`;
-  const key = path.join('assets/', fileName);
+  const key = getPath(fileName);
   console.log('Uploading file to storage:', key);
   await StorageService.saveFile(key, buffer, { ContentType: file.mimetype });
   const publicUrl = await StorageService.getFileUrl(key);

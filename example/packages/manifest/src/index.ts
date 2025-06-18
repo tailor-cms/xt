@@ -3,16 +3,20 @@ import type {
   ElementData,
   ElementManifest,
 } from './interfaces';
+import ai from './ai';
 
 // Element unique id within the target system (e.g. Tailor)
 export const type = 'ACME_TCE_COUNTER';
 
 // Display name (e.g. shown to the author)
-export const name = 'Simple counter';
+export const name = 'Simple Counter';
 
 // Function which inits element state (data property on the Content Element
 // entity)
-export const initState: DataInitializer = (): ElementData => ({ count: 0 });
+export const initState: DataInitializer = (): ElementData => ({
+  count: 0,
+  description: '',
+});
 
 // Can be loaded from package.json
 export const version = '1.0';
@@ -33,12 +37,15 @@ export const mocks = {
   ],
 };
 
+export { ai };
+
 const manifest: ElementManifest = {
   type,
   version: '1.0',
   name,
   initState,
   ui,
+  ai,
   mocks,
 };
 

@@ -22,8 +22,7 @@ class FilesystemStorage {
   }
 
   path(...segments) {
-    segments = [this.root, ...segments];
-    return path.join(...segments);
+    return path.join(this.root, ...segments);
   }
 
   getFile(key, options = {}) {
@@ -44,6 +43,10 @@ class FilesystemStorage {
     return Promise.resolve(
       urlJoin(config.origin, key.replace(config.protocol, '')),
     );
+  }
+
+  getPath(...segments) {
+    return path.join('assets', ...segments);
   }
 }
 
