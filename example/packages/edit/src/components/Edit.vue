@@ -2,14 +2,14 @@
   <div class="tce-container">
     <VTextField
       :model-value="element.data.description"
-      :readonly="isDisabled"
+      :readonly="isReadonly"
       class="mt-4"
       label="Description"
       @update:model-value="updateDescription"
     />
     <div>Times clicked: {{ element.data.count }}</div>
     <VBtn
-      v-if="!isDisabled"
+      v-if="!isReadonly"
       class="my-3"
       prepend-icon="mdi-plus"
       variant="tonal"
@@ -19,7 +19,7 @@
     </VBtn>
     <div class="my-4">
       <VFileInput
-        v-if="!isDisabled && !element.data.key"
+        v-if="!isReadonly && !element.data.key"
         accept="image/png, image/jpeg"
         label="Set background"
         hide-details
@@ -63,7 +63,7 @@
         />
       </VSheet>
     </div>
-    <VBtn v-if="!isDisabled" class="my-3" variant="tonal" @click="emit('link')">
+    <VBtn v-if="!isReadonly" class="my-3" variant="tonal" @click="emit('link')">
       Link example
     </VBtn>
   </div>
@@ -81,7 +81,8 @@ const elementBus = inject('$elementBus') as any;
 const props = defineProps<{
   element: Element;
   isFocused: boolean;
-  isDisabled: boolean;
+  isDragged: boolean;
+  isReadonly: boolean;
 }>();
 const emit = defineEmits(['save', 'link']);
 

@@ -15,7 +15,7 @@
               <VSpacer />
               <VBtn
                 v-if="isAiEnabled"
-                :disabled="isDisabled || isGeneratingContent"
+                :disabled="isReadonly || isGeneratingContent"
                 class="mr-2"
                 color="indigo-darken-2"
                 prepend-icon="mdi-creation"
@@ -40,15 +40,15 @@
                     Element Props
                   </div>
                   <VCheckbox
-                    v-model="isDisabled"
+                    v-model="isReadonly"
                     color="primary"
                     density="comfortable"
-                    label="Disabled"
+                    label="Readonly"
                     hide-details
                   />
                   <VCheckbox
                     v-model="persistFocus"
-                    :disabled="isDisabled"
+                    :disabled="isReadonly"
                     color="primary"
                     density="comfortable"
                     label="Focused"
@@ -56,7 +56,7 @@
                   />
                   <VCheckbox
                     v-model="isDragged"
-                    :disabled="isDisabled"
+                    :disabled="isReadonly"
                     color="primary"
                     density="comfortable"
                     label="Dragged"
@@ -142,7 +142,7 @@
                           icon,
                           element,
                           isDragged,
-                          isDisabled,
+                          isReadonly,
                           isFocused,
                         }"
                         @delete="onDelete"
@@ -154,7 +154,7 @@
                         v-bind="{
                           element,
                           isDragged,
-                          isDisabled,
+                          isReadonly,
                           isFocused,
                         }"
                         @delete="onDelete"
@@ -306,7 +306,7 @@ const emit = defineEmits(['save', 'delete']);
 
 const element = ref<Element>();
 const isFocused = ref(false);
-const isDisabled = ref(false);
+const isReadonly = ref(false);
 const isDragged = ref(false);
 const persistFocus = ref(false);
 
@@ -334,7 +334,7 @@ onMounted(async () => {
 });
 
 const focusElement = () => {
-  if (!isDisabled.value) isFocused.value = true;
+  if (!isReadonly.value) isFocused.value = true;
 };
 
 const unfocusElement = () => {
@@ -443,7 +443,7 @@ watch(persistFocus, (val) => {
   if (val) isFocused.value = true;
 });
 
-watch(isDisabled, (val) => {
+watch(isReadonly, (val) => {
   if (!val) return;
   persistFocus.value = false;
   isFocused.value = false;

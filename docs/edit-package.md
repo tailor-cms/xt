@@ -29,7 +29,7 @@ props:
 - `:element`: object; Element entity containing all element related data
 - `:isFocused`: boolean; Is element selected
 - `:isDragged`: boolean; Is element being dragged; e.g. upon reordering
-- `:isDisabled`: boolean; Should element be disabled; e.g. upon copy element seleciton
+- `:isReadonly`: boolean; Should element be readonly; e.g. upon copy element seleciton
 
 and observed for element related events:
 
@@ -152,10 +152,10 @@ prop and triggering save state event upon user focusing out of the element.
 Of course, this is not always possible, e.g. when element input needs to be
 validated. In those cases we suggest explicit save button.
 
-## Disabled state
+## Readonly state
 
-Each Content Element needs to implement the `disabled` behaviour which is
-activated when `isDisabled` prop is set to `true`. Disabled element
+Each Content Element needs to implement the `readonly` behaviour which is
+activated when `isReadonly` prop is set to `true`. Readonly element
 presentation is used for various features like observing Content Element
 diff or for copy functionality (Content Element needs to be previewed in
 order to be selected).
@@ -171,7 +171,7 @@ element list, while the CEK runtime will mock example elements.
 The `TailorEmbeddedContainer` component accepts the following props:
 - `:container`: object; Data field of the element containing `embeds` in a key-value format.
 - `:allowed-elements-config`: array; Array of element configs allowed to be embedded. Usually equals to the `embedElementConfig` prop passed to the Edit package.
-- `:isDisabled`: boolean; Indicates if the element should be disabled. Defaults to `false`.
+- `:isReadonly`: boolean; Indicates if the element should be readonly. Defaults to `false`.
 - `:enableAdd`: boolean; Indicates if adding new elements is allowed. Defaults to `true`.
 - `:addElementOptions`: object; Additional options passed to the AddElement core component.
 
@@ -194,4 +194,4 @@ save and cancel actions.
 - `:showFeedback`: boolean; Controls whether QustionContainer should render
 feedback component.
 - `:embedElementConfig`: array; array of element configs allowed for the Question prompt
-- `:isDisabled`: boolean; Should element be disabled; e.g. upon copy element seleciton
+- `:isReadonly`: boolean; Should element be readonly; e.g. upon copy element seleciton
