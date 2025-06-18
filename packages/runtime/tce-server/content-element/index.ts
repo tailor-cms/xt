@@ -38,6 +38,7 @@ const getContentElementMw =
   async (req, _res, next, id) => {
     try {
       const data = initState();
+      data.width = 12;
       if (isQuestion) data.isGradable = isGradable ?? true;
       const payload = { type, data };
       req.element = await ContentElementService.findOrCreate(id, payload);

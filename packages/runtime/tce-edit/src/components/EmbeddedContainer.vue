@@ -101,6 +101,7 @@ const createEmbedElement = () => ({
   id: v4(),
   data: {
     content: '',
+    width: 12,
   },
   embedded: true,
   position: embeds.value.length,
