@@ -1,9 +1,9 @@
 <template>
   <div class="tce-root">
     <div class="d-flex align-center text-h5">
-      {{ data.description || 'Author click count' }}
+      {{ elementData.description || 'Author click count' }}
       <VSpacer />
-      <div class="counter">{{ data.count }}</div>
+      <div class="counter">{{ elementData.count }}</div>
     </div>
     <VBtn class="my-8" variant="tonal" @click="submit">Submit interaction</VBtn>
     <div>
@@ -18,13 +18,15 @@
 </template>
 
 <script setup lang="ts">
-import { ElementData } from 'tce-manifest';
+import { computed } from 'vue';
+import { Element } from 'tce-manifest';
 import stringifyObject from 'stringify-object';
 
-const props = defineProps<{ data: ElementData; userState: any }>();
+const props = defineProps<{ element: Element; userState: any }>();
 const emit = defineEmits(['interaction']);
 
-const submit = () => emit('interaction', { count: props.data.count });
+const elementData = computed(() => props.element.data);
+const submit = () => emit('interaction', { count: elementData.value.count });
 </script>
 
 <style scoped>

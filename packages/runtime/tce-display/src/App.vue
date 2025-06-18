@@ -27,7 +27,7 @@
             <VSheet class="pa-8" color="white" elevation="3" rounded="lg">
               <Display
                 v-if="element?.data"
-                v-bind="element"
+                :element="element"
                 :user-state="userState"
                 @interaction="onInteraction"
               />
