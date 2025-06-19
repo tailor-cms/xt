@@ -13,7 +13,7 @@ component for the Simple Counter Content Element from the Edit package section:
   <div>
     <div>
       Clicked
-      <span>{{ data.count }}</span>
+      <span>{{ element.data.count }}</span>
       times!
     </div>
     <div>Last seen at: {{ userState.seenAt }}</div>
@@ -21,9 +21,9 @@ component for the Simple Counter Content Element from the Edit package section:
 </template>
 
 <script setup lang="ts">
-import { ElementData } from 'tce-manifest';
+import { Element } from 'tce-manifest';
 
-defineProps<{ data: ElementData, userState: any }>();
+defineProps<{ element: Element, userState: any }>();
 </script>
 ```
 
@@ -58,9 +58,9 @@ process:
 </template>
 
 <script setup lang="ts">
-import { ElementData } from 'tce-manifest';
+import { Element } from 'tce-manifest';
 
-const props = defineProps<{ data: ElementData; userState: any }>();
+const props = defineProps<{ element: Element; userState: any }>();
 const emit = defineEmits(['interaction']);
 
 const submit = () => emit('interaction', { myInteractionData: 'example' });
