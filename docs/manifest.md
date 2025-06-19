@@ -3,12 +3,11 @@
 The manifest is a special package located under `packages/manifest`, which
 defines the key information about the `Content Element`. Its interface and data
 is imported, implemented and exposed by other packages (edit, display and
-server). Here is an interface overview:
+server). Below is an overview of the generic interface imported from the
+`cek-common` package, which is instantiated in the manifest:
 
-\
-`packages/manifest/src/interfaces.ts`
 ```ts
-export interface ElementManifest {
+export interface ElementManifest<TData = ElementData> {
   // Unique, reserved string, denoting 'Content Element' type.
   // Each Content Element defines unique type id which is
   // used to resolve which component needs to be used to handle specific
@@ -23,7 +22,7 @@ export interface ElementManifest {
   // TailorEmbeddedContainer will be used.
   isComposite: boolean;
   // Declare content element as question type.
-  isQuestion: boolean;
+  isQuestion?: boolean;
   // Accompanies the 'isQuestion' field, indicating whether the question type is
   // gradable or ungradable. If both are supported, this field should be omitted.
   isGradable?: boolean;
