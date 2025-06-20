@@ -1,5 +1,13 @@
 # @tailor-cms/tce-display-runtime
 
+## 1.2.1
+
+### Patch Changes
+
+- Bump dependencies.
+- Updated dependencies
+  - @tailor-cms/cek-common@1.2.1
+
 ## 1.2.0
 
 ### Minor Changes
