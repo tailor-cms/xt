@@ -9,9 +9,13 @@ export interface OpenAISchema {
 type Meta = Record<string, unknown>;
 type Refs = Record<string, unknown>;
 
-export interface ElementData {
+export interface ElementConfig {
   width?: number;
   isGradable?: boolean;
+}
+
+interface ElementData extends ElementConfig {
+  [key: string]: unknown;
 }
 
 export interface Element<TData = ElementData, TRefs = Refs, TMeta = Meta> {

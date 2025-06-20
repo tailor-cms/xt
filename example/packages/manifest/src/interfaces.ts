@@ -1,6 +1,6 @@
 import * as common from '@tailor-cms/cek-common';
 
-export interface ElementData extends common.ElementData {
+export interface ElementData extends common.ElementConfig {
   count: number;
   description: string;
   key?: string;
