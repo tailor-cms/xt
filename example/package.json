@@ -19,6 +19,8 @@
     "dev": "pnpm boot:cek",
     "boot:cek": "cd ./node_modules/@tailor-cms/tce-boot && pnpm start --default-display",
     "build": "pnpm -r --filter=./** run build",
+    "lint": "pnpm -r --filter=./** run lint",
+    "lint:fix": "pnpm -r --filter=./** run lint --fix",
     "nuke:dist": "pnpm -r --filter=./** run nuke:dist",
     "nuke": "pnpm -r --filter=./** run nuke && pnpm dlx del-cli node_modules"
   },
