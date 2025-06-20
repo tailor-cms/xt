@@ -1,5 +1,11 @@
 # @tailor-cms/cek-common
 
+## 1.2.1
+
+### Patch Changes
+
+- Bump dependencies.
+
 ## 1.2.0
 
 ### Minor Changes
