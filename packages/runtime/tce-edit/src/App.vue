@@ -124,7 +124,7 @@
                 </div>
               </div>
               <VRow v-else>
-                <VCol :cols="element?.data.width ?? 12">
+                <VCol v-if="element?.data" :cols="element.data.width ?? 12">
                   <VSheet
                     v-click-outside="{
                       handler: () => !persistFocus && unfocusElement(),
@@ -134,34 +134,32 @@
                     class="edit-frame"
                     @click="!persistFocus && focusElement()"
                   >
-                    <template v-if="element?.data">
-                      <QuestionCard
-                        v-if="isQuestion"
-                        v-bind="{
-                          type,
-                          icon,
-                          element,
-                          isDragged,
-                          isReadonly,
-                          isFocused,
-                        }"
-                        @delete="onDelete"
-                        @link="onLink"
-                        @save="onSave"
-                      />
-                      <Edit
-                        v-else
-                        v-bind="{
-                          element,
-                          isDragged,
-                          isReadonly,
-                          isFocused,
-                        }"
-                        @delete="onDelete"
-                        @link="onLink"
-                        @save="onSave"
-                      />
-                    </template>
+                    <QuestionCard
+                      v-if="isQuestion"
+                      v-bind="{
+                        type,
+                        icon,
+                        element,
+                        isDragged,
+                        isReadonly,
+                        isFocused,
+                      }"
+                      @delete="onDelete"
+                      @link="onLink"
+                      @save="onSave"
+                    />
+                    <Edit
+                      v-else
+                      v-bind="{
+                        element,
+                        isDragged,
+                        isReadonly,
+                        isFocused,
+                      }"
+                      @delete="onDelete"
+                      @link="onLink"
+                      @save="onSave"
+                    />
                   </VSheet>
                 </VCol>
               </VRow>
@@ -352,6 +350,8 @@ const onDelete = () => {
 
 const doTheMagic = async () => {
   isGeneratingContent.value = true;
+  persistFocus.value = false;
+  isDragged.value = false;
   try {
     const res = await api.generateContent(aiContext.value.trim());
     const { width, isGradable } = element.value.data;
@@ -362,6 +362,7 @@ const doTheMagic = async () => {
     isGeneratingContent.value = false;
   }
   isGeneratingContent.value = false;
+  isFocused.value = true;
 };
 
 const onLink = () => {

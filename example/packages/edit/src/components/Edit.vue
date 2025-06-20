@@ -29,16 +29,18 @@
       <VSheet
         v-if="element.data.key"
         class="upload-details d-flex flex-column ga-4 pa-4"
-        color="grey-lighten-3"
+        color="primary-lighten-5"
         tag="ul"
         rounded
       >
-        <div class="d-flex">
+        <div class="d-flex align-center font-weight-bold text-subtitle-1">
+          <span class="ml-2">Background image</span>
           <VSpacer />
           <VBtn
-            color="grey-darken-4"
+            v-if="!isReadonly"
+            color="primary-darken-2"
             icon="mdi-close"
-            size="small"
+            size="x-small"
             variant="tonal"
             @click="removeImage"
           />

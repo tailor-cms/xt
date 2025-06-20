@@ -25,12 +25,15 @@
               />
             </div>
             <VSheet class="pa-8" color="white" elevation="3" rounded="lg">
-              <Display
-                v-if="element?.data"
-                :element="element"
-                :user-state="userState"
-                @interaction="onInteraction"
-              />
+              <VRow v-if="element?.data">
+                <VCol :cols="element.data.width ?? 12">
+                  <Display
+                    :element="element"
+                    :user-state="userState"
+                    @interaction="onInteraction"
+                  />
+                </VCol>
+              </VRow>
             </VSheet>
           </VCol>
         </VRow>
