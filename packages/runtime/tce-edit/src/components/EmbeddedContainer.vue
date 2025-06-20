@@ -1,6 +1,6 @@
 <template>
   <div class="embedded-container align-center px-12 py-4">
-    <div class="d-flex flex-column ga-6 my-2">
+    <div v-if="!!embeds.length" class="d-flex flex-column ga-6 my-2">
       <ContentElement
         v-for="element in embeds"
         :key="element.id"
