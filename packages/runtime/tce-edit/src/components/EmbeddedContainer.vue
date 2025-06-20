@@ -1,16 +1,16 @@
 <template>
   <div class="embedded-container align-center px-12 py-4">
-    <div class="d-flex flex-column ga-6 my-2">
+    <div v-if="!!embeds.length" class="d-flex flex-column ga-6 my-2">
       <ContentElement
         v-for="element in embeds"
         :key="element.id"
-        v-bind="{ element, isDisabled }"
+        v-bind="{ element, isReadonly }"
         @delete="emit('delete', element)"
         @save="save(element, 'data', $event)"
       />
     </div>
     <VBtn
-      v-if="!isDisabled && enableAdd"
+      v-if="!isReadonly && enableAdd"
       v-bind="addBtnProps"
       class="flex-grow-0 my-4"
       @click="addItem"
@@ -61,7 +61,7 @@ interface AddElementOptions {
 interface Props {
   container: { embeds: Record<string, any> };
   addElementOptions?: AddElementOptions;
-  isDisabled?: boolean;
+  isReadonly?: boolean;
   enableAdd?: boolean;
 }
 
@@ -73,7 +73,7 @@ const props = withDefaults(defineProps<Props>(), {
     color: 'primary-darken-4',
     variant: 'tonal',
   }),
-  isDisabled: false,
+  isReadonly: false,
   enableAdd: true,
 });
 const emit = defineEmits(['delete', 'save']);
@@ -101,6 +101,7 @@ const createEmbedElement = () => ({
   id: v4(),
   data: {
     content: '',
+    width: 12,
   },
   embedded: true,
   position: embeds.value.length,

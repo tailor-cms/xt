@@ -107,6 +107,10 @@ async function afterSave(element: SequelizeModel, services: Object) => {
 At the moment it is possible to:
 
 ```ts
+getPath(...segments: string[])
+```
+
+```ts
 getFile(key: string)
 ```
 

@@ -4,7 +4,7 @@
       <div v-bind="hoverProps">
         <VTextarea
           :model-value="element.data.content"
-          :readonly="isDisabled"
+          :readonly="isReadonly"
           bg-color="transparent"
           placeholder="Enter your text..."
           rows="3"
@@ -15,7 +15,7 @@
           @change="$emit('save', { content: $event.target.value })"
         />
         <div
-          v-if="!isDisabled && !parent"
+          v-if="!isReadonly && !parent"
           :class="{ 'is-visible': isHovering }"
           class="element-actions"
         >
@@ -39,11 +39,11 @@ import { inject } from 'vue';
 interface Props {
   element: Record<string, any>;
   parent?: Record<string, any> | null;
-  isDisabled?: boolean;
+  isReadonly?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
-  isDisabled: false,
+  isReadonly: false,
   parent: null,
 });
 const emit = defineEmits(['delete', 'save']);

@@ -17,7 +17,7 @@ const {
   ui,
 } = element.default;
 
-const isAiEnabled = import.meta.env.AI_UI_ENABLED && ai;
+const isAiEnabled = import.meta.env.AI_UI_ENABLED && !!ai;
 
 const app = createApp(App, {
   isQuestion,
@@ -25,6 +25,7 @@ const app = createApp(App, {
   isAiEnabled,
   type: name,
   icon: ui.icon,
+  forceFullWidth: ui.forceFullWidth,
 });
 const radio = Radio.getInstance();
 app.provide('$eventBus', radio);

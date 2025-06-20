@@ -15,7 +15,7 @@
               <VSpacer />
               <VBtn
                 v-if="isAiEnabled"
-                :disabled="isDisabled || isGeneratingContent"
+                :disabled="isReadonly || isGeneratingContent"
                 class="mr-2"
                 color="indigo-darken-2"
                 prepend-icon="mdi-creation"
@@ -36,18 +36,47 @@
                   />
                 </template>
                 <VCard class="pa-4">
-                  <div
-                    class="d-flex align-center text-overline font-weight-bold"
-                  >
-                    <VIcon icon="mdi-format-list-bulleted" start />
+                  <div class="settings-header text-overline">
+                    <VIcon icon="mdi-cog" size="small" start />
                     Element Props
                   </div>
                   <VCheckbox
-                    v-model="isDisabled"
+                    v-model="isReadonly"
                     color="primary"
                     density="comfortable"
-                    label="Disabled"
+                    label="Readonly"
                     hide-details
+                  />
+                  <VCheckbox
+                    v-model="persistFocus"
+                    :disabled="isReadonly"
+                    color="primary"
+                    density="comfortable"
+                    label="Focused"
+                    hide-details
+                  />
+                  <VCheckbox
+                    v-model="isDragged"
+                    :disabled="isReadonly"
+                    color="primary"
+                    density="comfortable"
+                    label="Dragged"
+                    hide-details
+                  />
+                  <div class="settings-header text-overline mt-4">
+                    <VIcon icon="mdi-cube" size="small" start />
+                    Element Data
+                  </div>
+                  <VCheckbox
+                    :disabled="forceFullWidth"
+                    :false-value="12"
+                    :model-value="element.data.width"
+                    :true-value="6"
+                    color="primary"
+                    density="comfortable"
+                    label="Half width"
+                    hide-details
+                    @click.prevent="confirm(toggleHalfWidth)"
                   />
                   <VCheckbox
                     v-if="isQuestion"
@@ -57,32 +86,22 @@
                     density="comfortable"
                     label="Gradable"
                     hide-details
-                    @click.prevent="confirmGradableToggle"
+                    @click.prevent="confirm(toggleGradable)"
                   />
-                  <div
-                    class="d-flex align-center text-overline mt-4 font-weight-bold"
-                  >
-                    <VIcon icon="mdi-cog-outline" start />
-                    CEK Configuration
-                  </div>
-                  <VCheckbox
-                    v-model="persistFocus"
-                    :disabled="isDisabled"
-                    color="primary"
-                    density="comfortable"
-                    label="Persist focus"
-                    hide-details
-                  />
-                  <VTextarea
-                    v-if="isAiEnabled"
-                    v-model="aiContext"
-                    :placeholder="`Generate ${type} content element.`"
-                    class="mt-4"
-                    label="AI Context"
-                    rows="3"
-                    variant="outlined"
-                    hide-details
-                  />
+                  <template v-if="isAiEnabled">
+                    <div class="settings-header text-overline mt-4">
+                      <VIcon icon="mdi-creation" size="small" start />
+                      AI Context
+                    </div>
+                    <VTextarea
+                      v-if="isAiEnabled"
+                      v-model="aiContext"
+                      placeholder="Enter context for AI generation..."
+                      rows="3"
+                      variant="outlined"
+                      hide-details
+                    />
+                  </template>
                 </VCard>
               </VMenu>
             </div>
@@ -107,43 +126,46 @@
                   <span>Content generation in progress...</span>
                 </div>
               </div>
-              <VSheet
-                v-else
-                v-click-outside="{
-                  handler: () => !persistFocus && unfocusElement(),
-                  include,
-                }"
-                :class="{ focused: isFocused }"
-                class="edit-frame"
-                @click="!persistFocus && focusElement()"
-              >
-                <template v-if="element?.data">
-                  <QuestionCard
-                    v-if="isQuestion"
-                    v-bind="{
-                      type,
-                      icon,
-                      element,
-                      isDisabled,
-                      isFocused,
+              <VRow v-else>
+                <VCol v-if="element?.data" :cols="element.data.width ?? 12">
+                  <VSheet
+                    v-click-outside="{
+                      handler: () => !persistFocus && unfocusElement(),
+                      include,
                     }"
-                    @delete="onDelete"
-                    @link="onLink"
-                    @save="onSave"
-                  />
-                  <Edit
-                    v-else
-                    v-bind="{
-                      element,
-                      isDisabled,
-                      isFocused,
-                    }"
-                    @delete="onDelete"
-                    @link="onLink"
-                    @save="onSave"
-                  />
-                </template>
-              </VSheet>
+                    :class="{ focused: isFocused }"
+                    class="edit-frame"
+                    @click="!persistFocus && focusElement()"
+                  >
+                    <QuestionCard
+                      v-if="isQuestion"
+                      v-bind="{
+                        type,
+                        icon,
+                        element,
+                        isDragged,
+                        isReadonly,
+                        isFocused,
+                      }"
+                      @delete="onDelete"
+                      @link="onLink"
+                      @save="onSave"
+                    />
+                    <Edit
+                      v-else
+                      v-bind="{
+                        element,
+                        isDragged,
+                        isReadonly,
+                        isFocused,
+                      }"
+                      @delete="onDelete"
+                      @link="onLink"
+                      @save="onSave"
+                    />
+                  </VSheet>
+                </VCol>
+              </VRow>
             </VSheet>
           </VCol>
         </VRow>
@@ -269,20 +291,24 @@ interface Props {
   isAiEnabled?: boolean;
   type?: string;
   icon?: string;
+  forceFullWidth?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   isQuestion: false,
   isGradable: undefined,
+  isAiEnabled: false,
   type: 'Content Element',
   icon: 'mdi-cube',
+  forceFullWidth: false,
 });
 
 const emit = defineEmits(['save', 'delete']);
 
 const element = ref<Element>();
 const isFocused = ref(false);
-const isDisabled = ref(false);
+const isReadonly = ref(false);
+const isDragged = ref(false);
 const persistFocus = ref(false);
 
 const isLinkDialogVisible = ref(false);
@@ -309,7 +335,7 @@ onMounted(async () => {
 });
 
 const focusElement = () => {
-  if (!isDisabled.value) isFocused.value = true;
+  if (!isReadonly.value) isFocused.value = true;
 };
 
 const unfocusElement = () => {
@@ -327,15 +353,19 @@ const onDelete = () => {
 
 const doTheMagic = async () => {
   isGeneratingContent.value = true;
+  persistFocus.value = false;
+  isDragged.value = false;
   try {
     const res = await api.generateContent(aiContext.value.trim());
-    await updateElementData(res.data);
+    const { width, isGradable } = element.value.data;
+    await updateElementData({ ...res.data, width, isGradable });
   } catch (error) {
     console.log('Error on element content generate:', error);
   } finally {
     isGeneratingContent.value = false;
   }
   isGeneratingContent.value = false;
+  isFocused.value = true;
 };
 
 const onLink = () => {
@@ -377,24 +407,39 @@ const updateElementData = async (data) => {
   }
 };
 
-const toggleGradable = async () => {
+const initState = async () => {
   const { initState } = await import(
     /* @vite-ignore */ import.meta.env.MANIFEST_DIR
   );
+  return initState();
+};
+
+const toggleGradable = async () => {
+  const data = await initState();
   const newGradableValue = !isGradable.value;
-  const data = initState();
   data.isGradable = newGradableValue;
   if (!newGradableValue) delete data.correct;
-  await updateElementData(data);
+  await updateElementData({
+    ...data,
+    width: element.value.data.width,
+  });
   isGradable.value = data.isGradable;
   return resetState();
 };
 
-const confirmGradableToggle = () => {
+const toggleHalfWidth = async () => {
+  const data = await initState();
+  const { width, isGradable } = element.value.data;
+  const newWidth = width === 12 ? 6 : 12;
+  await updateElementData({ ...data, width: newWidth, isGradable });
+  return resetState();
+};
+
+const confirm = (action) => {
   return appChannel.emit('showConfirmationModal', {
     title: 'Are you sure?',
     message: 'This action will reset element data and state',
-    action: toggleGradable,
+    action,
   });
 };
 
@@ -402,10 +447,11 @@ watch(persistFocus, (val) => {
   if (val) isFocused.value = true;
 });
 
-watch(isDisabled, (val) => {
+watch(isReadonly, (val) => {
   if (!val) return;
   persistFocus.value = false;
   isFocused.value = false;
+  isDragged.value = false;
 });
 </script>
 
@@ -469,5 +515,11 @@ watch(isDisabled, (val) => {
       inset-inline-end: 0;
     }
   }
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
 }
 </style>

@@ -9,8 +9,8 @@
     "lint": "pnpm -r run lint",
     "start:example": "pnpm -r --filter=./example run dev",
     "build": "pnpm -r --filter=!./example/packages/** run build",
-    "nuke:dist": "pnpm -r -filter=!./example/packages/** run nuke:dist",
-    "nuke": "pnpm -r -filter=!./example/packages/** run nuke && pnpm dlx del-cli node_modules"
+    "nuke:dist": "pnpm -r --filter=!./example/packages/** run nuke:dist",
+    "nuke": "pnpm -r --filter=!./example/packages/** run nuke && pnpm dlx del-cli node_modules"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.4",

@@ -2,14 +2,14 @@
   <div class="tce-container">
     <VTextField
       :model-value="element.data.description"
-      :readonly="isDisabled"
+      :readonly="isReadonly"
       class="mt-4"
       label="Description"
       @update:model-value="updateDescription"
     />
     <div>Times clicked: {{ element.data.count }}</div>
     <VBtn
-      v-if="!isDisabled"
+      v-if="!isReadonly"
       class="my-3"
       prepend-icon="mdi-plus"
       variant="tonal"
@@ -19,7 +19,7 @@
     </VBtn>
     <div class="my-4">
       <VFileInput
-        v-if="!isDisabled && !element.data.key"
+        v-if="!isReadonly && !element.data.key"
         accept="image/png, image/jpeg"
         label="Set background"
         hide-details
@@ -29,27 +29,29 @@
       <VSheet
         v-if="element.data.key"
         class="upload-details d-flex flex-column ga-4 pa-4"
-        color="grey-lighten-3"
+        color="primary-lighten-5"
         tag="ul"
         rounded
       >
-        <div class="d-flex">
+        <div class="d-flex align-center font-weight-bold text-subtitle-1">
+          <span class="ml-2">Background image</span>
           <VSpacer />
           <VBtn
-            color="grey-darken-4"
+            v-if="!isReadonly"
+            color="primary-darken-2"
             icon="mdi-close"
-            size="small"
+            size="x-small"
             variant="tonal"
             @click="removeImage"
           />
         </div>
-        <VSheet class="py-2 px-4" rounded="lg" tag="li">
+        <VSheet class="py-2 px-4" tag="li" rounded>
           <b>Storage key:</b>{{ element.data.key }}
         </VSheet>
-        <VSheet class="py-2 px-4" rounded="lg" tag="li">
+        <VSheet class="py-2 px-4" tag="li" rounded>
           <b>Internal url:</b>{{ element.data.assets?.backgroundUrl }}
         </VSheet>
-        <VSheet class="py-2 px-4" rounded="lg" tag="li">
+        <VSheet class="py-2 px-4" tag="li" rounded>
           <b>Public url:</b>
           <a :to="element.data.backgroundUrl" target="_blank">
             {{ element.data.backgroundUrl }}
@@ -60,10 +62,11 @@
           :src="element.data.backgroundUrl"
           alt="Background image"
           width="200"
+          rounded
         />
       </VSheet>
     </div>
-    <VBtn v-if="!isDisabled" class="my-3" variant="tonal" @click="emit('link')">
+    <VBtn v-if="!isReadonly" class="my-3" variant="tonal" @click="emit('link')">
       Link example
     </VBtn>
   </div>
@@ -81,7 +84,8 @@ const elementBus = inject('$elementBus') as any;
 const props = defineProps<{
   element: Element;
   isFocused: boolean;
-  isDisabled: boolean;
+  isDragged: boolean;
+  isReadonly: boolean;
 }>();
 const emit = defineEmits(['save', 'link']);
 

@@ -7,7 +7,7 @@
         </div>
         <div class="splash-loader__text text-body-1">
           <div>Booting Content Element Kit....</div>
-          <div class="font-weight-bold">Beta preview v{{ version }}</div>
+          <div class="font-weight-bold">v{{ version }}</div>
         </div>
       </div>
     </div>

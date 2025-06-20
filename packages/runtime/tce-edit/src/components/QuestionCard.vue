@@ -6,14 +6,14 @@
     </VToolbar>
     <VForm ref="form" class="content text-left pa-6" validate-on="submit">
       <Edit
-        v-bind="{ element: editedElement, isFocused, isDisabled }"
+        v-bind="{ element: editedElement, isFocused, isReadonly }"
         @delete="emit('delete')"
         @link="emit('link', $event)"
         @save="save"
         @update="Object.assign(editedElement.data, $event)"
       />
       <VFadeTransition>
-        <div v-if="!isDisabled && isDirty" class="d-flex justify-end">
+        <div v-if="!isReadonly && isDirty" class="d-flex justify-end">
           <VBtn color="primary-darken-4" variant="text" @click="resetData">
             Cancel
           </VBtn>
@@ -40,12 +40,12 @@ interface Props {
   element: any;
   type: string;
   icon: string;
-  isDisabled?: boolean;
+  isReadonly?: boolean;
   isFocused?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  isDisabled: false,
+  isReadonly: false,
   isFocused: false,
 });
 
