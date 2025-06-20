@@ -52,7 +52,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@lukeed/csprng": "^1.0.2",
+    "@lukeed/csprng": "^1.1.0",
     "@lukeed/uuid": "^2.0.1",
     "json-schema": "^0.4.0",
     "ky": "1.8.1",

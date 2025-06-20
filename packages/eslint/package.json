@@ -13,11 +13,11 @@
     "release": "npx np",
     "nuke": "pnpm dlx del-cli node_modules"
   },
-  "devDependencies": {
+  "dependencies": {
     "@eslint/js": "^9.29.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-prettier": "^5.4.1",
+    "eslint-plugin-prettier": "^5.5.0",
     "eslint-plugin-vue": "^10.2.0",
     "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "neostandard": "^0.12.1",

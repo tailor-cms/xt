@@ -21,7 +21,7 @@
     "lodash-es": "^4.17.21",
     "mkdirp": "^3.0.1",
     "multer": "2.0.1",
-    "openai": "^5.4.0",
+    "openai": "^5.5.1",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7",
     "ts-node": "^10.9.2",
