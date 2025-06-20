@@ -36,7 +36,8 @@
                   />
                 </template>
                 <VCard class="pa-4">
-                  <div class="d-flex text-overline font-weight-bold">
+                  <div class="settings-header text-overline">
+                    <VIcon icon="mdi-cog" size="small" start />
                     Element Props
                   </div>
                   <VCheckbox
@@ -62,7 +63,8 @@
                     label="Dragged"
                     hide-details
                   />
-                  <div class="d-flex text-overline mt-4 font-weight-bold">
+                  <div class="settings-header text-overline mt-4">
+                    <VIcon icon="mdi-cube" size="small" start />
                     Element Data
                   </div>
                   <VCheckbox
@@ -87,7 +89,8 @@
                     @click.prevent="confirm(toggleGradable)"
                   />
                   <template v-if="isAiEnabled">
-                    <div class="d-flex text-overline mt-4 font-weight-bold">
+                    <div class="settings-header text-overline mt-4">
+                      <VIcon icon="mdi-creation" size="small" start />
                       AI Context
                     </div>
                     <VTextarea
@@ -512,5 +515,11 @@ watch(isReadonly, (val) => {
       inset-inline-end: 0;
     }
   }
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
 }
 </style>

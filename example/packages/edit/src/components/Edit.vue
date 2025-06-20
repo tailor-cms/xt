@@ -45,13 +45,13 @@
             @click="removeImage"
           />
         </div>
-        <VSheet class="py-2 px-4" rounded="lg" tag="li">
+        <VSheet class="py-2 px-4" tag="li" rounded>
           <b>Storage key:</b>{{ element.data.key }}
         </VSheet>
-        <VSheet class="py-2 px-4" rounded="lg" tag="li">
+        <VSheet class="py-2 px-4" tag="li" rounded>
           <b>Internal url:</b>{{ element.data.assets?.backgroundUrl }}
         </VSheet>
-        <VSheet class="py-2 px-4" rounded="lg" tag="li">
+        <VSheet class="py-2 px-4" tag="li" rounded>
           <b>Public url:</b>
           <a :to="element.data.backgroundUrl" target="_blank">
             {{ element.data.backgroundUrl }}
@@ -62,6 +62,7 @@
           :src="element.data.backgroundUrl"
           alt="Background image"
           width="200"
+          rounded
         />
       </VSheet>
     </div>
