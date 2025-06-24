@@ -53,7 +53,7 @@ We also want to update the type definitions, to do so, open
 `packages/manifest/src/interfaces.ts` and update `ElementData` interface:
 
 ```ts
-export interface ElementData {
+export interface ElementData extends common.ElementConfig {
   count: number;
 }
 ```
@@ -80,10 +80,16 @@ for our simple counter:
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
+import { defineEmits, defineProps } from 'vue';
 import { Element } from 'tce-manifest';
 
-const props = defineProps<{ element: Element; isFocused: boolean }>();
+const props = defineProps<{
+  element: Element;
+  isDragged: boolean;
+  isFocused: boolean;
+  isReadonly: boolean;
+}>();
 const emit = defineEmits(['save']);
 
 const increment = () => {
@@ -178,28 +184,21 @@ following code:
 ```vue
 <template>
   <div class="tce-root">
-    <div class="d-flex align-center text-h5">
-      Author clicked
-      <span class="counter">{{ data.count }}</span>
-      times!
-    </div>
+    Author clicked
+    <span class="counter">{{ element.data.count }}</span>
+    times!
   </div>
 </template>
 
 <script setup lang="ts">
-import { ElementData } from 'tce-manifest';
+import { Element } from 'tce-manifest';
 
-defineProps<{ data: ElementData }>();
+defineProps<{ element: Element }>();
 </script>
 
 <style scoped>
 .tce-root {
-  background-color: transparent;
-  margin-top: 1rem;
-  padding: 1rem;
-  border: 2px dashed #888;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 
 .counter {
