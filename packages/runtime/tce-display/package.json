@@ -20,16 +20,16 @@
     "dotenv": "^16.5.0",
     "lodash-es": "^4.17.21",
     "vue": "3.5.17",
-    "vuetify": "3.8.10"
+    "vuetify": "3.8.11"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^24.0.4",
-    "@vitejs/plugin-vue": "5.2.4",
+    "@vitejs/plugin-vue": "6.0.0",
     "sass": "1.89.2",
     "typescript": "5.8.3",
-    "vite": "6.3.5",
+    "vite": "7.0.0",
     "vite-plugin-vuetify": "2.1.1"
   },
   "publishConfig": {
