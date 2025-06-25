@@ -21,7 +21,7 @@
     "lodash-es": "^4.17.21",
     "mkdirp": "^3.0.1",
     "multer": "2.0.1",
-    "openai": "^5.5.1",
+    "openai": "^5.7.0",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7",
     "ts-node": "^10.9.2",
@@ -35,7 +35,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^24.0.3",
+    "@types/node": "^24.0.4",
     "@types/ws": "^8.18.1"
   },
   "publishConfig": {

@@ -33,7 +33,7 @@
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^24.0.3",
+    "@types/node": "^24.0.4",
     "@types/webfontloader": "1.6.38"
   },
   "publishConfig": {

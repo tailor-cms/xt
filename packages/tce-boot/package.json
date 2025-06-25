@@ -16,7 +16,7 @@
     "@tailor-cms/tce-preview-runtime": "workspace:*",
     "@tailor-cms/tce-server-runtime": "workspace:*",
     "boxen": "^8.0.1",
-    "concurrently": "^9.1.2",
+    "concurrently": "^9.2.0",
     "dotenv": "^16.5.0",
     "fkill": "^9.0.0",
     "has-flag": "^5.0.1",
