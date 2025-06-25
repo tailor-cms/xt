@@ -32,9 +32,6 @@ importers:
       '@tailor-cms/tce-boot':
         specifier: workspace:*
         version: link:../packages/tce-boot
-      '@tailor-cms/tce-display-runtime':
-        specifier: workspace:*
-        version: link:../packages/runtime/tce-display
       '@types/node':
         specifier: ^24.0.4
         version: 24.0.4
