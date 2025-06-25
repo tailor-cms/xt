@@ -27,7 +27,6 @@
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/json-schema": "^7.0.15",
-    "@types/node": "^24.0.4",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3"
   },
@@ -54,7 +53,6 @@
   "dependencies": {
     "@lukeed/csprng": "^1.1.0",
     "@lukeed/uuid": "^2.0.1",
-    "json-schema": "^0.4.0",
     "ky": "1.8.1",
     "mitt": "^3.0.1"
   }

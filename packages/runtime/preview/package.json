@@ -16,7 +16,6 @@
     "@vitejs/plugin-vue": "5.2.4",
     "@vueuse/core": "13.4.0",
     "date-fns": "^4.1.0",
-    "ky": "1.8.1",
     "lodash-es": "^4.17.21",
     "sass": "1.89.2",
     "split.js": "1.6.5",
@@ -25,7 +24,6 @@
     "vite": "6.3.5",
     "vite-plugin-vuetify": "2.1.1",
     "vue": "3.5.17",
-    "vue-tsc": "2.2.10",
     "vuetify": "3.8.10"
   },
   "devDependencies": {
