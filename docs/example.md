@@ -81,7 +81,6 @@ for our simple counter:
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, defineProps } from 'vue';
 import { Element } from 'tce-manifest';
 
 const props = defineProps<{
