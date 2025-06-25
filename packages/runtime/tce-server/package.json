@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-server-runtime",
   "description": "Teaching element server runtime",
   "author": "Studion <info@gostudion.com>",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "type": "module",
   "scripts": {
     "dev": "node --experimental-specifier-resolution=node --loader ts-node/esm ./boot.ts",
