@@ -17,7 +17,7 @@
     "@vue/runtime-core": "^3.5.17",
     "@vue/runtime-dom": "^3.5.17",
     "@vue/shared": "^3.5.17",
-    "dotenv": "^16.5.0",
+    "dotenv": "^16.6.0",
     "lodash-es": "^4.17.21",
     "vue": "3.5.17",
     "vuetify": "3.8.11"
