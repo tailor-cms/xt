@@ -11,7 +11,9 @@ export class DisplayPanel {
       .locator('.v-row')
       .filter({ hasText: 'End-user component' })
       .locator('.display-frame');
-    this.statePresetPicker = this.el.getByRole('combobox');
+    this.statePresetPicker = this.el.locator('[role="combobox"]', {
+      hasText: 'State preset',
+    });
   }
 
   async selectStatePreset(preset: string) {
