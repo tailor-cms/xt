@@ -10,7 +10,9 @@ processor for the AI model.
 AI configuration is defined by the following:
 
 - `Schema`: Defines the expected structure of the AI-generated content using
-  JSON Schema. This ensures the AI output matches the required format.
+  JSON Schema. This ensures the AI output matches the required format. For more
+  information about Schema check out
+  [OpenAI docs](https://platform.openai.com/docs/guides/prompt-generation#schemast).
 - `getPrompt`: Provides a prompt template that guides the AI in generating the
   desired content.
 - `processResponse`: Handles the AI response, allowing for custom
