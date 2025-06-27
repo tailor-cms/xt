@@ -177,7 +177,7 @@ The `TailorEmbeddedContainer` component accepts the following props:
 
 ## Question Elements
 
-Content elements can be configured as composite elements using the `isQuestion`
+Content elements can be configured as question elements using the `isQuestion`
 flag in the manifest. Each question can utilize `QuestionContainer` component
 from `@tailor-cms/core-components` package which is used to wrap the component
 in the container with the question prompt, content element slot, hint,
