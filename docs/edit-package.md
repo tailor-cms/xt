@@ -186,11 +186,7 @@ used content element must also be configured as `isComposite` in the manifest
 because Question prompt is utilizing `TailorEmbeddedContainer` under the hood.
 
 The `QuestionContainer` component accepts the following props:
-- `:type`: string; Content element type to display in toolbar, can be passed from `manifest.name`.
-- `:icon`: string Content element icon to display in toolbar, can be passed from `manifest.ui.icon`.
 - `:elementData`: object; Element entity containing all element related data
-- `:isDirty`: boolean; Indicates if element data has been changed, used to enable
-save and cancel actions.
 - `:showFeedback`: boolean; Controls whether QustionContainer should render
 feedback component.
 - `:embedElementConfig`: array; array of element configs allowed for the Question prompt
