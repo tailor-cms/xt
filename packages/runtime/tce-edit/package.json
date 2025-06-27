@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-edit-runtime",
   "description": "Edit content element client side runtime",
   "author": "Studion <info@gostudion.com>",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,32 +13,26 @@
   "dependencies": {
     "@mdi/font": "7.4.47",
     "@tailor-cms/cek-common": "workspace:*",
-    "@vitejs/plugin-vue": "5.2.4",
     "@vue/reactivity": "^3.5.17",
     "@vue/runtime-core": "^3.5.17",
     "@vue/runtime-dom": "^3.5.17",
     "@vue/shared": "^3.5.17",
     "axios": "^1.10.0",
-    "dotenv": "^16.5.0",
-    "ky": "1.8.1",
     "lodash-es": "^4.17.21",
     "mitt": "^3.0.1",
-    "sass": "1.89.2",
-    "typescript": "5.8.3",
-    "url-join": "^5.0.0",
     "uuid": "^11.1.0",
-    "vite": "6.3.5",
-    "vite-plugin-vuetify": "2.1.1",
     "vue": "3.5.17",
-    "vue-tsc": "2.2.10",
-    "vuetify": "3.8.10",
-    "webfontloader": "1.6.28"
+    "vuetify": "3.8.11"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^24.0.3",
-    "@types/webfontloader": "1.6.38"
+    "@types/node": "^24.0.4",
+    "@vitejs/plugin-vue": "6.0.0",
+    "sass": "1.89.2",
+    "typescript": "5.8.3",
+    "vite": "7.0.0",
+    "vite-plugin-vuetify": "2.1.1"
   },
   "publishConfig": {
     "access": "public"

@@ -1,10 +1,8 @@
 {
-  "name": "@tailor-cms/cek-common",
-  "description": "Content element kit shared util library",
-  "author": "Studion <info@gostudion.com>",
+  "name": "@tailor-cms/cek-e2e",
+  "version": "0.0.2",
   "type": "module",
-  "version": "1.2.2",
-  "exports": {
+   "exports": {
     ".": {
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
@@ -24,18 +22,13 @@
     "nuke:dist": "pnpm dlx del-cli dist",
     "prepublish": "pnpm build"
   },
-  "dependencies": {
-    "@lukeed/csprng": "^1.1.0",
-    "@lukeed/uuid": "^2.0.1",
-    "ky": "1.8.1",
-    "mitt": "^3.0.1"
-  },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
-    "@types/json-schema": "^7.0.15",
-    "@types/node": "^24.0.4",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "@playwright/test": "1.53.1"
   },
   "tsup": {
     "entry": [

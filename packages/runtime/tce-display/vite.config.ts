@@ -1,6 +1,6 @@
 import { defineConfig, UserConfig } from 'vite';
 import dotenv from 'dotenv';
-import pick from 'lodash-es/pick';
+import { pick } from 'lodash-es';
 import vue from '@vitejs/plugin-vue';
 import vuetify from 'vite-plugin-vuetify';
 

@@ -26,4 +26,4 @@ the preview.
 
 ## Simplified runtime diagram
 
-![Simplified runtime](./assets/template-runtime.jpeg)
+![Simplified runtime](./assets/template-runtime.jpg)

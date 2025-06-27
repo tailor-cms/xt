@@ -26,7 +26,7 @@
             </div>
             <VSheet class="pa-8" color="white" elevation="3" rounded="lg">
               <VRow v-if="element?.data">
-                <VCol :cols="element.data.width ?? 12">
+                <VCol :cols="element.data.width ?? 12" class="display-frame">
                   <Display
                     :element="element"
                     :user-state="userState"

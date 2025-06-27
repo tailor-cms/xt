@@ -16,7 +16,6 @@
         {{ version }}
       </VChip>
     </VAppBarTitle>
-    <VSpacer />
     <VBtnToggle class="mr-4" density="compact">
       <VBtn @click="showEdit">
         <span>Authoring</span>

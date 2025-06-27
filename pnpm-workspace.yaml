@@ -7,3 +7,6 @@ packages:
   - 'example/packages/edit'
   - 'example/packages/manifest'
   - 'example/packages/server'
+
+onlyBuiltDependencies:
+  - sqlite3

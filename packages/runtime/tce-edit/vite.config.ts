@@ -1,5 +1,5 @@
 import { defineConfig, loadEnv } from 'vite';
-import pick from 'lodash-es/pick';
+import { pick } from 'lodash-es';
 import vue from '@vitejs/plugin-vue';
 import vuetify from 'vite-plugin-vuetify';
 
@@ -42,7 +42,7 @@ export default defineConfig(({ mode }): any => {
     define: {
       'import.meta.env.EDIT_DIR': JSON.stringify(env.TCE_EDIT_DIR),
       'import.meta.env.MANIFEST_DIR': JSON.stringify(env.TCE_MANIFEST_DIR),
-      'import.meta.env.AI_UI_ENABLED': JSON.stringify(env.AI_UI_ENABLED),
+      'import.meta.env.AI_UI_ENABLED': !!env.AI_UI_ENABLED,
     },
     optimizeDeps: {
       include: [

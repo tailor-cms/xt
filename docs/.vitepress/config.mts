@@ -32,6 +32,7 @@ export default defineConfig({
           { text: "Server package", link: "/server-package" },
           { text: "State", link: "/state" },
           { text: "File storage", link: "/file-storage" },
+          { text: "Artificial intelligence", link: "/ai" },
         ],
       },
       {

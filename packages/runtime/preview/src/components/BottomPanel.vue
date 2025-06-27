@@ -21,7 +21,7 @@
     </VTabs>
     <div class="pa-6">
       <VWindow v-model="state.selectedTab">
-        <VWindowItem :value="1">
+        <VWindowItem :value="1" class="authoring-window">
           <VBtn
             class="mb-4"
             color="indigoDarken4"
@@ -33,7 +33,7 @@
           </VBtn>
           <MutationList :changes="state.elementHistory" />
         </VWindowItem>
-        <VWindowItem :value="2">
+        <VWindowItem :value="2" class="user-state-window">
           <VBtn
             class="mb-4"
             color="indigoDarken4"
