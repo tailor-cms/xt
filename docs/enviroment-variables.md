@@ -42,8 +42,8 @@ DISPLAY_RUNTIME_URL=http://localhost:8003
 SERVER_RUNTIME_URL=http://localhost:8004
 
 # AI service configuration
-# If AI_UI_ENABLED is set to true, the AI service will be enabled and model id
-# and secret key must be provided.
+# If AI_UI_ENABLED is set to true, the AI service will be enabled and model
+# id and secret key must be provided.
 AI_UI_ENABLED=
 AI_MODEL_ID=
 AI_SECRET_KEY=

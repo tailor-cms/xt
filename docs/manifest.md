@@ -23,12 +23,13 @@ export interface ElementManifest<TData = ElementData> {
   isComposite: boolean;
   // Declare content element as question type.
   isQuestion?: boolean;
-  // Accompanies the 'isQuestion' field, indicating whether the question type is
-  // gradable or ungradable. If both are supported, this field should be omitted.
+  // Accompanies the 'isQuestion' field, indicating whether the question
+  // type is gradable or ungradable. If both are supported, this field
+  // should be omitted.
   isGradable?: boolean;
-  // The goal of the initState function is to properly initialize the 'data'
-  // field upon the Content Element creation. The 'data' field is the Content
-  // Element property storing authors input.
+  // The goal of the initState function is to properly initialize the
+  // 'data' field upon the Content Element creation. The 'data' field is
+  // the Content Element property storing authors input.
   initState: DataInitializer;
   // Edit component of the Content Element (Used for authoring purposes).
   Edit?: object;
@@ -57,7 +58,8 @@ export interface ElementManifest<TData = ElementData> {
     Schema?: OpenAISchema;
     // Function for additional response processing & validation.
     processResponse?: (val: any) => any;
-    // Indicates whether the AI generation tool should be used when generating.
+    // Indicates whether the AI generation tool should be used when
+    // generating.
     useImageGenerationTool?: boolean;
   };
   mocks?: {

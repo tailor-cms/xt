@@ -103,46 +103,47 @@ interface ContentElement {
   id: number;
   // Future primary id
   uid: string;
-  // Repository is a top level grouping entity within the Tailor CMS, it usually
-  // maps to a Course concept, but it can be different thing depending on the
-  // learning pedagogy and intended use.
+  // Repository is a top level grouping entity within the Tailor CMS,
+  // it usually maps to a Course concept, but it can be different thing
+  // depending on the learning pedagogy and intended use.
   repositoryId: number;
   // Activities are structural groupings within a repository. As an example,
-  // Within a 'Course' repository, 'Activities' can be used to create 'Modules',
-  // 'Pages', 'Sections' and other structures to segment the Learning
-  // activities. They usually have hierarchical structure.
+  // Within a 'Course' repository, 'Activities' can be used to create
+  // 'Modules', 'Pages', 'Sections' and other structures to segment the
+  // Learning activities. They usually have hierarchical structure.
   activityId: number;
   // Type is a unique, reserved string, denoting 'Content Element' type id.
-  // Each Content Element defines unique type id within the Tailor CMS which is
-  // used to resolve which components needs to be used to handle specific
+  // Each Content Element defines unique type id within the Tailor CMS which
+  // is used to resolve which components needs to be used to handle specific
   // Content Element instance. The external types should follow 'ORG/TYPE'
   // convention.
   type: string;
-  // Elements are placed within a container, which can be a standard container
-  // or a custom container. Great example of a standard container is
-  // a simple Page. Sometimes there is a need to create a custom one, like
-  // Exam, hosting Assessment Content Elements. The position
-  // property is used to order elements within a container.
+  // Elements are placed within a container, which can be a standard
+  // container or a custom container. Great example of a standard container
+  // is a simple Page. Sometimes there is a need to create a custom one,
+  // like Exam, hosting Assessment Content Elements. The position property
+  // is used to order elements within a container.
   position: number;
-  // Data is a JSON field exposed to the element creator for data storage. Each
-  // Element defines its own data structure. For more details see manifest and
-  // Edit package documentation.
+  // Data is a JSON field exposed to the element creator for data storage.
+  // Each Element defines its own data structure. For more details see
+  // manifest and Edit package documentation.
   data: ElementData;
-  // Tailor CMS has concept of configurable metadata. Each Content Element, in
-  // addition to its custom developed behaviour can be extended with a field
-  // configuration, enabling additional inputs. Let's use image Content Element
-  // as an example. One might add configuration to require 'Alt text' metadata
-  // input field. Without coding this functionality, Tailor CMS will add input
-  // for 'Alt text' in the 'Content Element' sidebar once element is selected.
-  // For more details see Tailor documentation.
+  // Tailor CMS has concept of configurable metadata. Each Content Element,
+  // in addition to its custom developed behaviour can be extended with
+  // a field configuration, enabling additional inputs. Let's use image
+  // Content Element as an example. One might add configuration to require
+  // 'Alt text' metadata input field. Without coding this functionality,
+  // Tailor CMS will add input for 'Alt text' in the 'Content Element'
+  // sidebar once element is selected. For more details see Tailor
+  // documentation.
   meta: { [key: string]: any };
-  // In Tailor CMS, it is possible to configure relationships between
-  // the Content Elements. These references are stored within refs property.
+  // In Tailor CMS, it is possible to configure relationships between the
+  // Content Elements. These references are stored within refs property.
   refs: { [key: string]: any };
   // Future functionality support
   linked: boolean;
-  // Boolean for marking elements for which parent structural item has been
-  // deleted
+  // Boolean for marking elements for which parent structural item has
+  // been deleted
   detached: boolean;
   // Unique element uid, persisted upon creating the element copy
   contentId: string;

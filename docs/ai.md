@@ -38,7 +38,8 @@ export const Schema: OpenAISchema = {
 };
 
 export const getPrompt = () => `
-  Generate a counter content element as an object with the following properties:
+  Generate a counter content element as an object with the following
+  properties:
   {
     "description": "",
     "count": 0
