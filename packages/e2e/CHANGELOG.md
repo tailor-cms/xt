@@ -1,5 +1,11 @@
 # @tailor-cms/cek-e2e
 
+## 1.2.4
+
+### Patch Changes
+
+- Remove request timeout, fix focus on content generate.
+
 ## 1.2.3
 
 ### Patch Changes
