@@ -1,5 +1,11 @@
 # @tailor-cms/tce-server-runtime
 
+## 1.2.3
+
+### Patch Changes
+
+- Fixed runtime dependencies.
+
 ## 1.2.2
 
 ### Patch Changes
