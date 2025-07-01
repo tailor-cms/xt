@@ -16,7 +16,7 @@ export const getApiClient = (
   url: string,
   runtime: 'authoring' | 'delivery' = 'authoring',
 ) => {
-  const api = ky.create({ prefixUrl: url });
+  const api = ky.create({ prefixUrl: url, timeout: false });
   const opts = { searchParams: { runtime } };
 
   const getElement = (id: string): Promise<any> =>
