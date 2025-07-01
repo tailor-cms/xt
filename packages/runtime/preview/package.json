@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-preview-runtime",
   "description": "Preview content element client side runtime",
   "author": "Studion <info@gostudion.com>",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,23 +13,23 @@
   "dependencies": {
     "@mdi/font": "7.4.47",
     "@tailor-cms/cek-common": "workspace:*",
+    "@vitejs/plugin-vue": "6.0.0",
     "@vueuse/core": "13.4.0",
     "date-fns": "^4.1.0",
     "lodash-es": "^4.17.21",
     "sass": "1.89.2",
     "split.js": "1.6.5",
     "stringify-object": "^5.0.0",
+    "typescript": "5.8.3",
+    "vite": "7.0.0",
+    "vite-plugin-vuetify": "2.1.1",
     "vue": "3.5.17",
     "vuetify": "3.8.11"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/lodash-es": "^4.17.12",
-    "@types/stringify-object": "^4.0.5",
-    "@vitejs/plugin-vue": "6.0.0",
-    "typescript": "5.8.3",
-    "vite": "7.0.0",
-    "vite-plugin-vuetify": "2.1.1"
+    "@types/stringify-object": "^4.0.5"
   },
   "publishConfig": {
     "access": "public"

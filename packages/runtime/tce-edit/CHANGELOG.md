@@ -1,5 +1,13 @@
 # @tailor-cms/tce-edit-runtime
 
+## 1.2.3
+
+### Patch Changes
+
+- Fixed runtime dependencies.
+- Updated dependencies
+  - @tailor-cms/cek-common@1.2.3
+
 ## 1.2.2
 
 ### Patch Changes
