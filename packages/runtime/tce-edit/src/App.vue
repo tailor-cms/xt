@@ -363,9 +363,8 @@ const doTheMagic = async () => {
     console.log('Error on element content generate:', error);
   } finally {
     isGeneratingContent.value = false;
+    isFocused.value = true;
   }
-  isGeneratingContent.value = false;
-  isFocused.value = true;
 };
 
 const onLink = () => {
