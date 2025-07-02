@@ -1,5 +1,11 @@
 # @tailor-cms/tce-server-runtime
 
+## 1.2.5
+
+### Patch Changes
+
+- Update content generation handling.
+
 ## 1.2.4
 
 ### Patch Changes
