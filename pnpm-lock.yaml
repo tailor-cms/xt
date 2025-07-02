@@ -102,11 +102,10 @@ importers:
         version: 2.2.10(typescript@5.8.3)
 
   example/packages/manifest:
-    dependencies:
+    devDependencies:
       '@tailor-cms/cek-common':
         specifier: workspace:*
         version: link:../../../packages/common
-    devDependencies:
       '@tailor-cms/eslint-config':
         specifier: workspace:*
         version: link:../../../packages/eslint

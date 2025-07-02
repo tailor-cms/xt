@@ -78,6 +78,7 @@ export default {
   onUserInteraction,
   beforeDisplay,
   mocks,
+  ai,
 };
 
 export { type, initState, mocks, ai };
