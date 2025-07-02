@@ -1,5 +1,27 @@
 # @tailor-cms/tce-boot
 
+## 1.2.5
+
+### Patch Changes
+
+- Update content generation handling.
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@1.2.5
+  - @tailor-cms/tce-server-runtime@1.2.5
+  - @tailor-cms/tce-edit-runtime@1.2.5
+  - @tailor-cms/tce-preview-runtime@1.2.5
+
+## 1.2.4
+
+### Patch Changes
+
+- Remove request timeout, fix focus on content generate.
+- Updated dependencies
+  - @tailor-cms/tce-edit-runtime@1.2.4
+  - @tailor-cms/tce-preview-runtime@1.2.4
+  - @tailor-cms/tce-display-runtime@1.2.4
+  - @tailor-cms/tce-server-runtime@1.2.4
+
 ## 1.2.3
 
 ### Patch Changes

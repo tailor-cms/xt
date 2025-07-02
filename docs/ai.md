@@ -23,35 +23,27 @@ Here is an example configuration for a counter element:
 ```ts
 import { OpenAISchema } from '@tailor-cms/cek-common';
 
-export const Schema: OpenAISchema = {
-  type: 'json_schema',
-  name: 'ce_counter',
-  schema: {
-    type: 'object',
-    properties: {
-      count: { type: 'number' },
-      description: { type: 'string' },
+export const ai = {
+  Schema: {
+    type: 'json_schema',
+    name: 'ce_counter',
+    schema: {
+      type: 'object',
+      properties: {
+        count: { type: 'number' },
+        description: { type: 'string' },
+      },
+      required: ['count', 'description'],
+      additionalProperties: false,
     },
-    required: ['count', 'description'],
-    additionalProperties: false,
-  },
-};
-
-export const getPrompt = () => `
-  Generate a counter content element as an object with the following
-  properties:
-  {
-    "description": "",
-    "count": 0
-  },
-  where:
-  - 'description' is the counter description
-  - 'count' is the number representing the counter value
-`;
-
-const ai = {
-  getPrompt,
-  Schema,
+  } as OpenAISchema,
+  getPrompt: () => `
+    Generate counter content element as an object with the following
+    properties: { "description": "", "count": 0 }.
+    Where:
+    - 'description' is the counter description
+    - 'count' is the number representing counter value
+  `,
   processResponse: (val: any) => val,
 };
 ```

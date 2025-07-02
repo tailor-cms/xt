@@ -1,5 +1,21 @@
 # @tailor-cms/tce-preview-runtime
 
+## 1.2.5
+
+### Patch Changes
+
+- Update content generation handling.
+- Updated dependencies
+  - @tailor-cms/cek-common@1.2.5
+
+## 1.2.4
+
+### Patch Changes
+
+- Remove request timeout, fix focus on content generate.
+- Updated dependencies
+  - @tailor-cms/cek-common@1.2.4
+
 ## 1.2.3
 
 ### Patch Changes

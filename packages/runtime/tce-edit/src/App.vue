@@ -263,6 +263,7 @@ import {
 import {
   getCurrentInstance,
   inject,
+  nextTick,
   onMounted,
   provide,
   ref,
@@ -363,9 +364,9 @@ const doTheMagic = async () => {
     console.log('Error on element content generate:', error);
   } finally {
     isGeneratingContent.value = false;
+    await nextTick();
+    isFocused.value = true;
   }
-  isGeneratingContent.value = false;
-  isFocused.value = true;
 };
 
 const onLink = () => {
