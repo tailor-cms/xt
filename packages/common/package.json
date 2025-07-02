@@ -3,7 +3,7 @@
   "description": "Content element kit shared util library",
   "author": "Studion <info@gostudion.com>",
   "type": "module",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "exports": {
     ".": {
       "import": "./dist/index.js",
