@@ -1,5 +1,11 @@
 # @tailor-cms/cek-common
 
+## 1.2.8
+
+### Patch Changes
+
+- Updated spacing on edit and display runtime"
+
 ## 1.2.7
 
 ### Patch Changes

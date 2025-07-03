@@ -1,5 +1,13 @@
 # @tailor-cms/tce-edit-runtime
 
+## 1.2.8
+
+### Patch Changes
+
+- Updated spacing on edit and display runtime"
+- Updated dependencies
+  - @tailor-cms/cek-common@1.2.8
+
 ## 1.2.7
 
 ### Patch Changes

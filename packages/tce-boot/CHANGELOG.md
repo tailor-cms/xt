@@ -1,5 +1,16 @@
 # @tailor-cms/tce-boot
 
+## 1.2.8
+
+### Patch Changes
+
+- Updated spacing on edit and display runtime"
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@1.2.8
+  - @tailor-cms/tce-server-runtime@1.2.8
+  - @tailor-cms/tce-edit-runtime@1.2.8
+  - @tailor-cms/tce-preview-runtime@1.2.8
+
 ## 1.2.7
 
 ### Patch Changes
