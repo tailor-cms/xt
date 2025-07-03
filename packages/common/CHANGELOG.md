@@ -1,5 +1,11 @@
 # @tailor-cms/cek-common
 
+## 1.2.7
+
+### Patch Changes
+
+- Fixed content generation flow. Added error log and reset state.
+
 ## 1.2.6
 
 ### Patch Changes

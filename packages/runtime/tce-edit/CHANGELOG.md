@@ -1,5 +1,13 @@
 # @tailor-cms/tce-edit-runtime
 
+## 1.2.7
+
+### Patch Changes
+
+- Fixed content generation flow. Added error log and reset state.
+- Updated dependencies
+  - @tailor-cms/cek-common@1.2.7
+
 ## 1.2.6
 
 ### Patch Changes
