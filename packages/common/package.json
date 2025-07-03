@@ -3,7 +3,7 @@
   "description": "Content element kit shared util library",
   "author": "Studion <info@gostudion.com>",
   "type": "module",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -33,7 +33,7 @@
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/json-schema": "^7.0.15",
-    "@types/node": "^24.0.4",
+    "@types/node": "^24.0.10",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3"
   },

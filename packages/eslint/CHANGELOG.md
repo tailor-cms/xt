@@ -1,5 +1,11 @@
 # @tailor-cms/eslint-config
 
+## 1.0.3
+
+### Patch Changes
+
+- Bump dependencies to the latest versions.
+
 ## 1.0.2
 
 ### Patch Changes

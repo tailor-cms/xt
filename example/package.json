@@ -27,7 +27,7 @@
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@tailor-cms/tce-boot": "workspace:*",
-    "@types/node": "^24.0.4",
+    "@types/node": "^24.0.10",
     "concurrently": "^9.2.0",
     "typescript": "^5.8.3"
   }

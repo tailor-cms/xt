@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-display-runtime",
   "description": "Display content element client side runtime",
   "author": "Studion <info@gostudion.com>",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -18,19 +18,19 @@
     "@vue/runtime-core": "^3.5.17",
     "@vue/runtime-dom": "^3.5.17",
     "@vue/shared": "^3.5.17",
-    "dotenv": "^16.6.0",
+    "dotenv": "^17.0.1",
     "lodash-es": "^4.17.21",
     "sass": "1.89.2",
     "typescript": "5.8.3",
     "vite": "7.0.0",
     "vite-plugin-vuetify": "2.1.1",
     "vue": "3.5.17",
-    "vuetify": "3.8.11"
+    "vuetify": "3.8.12"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^24.0.4"
+    "@types/node": "^24.0.10"
   },
   "publishConfig": {
     "access": "public"

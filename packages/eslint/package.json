@@ -1,7 +1,7 @@
 {
   "name": "@tailor-cms/eslint-config",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.js",
   "files": [
     "index.js",
@@ -14,15 +14,15 @@
     "nuke": "pnpm dlx del-cli node_modules"
   },
   "dependencies": {
-    "@eslint/js": "^9.29.0",
+    "@eslint/js": "^9.30.1",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.1",
-    "eslint-plugin-vue": "^10.2.0",
+    "eslint-plugin-vue": "^10.3.0",
     "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "neostandard": "^0.12.1",
-    "typescript-eslint": "^8.35.0",
-    "vue-eslint-parser": "^10.1.4"
+    "typescript-eslint": "^8.35.1",
+    "vue-eslint-parser": "^10.2.0"
   },
   "peerDependencies": {
     "eslint": ">=9.28.0"
