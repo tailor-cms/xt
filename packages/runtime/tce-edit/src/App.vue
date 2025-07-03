@@ -364,6 +364,7 @@ const doTheMagic = async () => {
     console.log('Error on element content generate:', error);
   } finally {
     isGeneratingContent.value = false;
+    await resetState();
     await nextTick();
     isFocused.value = true;
   }

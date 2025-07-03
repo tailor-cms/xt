@@ -1,9 +1,9 @@
 <template>
-  <VSheet class="embedded-container d-flex flex-column ga-2">
+  <div class="embedded-container d-flex flex-column ga-2">
     <div v-for="element in elements" :key="element.id" class="content-element">
       {{ element.data.content }}
     </div>
-  </VSheet>
+  </div>
 </template>
 
 <script setup lang="ts">
