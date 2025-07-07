@@ -7,11 +7,11 @@
   "exports": {
     "./edit": {
       "import": "./packages/edit/dist/index.js",
-      "require": "./packages/edit/dist/index.umd.cjs"
+      "require": "./packages/edit/dist/index.cjs"
     },
     "./display": {
       "import": "./packages/display/dist/index.js",
-      "require": "./packages/display/dist/index.umd.cjs"
+      "require": "./packages/display/dist/index.cjs"
     },
     "./server": "./packages/server/dist/index.js"
   },
