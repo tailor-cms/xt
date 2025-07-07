@@ -28,7 +28,7 @@
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
-    "@playwright/test": "1.53.1"
+    "@playwright/test": "^1.53.2"
   },
   "tsup": {
     "entry": [
