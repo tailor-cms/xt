@@ -29,7 +29,7 @@
     "ws": "^8.18.3"
   },
   "devDependencies": {
-    "@tailor-cms/eslint-config": "workspace:*",
+    "@tailor-cms/eslint-config": "workspace:^",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/lodash-es": "^4.17.12",

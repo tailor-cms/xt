@@ -23,7 +23,7 @@
     "prepublish": "pnpm build"
   },
   "devDependencies": {
-    "@tailor-cms/eslint-config": "workspace:*",
+    "@tailor-cms/eslint-config": "workspace:^",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3"
   },

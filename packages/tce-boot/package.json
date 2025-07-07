@@ -11,10 +11,10 @@
     "nuke": "pnpm dlx del-cli node_modules"
   },
   "dependencies": {
-    "@tailor-cms/tce-display-runtime": "workspace:*",
-    "@tailor-cms/tce-edit-runtime": "workspace:*",
-    "@tailor-cms/tce-preview-runtime": "workspace:*",
-    "@tailor-cms/tce-server-runtime": "workspace:*",
+    "@tailor-cms/tce-display-runtime": "workspace:^",
+    "@tailor-cms/tce-edit-runtime": "workspace:^",
+    "@tailor-cms/tce-preview-runtime": "workspace:^",
+    "@tailor-cms/tce-server-runtime": "workspace:^",
     "boxen": "^8.0.1",
     "concurrently": "^9.2.0",
     "dotenv": "^17.0.1",
@@ -26,7 +26,7 @@
     "yup": "^1.6.1"
   },
   "devDependencies": {
-    "@tailor-cms/eslint-config": "workspace:*"
+    "@tailor-cms/eslint-config": "workspace:^"
   },
   "publishConfig": {
     "access": "public"

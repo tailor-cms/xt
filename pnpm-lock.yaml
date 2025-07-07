@@ -150,7 +150,7 @@ importers:
         version: 3.0.1
     devDependencies:
       '@tailor-cms/eslint-config':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../eslint
       '@types/json-schema':
         specifier: ^7.0.15
@@ -172,7 +172,7 @@ importers:
         version: 1.53.2
     devDependencies:
       '@tailor-cms/eslint-config':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../eslint
       tsup:
         specifier: ^8.5.0
@@ -220,7 +220,7 @@ importers:
         specifier: 7.4.47
         version: 7.4.47
       '@tailor-cms/cek-common':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../common
       '@vitejs/plugin-vue':
         specifier: 6.0.0
@@ -260,7 +260,7 @@ importers:
         version: 3.8.12(typescript@5.8.3)(vite-plugin-vuetify@2.1.1)(vue@3.5.17(typescript@5.8.3))
     devDependencies:
       '@tailor-cms/eslint-config':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../eslint
       '@types/lodash-es':
         specifier: ^4.17.12
@@ -275,7 +275,7 @@ importers:
         specifier: 7.4.47
         version: 7.4.47
       '@tailor-cms/cek-common':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../common
       '@vitejs/plugin-vue':
         specifier: 6.0.0
@@ -318,7 +318,7 @@ importers:
         version: 3.8.12(typescript@5.8.3)(vite-plugin-vuetify@2.1.1)(vue@3.5.17(typescript@5.8.3))
     devDependencies:
       '@tailor-cms/eslint-config':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../eslint
       '@types/lodash-es':
         specifier: ^4.17.12
@@ -333,7 +333,7 @@ importers:
         specifier: 7.4.47
         version: 7.4.47
       '@tailor-cms/cek-common':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../common
       '@vitejs/plugin-vue':
         specifier: 6.0.0
@@ -382,7 +382,7 @@ importers:
         version: 3.8.12(typescript@5.8.3)(vite-plugin-vuetify@2.1.1)(vue@3.5.17(typescript@5.8.3))
     devDependencies:
       '@tailor-cms/eslint-config':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../eslint
       '@types/lodash-es':
         specifier: ^4.17.12
@@ -443,7 +443,7 @@ importers:
         version: 8.18.3
     devDependencies:
       '@tailor-cms/eslint-config':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../eslint
       '@types/cors':
         specifier: ^2.8.19
@@ -464,16 +464,16 @@ importers:
   packages/tce-boot:
     dependencies:
       '@tailor-cms/tce-display-runtime':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../runtime/tce-display
       '@tailor-cms/tce-edit-runtime':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../runtime/tce-edit
       '@tailor-cms/tce-preview-runtime':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../runtime/preview
       '@tailor-cms/tce-server-runtime':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../runtime/tce-server
       boxen:
         specifier: ^8.0.1
@@ -504,7 +504,7 @@ importers:
         version: 1.6.1
     devDependencies:
       '@tailor-cms/eslint-config':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../eslint
 
 packages:
