@@ -1,5 +1,11 @@
 # @tailor-cms/tce-server-runtime
 
+## 1.3.1
+
+### Patch Changes
+
+- Updated workspace packages versions.
+
 ## 1.3.0
 
 ### Minor Changes

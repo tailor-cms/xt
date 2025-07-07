@@ -1,5 +1,11 @@
 # @tailor-cms/eslint-config
 
+## 1.1.1
+
+### Patch Changes
+
+- Updated workspace packages versions.
+
 ## 1.1.0
 
 ### Minor Changes

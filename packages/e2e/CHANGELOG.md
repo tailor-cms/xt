@@ -1,5 +1,11 @@
 # @tailor-cms/cek-e2e
 
+## 1.3.1
+
+### Patch Changes
+
+- Updated workspace packages versions.
+
 ## 1.3.0
 
 ### Minor Changes

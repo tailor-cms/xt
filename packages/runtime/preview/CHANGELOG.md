@@ -1,5 +1,13 @@
 # @tailor-cms/tce-preview-runtime
 
+## 1.3.1
+
+### Patch Changes
+
+- Updated workspace packages versions.
+- Updated dependencies
+  - @tailor-cms/cek-common@1.3.1
+
 ## 1.3.0
 
 ### Minor Changes
