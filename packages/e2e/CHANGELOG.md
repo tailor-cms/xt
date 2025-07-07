@@ -1,5 +1,11 @@
 # @tailor-cms/cek-e2e
 
+## 1.3.0
+
+### Minor Changes
+
+- Bump dependencies to the latest versions.
+
 ## 1.2.8
 
 ### Patch Changes
