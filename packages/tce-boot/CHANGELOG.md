@@ -1,5 +1,16 @@
 # @tailor-cms/tce-boot
 
+## 1.3.2
+
+### Patch Changes
+
+- Bump dependencies.
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@1.3.2
+  - @tailor-cms/tce-server-runtime@1.3.2
+  - @tailor-cms/tce-edit-runtime@1.3.2
+  - @tailor-cms/tce-preview-runtime@1.3.2
+
 ## 1.3.1
 
 ### Patch Changes
