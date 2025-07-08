@@ -1,6 +1,6 @@
 {
   "name": "@tailor-cms/cek-e2e",
-  "version": "1.2.6",
+  "version": "1.3.2",
   "type": "module",
   "exports": {
     ".": {
@@ -23,12 +23,12 @@
     "prepublish": "pnpm build"
   },
   "devDependencies": {
-    "@tailor-cms/eslint-config": "workspace:*",
+    "@tailor-cms/eslint-config": "workspace:^",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
-    "@playwright/test": "1.53.1"
+    "@playwright/test": "^1.53.2"
   },
   "tsup": {
     "entry": [

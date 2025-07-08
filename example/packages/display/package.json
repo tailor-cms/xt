@@ -10,12 +10,13 @@
     }
   },
   "main": "./dist/index.cjs",
+  "types": "./types/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
     "dev": "vite build --watch",
-    "build": "pnpm nuke:dist && vue-tsc --noEmit && vite build",
+    "build": "pnpm nuke:dist && vue-tsc && vite build",
     "lint": "eslint ./src",
     "lint:fix": "pnpm lint --fix",
     "nuke": "pnpm dlx del-cli dist node_modules",
@@ -31,7 +32,7 @@
     "@vitejs/plugin-vue": "^6.0.0",
     "tce-manifest": "workspace:*",
     "typescript": "^5.8.3",
-    "vite": "^7.0.0",
+    "vite": "^7.0.3",
     "vue-tsc": "^3.0.1"
   },
   "dependencies": {

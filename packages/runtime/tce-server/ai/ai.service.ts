@@ -34,7 +34,9 @@ export class AiPrompt {
       } as OpenAI.Responses.ResponseCreateParamsNonStreaming);
       this.response = this.responseProcessor(JSON.parse(response.output_text));
       return this.response;
-    } catch {}
+    } catch (error) {
+      console.error('Error generating AI response:', error);
+    }
   }
 
   toOpenAiInput(): OpenAI.Responses.ResponseInputItem[] {

@@ -1,5 +1,48 @@
 # @tailor-cms/tce-edit-runtime
 
+## 1.3.2
+
+### Patch Changes
+
+- Bump dependencies.
+- Updated dependencies
+  - @tailor-cms/cek-common@1.3.2
+
+## 1.3.1
+
+### Patch Changes
+
+- Updated workspace packages versions.
+- Updated dependencies
+  - @tailor-cms/cek-common@1.3.1
+
+## 1.3.0
+
+### Minor Changes
+
+- Bump dependencies to the latest versions.
+
+### Patch Changes
+
+- Updated dependencies
+  - @tailor-cms/cek-common@1.3.0
+
+## 1.2.8
+
+### Patch Changes
+
+- Updated spacing on edit and display runtime"
+- Updated dependencies
+  - @tailor-cms/cek-common@1.2.8
+
+## 1.2.7
+
+### Patch Changes
+
+- Fixed content generation flow. Added error log and reset state.
+- Updated dependencies
+  - @tailor-cms/cek-common@1.2.7
+
 ## 1.2.6
 
 ### Patch Changes

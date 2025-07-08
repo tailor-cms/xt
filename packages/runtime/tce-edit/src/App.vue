@@ -4,9 +4,9 @@
       <VContainer>
         <VRow>
           <VCol>
-            <div class="d-flex align-center">
+            <VSheet class="d-flex align-end" color="transparent" height="40">
               <VChip
-                class="elevation-2 mt-1 mb-2 body-2 font-weight-bold"
+                class="elevation-2 body-2 font-weight-bold"
                 color="primary-darken-1"
                 label
               >
@@ -104,8 +104,8 @@
                   </template>
                 </VCard>
               </VMenu>
-            </div>
-            <VSheet class="pa-8" color="white" elevation="3" rounded="lg">
+            </VSheet>
+            <VSheet class="mt-6 pa-8" color="white" elevation="3" rounded="lg">
               <div
                 v-if="isGeneratingContent"
                 class="d-flex flex-wrap justify-center py-16"
@@ -364,6 +364,7 @@ const doTheMagic = async () => {
     console.log('Error on element content generate:', error);
   } finally {
     isGeneratingContent.value = false;
+    await resetState();
     await nextTick();
     isFocused.value = true;
   }

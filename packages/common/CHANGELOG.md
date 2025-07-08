@@ -1,5 +1,35 @@
 # @tailor-cms/cek-common
 
+## 1.3.2
+
+### Patch Changes
+
+- Bump dependencies.
+
+## 1.3.1
+
+### Patch Changes
+
+- Updated workspace packages versions.
+
+## 1.3.0
+
+### Minor Changes
+
+- Bump dependencies to the latest versions.
+
+## 1.2.8
+
+### Patch Changes
+
+- Updated spacing on edit and display runtime"
+
+## 1.2.7
+
+### Patch Changes
+
+- Fixed content generation flow. Added error log and reset state.
+
 ## 1.2.6
 
 ### Patch Changes

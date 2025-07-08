@@ -4,7 +4,7 @@
       <VContainer>
         <VRow>
           <VCol>
-            <div class="d-flex mb-1">
+            <VSheet class="d-flex align-end" color="transparent" height="40">
               <VChip
                 class="text-body-2 font-weight-bold"
                 color="#E0FB61"
@@ -20,11 +20,12 @@
                 density="compact"
                 item-title="name"
                 label="State preset"
+                variant="solo"
                 hide-details
                 @update:model-value="onContextChange"
               />
-            </div>
-            <VSheet class="pa-8" color="white" elevation="3" rounded="lg">
+            </VSheet>
+            <VSheet class="mt-6 pa-8" color="white" elevation="3" rounded="lg">
               <VRow v-if="element?.data">
                 <VCol :cols="element.data.width ?? 12" class="display-frame">
                   <Display

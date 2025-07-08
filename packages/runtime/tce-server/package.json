@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-server-runtime",
   "description": "Teaching element server runtime",
   "author": "Studion <info@gostudion.com>",
-  "version": "1.2.6",
+  "version": "1.3.2",
   "type": "module",
   "scripts": {
     "dev": "node --experimental-specifier-resolution=node --loader ts-node/esm ./boot.ts",
@@ -29,7 +29,7 @@
     "ws": "^8.18.3"
   },
   "devDependencies": {
-    "@tailor-cms/eslint-config": "workspace:*",
+    "@tailor-cms/eslint-config": "workspace:^",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/lodash-es": "^4.17.12",
