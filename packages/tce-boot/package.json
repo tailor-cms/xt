@@ -17,7 +17,7 @@
     "@tailor-cms/tce-server-runtime": "workspace:^",
     "boxen": "^8.0.1",
     "concurrently": "^9.2.0",
-    "dotenv": "^17.0.1",
+    "dotenv": "^17.1.0",
     "fkill": "^9.0.0",
     "has-flag": "^5.0.1",
     "lodash-es": "^4.17.21",
