@@ -13,8 +13,8 @@
     "nuke": "pnpm -r --filter=!./example/packages/** run nuke && pnpm dlx del-cli node_modules"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.5",
-    "eslint": "^9.30.1",
+    "@changesets/cli": "^2.29.6",
+    "eslint": "^9.34.0",
     "prettier": "^3.6.2"
   },
   "packageManager": "pnpm@10.12.3"

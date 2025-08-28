@@ -1,12 +1,12 @@
 packages:
-  - 'packages/*'
-  - 'packages/runtime/*'
-  - 'docs'
-  - 'example'
-  - 'example/packages/display'
-  - 'example/packages/edit'
-  - 'example/packages/manifest'
-  - 'example/packages/server'
+  - packages/*
+  - packages/runtime/*
+  - docs
+  - example
+  - example/packages/display
+  - example/packages/edit
+  - example/packages/manifest
+  - example/packages/server
 
 onlyBuiltDependencies:
   - sqlite3

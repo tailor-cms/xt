@@ -25,10 +25,10 @@
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:^",
     "tsup": "^8.5.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   },
   "peerDependencies": {
-    "@playwright/test": "^1.53.2"
+    "@playwright/test": "^1.55.0"
   },
   "tsup": {
     "entry": [

@@ -24,16 +24,16 @@
     "prepublish": "pnpm build"
   },
   "peerDependencies": {
-    "vue": "^3.5.13"
+    "vue": "^3.5.20"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@types/stringify-object": "^4.0.5",
-    "@vitejs/plugin-vue": "^6.0.0",
+    "@vitejs/plugin-vue": "^6.0.1",
     "tce-manifest": "workspace:*",
-    "typescript": "^5.8.3",
-    "vite": "^7.0.3",
-    "vue-tsc": "^3.0.1"
+    "typescript": "^5.9.2",
+    "vite": "^7.1.3",
+    "vue-tsc": "^3.0.6"
   },
   "dependencies": {
     "stringify-object": "^5.0.0"
