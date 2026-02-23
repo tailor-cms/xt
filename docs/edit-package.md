@@ -144,6 +144,35 @@ elementBus.on('decrement', ({ count }) => console.log(count));
 For more details on the entire pub/sub API see the
 [vue-radio implementation](https://github.com/ExtensionEngine/tailor/blob/develop/packages/vue-radio/src/index.js).
 
+## Calling server actions
+
+All authoring components (Edit, TopToolbar, SideToolbar) can call custom
+server-side methods defined in the server package via the injected
+`$callElementAction` function.
+
+```ts
+<script setup lang="ts">
+import type { CallElementAction } from '@tailor-cms/cek-common';
+
+const callElementAction = inject('$callElementAction') as CallElementAction;
+
+const generateSummary = async () => {
+  // Type the return value via generic
+  const result = await callElementAction<{ summary: string }>('generateSummary', {
+    prompt: 'Summarize this content',
+  });
+  console.log(result.summary);
+};
+</script>
+```
+
+The `CallElementAction` type is exported from `@tailor-cms/cek-common`. Its
+signature is `<T = any>(action: string, payload?: any) => Promise<T>` — the
+generic `T` lets you type the return value at each call site. When omitted it
+defaults to `any`. The `action` parameter maps to a key in the server package's
+`call` export. For details on defining server actions, see the
+[Server package - Server actions](/server-package#server-actions) section.
+
 ## When to save the state ?
 
 Depending on the type of the element, you might wonder what is the best

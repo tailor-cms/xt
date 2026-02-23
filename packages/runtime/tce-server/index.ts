@@ -21,6 +21,7 @@ function initApp({
   isQuestion,
   isGradable,
   hookMap,
+  call,
   mocks,
 }) {
   DisplayContextService.initialize(mocks.displayContexts);
@@ -34,6 +35,7 @@ function initApp({
     isQuestion,
     isGradable,
     hookMap,
+    call,
   });
   app.use(contentElement.path, contentElementRouter);
   if (aiConfig.isConfigured) {
@@ -66,6 +68,7 @@ export default async function run({
   isQuestion,
   isGradable,
   hookMap,
+  call,
   mocks,
 }) {
   await initDb(hookMap);
@@ -75,6 +78,7 @@ export default async function run({
     isQuestion,
     isGradable,
     hookMap,
+    call,
     mocks,
     aiSchema,
   });

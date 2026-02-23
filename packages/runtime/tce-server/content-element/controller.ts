@@ -4,8 +4,9 @@ import DisplayContextService from './DisplayContextService';
 import { emitter } from '../common/emitter';
 import { getTceConfig } from '../common/config';
 import initHooks from './hooks';
+import StorageService from '../storage/storage.service';
 
-export default ({ type, initState, hookMap }) => {
+export default ({ type, initState, hookMap, call }) => {
   const { applyFetchHooks, beforeDisplay, processInteraction } =
     initHooks(hookMap);
 
@@ -67,6 +68,18 @@ export default ({ type, initState, hookMap }) => {
     return get(req, res);
   }
 
+  async function callAction({ body, params, element }, res) {
+    const { action } = params;
+    const handler = call?.[action];
+    if (!handler) {
+      return res.status(404).json({ error: `Action "${action}" not found` });
+    }
+    const config = { tce: getTceConfig(process.env) };
+    const services = { config, storage: StorageService };
+    const result = await handler(element, services, body);
+    return res.json({ data: result });
+  }
+
   return {
     get,
     getUserStateContexts,
@@ -75,5 +88,6 @@ export default ({ type, initState, hookMap }) => {
     resetAuthoringState,
     resetUserStateContext,
     setUserStateContext,
+    callAction,
   };
 };

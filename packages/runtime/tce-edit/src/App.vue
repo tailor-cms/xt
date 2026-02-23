@@ -282,6 +282,12 @@ const serverRuntimeUrl = new URL(VITE_SERVER_RUNTIME_URL);
 const api = getApiClient(VITE_SERVER_RUNTIME_URL);
 
 provide('$storageService', assetApi);
+provide('$callElementAction', (action: string, payload?: any) => {
+  if (!element.value) throw new Error('Element not loaded');
+  return api
+    .callElementAction(element.value.uid, action, payload)
+    .then((res: any) => res.data);
+});
 
 const eventBus = inject<any>('$eventBus');
 const appChannel = eventBus.channel('app');
@@ -311,7 +317,6 @@ const isFocused = ref(false);
 const isReadonly = ref(false);
 const isDragged = ref(false);
 const persistFocus = ref(false);
-
 const isLinkDialogVisible = ref(false);
 const isGradable = ref(props.isGradable ?? true);
 const isGeneratingContent = ref(false);

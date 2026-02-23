@@ -9,6 +9,8 @@ const endpoint = {
   resetState: (id: string) => `${endpoint.element(id)}/reset-state`,
   getContexts: (id: string) => `${endpoint.element(id)}/state-contexts`,
   reportActivity: (id: string) => `${endpoint.element(id)}/activity`,
+  callAction: (id: string, action: string) =>
+    `${endpoint.element(id)}/call/${action}`,
   generateContent: 'ai/generate',
 };
 
@@ -40,6 +42,13 @@ export const getApiClient = (
   const reportUserActivity = (id: string, data: any): Promise<any> =>
     api.post(endpoint.reportActivity(id), { json: data });
 
+  const callElementAction = (
+    id: string,
+    action: string,
+    payload?: any,
+  ): Promise<any> =>
+    api.post(endpoint.callAction(id, action), { json: payload }).json();
+
   const generateContent = (context: string): Promise<any> =>
     api.post(endpoint.generateContent, { json: { context } }).json();
 
@@ -51,6 +60,7 @@ export const getApiClient = (
     resetState,
     getContexts,
     reportUserActivity,
+    callElementAction,
     generateContent,
   };
 };

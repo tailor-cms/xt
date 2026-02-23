@@ -3,7 +3,7 @@ import express from 'express';
 import ContentElementService from './ContentElementService';
 import initController from './controller';
 
-function initRouter({ type, initState, isQuestion, isGradable, hookMap }) {
+function initRouter({ type, initState, isQuestion, isGradable, hookMap, call }) {
   const {
     get: getCtrl,
     getUserStateContexts,
@@ -12,10 +12,12 @@ function initRouter({ type, initState, isQuestion, isGradable, hookMap }) {
     resetAuthoringState,
     resetUserStateContext,
     setUserStateContext,
+    callAction,
   } = initController({
     type,
     initState,
     hookMap,
+    call,
   });
 
   const router = express.Router();
@@ -30,6 +32,7 @@ function initRouter({ type, initState, isQuestion, isGradable, hookMap }) {
   router.route('/:id/state-contexts').get(getUserStateContexts);
   router.route('/:id/set-state').post(setUserStateContext);
   router.route('/:id/reset-state').post(resetUserStateContext);
+  router.route('/:id/call/:action').post(callAction);
   return router;
 }
 

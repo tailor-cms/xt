@@ -58,6 +58,78 @@ All changes made by hooks are automatically propagated to the authoring
 front-end using SSE (Server Side Events).
 ::::
 
+## Server actions
+
+Server actions allow content elements to define custom server-side methods
+that can be called from Edit, TopToolbar, or SideToolbar components with
+request/response semantics. This is useful for operations that need to run on
+the server — such as calling external APIs, processing data, or performing
+secure operations.
+
+### Defining actions
+
+Export a `call` object from your server package. Each key is an action name
+and each value is a handler function:
+
+```ts
+export const call = {
+  async generateSummary(element, services, payload) {
+    // element  - the content element instance
+    // services - { config, storage } (same as hooks)
+    // payload  - data sent from the frontend
+    const { prompt } = payload;
+    const summary = await someExternalApi.generate(prompt);
+    return { summary };
+  },
+  getStats(element) {
+    return {
+      wordCount: element.data.content?.split(' ').length ?? 0,
+    };
+  },
+};
+
+export default {
+  type,
+  initState,
+  hookMap,
+  call,
+  // ...hooks
+};
+```
+
+Handler signature: `(element, services, payload) => Promise<any> | any`
+
+The `services` object contains the same `config` and `storage` services
+available in hooks.
+
+### Calling from Edit components
+
+Actions are called via the injected `$callElementAction` function:
+
+```ts
+import type { CallElementAction } from '@tailor-cms/cek-common';
+
+const callElementAction = inject('$callElementAction') as CallElementAction;
+
+// Call with payload (typed return)
+const { summary } = await callElementAction<{ summary: string }>('generateSummary', {
+  prompt: 'Summarize this element',
+});
+
+// Call without payload
+const stats = await callElementAction('getStats');
+```
+
+The function returns a Promise that resolves with the handler's return value.
+See [Edit package - Calling server actions](/edit-package#calling-server-actions)
+for more on typing.
+
+### Route
+
+Each action maps to: `POST /content-element/:id/call/:actionName`
+
+If the action doesn't exist, a `404` response is returned.
+
 ## User state hooks
 
 ::::tip ☝️ Note

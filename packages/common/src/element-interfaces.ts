@@ -39,6 +39,16 @@ export interface Element<TData = ElementData, TRefs = Refs, TMeta = Meta> {
 
 export type DataInitializer<TData = ElementData> = () => TData;
 
+/**
+ * Function injected as `$callElementAction` into authoring components
+ * (Edit, TopToolbar, SideToolbar). Calls a named server action defined
+ * in the CE server package's `call` export.
+ */
+export type CallElementAction = <T = any>(
+  action: string,
+  payload?: any,
+) => Promise<T>;
+
 export interface ElementManifest<TData = ElementData> {
   /**
    * Unique, reserved string, denoting 'Content Element' type. Each Content
