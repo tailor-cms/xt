@@ -24,7 +24,7 @@
         <VWindowItem :value="1" class="authoring-window">
           <VBtn
             class="mb-4"
-            color="indigoDarken4"
+            color="indigo-darken-4"
             variant="tonal"
             @click="$emit('resetElement')"
           >
@@ -36,7 +36,7 @@
         <VWindowItem :value="2" class="user-state-window">
           <VBtn
             class="mb-4"
-            color="indigoDarken4"
+            color="indigo-darken-4"
             variant="tonal"
             @click="$emit('resetState')"
           >

@@ -2,7 +2,7 @@
   <VCard color="grey-lighten-5">
     <VToolbar class="px-4" color="primary-darken-2" height="36">
       <VIcon :icon="icon" color="secondary-lighten-2" size="18" start />
-      <span class="text-subtitle-2">{{ type }}</span>
+      <span class="text-title-small">{{ type }}</span>
     </VToolbar>
     <VForm ref="form" class="content text-left pa-6" validate-on="submit">
       <Edit

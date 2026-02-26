@@ -24,11 +24,11 @@
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:^",
-    "tsup": "^8.5.0",
-    "typescript": "^5.9.2"
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "@playwright/test": "^1.55.0"
+    "@playwright/test": "^1.58.2"
   },
   "tsup": {
     "entry": [

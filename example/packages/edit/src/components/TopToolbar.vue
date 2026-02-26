@@ -1,6 +1,6 @@
 <template>
   <VToolbarItems>
-    <VBtn color="grey-darken-4" prepend-icon="mdi-minus" @click="decrement">
+    <VBtn prepend-icon="mdi-minus" size="large" @click="decrement">
       Decrement
     </VBtn>
   </VToolbarItems>

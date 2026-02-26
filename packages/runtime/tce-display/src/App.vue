@@ -1,13 +1,13 @@
 <template>
   <VApp>
     <VMain class="pa-4">
-      <VContainer>
+      <VContainer fluid>
         <VRow>
           <VCol>
             <VSheet class="d-flex align-end" color="transparent" height="40">
               <VChip
-                class="text-body-2 font-weight-bold"
-                color="#E0FB61"
+                class="text-body-medium font-weight-bold"
+                color="lime accent-2"
                 variant="elevated"
                 label
               >
@@ -25,7 +25,7 @@
                 @update:model-value="onContextChange"
               />
             </VSheet>
-            <VSheet class="mt-6 pa-8" color="white" elevation="3" rounded="lg">
+            <VSheet class="mt-6 pa-8" color="white" elevation="2" rounded="lg">
               <VRow v-if="element?.data">
                 <VCol :cols="element.data.width ?? 12" class="display-frame">
                   <Display
@@ -113,6 +113,6 @@ const onInteraction = async (data) => {
 
 <style lang="scss" scoped>
 .v-application {
-  background-color: transparent !important;
+  background: transparent;
 }
 </style>

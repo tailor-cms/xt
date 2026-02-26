@@ -22,7 +22,6 @@
           Cancel
         </VBtn>
         <VBtn
-          :focus="isVisible"
           :slim="false"
           color="primary-darken-2"
           variant="tonal"

@@ -1,13 +1,14 @@
 <template>
   <VApp>
     <VMain class="pa-4">
-      <VContainer>
+      <VContainer fluid>
         <VRow>
           <VCol>
             <VSheet class="d-flex align-end" color="transparent" height="40">
               <VChip
-                class="elevation-2 body-2 font-weight-bold"
-                color="primary-darken-1"
+                class="text-body-medium font-weight-bold"
+                color="primary-lighten-4"
+                variant="elevated"
                 label
               >
                 Authoring component
@@ -19,24 +20,22 @@
                 class="mr-2"
                 color="indigo-darken-2"
                 prepend-icon="mdi-creation"
-                size="small"
                 text="Do the magic"
                 variant="tonal"
                 @click="doTheMagic"
               />
-              <VMenu :close-on-content-click="false" width="300" offset-y>
+              <VMenu :close-on-content-click="false" width="300">
                 <template #activator="{ props: menuProps }">
                   <VBtn
                     v-bind="menuProps"
                     color="primary-darken-2"
                     prepend-icon="mdi-cog"
-                    size="small"
                     text="Settings"
                     variant="tonal"
                   />
                 </template>
                 <VCard class="pa-4">
-                  <div class="settings-header text-overline">
+                  <div class="settings-header text-label-medium">
                     <VIcon icon="mdi-cog" size="small" start />
                     Element Props
                   </div>
@@ -63,7 +62,7 @@
                     label="Dragged"
                     hide-details
                   />
-                  <div class="settings-header text-overline mt-4">
+                  <div class="settings-header text-label-medium mt-4">
                     <VIcon icon="mdi-cube" size="small" start />
                     Element Data
                   </div>
@@ -89,7 +88,7 @@
                     @click.prevent="confirm(toggleGradable)"
                   />
                   <template v-if="isAiEnabled">
-                    <div class="settings-header text-overline mt-4">
+                    <div class="settings-header text-label-medium mt-4 mb-2">
                       <VIcon icon="mdi-creation" size="small" start />
                       AI Context
                     </div>
@@ -105,7 +104,7 @@
                 </VCard>
               </VMenu>
             </VSheet>
-            <VSheet class="mt-6 pa-8" color="white" elevation="3" rounded="lg">
+            <VSheet class="mt-6 pa-8" color="white" elevation="2" rounded="lg">
               <div
                 v-if="isGeneratingContent"
                 class="d-flex flex-wrap justify-center py-16"
@@ -173,7 +172,7 @@
           <VCol>
             <div class="d-flex align-center">
               <VChip
-                class="elevation-2 my-3 body-2 font-weight-bold"
+                class="elevation-2 my-3 text-body-medium font-weight-bold"
                 color="grey-darken-3"
                 label
               >
@@ -202,7 +201,7 @@
           <VCol>
             <div class="d-flex align-center">
               <VChip
-                class="elevation-2 my-3 body-2 font-weight-bold"
+                class="elevation-2 my-3 text-body-medium font-weight-bold"
                 color="grey-darken-3"
                 label
               >
@@ -231,7 +230,7 @@
     </VMain>
     <VDialog v-model="isLinkDialogVisible" width="500" attach persistent>
       <VCard>
-        <VCardTitle class="text-h5">Link element dialog</VCardTitle>
+        <VCardTitle class="text-headline-small">Link element dialog</VCardTitle>
         <VCardText>
           In Tailor, this action will open a dialog to select a content element
           to link to. The `refs` property is updated with mock data to reflect
@@ -464,7 +463,7 @@ watch(isReadonly, (val) => {
 
 <style lang="scss" scoped>
 .v-application {
-  background-color: transparent !important;
+  background: transparent;
 }
 
 .side-toolbar {
@@ -528,5 +527,7 @@ watch(isReadonly, (val) => {
   display: flex;
   align-items: center;
   font-weight: bold;
+  text-transform: uppercase;
+  padding: 0.5rem 0;
 }
 </style>

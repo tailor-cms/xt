@@ -28,8 +28,8 @@
     "@tailor-cms/cek-common": "workspace:*",
     "@tailor-cms/eslint-config": "workspace:*",
     "tce-manifest": "workspace:*",
-    "tsup": "^8.5.0",
-    "typescript": "^5.9.2"
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
   },
   "tsup": {
     "entry": [

@@ -1,15 +1,17 @@
 <template>
   <div class="tce-root">
-    <div class="d-flex align-center text-h5">
+    <div class="d-flex align-center text-headline-small">
       {{ elementData.description || 'Author click count' }}
       <VSpacer />
       <div class="counter">{{ elementData.count }}</div>
     </div>
     <VBtn class="my-8" variant="tonal" @click="submit">Submit interaction</VBtn>
     <div>
-      <div class="text-overline font-weight-bold">User state:</div>
+      <div class="text-label-medium text-uppercase font-weight-bold mb-2">
+        User state:
+      </div>
       <VSheet class="py-2 px-4" color="grey-lighten-3" rounded="lg">
-        <pre class="my-1 text-body-2">{{
+        <pre class="my-1 text-body-medium">{{
           stringifyObject(userState, { indent: '  ' })
         }}</pre>
       </VSheet>

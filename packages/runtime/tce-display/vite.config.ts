@@ -2,7 +2,6 @@ import { defineConfig, UserConfig } from 'vite';
 import dotenv from 'dotenv';
 import { pick } from 'lodash-es';
 import vue from '@vitejs/plugin-vue';
-import vuetify from 'vite-plugin-vuetify';
 
 import { fileURLToPath } from 'url';
 import path from 'node:path';
@@ -45,6 +44,6 @@ export default defineConfig((): UserConfig => {
     optimizeDeps: {
       include: [displayModulePath.replace(/\/dist$/, '')],
     },
-    plugins: [vue(), vuetify({ autoImport: true })],
+    plugins: [vue()],
   };
 });

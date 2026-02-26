@@ -7,5 +7,10 @@ import { createVuetify } from 'vuetify';
 import App from './App.vue';
 
 createApp(App)
-  .use(createVuetify({ icons: { defaultSet: 'mdi' } }))
+  .use(
+    createVuetify({
+      theme: { defaultTheme: 'light' },
+      icons: { defaultSet: 'mdi' },
+    }),
+  )
   .mount('#app');
