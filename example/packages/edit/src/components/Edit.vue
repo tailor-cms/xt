@@ -69,15 +69,30 @@
     <VBtn v-if="!isReadonly" class="my-3" variant="tonal" @click="emit('link')">
       Link example
     </VBtn>
+    <VBtn
+      v-if="!isReadonly"
+      :loading="isLoading"
+      class="my-3 ml-2"
+      prepend-icon="mdi-export"
+      variant="tonal"
+      @click="exportData"
+    >
+      Export data
+    </VBtn>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { InputFileEvent, StorageApi } from '@tailor-cms/cek-common';
+import type {
+  CallElementAction,
+  InputFileEvent,
+  StorageApi,
+} from '@tailor-cms/cek-common';
+import { inject, ref } from 'vue';
 import { createUploadForm } from '@tailor-cms/cek-common';
 import { Element } from 'tce-manifest';
-import { inject } from 'vue';
 
+const callElementAction = inject('$callElementAction') as CallElementAction;
 const storageService = inject('$storageService') as StorageApi;
 const elementBus = inject('$elementBus') as any;
 
@@ -121,6 +136,25 @@ const removeImage = () => {
     assets: undefined,
     backgroundUrl: undefined,
   });
+};
+
+const isLoading = ref(false);
+
+const exportData = async () => {
+  isLoading.value = true;
+  try {
+    const { url } = await callElementAction<{ url: string }>('exportData');
+    const res = await fetch(url);
+    const blob = await res.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = blobUrl;
+    link.download = 'element-data.json';
+    link.click();
+    URL.revokeObjectURL(blobUrl);
+  } finally {
+    isLoading.value = false;
+  }
 };
 </script>
 
