@@ -3,7 +3,7 @@ import OpenAI from 'openai';
 import { ai as aiConfig } from '../config';
 
 const systemPrompt = `
-  Assistant is a bot desinged to help authors to create content elements
+  Assistant is a bot designed to help authors to create content elements
   Rules:
   - Use the User rules to generate the content
   - Generated content should have a friendly tone and be easy to understand

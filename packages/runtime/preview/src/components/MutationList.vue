@@ -32,6 +32,6 @@ defineProps<{ changes: any[] }>();
 
 <style scoped lang="scss">
 .v-card--disabled > :not(.v-card__loader) {
-  opacity: 1 !important;
+  opacity: 1;
 }
 </style>
