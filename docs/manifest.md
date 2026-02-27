@@ -31,6 +31,10 @@ export interface ElementManifest<TData = ElementData> {
   // 'data' field upon the Content Element creation. The 'data' field is
   // the Content Element property storing authors input.
   initState: DataInitializer;
+  // Optional function to determine if element data is considered empty.
+  // Used by the authoring system to evaluate required content elements.
+  // Receives current element data and returns true if empty.
+  isEmpty?: (data: TData) => boolean;
   // Edit component of the Content Element (Used for authoring purposes).
   Edit?: object;
   // TopToolbar component of the Content Element Edit component

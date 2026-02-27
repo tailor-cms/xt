@@ -19,6 +19,9 @@ export const initState: DataInitializer = (): ElementData => ({
   description: '',
 });
 
+// Function to check if element data is empty (used for required elements)
+export const isEmpty = (data: ElementData): boolean => !data.description;
+
 // Can be loaded from package.json
 export const version = '1.0';
 
@@ -67,6 +70,7 @@ const manifest: ElementManifest = {
   version: '1.0',
   name,
   initState,
+  isEmpty,
   ui,
   mocks,
   ai,

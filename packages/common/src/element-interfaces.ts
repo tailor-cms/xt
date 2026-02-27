@@ -90,6 +90,15 @@ export interface ElementManifest<TData = ElementData> {
    */
   initState: DataInitializer<TData>;
   /**
+   * Optional function to determine if element data is considered empty.
+   * Used by the authoring system to evaluate required content elements.
+   * When a content element is marked as required, this function is called
+   * to check if the author has provided the necessary content.
+   * Receives the current element data and should return true if the element
+   * is considered empty (i.e. content has not been provided).
+   */
+  isEmpty?: (data: TData) => boolean;
+  /**
    * Edit component of the Content Element (Used for authoring purposes).
    */
   Edit?: object;
