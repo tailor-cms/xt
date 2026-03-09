@@ -15,94 +15,32 @@
               </VChip>
               <VSpacer />
               <VBtn
-                v-if="isAiEnabled"
-                :disabled="isReadonly || isGeneratingContent"
+                :disabled="isEmpty"
+                class="mr-2"
+                color="teal-darken-2"
+                prepend-icon="mdi-restore"
+                text="Reset"
+                variant="tonal"
+                @click="reset"
+              />
+              <VBtn
+                v-if="config.isAiEnabled"
+                :disabled="settings.isReadonly || isGeneratingContent"
                 class="mr-2"
                 color="indigo-darken-2"
                 prepend-icon="mdi-creation"
-                text="Do the magic"
+                text="Generate"
                 variant="tonal"
                 @click="doTheMagic"
               />
-              <VMenu :close-on-content-click="false" width="300">
-                <template #activator="{ props: menuProps }">
-                  <VBtn
-                    v-bind="menuProps"
-                    color="primary-darken-2"
-                    prepend-icon="mdi-cog"
-                    text="Settings"
-                    variant="tonal"
-                  />
-                </template>
-                <VCard class="pa-4">
-                  <div class="settings-header text-label-medium">
-                    <VIcon icon="mdi-cog" size="small" start />
-                    Element Props
-                  </div>
-                  <VCheckbox
-                    v-model="isReadonly"
-                    color="primary"
-                    density="comfortable"
-                    label="Readonly"
-                    hide-details
-                  />
-                  <VCheckbox
-                    v-model="persistFocus"
-                    :disabled="isReadonly"
-                    color="primary"
-                    density="comfortable"
-                    label="Focused"
-                    hide-details
-                  />
-                  <VCheckbox
-                    v-model="isDragged"
-                    :disabled="isReadonly"
-                    color="primary"
-                    density="comfortable"
-                    label="Dragged"
-                    hide-details
-                  />
-                  <div class="settings-header text-label-medium mt-4">
-                    <VIcon icon="mdi-cube" size="small" start />
-                    Element Data
-                  </div>
-                  <VCheckbox
-                    :disabled="forceFullWidth"
-                    :false-value="12"
-                    :model-value="element.data.width"
-                    :true-value="6"
-                    color="primary"
-                    density="comfortable"
-                    label="Half width"
-                    hide-details
-                    @click.prevent="confirm(toggleHalfWidth)"
-                  />
-                  <VCheckbox
-                    v-if="isQuestion"
-                    :disabled="isToggleGradableDisabled"
-                    :model-value="isGradable"
-                    color="primary"
-                    density="comfortable"
-                    label="Gradable"
-                    hide-details
-                    @click.prevent="confirm(toggleGradable)"
-                  />
-                  <template v-if="isAiEnabled">
-                    <div class="settings-header text-label-medium mt-4 mb-2">
-                      <VIcon icon="mdi-creation" size="small" start />
-                      AI Context
-                    </div>
-                    <VTextarea
-                      v-if="isAiEnabled"
-                      v-model="aiContext"
-                      placeholder="Enter context for AI generation..."
-                      rows="3"
-                      variant="outlined"
-                      hide-details
-                    />
-                  </template>
-                </VCard>
-              </VMenu>
+              <Settings
+                v-if="element?.data"
+                v-model:settings="settings"
+                :config="config"
+                :element="element"
+                @toggle-gradable="confirm(toggleGradable)"
+                @toggle-half-width="confirm(toggleHalfWidth)"
+              />
             </VSheet>
             <VSheet class="mt-6 pa-8" color="white" elevation="2" rounded="lg">
               <div
@@ -129,12 +67,12 @@
                 <VCol v-if="element?.data" :cols="element.data.width ?? 12">
                   <VSheet
                     v-click-outside="{
-                      handler: () => !persistFocus && unfocusElement(),
+                      handler: () => !settings.persistFocus && unfocusElement(),
                       include,
                     }"
                     :class="{ focused: isFocused }"
                     class="edit-frame"
-                    @click="!persistFocus && focusElement()"
+                    @click="!settings.persistFocus && focusElement()"
                   >
                     <QuestionCard
                       v-if="isQuestion"
@@ -142,8 +80,9 @@
                         type,
                         icon,
                         element,
-                        isDragged,
-                        isReadonly,
+                        autosave: settings.autosave,
+                        isDragged: settings.isDragged,
+                        isReadonly: settings.isReadonly,
                         isFocused,
                       }"
                       @delete="onDelete"
@@ -154,8 +93,8 @@
                       v-else
                       v-bind="{
                         element,
-                        isDragged,
-                        isReadonly,
+                        isDragged: settings.isDragged,
+                        isReadonly: settings.isReadonly,
                         isFocused,
                       }"
                       @delete="onDelete"
@@ -255,24 +194,27 @@
 
 <script lang="ts" setup>
 import {
-  getApiClient,
-  initWebSocket,
-  resolveElementId,
-} from '@tailor-cms/cek-common';
-import {
+  computed,
   getCurrentInstance,
   inject,
   nextTick,
   onMounted,
   provide,
+  reactive,
   ref,
   watch,
 } from 'vue';
-import type { Element } from '@tailor-cms/cek-common';
+import type { DataInitializer, Element } from '@tailor-cms/cek-common';
+import {
+  getApiClient,
+  initWebSocket,
+  resolveElementId,
+} from '@tailor-cms/cek-common';
 
 import assetApi from './api/asset';
 import ConfirmationDialog from './components/ConfirmationDialog.vue';
 import QuestionCard from './components/QuestionCard.vue';
+import Settings from './components/Settings.vue';
 
 const { TopToolbar, SideToolbar } = getCurrentInstance().appContext.components;
 
@@ -292,6 +234,8 @@ const eventBus = inject<any>('$eventBus');
 const appChannel = eventBus.channel('app');
 
 interface Props {
+  initState: DataInitializer;
+  isEmpty: (data: Element['data']) => boolean;
   isQuestion?: boolean;
   isGradable?: boolean;
   isAiEnabled?: boolean;
@@ -313,23 +257,34 @@ const emit = defineEmits(['save', 'delete']);
 
 const element = ref<Element>();
 const isFocused = ref(false);
-const isReadonly = ref(false);
-const isDragged = ref(false);
-const persistFocus = ref(false);
 const isLinkDialogVisible = ref(false);
-const isGradable = ref(props.isGradable ?? true);
 const isGeneratingContent = ref(false);
 
-const aiContext = ref('');
+const settings = reactive({
+  isReadonly: false,
+  persistFocus: false,
+  isDragged: false,
+  autosave: !props.isQuestion,
+  isGradable: props.isGradable ?? true,
+  aiContext: '',
+});
 
-const isToggleGradableDisabled = ref(
-  props.isQuestion && props.isGradable !== undefined,
-);
+const config = ref({
+  isQuestion: props.isQuestion,
+  isToggleGradableDisabled: props.isQuestion && props.isGradable !== undefined,
+  forceFullWidth: props.forceFullWidth,
+  isAiEnabled: props.isAiEnabled,
+});
 
 const include = () => [
   document.querySelector('.top-toolbar'),
   document.querySelector('.side-toolbar'),
 ];
+
+const isEmpty = computed(() => {
+  if (!element.value?.data) return false;
+  return props.isEmpty(element.value.data);
+});
 
 onMounted(async () => {
   const elementId = resolveElementId();
@@ -340,14 +295,14 @@ onMounted(async () => {
 });
 
 const focusElement = () => {
-  if (!isReadonly.value) isFocused.value = true;
+  if (!settings.isReadonly) isFocused.value = true;
 };
 
 const unfocusElement = () => {
   isFocused.value = false;
 };
 
-const onSave = (data) => {
+const onSave = (data: any) => {
   updateElementData(data);
   emit('save', data);
 };
@@ -358,10 +313,10 @@ const onDelete = () => {
 
 const doTheMagic = async () => {
   isGeneratingContent.value = true;
-  persistFocus.value = false;
-  isDragged.value = false;
+  settings.persistFocus = false;
+  settings.isDragged = false;
   try {
-    const res = await api.generateContent(aiContext.value.trim());
+    const res = await api.generateContent(settings.aiContext.trim());
     const { width, isGradable } = element.value.data;
     await updateElementData({ ...res.data, width, isGradable });
   } catch (error) {
@@ -393,7 +348,7 @@ const load = async (elementId: string) => {
     const response = await api.getElement(elementId);
     if (response === null) return;
     element.value = response?.element;
-    isGradable.value = element.value.data.isGradable as boolean;
+    settings.isGradable = element.value.data.isGradable as boolean;
   } catch (error) {
     console.log('Error on element get', error);
     setTimeout(() => load(elementId), 2000);
@@ -405,7 +360,7 @@ const resetState = () =>
     .resetState(element.value.uid)
     .catch((error) => console.log('Error on state reset', error));
 
-const updateElementData = async (data) => {
+const updateElementData = async (data: any) => {
   try {
     element.value = await api.updateElement(element.value.uid, { data });
   } catch (error) {
@@ -413,35 +368,36 @@ const updateElementData = async (data) => {
   }
 };
 
-const initState = async () => {
-  const { initState } = await import(
-    /* @vite-ignore */ import.meta.env.MANIFEST_DIR
-  );
-  return initState();
+const initState = () => props.initState({ isGradable: settings.isGradable });
+
+const reset = async () => {
+  const data = initState();
+  await updateElementData(data);
+  return resetState();
 };
 
 const toggleGradable = async () => {
-  const data = await initState();
-  const newGradableValue = !isGradable.value;
+  const data = initState();
+  const newGradableValue = !settings.isGradable;
   data.isGradable = newGradableValue;
   if (!newGradableValue) delete data.correct;
   await updateElementData({
     ...data,
     width: element.value.data.width,
   });
-  isGradable.value = data.isGradable;
+  settings.isGradable = data.isGradable;
   return resetState();
 };
 
 const toggleHalfWidth = async () => {
-  const data = await initState();
+  const data = initState();
   const { width, isGradable } = element.value.data;
   const newWidth = width === 12 ? 6 : 12;
   await updateElementData({ ...data, width: newWidth, isGradable });
   return resetState();
 };
 
-const confirm = (action) => {
+const confirm = (action: any) => {
   return appChannel.emit('showConfirmationModal', {
     title: 'Are you sure?',
     message: 'This action will reset element data and state',
@@ -449,16 +405,22 @@ const confirm = (action) => {
   });
 };
 
-watch(persistFocus, (val) => {
-  if (val) isFocused.value = true;
-});
+watch(
+  () => settings.persistFocus,
+  (val) => {
+    if (val) isFocused.value = true;
+  },
+);
 
-watch(isReadonly, (val) => {
-  if (!val) return;
-  persistFocus.value = false;
-  isFocused.value = false;
-  isDragged.value = false;
-});
+watch(
+  () => settings.isReadonly,
+  (val) => {
+    if (!val) return;
+    settings.persistFocus = false;
+    isFocused.value = false;
+    settings.isDragged = false;
+  },
+);
 </script>
 
 <style lang="scss" scoped>
@@ -521,13 +483,5 @@ watch(isReadonly, (val) => {
       inset-inline-end: 0;
     }
   }
-}
-
-.settings-header {
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 0.5rem 0;
 }
 </style>

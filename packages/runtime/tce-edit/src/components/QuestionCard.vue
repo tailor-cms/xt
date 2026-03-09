@@ -4,16 +4,23 @@
       <VIcon :icon="icon" color="secondary-lighten-2" size="18" start />
       <span class="text-title-small">{{ type }}</span>
     </VToolbar>
-    <VForm ref="form" class="content text-left pa-6" validate-on="submit">
+    <VForm
+      ref="form"
+      :validate-on="autosave ? 'input' : 'submit'"
+      class="text-left pa-6"
+    >
       <Edit
         v-bind="{ element: editedElement, isFocused, isReadonly }"
         @delete="emit('delete')"
         @link="emit('link', $event)"
-        @save="save"
-        @update="Object.assign(editedElement.data, $event)"
+        @save="update"
+        @update="update"
       />
       <VFadeTransition>
-        <div v-if="!isReadonly && isDirty" class="d-flex justify-end">
+        <div
+          v-if="!isReadonly && isDirty && !autosave"
+          class="d-flex justify-end"
+        >
           <VBtn color="primary-darken-4" variant="text" @click="resetData">
             Cancel
           </VBtn>
@@ -40,11 +47,13 @@ interface Props {
   element: any;
   type: string;
   icon: string;
+  autosave?: boolean;
   isReadonly?: boolean;
   isFocused?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  autosave: false,
   isReadonly: false,
   isFocused: false,
 });
@@ -70,6 +79,11 @@ const save = async () => {
   if (!form.value) return;
   const { valid } = await form.value.validate();
   if (valid) emit('save', editedElement.data);
+};
+
+const update = (data: any) => {
+  Object.assign(editedElement.data, data);
+  if (props.autosave) emit('save', editedElement.data);
 };
 
 const resetData = () => {
