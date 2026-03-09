@@ -14,6 +14,8 @@ const {
   ai,
   isComposite = false,
   isQuestion,
+  isEmpty,
+  initState,
   isGradable,
   name,
   ui,
@@ -28,6 +30,8 @@ const app = createApp(App, {
   type: name,
   icon: ui.icon,
   forceFullWidth: ui.forceFullWidth,
+  initState,
+  isEmpty,
 });
 const radio = Radio.getInstance();
 app.provide('$eventBus', radio);
