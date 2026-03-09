@@ -29,7 +29,7 @@ props:
 - `:element`: object; Element entity containing all element related data
 - `:isFocused`: boolean; Is element selected
 - `:isDragged`: boolean; Is element being dragged; e.g. upon reordering
-- `:isReadonly`: boolean; Should element be readonly; e.g. upon copy element seleciton
+- `:isReadonly`: boolean; Should element be readonly; e.g. upon copy element selection
 
 and observed for element related events:
 
@@ -76,8 +76,8 @@ const increment = () => {
 In the example above, component triggers `save` state event on each Increment
 button click. Note how `data` object is recreated, rather than count value being
 modified. Since data flow should be top-down it is important not to modify
-the recieved value, but rather emit a new state (to avoid side-effects). After
-the event has been triggered, change is recieved via prop (updated element
+the received value, but rather emit a new state (to avoid side-effects). After
+the event has been triggered, change is received via prop (updated element
 state). Similar goes for the TopToolbar:
 
 \
@@ -108,13 +108,13 @@ Available in version >=0.1.0
 :::
 
 All authoring components have the `$elementBus` pub/sub mechanism available,
-provided via Vue [provide/inject](https://v2.vuejs.org/v2/api/#provide-inject)
-prop-drilling feature. To communicate between components, simply inject
+provided via Vue [provide/inject](https://vuejs.org/guide/components/provide-inject)
+feature. To communicate between components, simply inject
 `$elementBus` and `emit` the event.
 
 \
 `TopToolbar.vue`
-```ts
+```vue
 <script setup lang="ts">
 ...
 const elementBus = inject('$elementBus');
@@ -132,7 +132,7 @@ Proceed by implementing a listener within the targeted component (using the `on`
 
 \
 `Edit.vue`
-```ts
+```vue
 <script setup lang="ts">
 ...
 const elementBus = inject('$elementBus');
@@ -150,7 +150,7 @@ All authoring components (Edit, TopToolbar, SideToolbar) can call custom
 server-side methods defined in the server package via the injected
 `$callElementAction` function.
 
-```ts
+```vue
 <script setup lang="ts">
 import type { CallElementAction } from '@tailor-cms/cek-common';
 
@@ -173,7 +173,7 @@ defaults to `any`. The `action` parameter maps to a key in the server package's
 `call` export. For details on defining server actions, see the
 [Server package - Server actions](/server-package#server-actions) section.
 
-## When to save the state ?
+## When to save the state?
 
 Depending on the type of the element, you might wonder what is the best
 moment to persist element state. Most of the elements are observing isFocused
@@ -193,7 +193,7 @@ order to be selected).
 ## Composite Elements
 
 Content elements can be configured as composite elements using the `isComposite`
-flag in the manifest. To include a list of composite elements, utilize the
+flag in the manifest. To include a list of embedded child elements, utilize the
 `TailorEmbeddedContainer` global component. Tailor CMS will render the appropriate
 element list, while the CEK runtime will mock example elements.
 
@@ -207,16 +207,105 @@ The `TailorEmbeddedContainer` component accepts the following props:
 ## Question Elements
 
 Content elements can be configured as question elements using the `isQuestion`
-flag in the manifest. Each question can utilize `QuestionContainer` component
-from `@tailor-cms/core-components` package which is used to wrap the component
-in the container with the question prompt, content element slot, hint,
-optionally feedback and save and cancel actions. If `QuestionContainer` is
-used content element must also be configured as `isComposite` in the manifest
-because Question prompt is utilizing `TailorEmbeddedContainer` under the hood.
+flag in the manifest. Question elements require `isComposite: true` as well,
+because the question prompt uses `TailorEmbeddedContainer` under the hood.
+
+### CEK runtime: QuestionCard
+
+When `isQuestion` is set, the CEK runtime wraps the Edit component in a
+`QuestionCard` — a card UI with a type/icon header, form validation, dirty
+tracking, and Save/Cancel controls.
+
+The `QuestionCard` accepts an `autosave` prop (defaults to `false` for question
+elements):
+
+- **`autosave: false`**: Shows Save/Cancel buttons when the element has unsaved
+  changes. The form is validated on submit.
+- **`autosave: true`**: Changes are persisted immediately on every `@update`
+  received. The form validates on input. No Save/Cancel buttons are shown.
+
+The autosave toggle is available in the Settings panel for question elements.
+
+Unlike regular elements (where `@save` emits the full `data` object and
+persists immediately), Edit components inside QuestionCard emit `@update` with
+partial data (only the changed fields). The `QuestionCard` merges the update
+into its local state and handles persistence via Save/Cancel controls (or
+immediately when `autosave` is enabled).
+
+```vue
+<script setup lang="ts">
+const emit = defineEmits(['update']);
+
+// Emit only changed fields (QuestionCard merges them)
+emit('update', { answer: newValue });
+</script>
+```
+
+### QuestionContainer
+
+Question Edit components should use `QuestionContainer` from
+`@tailor-cms/core-components` to wrap the answer UI. It provides the standard
+question layout: question prompt (using `TailorEmbeddedContainer`), a default
+slot for the answer UI, hint, and optionally feedback.
+
+```vue
+<template>
+  <QuestionContainer
+    :element-data="element.data"
+    :embed-element-config="embedElementConfig"
+    :is-disabled="isReadonly"
+    :show-feedback="true"
+    @update="onUpdate"
+  >
+    <!-- Your answer UI in the default slot -->
+  </QuestionContainer>
+</template>
+
+<script setup>
+import { QuestionContainer } from '@tailor-cms/core-components';
+...
+// Forward QuestionContainer updates (hint, feedback, prompt embeds)
+const onUpdate = (data) => emit('update', data);
+</script>
+```
 
 The `QuestionContainer` component accepts the following props:
-- `:elementData`: object; Element entity containing all element related data
-- `:showFeedback`: boolean; Controls whether QustionContainer should render
-feedback component.
-- `:embedElementConfig`: array; array of element configs allowed for the Question prompt
-- `:isReadonly`: boolean; Should element be readonly; e.g. upon copy element seleciton
+- `:elementData`: object; The element's `data` object
+- `:embedElementConfig`: array; Array of element configs allowed for the question prompt's embedded elements
+- `:isDisabled`: boolean; Disable editing
+- `:isReadonly`: boolean; Should element be readonly; e.g. upon copy element selection
+- `:showFeedback`: boolean; Controls whether QuestionContainer should render feedback component
+
+And emits:
+- `@update`: object; Partial data update (hint, feedback, question/embeds changes from sub-components)
+
+### Question element state shape
+
+Question elements follow a specific data structure:
+
+```ts
+interface QuestionElementData {
+  // Array of embed IDs that form the question prompt
+  question: string[];
+  // Key-value map of embedded elements (prompt parts, answer options, etc.)
+  embeds: Record<string, ContentElement>;
+  // Whether this question is gradable (has correct answers)
+  isGradable: boolean;
+  // Correct answer data (shape varies by question type, present when isGradable)
+  correct?: any;
+  // ... additional type-specific fields
+}
+```
+
+### `isGradable` behavior
+
+The `isGradable` flag controls whether a question element tracks correct
+answers:
+
+- When `isGradable: true` — the element includes a `correct` field in its data
+  and the Edit UI shows answer correctness controls
+- When `isGradable: false` — the `correct` field is removed and the element
+  functions as a survey/poll question without grading
+- The flag can be toggled at runtime via the Settings panel in the CEK, or
+  via the element configuration in Tailor CMS. Toggling resets the element
+  data to `initState` with the new `isGradable` value.

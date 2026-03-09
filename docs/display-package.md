@@ -2,7 +2,7 @@
 
 Display package is the subpackage located under `packages/display` exposing
 `Vue 3` component needed for the Content Element `end-user` rendering. The
-component recieves authored values as props. Here is an example of a Display
+component receives authored values as props. Here is an example of a Display
 component for the Simple Counter Content Element from the Edit package section:
 
 \
@@ -67,9 +67,9 @@ const submit = () => emit('interaction', { myInteractionData: 'example' });
 </script>
 ```
 
-:::tip State persistance and user event handling
+:::tip State persistence and user event handling
 It is up to the `end-user`/`target system` to define mechanisms for end-user
-state persistance or any other additional behaviour.
+state persistence or any other additional behaviour.
 :::
 
 ## Composite Elements

@@ -5,9 +5,9 @@ Here you will find information on setting up and running the Content Element Kit
 ## Prerequisites
 
 - macOS or Linux
-- [node](https://nodejs.org/en) - We recommend you have either 16.x or 20.x
+- [node](https://nodejs.org/en) - We recommend you have the latest LTS version
   installed.
-- [pnpm](https://pnpm.io/installation) version 8.x.
+- [pnpm](https://pnpm.io/installation)
 - git
 
 ## Setup

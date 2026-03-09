@@ -1,10 +1,10 @@
-# Enviroment variables
+# Environment variables
 
 You can use `.env` configuration file to configure `Content Element Kit` runtime
 and pass configuration to the content element backend.
 
 \
-There are two types of enviroment variables:
+There are two types of environment variables:
 
 - `Content Element Kit` variables, used to configure service ports,
   end-user URLs and runtimes.

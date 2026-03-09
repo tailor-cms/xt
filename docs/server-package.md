@@ -142,7 +142,7 @@ user-specific state of a particular element. There are two state hooks available
   - `onUserInteraction`
 
 The `end-user` system has the full flexibility for implementing the state
-management and persistance. User-state hooks recieve `displaySystemContext`,
+management and persistence. User-state hooks receive `displaySystemContext`,
 which can be provided by the `end-user` system and used to add additional context
 needed for the state resolution. For content element kit this is
 mocked within the element manifest and injected into previously listed hooks.
@@ -154,15 +154,15 @@ mocks?: {
 ```
 ::::tip ☝️ Note
 Only the first value is injected at the moment. In the future versions, the
-system will ofer a dropdown to select the display context mock, in case one
+system will offer a dropdown to select the display context mock, in case one
 wants to quickly mock different user states and switch between them.
 ::::
 
 ### `beforeDisplay` hook
 
 `beforeDisplay` hook is responsible for resolving a user state of a particular
-content element (binded as `userState` upon rendering the `Display` component).
-The hook recieves authored content `element`, the end-user system
+content element (bound as `userState` upon rendering the `Display` component).
+The hook receives authored content `element`, the end-user system
 `displaySystemContext` and returns a resolved user state.
 
 ```ts
@@ -173,8 +173,8 @@ function beforeDisplay(
 
 ### `onUserInteraction` hook
 
-`onUserInteraction` hook is triggered when the `Display` components `emits` the
-`@interaction` event. The hook recieves authored content `element`, the target
+`onUserInteraction` hook is triggered when the `Display` component emits the
+`@interaction` event. The hook receives authored content `element`, the target
 system `displaySystemContext` and the payload emitted by the `Display` component.
 
 ```ts
@@ -195,9 +195,9 @@ containing the data (alongside `updateDisplayState` flag). This will be
 injected into the `displaySystemContext` for you upon the `beforeDisplay` hook
 call (`tce-boot` >= `0.2.1`).
 
-### Mocking `end-user` system state persistance and handling
+### Mocking `end-user` system state persistence and handling
 
-In addition to the context mock, one might want to mimick the persistance and
+In addition to the context mock, one might want to mimic the persistence and
 context handling mechanism. At the moment, it is possible to rely on the
 `CEK_RUNTIME` env variable to detect if the hook is running within the
 development runtime and inject any arbitrary development specific code

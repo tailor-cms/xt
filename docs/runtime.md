@@ -1,10 +1,10 @@
 # Runtime
 
-The framework consist of four different runtimes:
+The framework consists of four different runtimes:
 
 - Authoring; autoloading and serving `edit` package. This runtime
-  supports Vue 3 based UI componenets and implements compatible Tailor CMS APIs
-  to enable development without the need to set up Talor CMS. By default it runs
+  supports Vue 3 based UI components and implements compatible Tailor CMS APIs
+  to enable development without the need to set up Tailor CMS. By default it runs
   on port `8010`.
 - Display; autoloading and serving `display` package. This runtime
   supports Vue 3 and implements general LMS front-end interface. Runs on port

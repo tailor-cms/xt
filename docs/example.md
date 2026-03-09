@@ -42,7 +42,7 @@ export const name = 'Simple counter';
 ```
 
 There is also an `initState` function, which as name implies, initializes state
-of the element upon creation. Since we are bulding a simple increment element,
+of the element upon creation. Since we are building a simple increment element,
 we'll define it as:
 
 ```ts
@@ -67,7 +67,7 @@ by displaying updated type and setting the `data.count` value to `0`:
 
 Now that we set the basic properties and specified how to initialize the
 component state, we can create Authoring component for our counter. It is
-not going to be the worlds most complex or usefull component; Author will
+not going to be the world's most complex or useful component; Author will
 have an option to click on a button, each time incrementing a counter. Navigate
 to `packages/edit/src/components/Edit.vue` and paste the following code
 for our simple counter:
@@ -124,7 +124,7 @@ front-end component and the server state being modified to the same value
 ### Edit toolbar
 
 We can implement the same functionality from the toolbars, as they will also
-recieve element state and have the ability to save it.
+receive element state and have the ability to save it.
 
 Navigate to `packages/edit/src/components/TopToolbar.vue`, paste
 the following code and save:
@@ -156,7 +156,7 @@ button {
 </style>
 ```
 \
-You sould be able to decrement the `count` by clicking on the Top Toolbar
+You should be able to decrement the `count` by clicking on the Top Toolbar
 `Decrement` button.
 
 \
@@ -203,7 +203,7 @@ defineProps<{ element: Element }>();
 ```
 
 \
-Note that Display component recieves spreaded element attributes as props. After
+Note that Display component receives element attributes as props. After
 applying these changes you should be able to see the `Display` component:
 
 \
@@ -252,7 +252,7 @@ In case that hook code changes are not picked up automatically, please restart.
 
 ## Conclusion
 
-Congradulations! You have created your first Content Element. For more details
+Congratulations! You have created your first Content Element. For more details
 on each of the components please visit the matching documentation section.
 For a fully working example, please visit
 https://github.com/tailor-cms/tce-counter.

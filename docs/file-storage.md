@@ -7,13 +7,13 @@ Available in version >=0.1.0
 ## File upload from authoring package
 
 The authoring components (Edit package) have the `$storageService` provided via
-Vue [provide/inject](https://v2.vuejs.org/v2/api/#provide-inject) prop-drilling
-feature. To upload a file simpliy inject `$storageService` into your component
+Vue [provide/inject](https://vuejs.org/guide/components/provide-inject)
+feature. To upload a file simply inject `$storageService` into your component
 and pass `FormData` with the `file` property containing the upload data
 ([File type](https://developer.mozilla.org/en-US/docs/Web/API/File]))
 to the `$storageService.upload` method:
 
-```ts
+```vue
 <template>
   <div class="tce-container">
     <div class="background-input-container">
@@ -61,7 +61,7 @@ const upload = (e: InputFileEvent) => {
 
 There are a few things to note for the example above. We used `createUploadForm`
 helper which constructs `FormData` payload (based on the file input change
-event). After we upload the asset, we recieve:
+event). After we upload the asset, we receive:
 
 - `key`; image storage key
 - `url`; internal url, used to identify Tailor managed static assets
@@ -71,12 +71,12 @@ event). After we upload the asset, we recieve:
 Since `publicUrl` is going to expire at some point (with the production provider),
 there needs to be a mechanism in place which will make sure to process all
 static assets upon need. As mentioned in the
-[State section](http://localhost:5173/xt/state.html#data-assets-property)
+[State section](/state#data-assets-property)
 there is a special `data.assets` property, where all static assets handled
 by the `Content Element` need to be declared. In the example above, we assign
 internal url value to `assets.backgroundUrl`. Once fetched for delivery,
 default asset processing will make sure to assign resolved public
-`backgroundUrl` to the `element.data` property. The same mechanim needs to be
+`backgroundUrl` to the `element.data` property. The same mechanism needs to be
 implemented by the consumer of the `Display package`.
 
 The `key` of the asset declared within the `assets` object should be set to the
