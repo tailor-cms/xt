@@ -74,9 +74,9 @@ and each value is a handler function:
 ```ts
 export const call = {
   async generateSummary(element, services, payload) {
-    // element  - the content element instance
+    // element - the content element instance
     // services - { config, storage } (same as hooks)
-    // payload  - data sent from the frontend
+    // payload - data sent from the frontend
     const { prompt } = payload;
     const summary = await someExternalApi.generate(prompt);
     return { summary };
