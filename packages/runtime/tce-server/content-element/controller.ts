@@ -68,7 +68,7 @@ export default ({ type, initState, hookMap, call }) => {
     return get(req, res);
   }
 
-  async function callAction({ body, params, element }, res) {
+  async function callAction({ body, params }, res) {
     const { action } = params;
     const handler = call?.[action];
     if (!handler) {
@@ -76,7 +76,7 @@ export default ({ type, initState, hookMap, call }) => {
     }
     const config = { tce: getTceConfig(process.env) };
     const services = { config, storage: StorageService };
-    const result = await handler(element, services, body);
+    const result = await handler(services, body);
     return res.json({ data: result });
   }
 

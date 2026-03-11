@@ -24,8 +24,7 @@ export type OnUserInteractionHook<T = Element> = (
 ) => any;
 
 // Call action handler
-export type CallHandler<T = Element, P = any, R = any> = (
-  element: T,
+export type CallHandler<P = any, R = any> = (
   services: HookServices,
   payload: P,
 ) => R | Promise<R>;

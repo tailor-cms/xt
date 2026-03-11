@@ -3,14 +3,13 @@ import mitt from 'mitt';
 
 const endpoint = {
   elementBase: 'content-element',
+  callAction: (action: string) => `${endpoint.elementBase}/call/${action}`,
   element: (id: string) => `${endpoint.elementBase}/${id}`,
   resetElement: (id: string) => `${endpoint.element(id)}/reset-element`,
   setState: (id: string) => `${endpoint.element(id)}/set-state`,
   resetState: (id: string) => `${endpoint.element(id)}/reset-state`,
   getContexts: (id: string) => `${endpoint.element(id)}/state-contexts`,
   reportActivity: (id: string) => `${endpoint.element(id)}/activity`,
-  callAction: (id: string, action: string) =>
-    `${endpoint.element(id)}/call/${action}`,
   generateContent: 'ai/generate',
 };
 
@@ -42,12 +41,8 @@ export const getApiClient = (
   const reportUserActivity = (id: string, data: any): Promise<any> =>
     api.post(endpoint.reportActivity(id), { json: data });
 
-  const callElementAction = (
-    id: string,
-    action: string,
-    payload?: any,
-  ): Promise<any> =>
-    api.post(endpoint.callAction(id, action), { json: payload }).json();
+  const callElementAction = (action: string, payload?: any): Promise<any> =>
+    api.post(endpoint.callAction(action), { json: payload }).json();
 
   const generateContent = (context: string): Promise<any> =>
     api.post(endpoint.generateContent, { json: { context } }).json();

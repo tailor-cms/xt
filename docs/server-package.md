@@ -73,17 +73,16 @@ and each value is a handler function:
 
 ```ts
 export const call = {
-  async generateSummary(element, services, payload) {
-    // element - the content element instance
+  async generateSummary(services, payload) {
     // services - { config, storage } (same as hooks)
     // payload - data sent from the frontend
     const { prompt } = payload;
     const summary = await someExternalApi.generate(prompt);
     return { summary };
   },
-  getStats(element) {
+  getStats(services, payload) {
     return {
-      wordCount: element.data.content?.split(' ').length ?? 0,
+      wordCount: payload.content?.split(' ').length ?? 0,
     };
   },
 };
@@ -97,10 +96,12 @@ export default {
 };
 ```
 
-Handler signature: `(element, services, payload) => Promise<any> | any`
+Handler signature: `(services, payload) => Promise<any> | any`
 
 The `services` object contains the same `config` and `storage` services
-available in hooks.
+available in hooks. Actions are self-contained — any element data needed
+should be passed by the frontend via `payload`. This means actions work
+for both top-level and embedded elements without special routing.
 
 ### Calling from Edit components
 
@@ -116,8 +117,10 @@ const { summary } = await callElementAction<{ summary: string }>('generateSummar
   prompt: 'Summarize this element',
 });
 
-// Call without payload
-const stats = await callElementAction('getStats');
+// Pass element data when the action needs it
+const stats = await callElementAction('getStats', {
+  content: element.data.content,
+});
 ```
 
 The function returns a Promise that resolves with the handler's return value.
@@ -126,7 +129,7 @@ for more on typing.
 
 ### Route
 
-Each action maps to: `POST /content-element/:id/call/:actionName`
+Each action maps to: `POST /content-element/call/:actionName`
 
 If the action doesn't exist, a `404` response is returned.
 

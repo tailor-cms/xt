@@ -143,7 +143,10 @@ const isLoading = ref(false);
 const exportData = async () => {
   isLoading.value = true;
   try {
-    const { url } = await callElementAction<{ url: string }>('exportData');
+    const { url } = await callElementAction<{ url: string }>('exportData', {
+      uid: props.element.uid,
+      data: props.element.data,
+    });
     const res = await fetch(url);
     const blob = await res.blob();
     const blobUrl = URL.createObjectURL(blob);

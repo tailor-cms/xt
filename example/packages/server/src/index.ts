@@ -69,9 +69,9 @@ export const hookMap = new Map(
   }),
 );
 
-const exportData: CallHandler<Element> = async (element, services) => {
-  const key = `exports/${element.uid}.json`;
-  await services.storage.saveFile(key, JSON.stringify(element.data, null, 2));
+const exportData: CallHandler = async (services, payload) => {
+  const key = `exports/${payload.uid}.json`;
+  await services.storage.saveFile(key, JSON.stringify(payload.data, null, 2));
   const url = await services.storage.getFileUrl(key);
   return { url };
 };

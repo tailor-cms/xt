@@ -224,10 +224,7 @@ const api = getApiClient(VITE_SERVER_RUNTIME_URL);
 
 provide('$storageService', assetApi);
 provide('$callElementAction', (action: string, payload?: any) => {
-  if (!element.value) throw new Error('Element not loaded');
-  return api
-    .callElementAction(element.value.uid, action, payload)
-    .then((res: any) => res.data);
+  return api.callElementAction(action, payload).then((res: any) => res.data);
 });
 
 const eventBus = inject<any>('$eventBus');

@@ -32,7 +32,7 @@ function initRouter({ type, initState, isQuestion, isGradable, hookMap, call }) 
   router.route('/:id/state-contexts').get(getUserStateContexts);
   router.route('/:id/set-state').post(setUserStateContext);
   router.route('/:id/reset-state').post(resetUserStateContext);
-  router.route('/:id/call/:action').post(callAction);
+  router.route('/call/:action').post(callAction);
   return router;
 }
 
