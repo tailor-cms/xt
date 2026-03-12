@@ -1,5 +1,11 @@
 # @tailor-cms/tce-server-runtime
 
+## 2.0.0
+
+### Major Changes
+
+- Upgrade to Vuetify 4, add procedures, isEmpty state and autosave support for Question elements.
+
 ## 1.3.2
 
 ### Patch Changes

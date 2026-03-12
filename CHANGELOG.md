@@ -1,5 +1,23 @@
 # Changelog
 
+### v2.0.0 2025-03-12
+
+#### Breaking Changes
+- Migrated to Vuetify 4 (MD3 typography classes, updated component API,
+  theme configuration). All content element packages using Vuetify components
+  need to be updated.
+
+#### Features
+- Added typed hook signatures (`ElementHook`, `BeforeDisplayHook`,
+  `OnUserInteractionHook`, `ProcedureHandler`).
+- Added server procedures (RPC) — custom server-side methods callable
+  from Edit components via the injected `$rpc` function.
+- Added `isEmpty` manifest function for required element validation.
+- Added autosave support for question elements.
+
+#### Other
+- Bumped all dependencies to the latest versions.
+
 ### v1.0.0 2024-02-07
 
 #### Changes

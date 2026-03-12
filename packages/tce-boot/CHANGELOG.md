@@ -1,5 +1,19 @@
 # @tailor-cms/tce-boot
 
+## 2.0.0
+
+### Major Changes
+
+- Upgrade to Vuetify 4, add procedures, isEmpty state and autosave support for Question elements.
+
+### Patch Changes
+
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@2.0.0
+  - @tailor-cms/tce-server-runtime@2.0.0
+  - @tailor-cms/tce-edit-runtime@2.0.0
+  - @tailor-cms/tce-preview-runtime@2.0.0
+
 ## 1.3.2
 
 ### Patch Changes
