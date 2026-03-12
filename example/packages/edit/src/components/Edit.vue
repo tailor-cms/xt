@@ -84,15 +84,15 @@
 
 <script setup lang="ts">
 import type {
-  CallElementAction,
   InputFileEvent,
+  RpcCaller,
   StorageApi,
 } from '@tailor-cms/cek-common';
 import { inject, ref } from 'vue';
 import { createUploadForm } from '@tailor-cms/cek-common';
 import { Element } from 'tce-manifest';
 
-const callElementAction = inject('$callElementAction') as CallElementAction;
+const rpc = inject('$rpc') as RpcCaller;
 const storageService = inject('$storageService') as StorageApi;
 const elementBus = inject('$elementBus') as any;
 
@@ -143,7 +143,7 @@ const isLoading = ref(false);
 const exportData = async () => {
   isLoading.value = true;
   try {
-    const { url } = await callElementAction<{ url: string }>('exportData', {
+    const { url } = await rpc<{ url: string }>('exportData', {
       uid: props.element.uid,
       data: props.element.data,
     });

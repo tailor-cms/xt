@@ -40,12 +40,12 @@ export interface Element<TData = ElementData, TRefs = Refs, TMeta = Meta> {
 export type DataInitializer<TData = ElementData> = () => TData;
 
 /**
- * Function injected as `$callElementAction` into authoring components
- * (Edit, TopToolbar, SideToolbar). Calls a named server action defined
- * in the CE server package's `call` export.
+ * Function injected as `$rpc` into authoring components
+ * (Edit, TopToolbar, SideToolbar). Calls a named procedure defined
+ * in the CE server package's `procedures` export.
  */
-export type CallElementAction = <T = any>(
-  action: string,
+export type RpcCaller = <T = any>(
+  procedure: string,
   payload?: any,
 ) => Promise<T>;
 

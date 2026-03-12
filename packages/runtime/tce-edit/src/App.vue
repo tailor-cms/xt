@@ -223,8 +223,8 @@ const serverRuntimeUrl = new URL(VITE_SERVER_RUNTIME_URL);
 const api = getApiClient(VITE_SERVER_RUNTIME_URL);
 
 provide('$storageService', assetApi);
-provide('$callElementAction', (action: string, payload?: any) => {
-  return api.callElementAction(action, payload).then((res: any) => res.data);
+provide('$rpc', (procedure: string, payload?: any) => {
+  return api.rpc(procedure, payload).then((res: any) => res.data);
 });
 
 const eventBus = inject<any>('$eventBus');

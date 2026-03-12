@@ -6,7 +6,7 @@ import { getTceConfig } from '../common/config';
 import initHooks from './hooks';
 import StorageService from '../storage/storage.service';
 
-export default ({ type, initState, hookMap, call }) => {
+export default ({ type, initState, hookMap, procedures }) => {
   const { applyFetchHooks, beforeDisplay, processInteraction } =
     initHooks(hookMap);
 
@@ -68,11 +68,11 @@ export default ({ type, initState, hookMap, call }) => {
     return get(req, res);
   }
 
-  async function callAction({ body, params }, res) {
-    const { action } = params;
-    const handler = call?.[action];
+  async function rpcHandler({ body, params }, res) {
+    const { procedure } = params;
+    const handler = procedures?.[procedure];
     if (!handler) {
-      return res.status(404).json({ error: `Action "${action}" not found` });
+      return res.status(404).json({ error: `Procedure "${procedure}" not found` });
     }
     const config = { tce: getTceConfig(process.env) };
     const services = { config, storage: StorageService };
@@ -88,6 +88,6 @@ export default ({ type, initState, hookMap, call }) => {
     resetAuthoringState,
     resetUserStateContext,
     setUserStateContext,
-    callAction,
+    rpcHandler,
   };
 };

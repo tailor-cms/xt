@@ -23,8 +23,8 @@ export type OnUserInteractionHook<T = Element> = (
   payload: any,
 ) => any;
 
-// Call action handler
-export type CallHandler<P = any, R = any> = (
+// RPC procedure handler
+export type ProcedureHandler<P = any, R = any> = (
   services: HookServices,
   payload: P,
 ) => R | Promise<R>;

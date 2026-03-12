@@ -58,21 +58,21 @@ All changes made by hooks are automatically propagated to the authoring
 front-end using SSE (Server Side Events).
 ::::
 
-## Server actions
+## Server procedures (RPC)
 
-Server actions allow content elements to define custom server-side methods
+Server procedures allow content elements to define custom server-side methods
 that can be called from Edit, TopToolbar, or SideToolbar components with
 request/response semantics. This is useful for operations that need to run on
 the server — such as calling external APIs, processing data, or performing
 secure operations.
 
-### Defining actions
+### Defining procedures
 
-Export a `call` object from your server package. Each key is an action name
-and each value is a handler function:
+Export a `procedures` object from your server package. Each key is a procedure
+name and each value is a handler function:
 
 ```ts
-export const call = {
+export const procedures = {
   async generateSummary(services, payload) {
     // services - { config, storage } (same as hooks)
     // payload - data sent from the frontend
@@ -91,7 +91,7 @@ export default {
   type,
   initState,
   hookMap,
-  call,
+  procedures,
   // ...hooks
 };
 ```
@@ -99,39 +99,39 @@ export default {
 Handler signature: `(services, payload) => Promise<any> | any`
 
 The `services` object contains the same `config` and `storage` services
-available in hooks. Actions are self-contained — any element data needed
-should be passed by the frontend via `payload`. This means actions work
+available in hooks. Procedures are self-contained — any element data needed
+should be passed by the frontend via `payload`. This means procedures work
 for both top-level and embedded elements without special routing.
 
 ### Calling from Edit components
 
-Actions are called via the injected `$callElementAction` function:
+Procedures are called via the injected `$rpc` function:
 
 ```ts
-import type { CallElementAction } from '@tailor-cms/cek-common';
+import type { RpcCaller } from '@tailor-cms/cek-common';
 
-const callElementAction = inject('$callElementAction') as CallElementAction;
+const rpc = inject('$rpc') as RpcCaller;
 
 // Call with payload (typed return)
-const { summary } = await callElementAction<{ summary: string }>('generateSummary', {
+const { summary } = await rpc<{ summary: string }>('generateSummary', {
   prompt: 'Summarize this element',
 });
 
-// Pass element data when the action needs it
-const stats = await callElementAction('getStats', {
+// Pass element data when the procedure needs it
+const stats = await rpc('getStats', {
   content: element.data.content,
 });
 ```
 
 The function returns a Promise that resolves with the handler's return value.
-See [Edit package - Calling server actions](/edit-package#calling-server-actions)
+See [Edit package - Calling server procedures](/edit-package#calling-server-procedures)
 for more on typing.
 
 ### Route
 
-Each action maps to: `POST /content-element/call/:actionName`
+Each procedure maps to: `POST /content-element/rpc/:procedureName`
 
-If the action doesn't exist, a `404` response is returned.
+If the procedure doesn't exist, a `404` response is returned.
 
 ## User state hooks
 

@@ -3,7 +3,7 @@ import express from 'express';
 import ContentElementService from './ContentElementService';
 import initController from './controller';
 
-function initRouter({ type, initState, isQuestion, isGradable, hookMap, call }) {
+function initRouter({ type, initState, isQuestion, isGradable, hookMap, procedures }) {
   const {
     get: getCtrl,
     getUserStateContexts,
@@ -12,15 +12,16 @@ function initRouter({ type, initState, isQuestion, isGradable, hookMap, call }) 
     resetAuthoringState,
     resetUserStateContext,
     setUserStateContext,
-    callAction,
+    rpcHandler,
   } = initController({
     type,
     initState,
     hookMap,
-    call,
+    procedures,
   });
 
   const router = express.Router();
+  router.route('/rpc/:procedure').post(rpcHandler);
   router.param(
     'id',
     getContentElementMw({ type, initState, isQuestion, isGradable }),
@@ -32,7 +33,6 @@ function initRouter({ type, initState, isQuestion, isGradable, hookMap, call }) 
   router.route('/:id/state-contexts').get(getUserStateContexts);
   router.route('/:id/set-state').post(setUserStateContext);
   router.route('/:id/reset-state').post(resetUserStateContext);
-  router.route('/call/:action').post(callAction);
   return router;
 }
 

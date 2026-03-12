@@ -1,7 +1,7 @@
 import { ai, initState, mocks, type } from 'tce-manifest';
 import type {
   BeforeDisplayHook,
-  CallHandler,
+  ProcedureHandler,
   ElementHook,
   OnUserInteractionHook,
 } from '@tailor-cms/cek-common';
@@ -69,20 +69,20 @@ export const hookMap = new Map(
   }),
 );
 
-const exportData: CallHandler = async (services, payload) => {
+const exportData: ProcedureHandler = async (services, payload) => {
   const key = `exports/${payload.uid}.json`;
   await services.storage.saveFile(key, JSON.stringify(payload.data, null, 2));
   const url = await services.storage.getFileUrl(key);
   return { url };
 };
 
-export const call = { exportData };
+export const procedures = { exportData };
 
 export default {
   type,
   initState,
   hookMap,
-  call,
+  procedures,
   beforeSave,
   afterSave,
   afterLoaded,
