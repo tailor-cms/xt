@@ -1,9 +1,9 @@
 import { ai, initState, mocks, type } from 'tce-manifest';
 import type {
   BeforeDisplayHook,
-  ProcedureHandler,
   ElementHook,
   OnUserInteractionHook,
+  ProcedureHandler,
 } from '@tailor-cms/cek-common';
 import type { Element } from 'tce-manifest';
 
