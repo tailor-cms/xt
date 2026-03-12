@@ -83,12 +83,12 @@
 </template>
 
 <script setup lang="ts">
+import { inject, ref } from 'vue';
 import type {
   InputFileEvent,
   RpcCaller,
   StorageApi,
 } from '@tailor-cms/cek-common';
-import { inject, ref } from 'vue';
 import { createUploadForm } from '@tailor-cms/cek-common';
 import { Element } from 'tce-manifest';
 
