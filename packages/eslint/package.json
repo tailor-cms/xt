@@ -20,8 +20,8 @@
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-vue": "^10.8.0",
     "eslint-plugin-vuejs-accessibility": "^2.5.0",
-    "neostandard": "^0.12.2",
-    "typescript-eslint": "^8.56.1",
+    "neostandard": "^0.13.0",
+    "typescript-eslint": "^8.57.0",
     "vue-eslint-parser": "^10.4.0"
   },
   "peerDependencies": {

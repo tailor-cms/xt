@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
-    "@vitejs/plugin-vue": "^6.0.4",
+    "@vitejs/plugin-vue": "^6.0.5",
     "tce-manifest": "workspace:*",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",

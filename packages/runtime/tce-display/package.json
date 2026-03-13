@@ -13,18 +13,18 @@
   "dependencies": {
     "@mdi/font": "7.4.47",
     "@tailor-cms/cek-common": "workspace:^",
-    "@vitejs/plugin-vue": "6.0.4",
-    "@vue/reactivity": "^3.5.29",
-    "@vue/runtime-core": "^3.5.29",
-    "@vue/runtime-dom": "^3.5.29",
-    "@vue/shared": "^3.5.29",
+    "@vitejs/plugin-vue": "6.0.5",
+    "@vue/reactivity": "^3.5.30",
+    "@vue/runtime-core": "^3.5.30",
+    "@vue/runtime-dom": "^3.5.30",
+    "@vue/shared": "^3.5.30",
     "dotenv": "^17.3.1",
     "lodash-es": "^4.17.23",
-    "sass": "1.97.3",
+    "sass": "1.98.0",
     "typescript": "5.9.3",
     "vite": "7.3.1",
-    "vue": "3.5.29",
-    "vuetify": "4.0.1"
+    "vue": "3.5.30",
+    "vuetify": "4.0.2"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:^",
