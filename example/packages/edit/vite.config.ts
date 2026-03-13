@@ -12,7 +12,6 @@ export default defineConfig({
     // due to package missing (if dist is deleted for short time)
     emptyOutDir: false,
     minify: false,
-    cssCodeSplit: false,
     lib: {
       entry: resolve(__dirname, './src/index.ts'),
       name: 'Edit',
