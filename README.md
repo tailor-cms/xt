@@ -38,6 +38,3 @@ pnpm start:example
 This boots the example element across all four runtimes — Edit, Display,
 Server, and Preview — accessible from the Preview inspector at `localhost:8080`.
 
-## License
-
-MIT
