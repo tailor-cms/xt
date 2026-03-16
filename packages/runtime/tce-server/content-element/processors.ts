@@ -24,13 +24,16 @@ export function processAssets(hookType, element) {
 
 // After fetch
 export async function resolveAssets(element) {
-  const assets = Object.entries(element.data.assets || {});
-  for (const [keyWithinData, url] of assets) {
-    if (!(typeof url === 'string')) return;
-    const resolvedUrl = isStorageAsset(url)
-      ? await StorageService.getFileUrl(url)
-      : url;
-    element.data = set({ ...element.data }, keyWithinData, resolvedUrl);
-  }
+  if (!get(element, 'data.assets')) return element;
+  const entries = Object.entries(element.data.assets);
+  await Promise.all(
+    entries.map(async ([key, url]: [string, string]) => {
+      if (!url) return set(element.data, key, url);
+      const resolvedUrl = isStorageAsset(url)
+        ? await StorageService.getFileUrl(url)
+        : url;
+      set(element.data, key, resolvedUrl);
+    }),
+  );
   return element;
 }

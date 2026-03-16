@@ -7,7 +7,7 @@ export const getTceConfig = (env: object) =>
     .reduce(
       (config, [prefixedKey, key]) => ({
         ...config,
-        [camelCase(key)]: process.env[prefixedKey],
+        [camelCase(key)]: env[prefixedKey],
       }),
       {},
     );
