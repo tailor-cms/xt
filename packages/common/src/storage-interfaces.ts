@@ -1,19 +1,5 @@
-export type UploadFormFieldname = 'file';
-
-/**
- * FE file upload form interface.
- */
-export interface UploadFormData extends FormData {
-  append(
-    name: UploadFormFieldname,
-    value: File | Blob | string,
-    fileName?: string,
-  ): void;
-  set(
-    name: UploadFormFieldname,
-    value: File | Blob | string,
-    fileName?: string,
-  ): void;
+export interface InputFileEvent extends Event {
+  target: HTMLInputElement;
 }
 
 /**
@@ -40,5 +26,5 @@ export interface FileUploadResponse {
  */
 export interface StorageApi {
   getUrl(key: string): Promise<string>;
-  upload(formData: UploadFormData): Promise<FileUploadResponse>;
+  upload(files: File[]): Promise<FileUploadResponse>;
 }

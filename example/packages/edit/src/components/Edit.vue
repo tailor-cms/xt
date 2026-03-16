@@ -89,7 +89,6 @@ import type {
   RpcCaller,
   StorageApi,
 } from '@tailor-cms/cek-common';
-import { createUploadForm } from '@tailor-cms/cek-common';
 import { Element } from 'tce-manifest';
 
 const rpc = inject('$rpc') as RpcCaller;
@@ -117,10 +116,10 @@ const updateDescription = (description: string) => {
 
 elementBus.on('decrement', ({ count }: any) => console.log(count));
 
-const uploadImage = (e: InputFileEvent | any) => {
-  const form = createUploadForm(e);
-  if (!form) return;
-  return storageService.upload(form).then(({ key, url }) =>
+const uploadImage = (e: InputFileEvent) => {
+  const files = Array.from(e.target.files ?? []);
+  if (!files.length) return;
+  return storageService.upload(files).then(({ key, url }) =>
     emit('save', {
       ...props.element.data,
       key,

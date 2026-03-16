@@ -9,9 +9,8 @@ Available in version >=0.1.0
 The authoring components (Edit package) have the `$storageService` provided via
 Vue [provide/inject](https://vuejs.org/guide/components/provide-inject)
 feature. To upload a file simply inject `$storageService` into your component
-and pass `FormData` with the `file` property containing the upload data
-([File type](https://developer.mozilla.org/en-US/docs/Web/API/File]))
-to the `$storageService.upload` method:
+and pass an array of [File](https://developer.mozilla.org/en-US/docs/Web/API/File)
+objects to the `$storageService.upload` method:
 
 ```vue
 <template>
@@ -23,7 +22,7 @@ to the `$storageService.upload` method:
           id="backgroundInput"
           accept="image/png, image/jpeg"
           type="file"
-          @change="(e) => upload(e as InputFileEvent)"
+          @change="upload"
         />
       </label>
     </div>
@@ -38,7 +37,6 @@ to the `$storageService.upload` method:
 
 <script setup lang="ts">
 import type { InputFileEvent, StorageApi } from '@tailor-cms/cek-common';
-import { createUploadForm } from '@tailor-cms/cek-common';
 import { Element } from 'tce-manifest';
 import { inject } from 'vue';
 
@@ -48,8 +46,9 @@ const props = defineProps<{ element: Element }>();
 const emit = defineEmits(['save']);
 
 const upload = (e: InputFileEvent) => {
-  const form = createUploadForm(e);
-  return storageService.upload(form).then(({ key, url, publicUrl }) => {
+  const files = Array.from(e.target.files || []);
+  if (!files.length) return;
+  return storageService.upload(files).then(({ key, url, publicUrl }) => {
     emit('save', {
       ...props.element.data,
       assets: { backgroundUrl: url },
@@ -59,9 +58,7 @@ const upload = (e: InputFileEvent) => {
 </script>
 ```
 
-There are a few things to note for the example above. We used `createUploadForm`
-helper which constructs `FormData` payload (based on the file input change
-event). After we upload the asset, we receive:
+After we upload the assets, we receive:
 
 - `key`; image storage key
 - `url`; internal url, used to identify Tailor managed static assets
