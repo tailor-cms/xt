@@ -23,7 +23,6 @@
         accept="image/png, image/jpeg"
         label="Set background"
         hide-details
-        prepend-icon
         @change="uploadImage"
       />
       <VSheet

@@ -27,6 +27,7 @@ export default config({
           'TopToolbar',
           'SideToolbar',
           'V[A-Z]*', // Vuetify components
+          'Tailor[A-Z]*', // Vue Router components
         ],
       },
     ],

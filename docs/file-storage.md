@@ -84,37 +84,30 @@ declaring `x.y` key will result with the resolved url assigned to the
 ## Server hooks
 
 Server hooks have the `storage` service injected, exposing the ability to access
-storage provider methods. The server hooks are defined as:
+storage provider methods. Here is an example of retrieving a public url for a
+specific element key within a server hook:
 
 ```ts
-function hook(element: SequelizeModel, services: Object) => element
-```
+import type { ElementHook } from '@tailor-cms/cek-common';
+import type { Element } from 'tce-manifest';
 
-with the `services` object containing `storage` property (injected
-storage service). Here is an example of retrieving a public url for a specific
-element key within the server hook:
-
-```ts
-async function afterSave(element: SequelizeModel, services: Object) => {
+export const afterSave: ElementHook<Element> = async (element, services) => {
   const { storage } = services;
   const publicUrl = await storage.getFileUrl(element.assets.myKey);
-}
+  return element;
+};
 ```
 
-At the moment it is possible to:
+Available storage methods:
 
 ```ts
-getPath(...segments: string[])
-```
-
-```ts
-getFile(key: string)
+getFile(key: string): Promise<Buffer>
 ```
 
 ```ts
-getFileUrl(key: string)
+getFileUrl(key: string): Promise<string>
 ```
 
 ```ts
-saveFile(key: string, data: string | NodeJS.ArrayBufferView | Iterable<string |    NodeJS.ArrayBufferView> | AsyncIterable<string | NodeJS.ArrayBufferView> | internal.Stream)
+saveFile(key: string, data: string | Buffer | DataView): Promise<void>
 ```
