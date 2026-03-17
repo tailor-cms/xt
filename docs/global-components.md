@@ -1,17 +1,22 @@
 # Global Components
 
-The following Vue components are globally registered and available in all
-authoring components (Edit, TopToolbar, SideToolbar) without importing them.
+The following Vue components are globally registered and available without
+importing them.
 
-Both the CEK edit runtime and Tailor CMS register these components under the
-same names but with different implementations. The CEK runtime provides mock
-versions for local development (e.g. `TailorEmbeddedContainer` renders example
-elements, `TailorAssetInput` uploads to the local dev server). In production,
-Tailor CMS replaces them with its own implementations that connect to the real
-storage, element registry, and other platform services. The API (props and
-events) is the same in both environments.
+Each runtime (edit and display) registers its own set of global components.
+In the CEK, these are mock implementations for local development (e.g.
+`TailorEmbeddedContainer` renders example elements, `TailorAssetInput` uploads
+to the local dev server). In production, the host application (Tailor CMS for
+authoring, the LMS for display) registers its own implementations that connect
+to the real storage, element registry, and other platform services. The API
+(props and events) is the same across environments.
 
-## TailorAssetInput
+## Edit Runtime
+
+Registered by the CEK edit runtime and Tailor CMS. Available in Edit,
+TopToolbar, and SideToolbar components.
+
+### TailorAssetInput
 
 Asset input component for file upload and URL input. Handles file upload
 via `$storageService`, URL validation, and edit/save/cancel state internally.
@@ -60,11 +65,10 @@ Assign the `url` (internal) to `data.assets` and the `publicUrl` to `data`
 for display. See the [File storage](/file-storage) section for details on asset
 URL handling.
 
-## TailorEmbeddedContainer
+### TailorEmbeddedContainer
 
-Container for embedded child elements within composite elements. In Tailor CMS,
-renders the actual element list with add/delete controls. In the CEK runtime,
-mocks example elements for development.
+Interactive container for embedded child elements within composite elements.
+Supports adding, editing, deleting, and reordering embedded elements.
 
 ```vue
 <template>
@@ -76,7 +80,7 @@ mocks example elements for development.
 </template>
 ```
 
-### Props
+#### Props
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
@@ -97,7 +101,7 @@ Default `addElementOptions`:
 }
 ```
 
-### Events
+#### Events
 
 | Event | Payload | Description |
 |---|---|---|
@@ -106,18 +110,17 @@ Default `addElementOptions`:
 
 See [Composite Elements](/edit-package#composite-elements) for usage details.
 
-## TailorContentElement
+### TailorContentElement
 
 ::: warning Internal
-This component is used internally by `TailorEmbeddedContainer` to render
-individual embedded elements. It is not intended for direct use by element
-authors.
+Used internally by `TailorEmbeddedContainer` to render individual embedded
+elements. Not intended for direct use by element authors.
 :::
 
 Renders a single embedded element with edit controls (text input, delete
 button on hover).
 
-### Props
+#### Props
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
@@ -125,9 +128,30 @@ button on hover).
 | `parent` | `object \| null` | `null` | Parent element (hides delete when set) |
 | `is-readonly` | `boolean` | `false` | Disable editing |
 
-### Events
+#### Events
 
 | Event | Payload | Description |
 |---|---|---|
 | `@save` | `object` | Updated element data |
 | `@delete` | `object` | Element to be deleted |
+
+## Display Runtime
+
+Registered by the CEK display runtime. In production, the LMS that consumes
+the Display package is responsible for registering these components.
+
+### TailorEmbeddedContainer
+
+Read-only container that renders embedded child elements for display.
+
+```vue
+<template>
+  <TailorEmbeddedContainer :elements="elements" />
+</template>
+```
+
+#### Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `elements` | `array` | required | Array of embedded element objects to render |
