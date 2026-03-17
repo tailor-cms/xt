@@ -8,16 +8,42 @@
       target="_blank"
       variant="tonal"
     />
-    <UploadBtn
-      v-if="allowFileUpload"
-      :extensions="extensions"
-      :file-name="fileName"
-      :is-editing="isEditing"
-      :label="props.uploadLabel"
-      @delete="file = null"
-      @update:uploading="uploading = $event"
-      @upload="uploadFile"
-    />
+    <template v-if="fileName">
+      <VBtn
+        v-if="isEditing"
+        color="red"
+        icon="mdi-delete"
+        variant="tonal"
+        @click="file = null"
+      />
+      <VTextField
+        :model-value="fileName"
+        hide-details="auto"
+        min-width="350"
+        variant="outlined"
+        disabled
+      />
+    </template>
+    <!-- File upload input -->
+    <template v-else-if="allowFileUpload && isEditing">
+      <input
+        ref="fileInput"
+        :accept="extensions.join(', ')"
+        :aria-label="props.uploadLabel"
+        class="d-none"
+        type="file"
+        @change="validateAndUpload($event.target as HTMLInputElement)"
+      />
+      <VBtn
+        v-if="fileInput"
+        :loading="uploading"
+        variant="text"
+        @click="fileInput.click()"
+      >
+        <VIcon color="secondary" icon="mdi-cloud-upload-outline" start />
+        {{ props.uploadLabel }}
+      </VBtn>
+    </template>
     <template v-if="!uploading && (urlInput || !hasAsset)">
       <VTextField
         ref="urlField"
@@ -58,11 +84,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, useTemplateRef } from 'vue';
+import { computed, inject, ref, useTemplateRef } from 'vue';
 import { last, pick } from 'lodash-es';
+import type { StorageApi } from '@tailor-cms/cek-common';
 import type { VTextField } from 'vuetify/components';
-
-import UploadBtn from './UploadBtn.vue';
 
 const isUploaded = (url: string | null) =>
   url?.startsWith('storage://') ?? false;
@@ -73,6 +98,8 @@ const urlRule = (value: string | null) =>
 interface AssetFile {
   url: string;
   publicUrl: string;
+  name?: string;
+  size?: number;
 }
 
 interface Props {
@@ -91,12 +118,14 @@ const props = withDefaults(defineProps<Props>(), {
 });
 const emit = defineEmits(['input']);
 
+const storageService = inject('$storageService') as StorageApi;
 const uploading = ref(false);
 const isEditing = ref(!props.url);
 const file = ref<AssetFile | null>(
   isUploaded(props.url) ? pick(props, ['url', 'publicUrl']) : null,
 );
 
+const fileInput = ref<HTMLInputElement>();
 const urlField = useTemplateRef<InstanceType<typeof VTextField>>('urlField');
 const urlInput = ref(!isUploaded(props.url) ? props.url : null);
 
@@ -110,9 +139,19 @@ const fileName = computed(() => {
   return last(file.value.url.split('___'));
 });
 
-const uploadFile = (value: any) => {
-  file.value = value;
-  urlInput.value = null;
+const validateAndUpload = async (target: HTMLInputElement) => {
+  const files = Array.from(target.files ?? []);
+  const regex = new RegExp('.(' + props.extensions.join('|') + ')$', 'i');
+  const isValid = files.every((f: File) => regex.test(f.name));
+  if (!isValid || !files[0]) return;
+  uploading.value = true;
+  try {
+    const data = await storageService.upload([files[0]]);
+    file.value = { ...data, name: files[0].name, size: files[0].size };
+    urlInput.value = null;
+  } finally {
+    uploading.value = false;
+  }
 };
 
 const save = async () => {
