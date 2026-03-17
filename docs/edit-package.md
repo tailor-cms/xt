@@ -198,12 +198,8 @@ flag in the manifest. To include a list of embedded child elements, utilize the
 `TailorEmbeddedContainer` global component. Tailor CMS will render the appropriate
 element list, while the CEK runtime will mock example elements.
 
-The `TailorEmbeddedContainer` component accepts the following props:
-- `:container`: object; Data field of the element containing `embeds` in a key-value format.
-- `:allowed-elements-config`: array; Array of element configs allowed to be embedded. Usually equals to the `embedElementConfig` prop passed to the Edit package.
-- `:isReadonly`: boolean; Indicates if the element should be readonly. Defaults to `false`.
-- `:enableAdd`: boolean; Indicates if adding new elements is allowed. Defaults to `true`.
-- `:addElementOptions`: object; Additional options passed to the AddElement core component.
+See the [Global Components](/global-components#tailorembeddedcontainer) page for
+full props, events, and usage examples.
 
 ## Question Elements
 

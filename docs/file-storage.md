@@ -4,40 +4,32 @@
 Available in version >=0.1.0
 :::
 
-## File upload from authoring package
+## TailorAssetInput component
 
-The authoring components (Edit package) have the `$storageService` provided via
-Vue [provide/inject](https://vuejs.org/guide/components/provide-inject)
-feature. To upload a file simply inject `$storageService` into your component
-and pass an array of [File](https://developer.mozilla.org/en-US/docs/Web/API/File)
-objects to the `$storageService.upload` method:
+Use the globally available `TailorAssetInput` component for file upload and
+URL input. It provides built-in validation, edit/save/cancel state management,
+and loading indicators.
+
+See the [Global Components](/global-components#tailorassetinput) page for full
+props, events, and usage examples.
+
+## Direct file upload
+
+For custom upload UI, inject `$storageService` and pass an array of
+[File](https://developer.mozilla.org/en-US/docs/Web/API/File) objects to the
+`upload` method:
 
 ```vue
 <template>
-  <div class="tce-container">
-    <div class="background-input-container">
-      <label for="backgroundInput">
-        Set background:
-        <input
-          id="backgroundInput"
-          accept="image/png, image/jpeg"
-          type="file"
-          @change="upload"
-        />
-      </label>
-    </div>
-    <!-- If image has been uploaded -->
-    <img
-      v-if="element.data.backgroundUrl"
-      :src="element.data.backgroundUrl"
-      alt="Background image"
-    />
-  </div>
+  <VFileInput
+    accept="image/png, image/jpeg"
+    label="Set background"
+    @change="upload"
+  />
 </template>
 
 <script setup lang="ts">
 import type { InputFileEvent, StorageApi } from '@tailor-cms/cek-common';
-import { Element } from 'tce-manifest';
 import { inject } from 'vue';
 
 const storageService = inject('$storageService') as StorageApi;
@@ -48,7 +40,7 @@ const emit = defineEmits(['save']);
 const upload = (e: InputFileEvent) => {
   const files = Array.from(e.target.files || []);
   if (!files.length) return;
-  return storageService.upload(files).then(({ key, url, publicUrl }) => {
+  return storageService.upload(files).then(({ key, url }) => {
     emit('save', {
       ...props.element.data,
       assets: { backgroundUrl: url },
