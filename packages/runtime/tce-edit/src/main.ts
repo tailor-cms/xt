@@ -3,6 +3,7 @@ import 'vuetify/styles';
 import { createApp } from 'vue';
 
 import App from './App.vue';
+import AssetInput from './components/AssetInput.vue';
 import ContentElement from './components/ContentElement.vue';
 import EmbeddedContainer from './components/EmbeddedContainer.vue';
 import NotCompositeAlert from './components/NotCompositeAlert.vue';
@@ -37,6 +38,7 @@ const radio = Radio.getInstance();
 app.provide('$eventBus', radio);
 app.provide('$elementBus', radio.channel('app'));
 app.use(vuetify);
+app.component('TailorAssetInput', AssetInput);
 app.component('TailorContentElement', ContentElement);
 app.component(
   'TailorEmbeddedContainer',
