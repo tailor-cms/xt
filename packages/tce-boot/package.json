@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-boot",
   "description": "Content element runtime boot script",
   "author": "Studion <info@gostudion.com>",
-  "version": "2.0.0-beta.0",
+  "version": "2.0.0-beta.1",
   "type": "module",
   "scripts": {
     "start": "node src/free-ports.js && node src/index.js",
