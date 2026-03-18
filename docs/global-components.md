@@ -65,6 +65,40 @@ Assign the `url` (internal) to `data.assets` and the `publicUrl` to `data`
 for display. See the [File storage](/file-storage) section for details on asset
 URL handling.
 
+### TailorElementPlaceholder
+
+Placeholder component shown when no content has been provided yet (e.g. no
+image uploaded, no URL set). Displays a centered icon, name, and contextual
+instructions that change based on focus state.
+
+```vue
+<template>
+  <TailorElementPlaceholder
+    v-if="!element.data.url"
+    :icon="manifest.ui.icon"
+    :is-disabled="isReadonly"
+    :is-focused="isFocused"
+    :name="`${manifest.name} component`"
+    active-icon="mdi-arrow-up"
+    active-placeholder="Use toolbar to enter the url"
+  />
+</template>
+```
+
+#### Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `icon` | `string` | required | MDI icon name |
+| `name` | `string` | required | Element display name |
+| `placeholder` | `string` | `'Select to edit'` | Text shown when unfocused |
+| `active-placeholder` | `string` | `'Use toolbar to edit'` | Text shown when focused |
+| `active-icon` | `string \| null` | `null` | Icon shown next to active placeholder |
+| `active-color` | `string` | `'#fff'` | Icon color when focused |
+| `dense` | `boolean` | `false` | Compact variant (smaller icon/text) |
+| `is-focused` | `boolean` | `false` | Focus state |
+| `is-disabled` | `boolean` | `false` | Disabled state (greys out icon and text) |
+
 ### TailorEmbeddedContainer
 
 Interactive container for embedded child elements within composite elements.
