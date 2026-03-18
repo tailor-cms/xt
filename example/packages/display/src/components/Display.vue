@@ -1,7 +1,9 @@
 <template>
   <div class="tce-root">
     <div class="d-flex align-center text-headline-small">
-      {{ elementData.description || 'Author click count' }}
+      <span class="description">
+        {{ elementData.description || 'Author click count' }}
+      </span>
       <VSpacer />
       <div class="counter">{{ elementData.count }}</div>
     </div>
