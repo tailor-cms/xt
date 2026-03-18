@@ -72,7 +72,9 @@ export default ({ type, initState, hookMap, procedures }) => {
     const { procedure } = params;
     const handler = procedures?.[procedure];
     if (!handler) {
-      return res.status(404).json({ error: `Procedure "${procedure}" not found` });
+      return res
+        .status(404)
+        .json({ error: `Procedure "${procedure}" not found` });
     }
     const config = { tce: getTceConfig(process.env) };
     const services = { config, storage: StorageService };
