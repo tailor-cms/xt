@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Tailor extensions kit",
   "license": "MIT",
-  "sideEffects": false,
   "type": "module",
+  "private": true,
   "scripts": {
     "start:example": "pnpm -r --filter=./example run dev",
     "lint": "pnpm -r --filter=./example run lint",

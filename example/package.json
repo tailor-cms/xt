@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "author": "Studion <info@gostudion.com>",
   "type": "module",
+  "private": true,
   "exports": {
     "./edit": {
       "import": "./packages/edit/dist/index.js",

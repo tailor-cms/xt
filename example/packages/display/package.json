@@ -1,8 +1,10 @@
 {
   "name": "tce-display",
-  "private": true,
-  "type": "module",
+  "description": "Content element display component",
   "version": "0.0.1",
+  "author": "Studion <info@gostudion.com>",
+  "type": "module",
+  "private": true,
   "exports": {
     ".": {
       "import": "./dist/index.js",

@@ -1,8 +1,10 @@
 {
   "name": "tce-edit",
-  "private": true,
-  "type": "module",
+  "description": "Content element edit component",
   "version": "0.0.1",
+  "author": "Studion <info@gostudion.com>",
+  "type": "module",
+  "private": true,
   "exports": {
     ".": {
       "import": "./dist/index.js",
