@@ -22,7 +22,7 @@
     "lint:fix": "pnpm lint --fix",
     "nuke": "pnpm dlx del-cli dist node_modules",
     "nuke:dist": "pnpm dlx del-cli dist",
-    "prepublish": "pnpm build"
+    "prepublishOnly": "pnpm build"
   },
   "dependencies": {
     "@lukeed/csprng": "^1.1.0",
