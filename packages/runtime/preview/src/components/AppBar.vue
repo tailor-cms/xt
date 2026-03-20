@@ -28,8 +28,16 @@
         @click="showBothComponents"
       />
     </VBtnToggle>
-    <VBtn href="https://github.com/tailor-cms/tce-template" icon="mdi-github" />
-    <VBtn href="https://tailor-cms.github.io/xt/" icon="mdi-book-outline" />
+    <VBtn
+      aria-label="GitHub"
+      href="https://github.com/tailor-cms/tce-template"
+      icon="mdi-github"
+    />
+    <VBtn
+      aria-label="Documentation"
+      href="https://tailor-cms.github.io/xt/"
+      icon="mdi-book-outline"
+    />
   </VAppBar>
 </template>
 
