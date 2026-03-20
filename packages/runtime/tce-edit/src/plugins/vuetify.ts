@@ -6,6 +6,9 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import { createVuetify } from 'vuetify';
 
 const lightTheme = {
+  variables: {
+    'medium-emphasis-opacity': 0.75,
+  },
   colors: {
     primary: '#607D8B',
     'primary-darken-1': '#546E7A',

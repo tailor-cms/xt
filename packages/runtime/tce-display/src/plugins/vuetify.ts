@@ -10,6 +10,13 @@ export default createVuetify({
   directives,
   theme: {
     defaultTheme: 'light',
+    themes: {
+      light: {
+        variables: {
+          'medium-emphasis-opacity': 0.75,
+        },
+      },
+    },
   },
   icons: {
     defaultSet: 'mdi',
