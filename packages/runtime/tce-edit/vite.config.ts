@@ -30,6 +30,7 @@ export default defineConfig(({ mode }): any => {
   const { EDIT_RUNTIME_PORT } = env;
   return {
     root: './src',
+    publicDir: '../public',
     logLevel: 'error',
     server: {
       host: '0.0.0.0', // Accept connections from any host (Docker)

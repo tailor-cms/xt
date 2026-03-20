@@ -7,7 +7,6 @@
         id="panelBottom"
         :element="element"
         :user-state="userState"
-        class="preview-panel-bottom"
         @reset-element="$emit('resetElement')"
         @reset-state="$emit('resetState')"
       />
@@ -51,9 +50,17 @@ const setupPreview = () => {
 
 <style>
 main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   height: calc(100vh - var(--nav-height));
 
-  .preview-panel-bottom {
+  #panelTop {
+    height: calc(70% - 5px);
+  }
+
+  #panelBottom {
+    height: calc(30% - 5px);
     background-color: #eceff1;
     overflow-y: auto;
   }

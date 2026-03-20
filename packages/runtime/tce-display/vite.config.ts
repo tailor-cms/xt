@@ -29,6 +29,7 @@ export default defineConfig((): UserConfig => {
   const displayModulePath = path.relative(viteConfigPath, TCE_DISPLAY_DIR);
   return {
     root: './src',
+    publicDir: '../public',
     logLevel: 'warn',
     server: {
       // Accept connections from any host (Docker)

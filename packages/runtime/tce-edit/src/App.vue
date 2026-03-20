@@ -107,7 +107,7 @@
             </VSheet>
           </VCol>
         </VRow>
-        <VRow v-if="TopToolbar">
+        <VRow v-if="TopToolbar && element?.data">
           <VCol>
             <div class="d-flex align-center">
               <VChip
@@ -120,7 +120,7 @@
             </div>
             <VSlideYTransition>
               <VSheet
-                v-if="element?.data && isFocused"
+                v-if="isFocused"
                 class="top-toolbar"
                 color="white"
                 elevation="1"
@@ -136,7 +136,7 @@
             </VSlideYTransition>
           </VCol>
         </VRow>
-        <VRow v-if="SideToolbar">
+        <VRow v-if="SideToolbar && element?.data">
           <VCol>
             <div class="d-flex align-center">
               <VChip
@@ -149,7 +149,7 @@
             </div>
             <VSlideXTransition>
               <VSheet
-                v-if="element?.data && isFocused"
+                v-if="isFocused"
                 class="side-toolbar"
                 color="primary-darken-2"
                 elevation="5"
