@@ -1,9 +1,9 @@
 <template>
-  <div class="hint-container">
-    <div class="text-subtitle-2 mb-2">Hint</div>
+  <div class="question-hint">
+    <div class="text-title-small mb-2">Hint</div>
     <VTextField
-      :model-value="hint"
       :clearable="!isReadonly"
+      :model-value="hint"
       :readonly="isReadonly"
       placeholder="Optional hint..."
       variant="outlined"

@@ -1,12 +1,12 @@
 <template>
   <div class="mb-4">
-    <div class="text-subtitle-2 mb-2">Question</div>
+    <div class="text-title-small mb-2">Question</div>
     <VInput :model-value="elementData.question" :rules="[requiredRule]">
       <div class="question-prompt rounded w-100">
         <VAlert
           v-if="!hasEmbeds"
           :text="alertMsg"
-          class="mx-6 mt-4 mb-2 text-center"
+          class="mx-6 mt-4 mb-n2 text-center"
           color="primary-darken-1"
           icon="mdi-information-outline"
           variant="tonal"
@@ -35,8 +35,13 @@ import { computed } from 'vue';
 
 import EmbeddedContainer from '../EmbeddedContainer.vue';
 
+interface QuestionElementData extends Record<string, any> {
+  question: string[];
+  embeds: Record<string, any>;
+}
+
 const props = defineProps<{
-  elementData: Record<string, any>;
+  elementData: QuestionElementData;
   isReadonly: boolean;
 }>();
 const emit = defineEmits(['update']);
