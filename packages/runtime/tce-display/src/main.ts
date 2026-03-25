@@ -8,9 +8,22 @@ import NotCompositeAlert from './components/NotCompositeAlert.vue';
 import vuetify from './plugins/vuetify';
 
 const element = await import(/* @vite-ignore */ import.meta.env.DISPLAY_DIR);
-const isComposite = !!element.default.isComposite;
+const {
+  isComposite = false,
+  isEmpty = () => false,
+  isQuestion = false,
+  name = 'Content Element',
+  showFeedback = true,
+  ui = {},
+} = element.default;
 
-const app = createApp(App);
+const app = createApp(App, {
+  icon: ui.icon,
+  isEmpty,
+  isQuestion,
+  name,
+  showFeedback,
+});
 app.use(vuetify);
 app.component(
   'TailorEmbeddedContainer',

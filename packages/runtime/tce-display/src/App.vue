@@ -26,9 +26,23 @@
               />
             </VSheet>
             <VSheet class="mt-6 pa-8" color="white" elevation="2" rounded="lg">
-              <VRow v-if="element?.data">
+              <ElementPlaceholder
+                v-if="isElementEmpty"
+                :icon="icon"
+                :name="name"
+              />
+              <VRow v-else-if="element?.data">
                 <VCol :cols="element.data.width ?? 12" class="display-frame">
+                  <QuestionForm
+                    v-if="isQuestion"
+                    :element="element"
+                    :show-feedback="showFeedback"
+                    :user-state="userState"
+                    @interaction="onInteraction"
+                    @retry="onRetry"
+                  />
                   <Display
+                    v-else
                     :element="element"
                     :user-state="userState"
                     @interaction="onInteraction"
@@ -44,14 +58,38 @@
 </template>
 
 <script setup lang="ts">
+import { computed, onMounted, ref } from 'vue';
 import {
   getApiClient,
   initWebSocket,
   resolveElementId,
 } from '@tailor-cms/cek-common';
-import { onMounted, ref } from 'vue';
 import type { Element } from '@tailor-cms/cek-common';
 import { findIndex } from 'lodash-es';
+
+import ElementPlaceholder from './components/ElementPlaceholder.vue';
+import QuestionForm from './components/QuestionForm/index.vue';
+
+interface Props {
+  icon?: string;
+  isEmpty?: (data: Element['data']) => boolean;
+  isQuestion?: boolean;
+  name?: string;
+  showFeedback?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  icon: 'mdi-cube',
+  isEmpty: () => () => false,
+  isQuestion: false,
+  name: 'Content Element',
+  showFeedback: true,
+});
+
+const isElementEmpty = computed(() => {
+  if (!element.value?.data) return true;
+  return props.isEmpty(element.value.data);
+});
 
 const { VITE_SERVER_RUNTIME_URL } = import.meta.env;
 const serverRuntimeUrl = new URL(VITE_SERVER_RUNTIME_URL);
@@ -108,6 +146,10 @@ const onInteraction = async (data) => {
   } catch (error) {
     console.log('Could not update user state', error);
   }
+};
+
+const onRetry = () => {
+  userState.value = {};
 };
 </script>
 
