@@ -36,16 +36,15 @@ is a reserved property).
 
 In the example above, we use the `userState` prop to display the last time the
 user has seen the element. In order to achieve that, we need a way to report
-user activity from the `Display` component. The specification implements
-`interaction` event, which can be used to report user activity to the `end-user`
-system. Emitting `interaction` event will result in `onUserInteraction` server
-hook being called, where one can implement user state handling and other
-interaction-specific handling. For more details on this, visit section
-on [user-state hooks](./server-package#user-state-hooks).
+user activity from the `Display` component.
 
-\
-Here is a simple example of element submitting interaction event for backend to
-process:
+### Non-question elements
+
+Non-question Display components emit the `interaction` event to report user
+activity to the end-user system. Emitting `interaction` triggers the
+`onUserInteraction` server hook, where you can implement user state handling
+and other interaction-specific logic. For more details, visit the section
+on [user-state hooks](./server-package#user-state-hooks).
 
 \
 `Display.vue`
@@ -66,6 +65,59 @@ const emit = defineEmits(['interaction']);
 const submit = () => emit('interaction', { myInteractionData: 'example' });
 </script>
 ```
+
+### Question elements
+
+Question Display components emit `user-input` instead of `interaction`. The
+framework auto-wraps question Display components inside a `QuestionForm`
+which provides the standard question layout (prompt, hint, submit/retry
+controls, feedback). The element only provides the answer-specific UI.
+
+The `QuestionForm` captures `user-input` events from the inner component,
+validates the form on submit, and emits `interaction` to the runtime — which
+triggers the `onUserInteraction` server hook.
+
+\
+`Display.vue`
+```vue
+<template>
+  <div>
+    <VRadioGroup v-model="selectedAnswer">
+      <VRadio
+        v-for="(answer, i) in element.data.answers"
+        :key="i"
+        :label="answer"
+        :value="i"
+        :disabled="userState?.isSubmitted"
+      />
+    </VRadioGroup>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, watch } from 'vue';
+import { Element } from 'tce-manifest';
+
+const props = defineProps<{ element: Element; userState: any }>();
+const emit = defineEmits(['user-input']);
+
+const selectedAnswer = ref(props.userState?.response ?? null);
+
+watch(selectedAnswer, (val) => {
+  if (val !== null) emit('user-input', { response: val });
+});
+</script>
+```
+
+Note: The element does **not** include a submit button — the `QuestionForm`
+provides submit/retry controls and manages the submission lifecycle.
+
+### Event flow summary
+
+| Element Type | Component Emits | Container | Runtime Receives |
+|-------------|----------------|-----------|-----------------|
+| Non-question | `interaction` | — | `interaction` → `onUserInteraction` hook |
+| Question | `user-input` | QuestionForm → `interaction` | `interaction` → `onUserInteraction` hook |
 
 :::tip State persistence and user event handling
 It is up to the `end-user`/`target system` to define mechanisms for end-user

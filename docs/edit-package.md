@@ -33,7 +33,10 @@ props:
 
 and observed for element related events:
 
-- `@save` - Emit `data` object to be saved on the `element.data` property.
+- `@save` - Emit `data` object to be saved on the `element.data` property
+  (non-question elements).
+- `@update` - Emit partial data to be merged into element state (question
+  elements only — the QuestionCard wrapper handles persistence).
 - `@delete` - Delete element (default control already exists)
 
 \
@@ -238,10 +241,10 @@ emit('update', { answer: newValue });
 </script>
 ```
 
-### QuestionContainer (auto-wrapped)
+### QuestionForm (auto-wrapped)
 
 When `isQuestion: true`, the framework automatically wraps the Edit component
-inside a `QuestionContainer` — providing the standard question layout:
+inside a `QuestionForm` — providing the standard question layout:
 
 1. **Question prompt** — embedded container for question content
 2. **Answer UI** — the developer's Edit component (rendered in the default slot)
@@ -249,7 +252,7 @@ inside a `QuestionContainer` — providing the standard question layout:
 4. **Feedback** — per-answer feedback fields (controlled by `showFeedback` manifest field)
 
 The developer's Edit component only needs to render the answer-specific UI.
-There is no need to import or use `QuestionContainer` manually — the framework
+There is no need to import or use `QuestionForm` manually — the framework
 handles the prompt, hint, and feedback sections.
 
 ```vue
