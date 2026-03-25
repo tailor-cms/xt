@@ -19,6 +19,7 @@ const {
   isEmpty,
   initState,
   isGradable,
+  showFeedback = false,
   name,
   ui,
 } = element.default;
@@ -29,6 +30,7 @@ const app = createApp(App, {
   isQuestion,
   isGradable,
   isAiEnabled,
+  showFeedback,
   type: name,
   icon: ui.icon,
   forceFullWidth: ui.forceFullWidth,

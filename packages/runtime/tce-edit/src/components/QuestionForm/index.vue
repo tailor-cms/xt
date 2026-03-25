@@ -9,12 +9,30 @@
       :validate-on="autosave ? 'input' : 'submit'"
       class="text-left pa-6"
     >
+      <QuestionPrompt
+        :element-data="editedElement.data"
+        :is-readonly="isReadonly"
+        @update="update"
+      />
       <Edit
         v-bind="{ element: editedElement, isFocused, isReadonly }"
         @delete="emit('delete')"
         @link="emit('link', $event)"
         @save="update"
         @update="update"
+      />
+      <QuestionHint
+        :hint="editedElement.data.hint"
+        :is-readonly="isReadonly"
+        @update="update({ hint: $event })"
+      />
+      <QuestionFeedback
+        v-if="showFeedback"
+        :answers="editedElement.data.answers"
+        :feedback="editedElement.data.feedback"
+        :is-gradable="editedElement.data.isGradable"
+        :is-readonly="isReadonly"
+        @update="update({ feedback: $event })"
       />
       <VFadeTransition>
         <div
@@ -43,6 +61,10 @@
 import { cloneDeep, isEqual } from 'lodash-es';
 import { computed, reactive, ref, watch } from 'vue';
 
+import QuestionFeedback from './QuestionFeedback.vue';
+import QuestionHint from './QuestionHint.vue';
+import QuestionPrompt from './QuestionPrompt.vue';
+
 interface Props {
   element: any;
   type: string;
@@ -50,12 +72,14 @@ interface Props {
   autosave?: boolean;
   isReadonly?: boolean;
   isFocused?: boolean;
+  showFeedback?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   autosave: false,
   isReadonly: false,
   isFocused: false,
+  showFeedback: true,
 });
 
 const emit = defineEmits([

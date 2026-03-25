@@ -74,7 +74,7 @@
                     class="edit-frame"
                     @click="!settings.persistFocus && focusElement()"
                   >
-                    <QuestionCard
+                    <QuestionForm
                       v-if="isQuestion"
                       v-bind="{
                         type,
@@ -84,6 +84,7 @@
                         isDragged: settings.isDragged,
                         isReadonly: settings.isReadonly,
                         isFocused,
+                        showFeedback,
                       }"
                       @delete="onDelete"
                       @link="onLink"
@@ -213,7 +214,7 @@ import {
 
 import assetApi from './api/asset';
 import ConfirmationDialog from './components/ConfirmationDialog.vue';
-import QuestionCard from './components/QuestionCard.vue';
+import QuestionForm from './components/QuestionForm/index.vue';
 import Settings from './components/Settings.vue';
 
 const { TopToolbar, SideToolbar } = getCurrentInstance().appContext.components;
@@ -236,6 +237,7 @@ interface Props {
   isQuestion?: boolean;
   isGradable?: boolean;
   isAiEnabled?: boolean;
+  showFeedback?: boolean;
   type?: string;
   icon?: string;
   forceFullWidth?: boolean;
@@ -245,6 +247,7 @@ const props = withDefaults(defineProps<Props>(), {
   isQuestion: false,
   isGradable: undefined,
   isAiEnabled: false,
+  showFeedback: true,
   type: 'Content Element',
   icon: 'mdi-cube',
   forceFullWidth: false,

@@ -84,6 +84,11 @@ export interface ElementManifest<TData = ElementData> {
    */
   isGradable?: boolean;
   /**
+   * Controls whether the QuestionContainer renders the feedback section.
+   * Only relevant when 'isQuestion' is true. Defaults to true.
+   */
+  showFeedback?: boolean;
+  /**
    * The goal of the initState function is to properly initialize the 'data'
    * field upon the Content Element creation. The 'data' field is the Content
    * Element property storing authors input.

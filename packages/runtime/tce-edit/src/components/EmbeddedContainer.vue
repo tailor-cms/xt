@@ -46,16 +46,16 @@
 import { cloneDeep, sortBy } from 'lodash-es';
 import { computed, ref } from 'vue';
 import { v4 } from 'uuid';
-import type { VBtn } from 'vuetify/components';
+import type { Variant } from 'vuetify/lib/composables/variant';
 
 import ContentElement from './ContentElement.vue';
 
 interface AddElementOptions {
-  large: boolean;
-  label: string;
-  icon: string;
-  color: string;
-  variant: VBtn['variant'];
+  large?: boolean;
+  label?: string;
+  icon?: string;
+  color?: string;
+  variant?: Variant;
 }
 
 interface Props {
@@ -92,7 +92,7 @@ const addBtnProps = computed(() => {
     icon = 'mdi-plus',
     color = 'primary-darken-4',
     variant = 'tonal',
-  } = props.addElementOptions;
+  } = props.addElementOptions ?? {};
   if (!large) return { icon, color, variant, size: 'small' };
   return { text: label, prependIcon: icon, color, variant };
 });

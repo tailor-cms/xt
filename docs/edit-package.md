@@ -238,43 +238,55 @@ emit('update', { answer: newValue });
 </script>
 ```
 
-### QuestionContainer
+### QuestionContainer (auto-wrapped)
 
-Question Edit components should use `QuestionContainer` from
-`@tailor-cms/core-components` to wrap the answer UI. It provides the standard
-question layout: question prompt (using `TailorEmbeddedContainer`), a default
-slot for the answer UI, hint, and optionally feedback.
+When `isQuestion: true`, the framework automatically wraps the Edit component
+inside a `QuestionContainer` — providing the standard question layout:
+
+1. **Question prompt** — embedded container for question content
+2. **Answer UI** — the developer's Edit component (rendered in the default slot)
+3. **Hint** — optional hint text field
+4. **Feedback** — per-answer feedback fields (controlled by `showFeedback` manifest field)
+
+The developer's Edit component only needs to render the answer-specific UI.
+There is no need to import or use `QuestionContainer` manually — the framework
+handles the prompt, hint, and feedback sections.
 
 ```vue
 <template>
-  <QuestionContainer
-    :element-data="element.data"
-    :embed-element-config="embedElementConfig"
-    :is-disabled="isReadonly"
-    :show-feedback="true"
-    @update="onUpdate"
-  >
-    <!-- Your answer UI in the default slot -->
-  </QuestionContainer>
+  <!-- Just the answer UI — prompt, hint, feedback are auto-wrapped -->
+  <div>
+    <VRadioGroup
+      :model-value="element.data.correct"
+      @update:model-value="emit('update', { correct: $event })"
+    >
+      <VRadio
+        v-for="(answer, i) in element.data.answers"
+        :key="i"
+        :label="answer"
+        :value="i"
+      />
+    </VRadioGroup>
+  </div>
 </template>
 
-<script setup>
-import { QuestionContainer } from '@tailor-cms/core-components';
-...
-// Forward QuestionContainer updates (hint, feedback, prompt embeds)
-const onUpdate = (data) => emit('update', data);
+<script setup lang="ts">
+const props = defineProps<{ element: any; isFocused: boolean; isReadonly: boolean }>();
+const emit = defineEmits(['update']);
 </script>
 ```
 
-The `QuestionContainer` component accepts the following props:
-- `:elementData`: object; The element's `data` object
-- `:embedElementConfig`: array; Array of element configs allowed for the question prompt's embedded elements
-- `:isDisabled`: boolean; Disable editing
-- `:isReadonly`: boolean; Should element be readonly; e.g. upon copy element selection
-- `:showFeedback`: boolean; Controls whether QuestionContainer should render feedback component
+To control whether the feedback section is rendered, set `showFeedback` in
+the manifest (defaults to `true`):
 
-And emits:
-- `@update`: object; Partial data update (hint, feedback, question/embeds changes from sub-components)
+```ts
+const manifest: ElementManifest = {
+  // ...
+  isQuestion: true,
+  isComposite: true,
+  showFeedback: false, // Hide feedback section
+};
+```
 
 ### Question element state shape
 
