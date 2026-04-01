@@ -1,6 +1,6 @@
 import { v4 as uuid } from '@lukeed/uuid/secure';
 
-export const resolveElementId = () => {
+export const resolveElementId = (): string | undefined => {
   const url = new URL(window.location.href);
   const id = url.searchParams.get('id');
   if (!id) {

@@ -25,7 +25,7 @@ export class EditQuestionForm {
     this.cancelBtn = this.el.getByRole('button', { name: 'Cancel' });
   }
 
-  async toggleFeedback() {
+  async toggleFeedback(): Promise<void> {
     await this.feedbackToggleBtn.click();
   }
 }

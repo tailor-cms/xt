@@ -1,4 +1,4 @@
-import type { OpenAISchema } from '@tailor-cms/cek-common';
+import type { AiConfig } from '@tailor-cms/cek-common';
 
 import type {
   DataInitializer,
@@ -34,14 +34,16 @@ const ui = {
   forceFullWidth: true,
 };
 
-export const mocks = {
+export const mocks: {
+  displayContexts: { name: string; data: { state: string } }[];
+} = {
   displayContexts: [
     { name: 'Test preset 1', data: { state: 'I have a value' } },
     { name: 'Test preset 2', data: { state: 'I have a different value' } },
   ],
 };
 
-export const ai = {
+export const ai: AiConfig = {
   Schema: {
     type: 'json_schema',
     name: 'ce_counter',
@@ -54,7 +56,7 @@ export const ai = {
       required: ['count', 'description'],
       additionalProperties: false,
     },
-  } as OpenAISchema,
+  },
   getPrompt: () => `
     Generate counter content element as an object with the following
     properties: { "description": "", "count": 0 }.

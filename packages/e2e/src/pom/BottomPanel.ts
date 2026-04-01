@@ -27,22 +27,22 @@ export class BottomPanel {
     });
   }
 
-  async openAuthoringTab() {
+  async openAuthoringTab(): Promise<void> {
     await this.authoringTab.click();
     await expect(this.authoringWindow).toBeVisible();
   }
 
-  async openUserStateTab() {
+  async openUserStateTab(): Promise<void> {
     await this.userStateTab.click();
     await expect(this.userStateWindow).toBeVisible();
   }
 
-  async resetElement() {
+  async resetElement(): Promise<void> {
     await this.openAuthoringTab();
     await this.resetElementBtn.click();
   }
 
-  async resetState() {
+  async resetState(): Promise<void> {
     await this.openUserStateTab();
     await this.resetStateBtn.click();
   }

@@ -15,16 +15,16 @@ export class DisplayQuestionForm {
     this.feedback = this.el.locator('.question-feedback');
   }
 
-  async showHint() {
+  async showHint(): Promise<void> {
     await this.hintBtn.click();
     await expect(this.el.locator('.v-tooltip')).toBeVisible();
   }
 
-  async submit() {
+  async submit(): Promise<void> {
     await this.submitBtn.click();
   }
 
-  async retry() {
+  async retry(): Promise<void> {
     await this.retryBtn.click();
   }
 }

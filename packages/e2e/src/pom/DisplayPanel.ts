@@ -16,7 +16,7 @@ export class DisplayPanel {
     });
   }
 
-  async selectStatePreset(preset: string) {
+  async selectStatePreset(preset: string): Promise<void> {
     await this.statePresetPicker.click();
     const option = this.el.locator('.v-list-item').filter({ hasText: preset });
     await option.click();

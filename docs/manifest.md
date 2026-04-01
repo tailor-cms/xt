@@ -58,17 +58,8 @@ export interface ElementManifest<TData = ElementData> {
     forceFullWidth: boolean;
   },
   // AI tools configuration.
-  ai?: {
-    // Prompt used to describe the response structure.
-    getPrompt: (context: any) => string;
-    // JSON schema for the OpenAI response formatting.
-    Schema?: OpenAISchema;
-    // Function for additional response processing & validation.
-    processResponse?: (val: any) => any;
-    // Indicates whether the AI generation tool should be used when
-    // generating.
-    useImageGenerationTool?: boolean;
-  };
+  // See [AI page](/ai.html) and AiConfig interface for details.
+  ai?: AiConfig;
   mocks?: {
     // Provide end-user system context mock (used for user state hooks)
     // See https://tailor-cms.github.io/xt/server-package.html#user-state-hooks.

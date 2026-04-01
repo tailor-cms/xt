@@ -2,8 +2,10 @@ import { ai, initState, mocks, type } from 'tce-manifest';
 import type {
   BeforeDisplayHook,
   ElementHook,
+  HookMap,
   OnUserInteractionHook,
   ProcedureHandler,
+  ServerModule,
 } from '@tailor-cms/cek-common';
 import type { Element } from 'tce-manifest';
 
@@ -58,7 +60,7 @@ export const onUserInteraction: OnUserInteractionHook<Element> = (
   return { updateDisplayState: true };
 };
 
-export const hookMap = new Map(
+export const hookMap: HookMap<Element> = new Map(
   Object.entries({
     beforeSave,
     afterSave,
@@ -69,16 +71,16 @@ export const hookMap = new Map(
   }),
 );
 
-const exportData: ProcedureHandler = async (services, payload) => {
-  const key = `exports/${payload.uid}.json`;
-  await services.storage.saveFile(key, JSON.stringify(payload.data, null, 2));
-  const url = await services.storage.getFileUrl(key);
-  return { url };
+export const procedures: Record<string, ProcedureHandler> = {
+  exportData: async (services, payload) => {
+    const key = `exports/${payload.uid}.json`;
+    await services.storage.saveFile(key, JSON.stringify(payload.data, null, 2));
+    const url = await services.storage.getFileUrl(key);
+    return { url };
+  },
 };
 
-export const procedures = { exportData };
-
-export default {
+const serverModule: ServerModule<Element> = {
   type,
   initState,
   hookMap,
@@ -93,4 +95,5 @@ export default {
   ai,
 };
 
+export default serverModule;
 export { type, initState, mocks, ai };

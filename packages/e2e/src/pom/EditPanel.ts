@@ -36,58 +36,58 @@ export class EditPanel {
     });
   }
 
-  async openSettings() {
+  async openSettings(): Promise<void> {
     await this.settingsBtn.click();
     await expect(this.settingsMenu).toBeVisible();
   }
 
-  async setReadonly() {
+  async setReadonly(): Promise<void> {
     await this.openSettings();
     await this.settingsMenu.getByRole('checkbox', { name: 'Readonly' }).click();
   }
 
-  async setDragged() {
+  async setDragged(): Promise<void> {
     await this.openSettings();
     await this.settingsMenu.getByRole('checkbox', { name: 'Dragged' }).click();
   }
 
-  async setGradable() {
+  async setGradable(): Promise<void> {
     await this.openSettings();
     await this.settingsMenu.getByRole('checkbox', { name: 'Gradable' }).click();
   }
 
-  async setAutosave() {
+  async setAutosave(): Promise<void> {
     await this.openSettings();
     await this.settingsMenu.getByRole('checkbox', { name: 'Autosave' }).click();
   }
 
-  async setHalfWidth() {
+  async setHalfWidth(): Promise<void> {
     await this.openSettings();
     await this.settingsMenu
       .getByRole('checkbox', { name: 'Half width' })
       .click();
   }
 
-  async persistFocus() {
+  async persistFocus(): Promise<void> {
     await this.openSettings();
     await this.settingsMenu.getByRole('checkbox', { name: 'Focused' }).click();
   }
 
-  async reset() {
+  async reset(): Promise<void> {
     await this.resetBtn.click();
   }
 
-  async generate() {
+  async generate(): Promise<void> {
     await this.generateBtn.click();
   }
 
-  async confirmDialog() {
+  async confirmDialog(): Promise<void> {
     await this.confirmationDialog
       .getByRole('button', { name: 'Confirm' })
       .click();
   }
 
-  async cancelDialog() {
+  async cancelDialog(): Promise<void> {
     await this.confirmationDialog
       .getByRole('button', { name: 'Cancel' })
       .click();

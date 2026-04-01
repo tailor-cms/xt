@@ -21,9 +21,9 @@ AI configuration is defined by the following:
 Here is an example configuration for a counter element:
 
 ```ts
-import { OpenAISchema } from '@tailor-cms/cek-common';
+import type { AiConfig } from '@tailor-cms/cek-common';
 
-export const ai = {
+export const ai: AiConfig = {
   Schema: {
     type: 'json_schema',
     name: 'ce_counter',
@@ -36,7 +36,7 @@ export const ai = {
       required: ['count', 'description'],
       additionalProperties: false,
     },
-  } as OpenAISchema,
+  },
   getPrompt: () => `
     Generate counter content element as an object with the following
     properties: { "description": "", "count": 0 }.

@@ -28,24 +28,28 @@ export class ApiClient {
     if (ApiClient.initialize === null) ApiClient.initialize = this.init();
   }
 
-  private async init() {
+  private async init(): Promise<void> {
     ApiClient.request = await request.newContext({ baseURL: BASE_URL });
   }
 
-  protected async getClient() {
+  protected async getClient(): Promise<APIRequestContext> {
     await ApiClient.initialize;
     return ApiClient.request;
   }
 
-  protected getUrl = (path = '') => new URL(path, this.endpointURL).toString();
+  protected getUrl = (path = ''): string =>
+    new URL(path, this.endpointURL).toString();
 
-  async get(id: string) {
+  async get(id: string): Promise<EndpointResponse> {
     const request = await this.getClient();
     const res = await request.get(this.getUrl(id));
     return formatResponse(res);
   }
 
-  async update(id: string, data: Record<string, unknown>) {
+  async update(
+    id: string,
+    data: Record<string, unknown>,
+  ): Promise<EndpointResponse> {
     const request = await this.getClient();
     const res = await request.patch(this.getUrl(id), { data: { data } });
     return formatResponse(res);

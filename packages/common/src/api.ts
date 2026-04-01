@@ -1,5 +1,5 @@
+import mitt, { type Emitter } from 'mitt';
 import ky from 'ky';
-import mitt from 'mitt';
 
 const endpoint = {
   elementBase: 'content-element',
@@ -13,10 +13,22 @@ const endpoint = {
   generateContent: 'ai/generate',
 };
 
+export interface ApiClient {
+  getElement: (id: string) => Promise<any>;
+  updateElement: (id: string, data: any) => Promise<any>;
+  resetElement: (id: string) => Promise<any>;
+  setState: (id: string, index: number) => Promise<any>;
+  resetState: (id: string) => Promise<any>;
+  getContexts: (id: string) => Promise<any>;
+  reportUserActivity: (id: string, data: any) => Promise<any>;
+  rpc: (procedure: string, payload?: any) => Promise<any>;
+  generateContent: (context: string) => Promise<any>;
+}
+
 export const getApiClient = (
   url: string,
   runtime: 'authoring' | 'delivery' = 'authoring',
-) => {
+): ApiClient => {
   const api = ky.create({ prefixUrl: url, timeout: false });
   const opts = { searchParams: { runtime } };
 
@@ -72,7 +84,10 @@ const getWsRoute = (serverRuntimeUrl: URL, elementId: string) => {
   return `${wsProtocol}//${serverRuntimeUrl.host}?id=${elementId}`;
 };
 
-export const initWebSocket = (serverRuntimeUrl: URL, elementId: string) => {
+export const initWebSocket = (
+  serverRuntimeUrl: URL,
+  elementId: string,
+): Emitter<Record<string, unknown>> => {
   const ws = new WebSocket(getWsRoute(serverRuntimeUrl, elementId));
   ws.onmessage = (e) => {
     const { entityId, type, payload } = JSON.parse(e?.data) as ServerEvent;

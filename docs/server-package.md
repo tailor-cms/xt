@@ -22,11 +22,13 @@ Fetch element lifecycle:
 
 All hooks are called with 2 arguments. The first argument is the element itself,
 and the second argument is the service bag which contains the config service
-and the storage service (these services have not yet been ported into the
-Content Element Kit). Hook declaration looks as follows:
+and the storage service. Hook declaration looks as follows:
 
 ```ts
-function hook(element: SequelizeModel, services: Object) => element
+import type { ElementHook } from '@tailor-cms/cek-common';
+import type { Element } from 'tce-manifest';
+
+const hook: ElementHook<Element> = (element, services) => element;
 ```
 
 The hook function returns the original or modified element. For example,
@@ -38,15 +40,15 @@ In the example section, we created a simple hook for our Counter element, which
 resets the counter value if it reaches 10.
 
 ```ts
-export function beforeSave(element, services) {
+import type { ElementHook } from '@tailor-cms/cek-common';
+import type { Element } from 'tce-manifest';
+
+export const beforeSave: ElementHook<Element> = (element) => {
   if (element.data.count >= 10) {
-    element.data = {
-      ...element.data,
-      count: 0,
-    };
+    element.data = { ...element.data, count: 0 };
   }
   return element;
-}
+};
 ```
 \
 Hooks also enable interfacing with external libraries, server side validation
@@ -72,7 +74,9 @@ Export a `procedures` object from your server package. Each key is a procedure
 name and each value is a handler function:
 
 ```ts
-export const procedures = {
+import type { ProcedureHandler, ServerModule } from '@tailor-cms/cek-common';
+
+export const procedures: Record<string, ProcedureHandler> = {
   async generateSummary(services, payload) {
     // services - { config, storage } (same as hooks)
     // payload - data sent from the frontend
@@ -87,16 +91,18 @@ export const procedures = {
   },
 };
 
-export default {
+const serverModule: ServerModule<Element> = {
   type,
   initState,
   hookMap,
   procedures,
   // ...hooks
 };
+
+export default serverModule;
 ```
 
-Handler signature: `(services, payload) => Promise<any> | any`
+Handler signature: `ProcedureHandler` — `(services, payload) => Promise<any> | any`
 
 The `services` object contains the same `config` and `storage` services
 available in hooks. Procedures are self-contained — any element data needed
