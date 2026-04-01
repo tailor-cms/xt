@@ -33,7 +33,7 @@
                 variant="tonal"
                 @click="doTheMagic"
               />
-              <Settings
+              <ElementSettings
                 v-if="element?.data"
                 v-model:settings="settings"
                 :config="config"
@@ -214,8 +214,8 @@ import {
 
 import assetApi from './api/asset';
 import ConfirmationDialog from './components/ConfirmationDialog.vue';
+import ElementSettings from './components/ElementSettings.vue';
 import QuestionForm from './components/QuestionForm/index.vue';
-import Settings from './components/Settings.vue';
 
 const { TopToolbar, SideToolbar } = getCurrentInstance().appContext.components;
 

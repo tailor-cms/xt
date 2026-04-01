@@ -26,7 +26,7 @@
     "prepublish": "pnpm build"
   },
   "peerDependencies": {
-    "vue": "^3.5.29"
+    "vue": "^3.5.31"
   },
   "dependencies": {
     "@tailor-cms/cek-common": "workspace:*"
@@ -35,10 +35,10 @@
     "@tailor-cms/eslint-config": "workspace:*",
     "@vitejs/plugin-vue": "^6.0.5",
     "tce-manifest": "workspace:*",
-    "typescript": "^5.9.3",
-    "vite": "^8.0.0",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.2",
     "vite-plugin-lib-inject-css": "^2.2.2",
-    "vue-tsc": "^3.2.5",
-    "vuetify": "^4.0.0"
+    "vue-tsc": "^3.2.6",
+    "vuetify": "^4.0.4"
   }
 }

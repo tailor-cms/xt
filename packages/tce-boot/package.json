@@ -22,7 +22,7 @@
     "has-flag": "^5.0.1",
     "lodash-es": "^4.17.23",
     "open": "^11.0.0",
-    "pid-port": "^2.0.1",
+    "pid-port": "^2.1.0",
     "yup": "^1.7.1"
   },
   "devDependencies": {

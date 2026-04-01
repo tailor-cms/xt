@@ -27,7 +27,7 @@ class FilesystemStorage {
   getFile(key, options = {}) {
     return fsp.readFile(this.path(key), options).catch((err) => {
       if (isNotFound(err)) return null;
-      return Promise.reject(err);
+      throw err;
     });
   }
 

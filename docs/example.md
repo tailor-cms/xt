@@ -219,11 +219,14 @@ to enable access).
 
 In this example, we are going to reset the counter in case it reaches 10.
 
-Navigate to the `packages/server/src/index.ts` and update beforeSave function
+Navigate to the `packages/server/src/index.ts` and update the `beforeSave` hook
 to:
 
 ```ts
-export function beforeSave(element: Element, services: any) {
+import type { ElementHook } from '@tailor-cms/cek-common';
+import type { Element } from 'tce-manifest';
+
+export const beforeSave: ElementHook<Element> = (element) => {
   if (element.data.count >= 10) {
     element.data = {
       ...element.data,
@@ -231,7 +234,7 @@ export function beforeSave(element: Element, services: any) {
     };
   }
   return element;
-}
+};
 ```
 
 \

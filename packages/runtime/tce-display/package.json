@@ -11,20 +11,20 @@
     "nuke": "pnpm dlx del-cli node_modules"
   },
   "dependencies": {
-    "@mdi/font": "7.4.47",
+    "@mdi/font": "^7.4.47",
     "@tailor-cms/cek-common": "workspace:^",
-    "@vitejs/plugin-vue": "6.0.5",
-    "@vue/reactivity": "^3.5.30",
-    "@vue/runtime-core": "^3.5.30",
-    "@vue/runtime-dom": "^3.5.30",
-    "@vue/shared": "^3.5.30",
+    "@vitejs/plugin-vue": "^6.0.5",
+    "@vue/reactivity": "^3.5.31",
+    "@vue/runtime-core": "^3.5.31",
+    "@vue/runtime-dom": "^3.5.31",
+    "@vue/shared": "^3.5.31",
     "dotenv": "^17.3.1",
     "lodash-es": "^4.17.23",
-    "sass": "1.98.0",
-    "typescript": "5.9.3",
-    "vite": "8.0.0",
-    "vue": "3.5.30",
-    "vuetify": "4.0.2"
+    "sass": "^1.98.0",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.2",
+    "vue": "^3.5.31",
+    "vuetify": "^4.0.4"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:^",

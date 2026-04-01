@@ -1,6 +1,6 @@
 import express from 'express';
 
-import initController from './ai.controller.js';
+import initController from './ai.controller';
 
 function initRouter({ aiSchema }) {
   const { generate } = initController({ aiSchema });

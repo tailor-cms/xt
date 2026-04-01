@@ -5,7 +5,7 @@
   "version": "2.0.0-beta.1",
   "type": "module",
   "scripts": {
-    "dev": "node --experimental-specifier-resolution=node --loader ts-node/esm ./boot.ts",
+    "dev": "tsx ./boot.ts",
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
     "nuke": "pnpm dlx del-cli node_modules storage/tmp/*"
@@ -17,15 +17,15 @@
     "hash-object": "^5.1.0",
     "lodash-es": "^4.17.23",
     "mkdirp": "^3.0.1",
-    "multer": "2.1.1",
-    "openai": "^6.27.0",
+    "multer": "^2.1.1",
+    "openai": "^6.33.0",
     "sequelize": "^6.37.8",
-    "sqlite3": "^5.1.7",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
+    "sqlite3": "^6.0.1",
+    "tsx": "^4.19.2",
+    "typescript": "^6.0.2",
     "untildify": "^6.0.0",
     "url-join": "^5.0.0",
-    "ws": "^8.19.0"
+    "ws": "^8.20.0"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:^",

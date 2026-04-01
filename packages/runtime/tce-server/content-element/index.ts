@@ -3,7 +3,14 @@ import express from 'express';
 import ContentElementService from './ContentElementService';
 import initController from './controller';
 
-function initRouter({ type, initState, isQuestion, isGradable, hookMap, procedures }) {
+function initRouter({
+  type,
+  initState,
+  isQuestion,
+  isGradable,
+  hookMap,
+  procedures,
+}) {
   const {
     get: getCtrl,
     getUserStateContexts,
