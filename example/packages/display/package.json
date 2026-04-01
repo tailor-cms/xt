@@ -34,7 +34,7 @@
     "@vitejs/plugin-vue": "^6.0.5",
     "tce-manifest": "workspace:*",
     "typescript": "^6.0.2",
-    "vite": "^8.0.2",
+    "vite": "^8.0.3",
     "vite-plugin-lib-inject-css": "^2.2.2",
     "vue-tsc": "^3.2.6",
     "vuetify": "^4.0.4"

@@ -35,7 +35,10 @@
   },
   "tsdown": {
     "target": "node22",
-    "format": ["cjs", "esm"]
+    "format": [
+      "cjs",
+      "esm"
+    ]
   },
   "publishConfig": {
     "access": "public"
