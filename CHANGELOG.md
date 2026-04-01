@@ -6,16 +6,35 @@
 - Migrated to Vuetify 4 (MD3 typography classes, updated component API,
   theme configuration). All content element packages using Vuetify components
   need to be updated.
+- Question auto-wrap — `QuestionCard` and `QuestionContainer` are now applied
+  automatically by the runtime. Elements must remove manual wrapping.
+- Server actions renamed to RPC procedures (`$rpc` injection / `procedures`
+  export). Procedures are self-contained and no longer receive the element.
+- Build toolchain migrated from tsup to tsdown.
+- `isolatedDeclarations` enabled — all exported symbols require explicit type
+  annotations.
+- TypeScript 6, Vite 8.
 
 #### Features
-- Added typed hook signatures (`ElementHook`, `BeforeDisplayHook`,
+- Typed hook signatures (`ElementHook`, `BeforeDisplayHook`,
   `OnUserInteractionHook`, `ProcedureHandler`).
-- Added server procedures (RPC) — custom server-side methods callable
-  from Edit components via the injected `$rpc` function.
-- Added `isEmpty` manifest function for required element validation.
-- Added autosave support for question elements.
+- `ServerModule` and `HookMap` types for typed server package default exports.
+- `AiConfig` type (replaces inline `OpenAISchema` casting pattern).
+- RPC procedures — custom server-side methods callable from Edit components
+  via the injected `$rpc` function.
+- `isEmpty` manifest function for required element validation.
+- `showFeedback` manifest field to control question feedback section visibility.
+- Question autosave support.
+- `callElementAction` support.
+- `TailorAssetInput` global component (consolidated from separate upload
+  components).
+- `TailorElementPlaceholder` global component.
+- Expanded E2E testing utilities (`@tailor-cms/cek-e2e`) with API helpers and
+  additional page object models.
+- Accessibility improvements.
 
 #### Other
+- `moduleResolution: "bundler"` across all tsconfigs.
 - Bumped all dependencies to the latest versions.
 
 ### v1.0.0 2024-02-07
