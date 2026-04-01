@@ -8,8 +8,6 @@
   need to be updated.
 - Question auto-wrap — `QuestionCard` and `QuestionContainer` are now applied
   automatically by the runtime. Elements must remove manual wrapping.
-- Server actions renamed to RPC procedures (`$rpc` injection / `procedures`
-  export). Procedures are self-contained and no longer receive the element.
 - Build toolchain migrated from tsup to tsdown.
 - `isolatedDeclarations` enabled — all exported symbols require explicit type
   annotations.
