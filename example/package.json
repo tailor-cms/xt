@@ -27,13 +27,13 @@
     "test": "playwright test --config test/playwright.config.ts"
   },
   "devDependencies": {
-    "@playwright/test": "^1.59.0",
+    "@playwright/test": "^1.59.1",
     "@tailor-cms/cek-e2e": "workspace:*",
     "@tailor-cms/eslint-config": "workspace:*",
     "@tailor-cms/tce-boot": "workspace:*",
     "@types/node": "^24.12.0",
     "concurrently": "^9.2.1",
-    "dotenv": "^17.3.1",
+    "dotenv": "^17.4.0",
     "typescript": "^6.0.2"
   }
 }

@@ -17,10 +17,10 @@
     "@tailor-cms/tce-server-runtime": "workspace:^",
     "boxen": "^8.0.1",
     "concurrently": "^9.2.1",
-    "dotenv": "^17.3.1",
+    "dotenv": "^17.4.0",
     "fkill": "^10.0.3",
     "has-flag": "^5.0.1",
-    "lodash-es": "^4.17.23",
+    "lodash-es": "^4.18.1",
     "open": "^11.0.0",
     "pid-port": "^2.1.1",
     "yup": "^1.7.1"

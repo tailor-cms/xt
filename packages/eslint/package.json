@@ -27,7 +27,7 @@
     "vue-eslint-parser": "^10.4.0"
   },
   "peerDependencies": {
-    "eslint": ">=9.34.0"
+    "eslint": "^9.34.0"
   },
   "publishConfig": {
     "access": "public"
