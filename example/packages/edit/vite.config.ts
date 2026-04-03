@@ -24,11 +24,6 @@ export default defineConfig({
       external: ['vue'],
       output: {
         exports: 'named',
-        // Provide global variables to use in the UMD build
-        // for externalized deps
-        globals: {
-          vue: 'Vue',
-        },
       },
     },
   },
