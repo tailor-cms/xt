@@ -6,8 +6,6 @@ export interface ElementData extends common.ElementConfig {
   key?: string;
   backgroundUrl?: string;
   assets?: { backgroundUrl: string };
-  assetUrl?: string | null;
-  assetPublicUrl?: string | null;
 }
 
 export type DataInitializer = common.DataInitializer<ElementData>;
