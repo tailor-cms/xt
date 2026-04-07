@@ -45,7 +45,7 @@
 <script setup lang="ts">
 import { cloneDeep, sortBy } from 'lodash-es';
 import { computed, ref } from 'vue';
-import { v4 } from 'uuid';
+import { v4 } from '@lukeed/uuid/secure';
 import type { Variant } from 'vuetify/lib/composables/variant';
 
 import ContentElement from './ContentElement.vue';

@@ -334,6 +334,9 @@ importers:
 
   packages/runtime/tce-edit:
     dependencies:
+      '@lukeed/uuid':
+        specifier: ^2.0.1
+        version: 2.0.1
       '@mdi/font':
         specifier: ^7.4.47
         version: 7.4.47
@@ -358,9 +361,6 @@ importers:
       typescript:
         specifier: ^6.0.2
         version: 6.0.2
-      uuid:
-        specifier: ^13.0.0
-        version: 13.0.0
       vite:
         specifier: ^8.0.5
         version: 8.0.5(@emnapi/core@1.9.0)(@emnapi/runtime@1.9.0)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.4.2)(sass@1.99.0)(tsx@4.21.0)(yaml@2.6.1)
@@ -4436,10 +4436,6 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
-
-  uuid@13.0.0:
-    resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
-    hasBin: true
 
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
@@ -8928,8 +8924,6 @@ snapshots:
   url-join@5.0.0: {}
 
   util-deprecate@1.0.2: {}
-
-  uuid@13.0.0: {}
 
   uuid@8.3.2: {}
 
