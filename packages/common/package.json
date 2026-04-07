@@ -25,7 +25,6 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@lukeed/csprng": "^1.1.0",
     "@lukeed/uuid": "^2.0.1",
     "ky": "2.0.0",
     "mitt": "^3.0.1"
