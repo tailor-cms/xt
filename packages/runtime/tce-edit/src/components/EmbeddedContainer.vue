@@ -46,7 +46,6 @@
 import { cloneDeep, sortBy } from 'lodash-es';
 import { computed, ref } from 'vue';
 import { v4 } from '@lukeed/uuid/secure';
-import type { Variant } from 'vuetify/lib/composables/variant';
 
 import ContentElement from './ContentElement.vue';
 
@@ -55,7 +54,7 @@ interface AddElementOptions {
   label?: string;
   icon?: string;
   color?: string;
-  variant?: Variant;
+  variant?: 'elevated' | 'flat' | 'tonal' | 'outlined' | 'text' | 'plain';
 }
 
 interface Props {
