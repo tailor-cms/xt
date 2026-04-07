@@ -27,6 +27,7 @@
 - `TailorAssetInput` global component (consolidated from separate upload
   components).
 - `TailorElementPlaceholder` global component.
+- `TailorFileInput` global component for file uploads in the edit runtime.
 - Expanded E2E testing utilities (`@tailor-cms/cek-e2e`) with API helpers and
   additional page object models.
 - Accessibility improvements.
