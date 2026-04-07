@@ -283,7 +283,7 @@ const include = () => [
 
 const isEmpty = computed(() => {
   if (!element.value?.data) return false;
-  return props.isEmpty(element.value.data);
+  return props.isEmpty?.(element.value.data) ?? false;
 });
 
 onMounted(async () => {

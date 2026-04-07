@@ -88,7 +88,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const isElementEmpty = computed(() => {
   if (!element.value?.data) return true;
-  return props.isEmpty(element.value.data);
+  return props.isEmpty?.(element.value.data) ?? false;
 });
 
 const { VITE_SERVER_RUNTIME_URL } = import.meta.env;
