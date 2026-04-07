@@ -41,9 +41,6 @@ importers:
       '@types/node':
         specifier: ^24.12.2
         version: 24.12.2
-      concurrently:
-        specifier: ^9.2.1
-        version: 9.2.1
       dotenv:
         specifier: ^17.4.1
         version: 17.4.1
@@ -303,18 +300,6 @@ importers:
       '@vitejs/plugin-vue':
         specifier: ^6.0.5
         version: 6.0.5(vite@8.0.5(@emnapi/core@1.9.0)(@emnapi/runtime@1.9.0)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.4.2)(sass@1.99.0)(tsx@4.21.0)(yaml@2.6.1))(vue@3.5.32(typescript@6.0.2))
-      '@vue/reactivity':
-        specifier: ^3.5.32
-        version: 3.5.32
-      '@vue/runtime-core':
-        specifier: ^3.5.32
-        version: 3.5.32
-      '@vue/runtime-dom':
-        specifier: ^3.5.32
-        version: 3.5.32
-      '@vue/shared':
-        specifier: ^3.5.32
-        version: 3.5.32
       dotenv:
         specifier: ^17.4.1
         version: 17.4.1
@@ -358,18 +343,6 @@ importers:
       '@vitejs/plugin-vue':
         specifier: ^6.0.5
         version: 6.0.5(vite@8.0.5(@emnapi/core@1.9.0)(@emnapi/runtime@1.9.0)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.4.2)(sass@1.99.0)(tsx@4.21.0)(yaml@2.6.1))(vue@3.5.32(typescript@6.0.2))
-      '@vue/reactivity':
-        specifier: ^3.5.32
-        version: 3.5.32
-      '@vue/runtime-core':
-        specifier: ^3.5.32
-        version: 3.5.32
-      '@vue/runtime-dom':
-        specifier: ^3.5.32
-        version: 3.5.32
-      '@vue/shared':
-        specifier: ^3.5.32
-        version: 3.5.32
       ky:
         specifier: ^2.0.0
         version: 2.0.0
