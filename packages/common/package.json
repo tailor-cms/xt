@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@lukeed/uuid": "^2.0.1",
-    "ky": "2.0.0",
+    "ky": "^2.0.0",
     "mitt": "^3.0.1"
   },
   "devDependencies": {
