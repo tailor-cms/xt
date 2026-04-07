@@ -29,7 +29,7 @@ export const getApiClient = (
   url: string,
   runtime: 'authoring' | 'delivery' = 'authoring',
 ): ApiClient => {
-  const api = ky.create({ prefixUrl: url, timeout: false });
+  const api = ky.create({ prefix: url, timeout: false });
   const opts = { searchParams: { runtime } };
 
   const getElement = (id: string): Promise<any> =>

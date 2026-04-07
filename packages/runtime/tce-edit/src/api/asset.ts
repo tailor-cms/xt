@@ -2,7 +2,7 @@ import type { FileUploadResponse } from '@tailor-cms/cek-common';
 import ky from 'ky';
 
 const api = ky.create({
-  prefixUrl: import.meta.env.VITE_SERVER_RUNTIME_URL,
+  prefix: import.meta.env.VITE_SERVER_RUNTIME_URL,
   timeout: false,
 });
 

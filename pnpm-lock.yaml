@@ -166,8 +166,8 @@ importers:
         specifier: ^2.0.1
         version: 2.0.1
       ky:
-        specifier: 1.14.3
-        version: 1.14.3
+        specifier: 2.0.0
+        version: 2.0.0
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -374,8 +374,8 @@ importers:
         specifier: ^3.5.32
         version: 3.5.32
       ky:
-        specifier: ^1.14.3
-        version: 1.14.3
+        specifier: ^2.0.0
+        version: 2.0.0
       lodash-es:
         specifier: ^4.18.1
         version: 4.18.1
@@ -3185,9 +3185,9 @@ packages:
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
-  ky@1.14.3:
-    resolution: {integrity: sha512-9zy9lkjac+TR1c2tG+mkNSVlyOpInnWdSMiue4F+kq8TwJSgv6o8jhLRg8Ho6SnZ9wOYUq/yozts9qQCfk7bIw==}
-    engines: {node: '>=18'}
+  ky@2.0.0:
+    resolution: {integrity: sha512-KzI4Vz5AbZFAUFYGx28PCSfFWUo6/qj9Br/P6KRwDieE1xfdz0tIONepJcLw/1xLocN13GgvfJGasa+pfSkbHg==}
+    engines: {node: '>=22'}
 
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
@@ -7562,7 +7562,7 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  ky@1.14.3: {}
+  ky@2.0.0: {}
 
   levn@0.4.1:
     dependencies:
