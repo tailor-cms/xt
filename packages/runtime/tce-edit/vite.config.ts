@@ -36,9 +36,6 @@ export default defineConfig(({ mode }): any => {
       host: '0.0.0.0', // Accept connections from any host (Docker)
       port: parseInt(EDIT_RUNTIME_PORT, 10),
     },
-    resolve: {
-      preserveSymlinks: true,
-    },
     define: {
       'import.meta.env.EDIT_DIR': JSON.stringify(env.TCE_EDIT_DIR),
       'import.meta.env.MANIFEST_DIR': JSON.stringify(env.TCE_MANIFEST_DIR),

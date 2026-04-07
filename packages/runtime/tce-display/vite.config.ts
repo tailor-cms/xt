@@ -36,9 +36,6 @@ export default defineConfig((): UserConfig => {
       host: '0.0.0.0',
       port: parseInt(DISPLAY_RUNTIME_PORT, 10),
     },
-    resolve: {
-      preserveSymlinks: true,
-    },
     define: {
       'import.meta.env.DISPLAY_DIR': JSON.stringify(env.TCE_DISPLAY_DIR),
     },
