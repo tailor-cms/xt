@@ -4,14 +4,16 @@
 Available in version >=0.1.0
 :::
 
-## TailorAssetInput component
+## TailorFileInput component
 
-Use the globally available `TailorAssetInput` component for file upload and
-URL input. It provides built-in validation, edit/save/cancel state management,
-and loading indicators.
+Use the globally available `TailorFileInput` component for file upload and
+URL import. It provides a button-mode picker with drag & drop upload dialog,
+optional URL import tab, and auto-detection of asset type from extensions.
 
-See the [Global Components](/global-components#tailorassetinput) page for full
+See the [Global Components](/global-components#tailorfileinput) page for full
 props, events, and usage examples.
+
+The legacy `TailorAssetInput` is still available for backward compatibility.
 
 ## Direct file upload
 

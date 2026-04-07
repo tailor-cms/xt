@@ -16,19 +16,21 @@ to the real storage, element registry, and other platform services. The API
 Registered by the CEK edit runtime and Tailor CMS. Available in Edit,
 TopToolbar, and SideToolbar components.
 
-### TailorAssetInput
+### TailorFileInput
 
-Asset input component for file upload and URL input. Handles file upload
-via `$storageService`, URL validation, and edit/save/cancel state internally.
+File picker component with upload dialog (drag & drop) and optional URL
+import tab. Auto-detects asset type from extensions to resolve icon, label,
+and button text. Handles file upload via `$storageService`.
 
 ```vue
 <template>
-  <TailorAssetInput
-    :extensions="['.png', '.jpg', '.jpeg']"
-    :public-url="element.data.backgroundUrl"
-    :url="element.data.assets?.backgroundUrl"
-    upload-label="Upload image"
-    @input="save"
+  <TailorFileInput
+    :allowed-extensions="['.png', '.jpg', '.jpeg']"
+    :file-key="element.data.assets?.backgroundUrl"
+    allow-url-source
+    @upload="onUpload"
+    @input="onInput"
+    @delete="onDelete"
   />
 </template>
 
@@ -38,32 +40,66 @@ import type { Element } from 'tce-manifest';
 const props = defineProps<{ element: Element }>();
 const emit = defineEmits(['save']);
 
-const save = ({ url, publicUrl }: { url: string; publicUrl: string }) => {
+const onUpload = ({ url, publicUrl }: Record<string, any>) => {
   const assets = { backgroundUrl: url };
   emit('save', { ...props.element.data, backgroundUrl: publicUrl, assets });
+};
+
+const onInput = (payload: Record<string, any> | null) => {
+  if (!payload) return;
+  emit('save', { ...props.element.data, backgroundUrl: payload.publicUrl });
+};
+
+const onDelete = () => {
+  emit('save', {
+    ...props.element.data,
+    backgroundUrl: undefined,
+    assets: undefined,
+  });
 };
 </script>
 ```
 
-### Props
+#### Props
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `extensions` | `string[]` | required | Allowed file extensions (e.g. `['.png', '.jpg']`) |
-| `url` | `string \| null` | `null` | Internal asset URL (from `data.assets`) |
-| `public-url` | `string \| null` | `null` | Public/resolved URL |
-| `allow-file-upload` | `boolean` | `true` | Show file upload button |
-| `upload-label` | `string` | `'Select file'` | Upload button label |
+| `file-key` | `string` | `''` | Storage key or `storage://` URI of the current file |
+| `file-name` | `string` | `''` | Display name; falls back to parsing from `fileKey` |
+| `allow-url-source` | `boolean` | `false` | Show URL import tab in the picker dialog |
+| `allowed-extensions` | `string[]` | `[]` | Accepted extensions with dot prefix (e.g. `['.jpg', '.png']`); drives icon/label auto-detection |
+| `use-field-input` | `boolean` | `false` | Use field input + card rendering instead of default button mode |
+| `show-preview` | `boolean` | `false` | Enable image thumbnail + overlay on the file card; auto-enabled for image extensions |
+| `public-url` | `string \| null` | `null` | Pre-resolved public URL; skips async fetch when present |
+| `label` | `string` | `''` | Override auto-inferred label (derived from extensions) |
+| `placeholder` | `string` | `''` | Override button text (e.g. `'Upload image'`) |
+| `icon` | `string` | `''` | Override auto-inferred icon (derived from extensions) |
+| `variant` | `VTextField['variant']` | `'outlined'` | Vuetify variant for the text field (field input mode) |
+| `density` | `VTextField['density']` | `'default'` | Vuetify density for the text field (field input mode) |
+| `dark` | `boolean` | `false` | Dark theme variant for the file preview card |
 
-### Events
+#### Events
 
 | Event | Payload | Description |
 |---|---|---|
-| `@input` | `{ url, publicUrl }` | Emitted on save with internal and public URLs |
+| `@upload` | `{ key, name, url, publicUrl }` | File uploaded via drag & drop or file picker |
+| `@input` | `{ url, publicUrl, title? } \| null` | URL imported (from URL tab), or `null` on clear |
+| `@delete` | — | File cleared by the user |
 
-Assign the `url` (internal) to `data.assets` and the `publicUrl` to `data`
-for display. See the [File storage](/file-storage) section for details on asset
-URL handling.
+Auto-inferred values from `allowedExtensions`:
+- Image extensions → icon `mdi-image-outline`, label `Image`, button `Choose image`
+- Video → `mdi-video-outline` / `Video` / `Choose video`
+- Audio → `mdi-volume-medium` / `Audio` / `Choose audio`
+- Document → `mdi-file-document-outline` / `Document` / `Choose document`
+- Fallback → `mdi-file` / `File` / `Choose file`
+
+### TailorAssetInput (legacy)
+
+The previous asset input component with inline edit/save/cancel state.
+Still registered globally for backward compatibility. New elements should
+use `TailorFileInput` instead.
+
+See the [File storage](/file-storage) section for details on asset URL handling.
 
 ### TailorElementPlaceholder
 

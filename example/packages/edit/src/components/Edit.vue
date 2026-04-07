@@ -65,6 +65,23 @@
         />
       </VSheet>
     </div>
+    <div class="my-4">
+      <div class="text-title-medium font-weight-bold mb-2">File Input</div>
+      <TailorFileInput
+        v-if="!isReadonly"
+        :allowed-extensions="['.jpg', '.jpeg', '.png', '.gif', '.svg']"
+        :file-key="element.data.assetUrl"
+        :public-url="element.data.assetPublicUrl"
+        allow-url-source
+        use-field-input
+        @delete="onFileDelete"
+        @input="onFileInput"
+        @upload="onFileUpload"
+      />
+      <div v-else-if="element.data.assetUrl" class="text-body-2">
+        Asset: {{ element.data.assetUrl }}
+      </div>
+    </div>
     <VBtn v-if="!isReadonly" class="my-3" variant="tonal" @click="emit('link')">
       Link example
     </VBtn>
@@ -125,6 +142,30 @@ const uploadImage = (e: InputFileEvent) => {
       assets: { backgroundUrl: url },
     }),
   );
+};
+
+const onFileUpload = (payload: Record<string, any>) => {
+  emit('save', {
+    ...props.element.data,
+    assetUrl: payload.url,
+    assetPublicUrl: payload.publicUrl,
+  });
+};
+
+const onFileInput = (payload: Record<string, any> | null) => {
+  emit('save', {
+    ...props.element.data,
+    assetUrl: payload?.url ?? null,
+    assetPublicUrl: payload?.publicUrl ?? null,
+  });
+};
+
+const onFileDelete = () => {
+  emit('save', {
+    ...props.element.data,
+    assetUrl: null,
+    assetPublicUrl: null,
+  });
 };
 
 const removeImage = () => {

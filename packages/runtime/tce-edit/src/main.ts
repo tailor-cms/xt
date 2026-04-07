@@ -4,6 +4,7 @@ import { createApp } from 'vue';
 
 import App from './App.vue';
 import AssetInput from './components/AssetInput.vue';
+import FileInput from './components/FileInput/index.vue';
 import ContentElement from './components/ContentElement.vue';
 import ElementPlaceholder from './components/ElementPlaceholder.vue';
 import EmbeddedContainer from './components/EmbeddedContainer.vue';
@@ -42,6 +43,7 @@ app.provide('$eventBus', radio);
 app.provide('$elementBus', radio.channel('app'));
 app.use(vuetify);
 app.component('TailorAssetInput', AssetInput);
+app.component('TailorFileInput', FileInput);
 app.component('TailorElementPlaceholder', ElementPlaceholder);
 app.component('TailorContentElement', ContentElement);
 app.component(
