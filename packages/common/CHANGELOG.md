@@ -1,16 +1,19 @@
 # @tailor-cms/cek-common
 
-## 2.0.0-beta.3
-
-### Patch Changes
-
-- Bump beta.
-
 ## 2.0.0
 
 ### Major Changes
 
-- Upgrade to Vuetify 4, add procedures, isEmpty state and autosave support for Question elements.
+- Typed hook signatures: `ElementHook`, `BeforeDisplayHook`, `OnUserInteractionHook`, `ProcedureHandler`.
+- `ServerModule` and `HookMap` types for typed server package default exports.
+- `AiConfig` type for AI generation configuration.
+- `RpcCaller` type for client-side RPC injection.
+- `ElementReferences` type for element linking (`Record<string, Partial<Element>[]>`).
+- `displayContexts` now optional in manifest mocks.
+- `mocks.referencesData` field for custom mock linked element data.
+- `isEmpty` manifest function for required element validation.
+- `showFeedback` manifest field to control question feedback section visibility.
+- Storage API: `upload` accepts `File[]` instead of `FormData`; removed `createUploadForm` and `UploadFormData`.
 
 ## 1.3.2
 

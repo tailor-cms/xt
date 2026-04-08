@@ -1,18 +1,11 @@
 # @tailor-cms/tce-preview-runtime
 
-## 2.0.0-beta.3
-
-### Patch Changes
-
-- Bump beta.
-- Updated dependencies
-  - @tailor-cms/cek-common@2.0.0-beta.3
-
 ## 2.0.0
 
 ### Major Changes
 
-- Upgrade to Vuetify 4, add procedures, isEmpty state and autosave support for Question elements.
+- Vuetify 4 migration with vite-plugin-vuetify.
+- ThemeDialog integration for edit and display panels.
 
 ### Patch Changes
 

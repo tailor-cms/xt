@@ -1,21 +1,11 @@
 # @tailor-cms/tce-boot
 
-## 2.0.0-beta.3
-
-### Patch Changes
-
-- Bump beta.
-- Updated dependencies
-  - @tailor-cms/tce-display-runtime@2.0.0-beta.3
-  - @tailor-cms/tce-server-runtime@2.0.0-beta.3
-  - @tailor-cms/tce-edit-runtime@2.0.0-beta.3
-  - @tailor-cms/tce-preview-runtime@2.0.0-beta.3
-
 ## 2.0.0
 
 ### Major Changes
 
-- Upgrade to Vuetify 4, add procedures, isEmpty state and autosave support for Question elements.
+- Upgrade to Vuetify 4, Vite 8, TypeScript 6.
+- Element linking, theme testing, question autosave, RPC procedures support.
 
 ### Patch Changes
 

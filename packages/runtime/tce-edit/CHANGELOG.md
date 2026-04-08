@@ -1,18 +1,18 @@
 # @tailor-cms/tce-edit-runtime
 
-## 2.0.0-beta.3
-
-### Patch Changes
-
-- Bump beta.
-- Updated dependencies
-  - @tailor-cms/cek-common@2.0.0-beta.3
-
 ## 2.0.0
 
 ### Major Changes
 
-- Upgrade to Vuetify 4, add procedures, isEmpty state and autosave support for Question elements.
+- Vuetify 4 migration (MD3 typography, updated component APIs, theme configuration).
+- Question auto-wrap: QuestionCard applied automatically by the runtime.
+- Element linking: `@link` event, `references` prop, mock link dialog with `mocks.referencesData`.
+- Question autosave support (toggle in Settings panel).
+- `$rpc` injection for calling server-side procedures.
+- `$storageService.upload` accepts `File[]` instead of `FormData`.
+- `TailorFileInput` global component (replaces `AssetInput`).
+- `TailorElementPlaceholder` global component.
+- ThemeDialog for testing element appearance with custom Vuetify themes.
 
 ### Patch Changes
 

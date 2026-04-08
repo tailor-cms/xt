@@ -1,16 +1,11 @@
 # @tailor-cms/cek-e2e
 
-## 2.0.0-beta.3
-
-### Patch Changes
-
-- Bump beta.
-
 ## 2.0.0
 
 ### Major Changes
 
-- Upgrade to Vuetify 4, add procedures, isEmpty state and autosave support for Question elements.
+- `elementClient` API helpers (get, update, reset, setState, resetState).
+- `EditQuestionForm` and `DisplayQuestionForm` Page Object Models.
 
 ## 1.3.2
 

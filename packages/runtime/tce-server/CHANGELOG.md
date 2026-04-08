@@ -1,16 +1,13 @@
 # @tailor-cms/tce-server-runtime
 
-## 2.0.0-beta.3
-
-### Patch Changes
-
-- Bump beta.
-
 ## 2.0.0
 
 ### Major Changes
 
-- Upgrade to Vuetify 4, add procedures, isEmpty state and autosave support for Question elements.
+- Upgrade to Vuetify 4, Vite 8, TypeScript 6.
+- Server procedures (RPC) support.
+- `displayContexts` mock presets with dropdown selection.
+- Element refs persisted on PATCH (`data`, `meta`, `refs`).
 
 ## 1.3.2
 

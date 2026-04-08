@@ -1,18 +1,13 @@
 # @tailor-cms/tce-display-runtime
 
-## 2.0.0-beta.3
-
-### Patch Changes
-
-- Bump beta.
-- Updated dependencies
-  - @tailor-cms/cek-common@2.0.0-beta.3
-
 ## 2.0.0
 
 ### Major Changes
 
-- Upgrade to Vuetify 4, add procedures, isEmpty state and autosave support for Question elements.
+- Vuetify 4 migration (MD3 typography, updated component APIs, theme configuration).
+- Question auto-wrap: QuestionForm applied automatically by the runtime.
+- QuestionContainer renamed to QuestionForm.
+- ThemeDialog for testing element appearance with custom Vuetify themes.
 
 ### Patch Changes
 
