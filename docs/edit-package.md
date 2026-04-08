@@ -63,10 +63,10 @@ section:
 </template>
 
 <script setup lang="ts">
-import { Element } from 'tce-manifest';
+import { Element, ElementData } from 'tce-manifest';
 
 const props = defineProps<{ element: Element }>();
-const emit = defineEmits(['save']);
+const emit = defineEmits<{ save: [data: ElementData] }>();
 
 const increment = () => {
   const { data } = props.element;
@@ -92,10 +92,10 @@ state). Similar goes for the TopToolbar:
 </template>
 
 <script setup lang="ts">
-import { Element } from 'tce-manifest';
+import { Element, ElementData } from 'tce-manifest';
 
 const props = defineProps<{ element: Element }>();
-const emit = defineEmits(['save']);
+const emit = defineEmits<{ save: [data: ElementData] }>();
 
 const decrement = () => {
   const { data } = props.element;
@@ -197,13 +197,16 @@ and the full resolved element objects are passed via the `references` prop.
 
 <script setup lang="ts">
 import type { ElementReferences } from '@tailor-cms/cek-common';
-import { Element } from 'tce-manifest';
+import { Element, ElementData } from 'tce-manifest';
 
 defineProps<{
   element: Element;
   references?: ElementReferences;
 }>();
-const emit = defineEmits(['save', 'link']);
+const emit = defineEmits<{
+  save: [data: ElementData];
+  link: [key?: string];
+}>();
 </script>
 ```
 
@@ -293,7 +296,7 @@ immediately when `autosave` is enabled).
 
 ```vue
 <script setup lang="ts">
-const emit = defineEmits(['update']);
+const emit = defineEmits<{ update: [data: Partial<ElementData>] }>();
 
 // Emit only changed fields (QuestionCard merges them)
 emit('update', { answer: newValue });
@@ -334,7 +337,7 @@ handles the prompt, hint, and feedback sections.
 
 <script setup lang="ts">
 const props = defineProps<{ element: any; isFocused: boolean; isReadonly: boolean }>();
-const emit = defineEmits(['update']);
+const emit = defineEmits<{ update: [data: Partial<ElementData>] }>();
 </script>
 ```
 

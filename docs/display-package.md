@@ -60,7 +60,7 @@ on [user-state hooks](./server-package#user-state-hooks).
 import { Element } from 'tce-manifest';
 
 const props = defineProps<{ element: Element; userState: any }>();
-const emit = defineEmits(['interaction']);
+const emit = defineEmits<{ interaction: [data: any] }>();
 
 const submit = () => emit('interaction', { myInteractionData: 'example' });
 </script>
@@ -99,7 +99,7 @@ import { ref, watch } from 'vue';
 import { Element } from 'tce-manifest';
 
 const props = defineProps<{ element: Element; userState: any }>();
-const emit = defineEmits(['user-input']);
+const emit = defineEmits<{ 'user-input': [data: any] }>();
 
 const selectedAnswer = ref(props.userState?.response ?? null);
 

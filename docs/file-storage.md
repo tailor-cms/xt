@@ -33,11 +33,12 @@ For custom upload UI, inject `$storageService` and pass an array of
 <script setup lang="ts">
 import type { InputFileEvent, StorageApi } from '@tailor-cms/cek-common';
 import { inject } from 'vue';
+import { Element, ElementData } from 'tce-manifest';
 
 const storageService = inject('$storageService') as StorageApi;
 
 const props = defineProps<{ element: Element }>();
-const emit = defineEmits(['save']);
+const emit = defineEmits<{ save: [data: ElementData] }>();
 
 const upload = (e: InputFileEvent) => {
   const files = Array.from(e.target.files || []);

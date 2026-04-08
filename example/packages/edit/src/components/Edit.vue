@@ -94,13 +94,13 @@
 
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue';
+import type { Element, ElementData } from 'tce-manifest';
 import type {
   ElementReferences,
   InputFileEvent,
   RpcCaller,
   StorageApi,
 } from '@tailor-cms/cek-common';
-import { Element } from 'tce-manifest';
 
 const rpc = inject('$rpc') as RpcCaller;
 const storageService = inject('$storageService') as StorageApi;
@@ -113,7 +113,11 @@ const props = defineProps<{
   isDragged: boolean;
   isReadonly: boolean;
 }>();
-const emit = defineEmits(['save', 'link']);
+
+const emit = defineEmits<{
+  save: [data: ElementData];
+  link: [key?: string];
+}>();
 
 const linkedElement = computed(() => props.references?.linked?.[0]);
 

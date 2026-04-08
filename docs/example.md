@@ -81,7 +81,7 @@ for our simple counter:
 </template>
 
 <script lang="ts" setup>
-import { Element } from 'tce-manifest';
+import { Element, ElementData } from 'tce-manifest';
 
 const props = defineProps<{
   element: Element;
@@ -89,7 +89,7 @@ const props = defineProps<{
   isFocused: boolean;
   isReadonly: boolean;
 }>();
-const emit = defineEmits(['save']);
+const emit = defineEmits<{ save: [data: ElementData] }>();
 
 const increment = () => {
   const { data } = props.element;
@@ -135,10 +135,10 @@ the following code and save:
 </template>
 
 <script setup lang="ts">
-import { Element } from 'tce-manifest';
+import { Element, ElementData } from 'tce-manifest';
 
 const props = defineProps<{ element: Element }>();
-const emit = defineEmits(['save']);
+const emit = defineEmits<{ save: [data: ElementData] }>();
 
 const decrement = () => {
   const { data } = props.element;
@@ -180,7 +180,7 @@ following code:
 </template>
 
 <script setup lang="ts">
-import { Element } from 'tce-manifest';
+import { Element, ElementData } from 'tce-manifest';
 
 defineProps<{ element: Element }>();
 </script>

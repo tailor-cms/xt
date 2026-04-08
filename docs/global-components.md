@@ -35,10 +35,10 @@ and button text. Handles file upload via `$storageService`.
 </template>
 
 <script setup lang="ts">
-import type { Element } from 'tce-manifest';
+import type { Element, ElementData } from 'tce-manifest';
 
 const props = defineProps<{ element: Element }>();
-const emit = defineEmits(['save']);
+const emit = defineEmits<{ save: [data: ElementData] }>();
 
 const onUpload = ({ url, publicUrl }: Record<string, any>) => {
   const assets = { backgroundUrl: url };

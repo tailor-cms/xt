@@ -18,10 +18,10 @@ section, displaying the amount of times user clicked on a button:
 </template>
 
 <script setup lang="ts">
-import { Element } from 'tce-manifest';
+import { Element, ElementData } from 'tce-manifest';
 
 const props = defineProps<{ element: Element }>();
-const emit = defineEmits(['save']);
+const emit = defineEmits<{ save: [data: ElementData] }>();
 
 const increment = () => {
   const { data } = props.element;

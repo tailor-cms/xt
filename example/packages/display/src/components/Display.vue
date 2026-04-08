@@ -30,7 +30,7 @@ import { computed } from 'vue';
 import { Element } from 'tce-manifest';
 
 const props = defineProps<{ element: Element; userState: any }>();
-const emit = defineEmits(['interaction']);
+const emit = defineEmits<{ interaction: [data: { count: number }] }>();
 
 const elementData = computed(() => props.element.data);
 const submit = () => emit('interaction', { count: elementData.value.count });

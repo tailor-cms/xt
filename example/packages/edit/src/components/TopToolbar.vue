@@ -7,13 +7,13 @@
 </template>
 
 <script setup lang="ts">
-import { Element } from 'tce-manifest';
+import type { Element, ElementData } from 'tce-manifest';
 import { inject } from 'vue';
 
 const elementBus = inject('$elementBus') as any;
 
 const props = defineProps<{ element: Element }>();
-const emit = defineEmits(['save']);
+const emit = defineEmits<{ save: [data: ElementData] }>();
 
 const decrement = () => {
   const data = props.element.data;
