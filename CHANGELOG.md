@@ -23,6 +23,8 @@
 - `isEmpty` manifest function for required element validation.
 - `showFeedback` manifest field to control question feedback section visibility.
 - Question autosave support.
+- `mocks.referencesData` manifest field for custom mock linked element data.
+- CEK theme testing — ThemeDialog in edit and display runtimes.
 - `callElementAction` support.
 - `TailorAssetInput` global component (consolidated from separate upload
   components).
