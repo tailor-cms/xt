@@ -52,6 +52,7 @@ export interface Element<TData = ElementData, TRefs = Refs, TMeta = Meta> {
 }
 
 export type DataInitializer<TData = ElementData> = () => TData;
+export type ElementReferences = Record<string, Partial<Element>[]>;
 
 /**
  * Function injected as `$rpc` into authoring components
@@ -156,6 +157,13 @@ export interface ElementManifest<TData = ElementData> {
      * Provide end-user system context mock (used for user state hooks)
      * See https://tailor-cms.github.io/xt/server-package.html#user-state-hooks.
      */
-    displayContexts: Array<{ name: string; data: any }>;
+    displayContexts?: Array<{ name: string; data: any }>;
+    /**
+     * Mock data for the link dialog. Keyed by reference name
+     * (e.g. `linked`), each value is an array of data objects.
+     * The runtime wraps these with `id`, `type`, etc. before passing
+     * to the Edit component via the `references` prop.
+     */
+    referencesData?: Record<string, Record<string, any>[]>;
   };
 }

@@ -2,6 +2,7 @@ import type { AiConfig } from '@tailor-cms/cek-common';
 
 import type {
   DataInitializer,
+  DisplayContext,
   ElementData,
   ElementManifest,
 } from './interfaces';
@@ -35,12 +36,16 @@ const ui = {
 };
 
 export const mocks: {
-  displayContexts: { name: string; data: { state: string } }[];
+  displayContexts: DisplayContext[];
+  referencesData: Record<string, Record<string, any>[]>;
 } = {
   displayContexts: [
     { name: 'Test preset 1', data: { state: 'I have a value' } },
     { name: 'Test preset 2', data: { state: 'I have a different value' } },
   ],
+  referencesData: {
+    linked: [{ count: 42, description: 'Mock linked counter' }],
+  },
 };
 
 export const ai: AiConfig = {

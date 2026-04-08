@@ -81,6 +81,7 @@
                         type,
                         icon,
                         element,
+                        references,
                         autosave: settings.autosave,
                         isDragged: settings.isDragged,
                         isReadonly: settings.isReadonly,
@@ -95,6 +96,7 @@
                       v-else
                       v-bind="{
                         element,
+                        references,
                         isDragged: settings.isDragged,
                         isReadonly: settings.isReadonly,
                         isFocused,
@@ -176,8 +178,8 @@
         </VToolbar>
         <VCardText>
           In Tailor, this action will open a dialog to select a content element
-          to link to. The `refs` property is updated with mock data to reflect
-          the mocked selection.
+          to link to. The <code>refs</code> property is updated with mock data
+          and a mock element is passed via the <code>references</code> prop.
         </VCardText>
       </VCard>
     </VDialog>
@@ -197,7 +199,11 @@ import {
   ref,
   watch,
 } from 'vue';
-import type { DataInitializer, Element } from '@tailor-cms/cek-common';
+import type {
+  DataInitializer,
+  Element,
+  ElementReferences,
+} from '@tailor-cms/cek-common';
 import {
   getApiClient,
   initWebSocket,
@@ -234,6 +240,7 @@ interface Props {
   type?: string;
   icon?: string;
   forceFullWidth?: boolean;
+  mockReferences?: ElementReferences;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -244,11 +251,13 @@ const props = withDefaults(defineProps<Props>(), {
   type: 'Content Element',
   icon: 'mdi-cube',
   forceFullWidth: false,
+  mockReferences: () => ({}),
 });
 
 const emit = defineEmits(['save', 'delete']);
 
 const element = ref<Element>();
+const references = ref<ElementReferences>({});
 const isFocused = ref(false);
 const isLinkDialogVisible = ref(false);
 const isGeneratingContent = ref(false);
@@ -322,18 +331,22 @@ const doTheMagic = async () => {
   }
 };
 
-const onLink = () => {
+const onLink = (key = 'linked') => {
   isLinkDialogVisible.value = true;
-  const refs = {
-    linked: [
-      {
-        outlineId: 1,
-        containerId: 2,
-        id: 3,
-      },
-    ],
-  };
-  return api.updateElement(element.value.uid, { refs });
+  const dataItems = props.mockReferences?.[key] ?? [initState()];
+  const mockElements = dataItems.map((data, i) => ({
+    id: 1000 + i,
+    uid: `mock-ref-${i}`,
+    type: element.value?.type ?? 'UNKNOWN',
+    data,
+  }));
+  references.value = { ...references.value, [key]: mockElements };
+  const refs = mockElements.map((el) => ({
+    id: el.id,
+    outlineId: 1,
+    containerId: 2,
+  }));
+  api.updateElement(element.value.uid, { refs: { [key]: refs } });
 };
 
 const load = async (elementId: string) => {

@@ -30,7 +30,6 @@
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
-    "@types/stringify-object": "^4.0.5",
     "@vitejs/plugin-vue": "^6.0.5",
     "tce-manifest": "workspace:*",
     "typescript": "^6.0.2",
@@ -38,8 +37,5 @@
     "vite-plugin-lib-inject-css": "^2.2.2",
     "vue-tsc": "^3.2.6",
     "vuetify": "^4.0.5"
-  },
-  "dependencies": {
-    "stringify-object": "^6.0.0"
   }
 }

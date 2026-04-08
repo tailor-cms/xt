@@ -50,9 +50,6 @@ importers:
 
   example/packages/display:
     dependencies:
-      stringify-object:
-        specifier: ^6.0.0
-        version: 6.0.0
       vue:
         specifier: ^3.5.32
         version: 3.5.32(typescript@6.0.2)
@@ -60,9 +57,6 @@ importers:
       '@tailor-cms/eslint-config':
         specifier: workspace:*
         version: link:../../../packages/eslint
-      '@types/stringify-object':
-        specifier: ^4.0.5
-        version: 4.0.5
       '@vitejs/plugin-vue':
         specifier: ^6.0.5
         version: 6.0.5(vite@8.0.6(@types/node@25.5.0)(esbuild@0.27.7)(jiti@2.4.2)(sass@1.99.0)(tsx@4.21.0)(yaml@2.6.1))(vue@3.5.32(typescript@6.0.2))

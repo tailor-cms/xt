@@ -63,7 +63,12 @@ export interface ElementManifest<TData = ElementData> {
   mocks?: {
     // Provide end-user system context mock (used for user state hooks)
     // See https://tailor-cms.github.io/xt/server-package.html#user-state-hooks.
-    displayContexts: Array<{ name: string; data: any }>;
+    displayContexts?: Array<{ name: string; data: any }>;
+    // Mock data for the link dialog. Keyed by reference name
+    // (e.g. 'linked'), each value is an array of data objects.
+    // The runtime wraps these into full elements for the 'references' prop.
+    // See /edit-package.html#linking-elements.
+    referencesData?: Record<string, Record<string, any>[]>;
   };
 }
 ```

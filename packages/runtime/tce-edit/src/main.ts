@@ -21,6 +21,7 @@ const {
   initState,
   isGradable,
   showFeedback = false,
+  mocks = {},
   name,
   ui,
 } = element.default;
@@ -37,6 +38,7 @@ const app = createApp(App, {
   forceFullWidth: ui.forceFullWidth,
   initState,
   isEmpty,
+  mockReferences: mocks.referencesData,
 });
 const radio = Radio.getInstance();
 app.provide('$eventBus', radio);

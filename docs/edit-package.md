@@ -38,6 +38,7 @@ and observed for element related events:
 - `@update` - Emit partial data to be merged into element state (question
   elements only — the QuestionCard wrapper handles persistence).
 - `@delete` - Delete element (default control already exists)
+- `@link` - Open the element linking dialog (see [Linking elements](#linking-elements))
 
 \
 As noted above, to store element state, simply emit `save` event passing an
@@ -176,6 +177,64 @@ defaults to `any`. The `procedure` parameter maps to a key in the server
 package's `procedures` export. For details on defining server procedures, see
 the [Server package - Server procedures](/server-package#server-procedures-rpc)
 section.
+
+## Linking elements
+
+Content elements can reference other elements through the linking mechanism.
+When the Edit component emits a `link` event, Tailor CMS opens an element
+picker dialog. The selected element's reference is stored on `element.refs`,
+and the full resolved element objects are passed via the `references` prop.
+
+### Emitting the link event
+
+```vue
+<template>
+  <VBtn @click="emit('link')">Link element</VBtn>
+  <div v-if="references?.linked?.length">
+    Linked: {{ references.linked[0].data }}
+  </div>
+</template>
+
+<script setup lang="ts">
+import type { ElementReferences } from '@tailor-cms/cek-common';
+import { Element } from 'tce-manifest';
+
+defineProps<{
+  element: Element;
+  references?: ElementReferences;
+}>();
+const emit = defineEmits(['save', 'link']);
+</script>
+```
+
+The `references` prop uses the `ElementReferences` type
+(`Record<string, Partial<Element>[]>`) keyed by the reference name
+(e.g. `linked`). Each value is an array of element objects resolved from the
+lightweight identifiers stored in `element.refs`.
+
+### CEK runtime behavior
+
+In the CEK development environment, emitting `link` opens an informational
+dialog and immediately:
+
+1. Updates `element.refs` on the server with mock reference data
+   (`{ id, outlineId, containerId }`)
+2. Passes a mock element via the `references` prop
+
+By default, the mock element is auto-generated from `initState`. To provide
+custom mock data, define `mocks.referencesData` in the manifest — only the
+`data` is needed, the runtime fills in `id`, `type`, etc.:
+
+```ts
+export const mocks = {
+  displayContexts: [...],
+  referencesData: {
+    linked: [{ title: 'Mock linked element', prompt: 'Some prompt' }],
+  },
+};
+```
+
+This lets you develop and test linking UX without running Tailor CMS.
 
 ## When to save the state?
 

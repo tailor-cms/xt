@@ -158,7 +158,7 @@ mocked within the element manifest and injected into previously listed hooks.
 
 ```ts
 mocks?: {
-  displayContexts: Array<{ name: string; data: any }>;
+  displayContexts?: Array<{ name: string; data: any }>;
 };
 ```
 ::::tip ☝️ Note

@@ -65,13 +65,24 @@
         />
       </VSheet>
     </div>
-    <VBtn v-if="!isReadonly" class="my-3" variant="tonal" @click="emit('link')">
-      Link example
-    </VBtn>
+    <div class="my-3">
+      <template v-if="linkedElement">
+        <div class="text-label-medium text-uppercase font-weight-bold my-2">
+          Linked element:
+        </div>
+        <VSheet class="py-2 px-4" color="surface-light" rounded>
+          <pre class="text-body-medium my-1">{{
+            JSON.stringify(linkedElement.data, null, 2)
+          }}</pre>
+        </VSheet>
+      </template>
+      <VBtn v-else-if="!isReadonly" variant="tonal" @click="emit('link')">
+        Link element
+      </VBtn>
+    </div>
     <VBtn
       v-if="!isReadonly"
       :loading="isLoading"
-      class="my-3 ml-2"
       prepend-icon="mdi-export"
       variant="tonal"
       @click="exportData"
@@ -82,8 +93,9 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import type {
+  ElementReferences,
   InputFileEvent,
   RpcCaller,
   StorageApi,
@@ -96,11 +108,14 @@ const elementBus = inject('$elementBus') as any;
 
 const props = defineProps<{
   element: Element;
+  references?: ElementReferences;
   isFocused: boolean;
   isDragged: boolean;
   isReadonly: boolean;
 }>();
 const emit = defineEmits(['save', 'link']);
+
+const linkedElement = computed(() => props.references?.linked?.[0]);
 
 const increment = () => {
   const data = props.element.data;
