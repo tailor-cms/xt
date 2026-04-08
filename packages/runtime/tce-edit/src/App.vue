@@ -41,6 +41,7 @@
                 @toggle-gradable="confirm(toggleGradable)"
                 @toggle-half-width="confirm(toggleHalfWidth)"
               />
+              <ThemeDialog class="ml-1" />
             </VSheet>
             <VSheet class="mt-6 pa-8" color="white" elevation="2" rounded="lg">
               <div
@@ -170,23 +171,14 @@
     </VMain>
     <VDialog v-model="isLinkDialogVisible" width="500" attach persistent>
       <VCard>
-        <VCardTitle class="text-headline-small">Link element dialog</VCardTitle>
+        <VToolbar title="Link element dialog">
+          <VBtn icon="mdi-close" @click="isLinkDialogVisible = false" />
+        </VToolbar>
         <VCardText>
           In Tailor, this action will open a dialog to select a content element
           to link to. The `refs` property is updated with mock data to reflect
           the mocked selection.
         </VCardText>
-        <VDivider />
-        <VCardActions>
-          <VSpacer />
-          <VBtn
-            color="blue-grey-darken-2"
-            variant="text"
-            @click="isLinkDialogVisible = false"
-          >
-            Close
-          </VBtn>
-        </VCardActions>
       </VCard>
     </VDialog>
     <ConfirmationDialog />
@@ -216,6 +208,7 @@ import assetApi from './api/asset';
 import ConfirmationDialog from './components/ConfirmationDialog.vue';
 import ElementSettings from './components/ElementSettings.vue';
 import QuestionForm from './components/QuestionForm/index.vue';
+import ThemeDialog from './components/ThemeDialog.vue';
 
 const { TopToolbar, SideToolbar } = getCurrentInstance().appContext.components;
 

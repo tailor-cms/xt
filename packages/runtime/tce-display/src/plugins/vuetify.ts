@@ -9,13 +9,10 @@ export default createVuetify({
   components,
   directives,
   theme: {
-    defaultTheme: 'light',
+    defaultTheme: 'default',
     themes: {
-      light: {
-        variables: {
-          'medium-emphasis-opacity': 0.75,
-        },
-      },
+      default: {},
+      'default-dark': { dark: true },
     },
   },
   icons: {

@@ -1,5 +1,7 @@
 import { expect, FrameLocator, Locator, Page } from '@playwright/test';
 
+import { ThemeDialog } from './ThemeDialog';
+
 export class EditPanel {
   readonly el: FrameLocator;
   readonly editor: Locator;
@@ -11,6 +13,7 @@ export class EditPanel {
   readonly settingsMenu: Locator;
   readonly confirmationDialog: Locator;
   readonly linkDialog: Locator;
+  readonly themeDialog: ThemeDialog;
 
   constructor(page: Page) {
     this.el = page.frameLocator('#editPanel>iframe');
@@ -30,10 +33,13 @@ export class EditPanel {
     this.generateBtn = this.el.getByRole('button', { name: 'Generate' });
     this.settingsBtn = this.el.getByRole('button', { name: 'Settings' });
     this.settingsMenu = this.el.locator('.v-menu');
-    this.confirmationDialog = this.el.locator('.v-dialog');
+    this.confirmationDialog = this.el.locator('.v-dialog').filter({
+      hasText: 'Are you sure',
+    });
     this.linkDialog = this.el.locator('.v-dialog').filter({
       hasText: 'Link element dialog',
     });
+    this.themeDialog = new ThemeDialog(this.el);
   }
 
   async openSettings(): Promise<void> {

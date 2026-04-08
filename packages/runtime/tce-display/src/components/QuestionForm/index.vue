@@ -1,7 +1,6 @@
 <template>
   <VCard
     class="question-form pa-4"
-    color="grey-lighten-5"
     variant="flat"
     border
   >

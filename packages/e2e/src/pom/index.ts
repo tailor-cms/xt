@@ -3,3 +3,4 @@ export { DisplayPanel } from './DisplayPanel';
 export { DisplayQuestionForm } from './DisplayQuestionForm';
 export { EditPanel } from './EditPanel';
 export { EditQuestionForm } from './EditQuestionForm';
+export { ThemeDialog } from './ThemeDialog';

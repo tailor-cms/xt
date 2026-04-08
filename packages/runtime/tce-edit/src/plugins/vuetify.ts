@@ -5,7 +5,7 @@ import * as directives from 'vuetify/directives';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import { createVuetify } from 'vuetify';
 
-const lightTheme = {
+const tailorTheme = {
   variables: {
     'medium-emphasis-opacity': 0.75,
   },
@@ -47,9 +47,9 @@ export default createVuetify({
   components,
   directives,
   theme: {
-    defaultTheme: 'light',
+    defaultTheme: 'default',
     themes: {
-      light: lightTheme,
+      default: tailorTheme,
     },
   },
   icons: {

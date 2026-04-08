@@ -32,7 +32,7 @@
         tag="ul"
         rounded
       >
-        <div class="d-flex align-center font-weight-bold text-title-medium">
+        <div class="d-flex align-center font-weight-bold">
           <span class="ml-2">Background image</span>
           <VSpacer />
           <VBtn

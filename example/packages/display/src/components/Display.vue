@@ -5,14 +5,18 @@
         {{ elementData.description || 'Author click count' }}
       </span>
       <VSpacer />
-      <div class="counter">{{ elementData.count }}</div>
+      <VSheet class="pa-4 ml-1" color="grey-darken-3" rounded="lg">
+        <span class="text-headline-large font-weight-bold text-green-accent-3">
+          {{ elementData.count }}
+        </span>
+      </VSheet>
     </div>
     <VBtn class="my-8" variant="tonal" @click="submit">Submit interaction</VBtn>
     <div>
       <div class="text-label-medium text-uppercase font-weight-bold mb-2">
         User state:
       </div>
-      <VSheet class="py-2 px-4" color="grey-lighten-3" rounded="lg">
+      <VSheet class="py-2 px-4" color="surface-light" rounded="lg">
         <pre class="my-1 text-body-medium">{{
           stringifyObject(userState, { indent: '  ' })
         }}</pre>
@@ -37,15 +41,5 @@ const submit = () => emit('interaction', { count: elementData.value.count });
 .tce-root {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
-}
-
-.counter {
-  margin-left: 1rem;
-  padding: 1rem;
-  color: #23f48b;
-  font-size: 2rem;
-  font-weight: bold;
-  background-color: #323338;
-  border-radius: 0.5rem;
 }
 </style>

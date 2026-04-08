@@ -29,11 +29,14 @@ Import POMs via the `pom` namespace:
 import { pom } from '@tailor-cms/cek-e2e';
 ```
 
-| POM              | Description                                    |
-| ---------------- | ---------------------------------------------- |
-| `EditPanel`      | Edit iframe — editor, toolbars, settings menu  |
-| `DisplayPanel`   | Display iframe — editor, state preset picker   |
-| `BottomPanel`    | Bottom panel — authoring & user state history  |
+| POM                    | Description                                           |
+| ---------------------- | ----------------------------------------------------- |
+| `EditPanel`            | Edit iframe — editor, toolbars, settings, theme dialog |
+| `DisplayPanel`         | Display iframe — editor, state preset, theme dialog    |
+| `BottomPanel`          | Bottom panel — authoring & user state history          |
+| `ThemeDialog`          | Theme selector — select, add, edit, remove themes      |
+| `EditQuestionForm`     | Edit question form — prompt, hint, feedback, save      |
+| `DisplayQuestionForm`  | Display question form — hint, submit, retry, feedback  |
 
 Extend the base POMs to add element-specific locators:
 
@@ -49,7 +52,6 @@ export class Edit extends pom.EditPanel {
     this.incrementBtn = this.editor.getByRole('button', { name: 'Increment' });
   }
 }
-```
 
 ### Element Client
 

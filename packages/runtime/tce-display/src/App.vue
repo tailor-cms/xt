@@ -21,11 +21,18 @@
                 item-title="name"
                 label="State preset"
                 variant="solo"
+                flat
                 hide-details
                 @update:model-value="onContextChange"
               />
+              <ThemeDialog class="ml-1" />
             </VSheet>
-            <VSheet class="mt-6 pa-8" color="white" elevation="2" rounded="lg">
+            <VSheet
+              class="mt-6 pa-8"
+              color="surface"
+              elevation="2"
+              rounded="lg"
+            >
               <ElementPlaceholder
                 v-if="isElementEmpty"
                 :icon="icon"
@@ -69,6 +76,7 @@ import { findIndex } from 'lodash-es';
 
 import ElementPlaceholder from './components/ElementPlaceholder.vue';
 import QuestionForm from './components/QuestionForm/index.vue';
+import ThemeDialog from './components/ThemeDialog.vue';
 
 interface Props {
   icon?: string;
