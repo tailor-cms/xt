@@ -1,7 +1,7 @@
 {
   "name": "tce-manifest",
   "description": "Content element manifest",
-  "version": "0.0.1",
+  "version": "0.0.2-beta.0",
   "author": "Studion <info@gostudion.com>",
   "type": "module",
   "private": true,
@@ -35,6 +35,9 @@
   },
   "tsdown": {
     "target": "node22",
-    "format": ["cjs", "esm"]
+    "format": [
+      "cjs",
+      "esm"
+    ]
   }
 }

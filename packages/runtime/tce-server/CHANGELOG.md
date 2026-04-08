@@ -1,5 +1,11 @@
 # @tailor-cms/tce-server-runtime
 
+## 2.0.0-beta.3
+
+### Patch Changes
+
+- Bump beta.
+
 ## 2.0.0
 
 ### Major Changes

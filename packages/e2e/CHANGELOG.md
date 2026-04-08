@@ -1,5 +1,11 @@
 # @tailor-cms/cek-e2e
 
+## 2.0.0-beta.3
+
+### Patch Changes
+
+- Bump beta.
+
 ## 2.0.0
 
 ### Major Changes

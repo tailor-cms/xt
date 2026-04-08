@@ -2,7 +2,7 @@
   "name": "@tailor-cms/eslint-config",
   "description": "Content element shared ESLint configuration",
   "author": "Studion <info@gostudion.com>",
-  "version": "2.0.0-beta.2",
+  "version": "2.0.0-beta.3",
   "type": "module",
   "main": "index.js",
   "files": [

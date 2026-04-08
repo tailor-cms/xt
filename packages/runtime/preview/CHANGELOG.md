@@ -1,5 +1,13 @@
 # @tailor-cms/tce-preview-runtime
 
+## 2.0.0-beta.3
+
+### Patch Changes
+
+- Bump beta.
+- Updated dependencies
+  - @tailor-cms/cek-common@2.0.0-beta.3
+
 ## 2.0.0
 
 ### Major Changes
