@@ -1,5 +1,13 @@
 # @tailor-cms/tce-display-runtime
 
+## 2.0.0-beta.4
+
+### Patch Changes
+
+- Pass initConfig to initState.
+- Updated dependencies
+  - @tailor-cms/cek-common@2.0.0-beta.4
+
 ## 2.0.0
 
 ### Major Changes

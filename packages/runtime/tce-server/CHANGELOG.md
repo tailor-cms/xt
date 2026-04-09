@@ -1,5 +1,11 @@
 # @tailor-cms/tce-server-runtime
 
+## 2.0.0-beta.4
+
+### Patch Changes
+
+- Pass initConfig to initState.
+
 ## 2.0.0
 
 ### Major Changes

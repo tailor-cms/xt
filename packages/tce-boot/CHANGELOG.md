@@ -1,5 +1,16 @@
 # @tailor-cms/tce-boot
 
+## 2.0.0-beta.4
+
+### Patch Changes
+
+- Pass initConfig to initState.
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@2.0.0-beta.4
+  - @tailor-cms/tce-server-runtime@2.0.0-beta.4
+  - @tailor-cms/tce-edit-runtime@2.0.0-beta.4
+  - @tailor-cms/tce-preview-runtime@2.0.0-beta.4
+
 ## 2.0.0
 
 ### Major Changes

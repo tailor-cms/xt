@@ -2,7 +2,7 @@
   "name": "@tailor-cms/cek-e2e",
   "description": "Content element E2E testing utilities",
   "author": "Studion <info@gostudion.com>",
-  "version": "2.0.0-beta.3",
+  "version": "2.0.0-beta.4",
   "type": "module",
   "exports": {
     ".": {
