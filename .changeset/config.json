@@ -12,6 +12,11 @@
     "tce-counter-manifest",
     "tce-counter-edit",
     "tce-counter-display",
-    "tce-counter-server"
+    "tce-counter-server",
+    "tce-question",
+    "tce-question-manifest",
+    "tce-question-edit",
+    "tce-question-display",
+    "tce-question-server"
   ]
 }
