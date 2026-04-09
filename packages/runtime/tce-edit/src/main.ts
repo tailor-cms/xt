@@ -4,10 +4,10 @@ import { createApp } from 'vue';
 
 import App from './App.vue';
 import AssetInput from './components/AssetInput.vue';
-import FileInput from './components/FileInput/index.vue';
 import ContentElement from './components/ContentElement.vue';
 import ElementPlaceholder from './components/ElementPlaceholder.vue';
 import EmbeddedContainer from './components/EmbeddedContainer.vue';
+import FileInput from './components/FileInput/index.vue';
 import NotCompositeAlert from './components/NotCompositeAlert.vue';
 import Radio from './radio';
 import vuetify from './plugins/vuetify';
