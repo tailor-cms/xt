@@ -1,9 +1,5 @@
 <template>
-  <VCard
-    class="question-form pa-4"
-    variant="flat"
-    border
-  >
+  <VCard class="question-form pa-4" variant="flat" border>
     <VForm ref="form" class="tce-root" @submit.prevent="submit">
       <div class="d-flex align-center mb-4">
         <div class="text-title-medium font-weight-bold">Question</div>
@@ -37,7 +33,7 @@
           v-if="!isSubmitted"
           :disabled="!hasResponse"
           append-icon="mdi-send"
-          color="primary-darken-1"
+          color="primary"
           type="submit"
           variant="flat"
         >

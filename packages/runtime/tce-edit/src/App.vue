@@ -383,15 +383,12 @@ const reset = async () => {
 };
 
 const toggleGradable = async () => {
+  settings.isGradable = !settings.isGradable;
   const data = initState();
-  const newGradableValue = !settings.isGradable;
-  data.isGradable = newGradableValue;
-  if (!newGradableValue) delete data.correct;
   await updateElementData({
     ...data,
     width: element.value.data.width,
   });
-  settings.isGradable = data.isGradable;
   return resetState();
 };
 

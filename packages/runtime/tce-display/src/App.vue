@@ -27,12 +27,7 @@
               />
               <ThemeDialog class="ml-1" />
             </VSheet>
-            <VSheet
-              class="mt-6 pa-8"
-              color="surface"
-              elevation="2"
-              rounded="lg"
-            >
+            <div class="mt-6">
               <ElementPlaceholder
                 v-if="isElementEmpty"
                 :icon="icon"
@@ -56,7 +51,7 @@
                   />
                 </VCol>
               </VRow>
-            </VSheet>
+            </div>
           </VCol>
         </VRow>
       </VContainer>

@@ -51,7 +51,14 @@ export interface Element<TData = ElementData, TRefs = Refs, TMeta = Meta> {
   deletedAt: string | null;
 }
 
-export type DataInitializer<TData = ElementData> = () => TData;
+export interface InitConfig {
+  isGradable?: boolean;
+  [key: string]: unknown;
+}
+
+export type DataInitializer<TData = ElementData> = (
+  config: InitConfig,
+) => TData;
 export type ElementReferences = Record<string, Partial<Element>[]>;
 
 /**

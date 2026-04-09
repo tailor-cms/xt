@@ -30,9 +30,9 @@ export interface ElementManifest<TData = ElementData> {
   // Controls whether the QuestionForm renders the feedback section.
   // Only relevant when 'isQuestion' is true. Defaults to true.
   showFeedback?: boolean;
-  // The goal of the initState function is to properly initialize the
-  // 'data' field upon the Content Element creation. The 'data' field is
-  // the Content Element property storing authors input.
+  // Initializes the 'data' field upon Content Element creation.
+  // Receives an optional config object with runtime-level settings
+  // (e.g. { isGradable }) that may influence the initial data shape.
   initState: DataInitializer;
   // Optional function to determine if element data is considered empty.
   // Used by the authoring system to evaluate required content elements.

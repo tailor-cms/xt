@@ -12,7 +12,6 @@
             :rules="[rules.required, rules.unique]"
             class="mb-3"
             label="Theme name"
-            variant="outlined"
           />
           <VTextarea
             v-model="formInput"
@@ -20,7 +19,6 @@
             label="Theme definition"
             placeholder="Paste Vuetify ThemeDefinition"
             rows="6"
-            variant="outlined"
           />
         </VCardText>
         <VCardActions>

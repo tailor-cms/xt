@@ -46,7 +46,7 @@ of the element upon creation. Since we are building a simple increment element,
 we'll define it as:
 
 ```ts
-export const initState: DataInitializer = (): ElementData => ({ count: 0 });
+export const initState: DataInitializer = (_config) => ({ count: 0 });
 ```
 
 We also want to update the type definitions, to do so, open
