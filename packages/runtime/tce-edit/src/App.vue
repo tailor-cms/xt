@@ -172,15 +172,27 @@
       </VContainer>
     </VMain>
     <VDialog v-model="isLinkDialogVisible" width="500" attach persistent>
-      <VCard>
-        <VToolbar title="Link element dialog">
-          <VBtn icon="mdi-close" @click="isLinkDialogVisible = false" />
-        </VToolbar>
-        <VCardText>
+      <VCard
+        class="text-left"
+        prepend-icon="mdi-information-variant-circle"
+        title="Link element dialog"
+      >
+        <template #text>
           In Tailor, this action will open a dialog to select a content element
           to link to. The <code>refs</code> property is updated with mock data
           and a mock element is passed via the <code>references</code> prop.
-        </VCardText>
+        </template>
+        <VDivider />
+        <VCardActions>
+          <VSpacer />
+          <VBtn
+            color="blue-grey-darken-2"
+            variant="text"
+            @click="isLinkDialogVisible = false"
+          >
+            Close
+          </VBtn>
+        </VCardActions>
       </VCard>
     </VDialog>
     <ConfirmationDialog />
