@@ -1,7 +1,7 @@
 {
   "name": "tce-edit",
   "description": "Content element edit component",
-  "version": "0.0.2-beta.0",
+  "version": "0.0.1",
   "author": "Studion <info@gostudion.com>",
   "type": "module",
   "private": true,
