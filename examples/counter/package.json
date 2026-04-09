@@ -1,6 +1,6 @@
 {
-  "name": "tce-example",
-  "description": "Content element template",
+  "name": "tce-counter",
+  "description": "Counter content element example",
   "version": "0.0.1",
   "author": "Studion <info@gostudion.com>",
   "type": "module",

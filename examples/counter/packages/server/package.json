@@ -1,6 +1,6 @@
 {
-  "name": "tce-server",
-  "description": "Content element server module",
+  "name": "tce-counter-server",
+  "description": "Counter element server module",
   "version": "0.0.1",
   "author": "Studion <info@gostudion.com>",
   "type": "module",
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@tailor-cms/cek-common": "workspace:*",
-    "tce-manifest": "workspace:*"
+    "tce-counter-manifest": "workspace:*"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",

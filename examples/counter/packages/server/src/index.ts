@@ -1,4 +1,4 @@
-import { ai, initState, mocks, type } from 'tce-manifest';
+import { ai, initState, mocks, type } from 'tce-counter-manifest';
 import type {
   BeforeDisplayHook,
   ElementHook,
@@ -7,7 +7,7 @@ import type {
   ProcedureHandler,
   ServerModule,
 } from '@tailor-cms/cek-common';
-import type { Element } from 'tce-manifest';
+import type { Element } from 'tce-counter-manifest';
 
 const userStateMock: any = {};
 

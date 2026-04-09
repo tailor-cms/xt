@@ -94,7 +94,7 @@
 
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue';
-import type { Element, ElementData } from 'tce-manifest';
+import type { Element, ElementData } from 'tce-counter-manifest';
 import type {
   ElementReferences,
   InputFileEvent,

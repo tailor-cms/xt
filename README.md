@@ -32,9 +32,11 @@ installation, usage, and API reference.
 
 ```bash
 pnpm install
-pnpm start:example
+pnpm start:counter
 ```
 
-This boots the example element across all four runtimes — Edit, Display,
-Server, and Preview — accessible from the Preview inspector at `localhost:8080`.
+This boots the bundled [counter example element](examples/counter) — a simple
+reference implementation showing how Edit, Display, and Server packages fit
+together — across all four runtimes (Edit, Display, Server, Preview),
+accessible from the Preview inspector at `localhost:8080`.
 

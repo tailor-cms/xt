@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Element, ElementData } from 'tce-manifest';
+import type { Element, ElementData } from 'tce-counter-manifest';
 import { inject } from 'vue';
 
 const elementBus = inject('$elementBus') as any;

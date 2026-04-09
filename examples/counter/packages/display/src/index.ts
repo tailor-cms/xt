@@ -1,5 +1,5 @@
-import baseManifest from 'tce-manifest';
-import type { ElementManifest } from 'tce-manifest';
+import baseManifest from 'tce-counter-manifest';
+import type { ElementManifest } from 'tce-counter-manifest';
 
 import Display from './components/Display.vue';
 

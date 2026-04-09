@@ -1,6 +1,6 @@
 {
-  "name": "tce-display",
-  "description": "Content element display component",
+  "name": "tce-counter-edit",
+  "description": "Counter element edit component",
   "version": "0.0.1",
   "author": "Studion <info@gostudion.com>",
   "type": "module",
@@ -28,10 +28,13 @@
   "peerDependencies": {
     "vue": "^3.5.32"
   },
+  "dependencies": {
+    "@tailor-cms/cek-common": "workspace:*"
+  },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
     "@vitejs/plugin-vue": "^6.0.5",
-    "tce-manifest": "workspace:*",
+    "tce-counter-manifest": "workspace:*",
     "typescript": "^6.0.2",
     "vite": "^8.0.8",
     "vite-plugin-lib-inject-css": "^2.2.2",

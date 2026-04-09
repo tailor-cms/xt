@@ -1,6 +1,6 @@
 {
-  "name": "tce-manifest",
-  "description": "Content element manifest",
+  "name": "tce-counter-manifest",
+  "description": "Counter element manifest",
   "version": "0.0.1",
   "author": "Studion <info@gostudion.com>",
   "type": "module",

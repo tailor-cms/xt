@@ -16,7 +16,7 @@
       <div class="text-label-medium text-uppercase font-weight-bold mb-2">
         User state:
       </div>
-      <VSheet class="py-2 px-4" color="surface-light" rounded>
+      <VSheet class="py-2 px-4" color="surface" rounded>
         <pre class="my-1 text-body-medium">{{
           JSON.stringify(userState, null, 2)
         }}</pre>
@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { Element } from 'tce-manifest';
+import { Element } from 'tce-counter-manifest';
 
 const props = defineProps<{ element: Element; userState: any }>();
 const emit = defineEmits<{ interaction: [data: { count: number }] }>();
