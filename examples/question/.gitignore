@@ -5,9 +5,10 @@ node_modules/
 .DS_Store
 
 # Local env files
-.env
+!.env
 .env.local
 .env.*.local
+!.env.example
 
 # Log files
 npm-debug.log*
@@ -22,3 +23,10 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
+# Playwright
+playwright-report
+test/out
+test/test-results/
+test/playwright/.cache/
+test/.boot-state.json

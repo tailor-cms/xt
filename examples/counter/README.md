@@ -1,6 +1,9 @@
 # Simple Counter
 
-Example content element demonstrating core CEK features.
+Click counter with an author-set description and an optional background
+image. The author increments and decrements the count, optionally uploads
+a background image, and can link to another element. The end user can
+submit interactions back to the server. Counts above 9 reset to 0 on save.
 
 **Type:** `ACME_TCE_COUNTER`
 
@@ -10,20 +13,26 @@ Example content element demonstrating core CEK features.
 |-------|------|-------------|
 | `count` | `number` | The counter value |
 | `description` | `string` | Author-provided label |
-| `backgroundUrl` | `string?` | Uploaded background image |
+| `key` | `string?` | Storage key for the uploaded background |
+| `assets` | `{ backgroundUrl: string }?` | Internal storage URLs (dot-notation) |
+| `backgroundUrl` | `string?` | Public URL of the uploaded background |
+
+`data.assets.*` holds storage keys, `data.backgroundUrl` holds the resolved
+public URL. See [docs/file-storage.md](../../docs/file-storage.md).
 
 ## Edit
 
-- Text field for the description
-- Increment/decrement buttons for the counter (decrement in top toolbar)
+- Description text field
+- Increment button (decrement lives in the top toolbar)
 - Background image upload with preview
-- Export data button (downloads element data as JSON via server RPC)
+- Link element button (renders the linked element's data when present)
+- Export data button — downloads the element's data as JSON via a server procedure
 
 ## Display
 
-- Shows description and counter value
-- Submit interaction button that sends the count to the server
-- Displays the current user state as JSON
+- Shows the description and current count
+- Submit interaction button — records a server-side timestamp
+- Shows the current user state as JSON for debugging
 
 ## Development
 

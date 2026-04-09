@@ -16,45 +16,16 @@ export const beforeSave: ElementHook<Element> = (element) => {
   return element;
 };
 
-export const afterSave: ElementHook<Element> = (element) => {
-  console.log('After save hook');
-  return element;
-};
-
-export const afterLoaded: ElementHook<Element> = (
-  element,
-  _services,
-  runtime,
-) => {
-  console.log('After loaded hook', runtime);
-  return element;
-};
-
-export const afterRetrieve: ElementHook<Element> = (
-  element,
-  _services,
-  runtime,
-) => {
-  console.log('After retrieve hook', runtime);
-  return element;
-};
-
 export const beforeDisplay: BeforeDisplayHook<Element> = (
   _element,
   context,
-) => {
-  console.log('beforeDisplay hook');
-  console.log('beforeDisplay context', context);
-  return { ...context, ...userStateMock };
-};
+) => ({ ...context, ...userStateMock });
 
 export const onUserInteraction: OnUserInteractionHook<Element> = (
   _element,
   context,
   _payload,
 ) => {
-  // Can have arbitrary return value
-  // displayState is passed to the client if defined
   userStateMock.interactionTimestamp = new Date().getTime();
   context.contextTimestamp = userStateMock.interactionTimestamp;
   return { updateDisplayState: true };
@@ -63,11 +34,8 @@ export const onUserInteraction: OnUserInteractionHook<Element> = (
 export const hookMap: HookMap<Element> = new Map(
   Object.entries({
     beforeSave,
-    afterSave,
-    afterLoaded,
-    afterRetrieve,
-    onUserInteraction,
     beforeDisplay,
+    onUserInteraction,
   }),
 );
 
@@ -86,11 +54,8 @@ const serverModule: ServerModule<Element> = {
   hookMap,
   procedures,
   beforeSave,
-  afterSave,
-  afterLoaded,
-  afterRetrieve,
-  onUserInteraction,
   beforeDisplay,
+  onUserInteraction,
   mocks,
   ai,
 };

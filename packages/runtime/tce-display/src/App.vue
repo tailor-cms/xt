@@ -1,7 +1,7 @@
 <template>
   <VApp>
     <VMain class="pa-4">
-      <VContainer fluid>
+      <VContainer max-width="68.75rem" fluid>
         <VRow>
           <VCol>
             <VSheet class="d-flex align-end" color="transparent" height="40">

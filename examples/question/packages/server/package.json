@@ -1,0 +1,44 @@
+{
+  "name": "tce-question-server",
+  "description": "Question element server module",
+  "version": "0.0.1",
+  "author": "Studion <info@gostudion.com>",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.mts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsdown --watch src --watch ../manifest/dist",
+    "build": "tsdown",
+    "lint": "eslint .",
+    "lint:fix": "pnpm lint --fix",
+    "nuke": "pnpm dlx del-cli dist node_modules",
+    "nuke:dist": "pnpm dlx del-cli dist",
+    "prepublish": "pnpm build"
+  },
+  "dependencies": {
+    "@tailor-cms/cek-common": "workspace:*",
+    "tce-question-manifest": "workspace:*"
+  },
+  "devDependencies": {
+    "@tailor-cms/eslint-config": "workspace:*",
+    "tsdown": "^0.21.7",
+    "typescript": "^6.0.2"
+  },
+  "tsdown": {
+    "target": "node22",
+    "format": [
+      "cjs",
+      "esm"
+    ]
+  }
+}

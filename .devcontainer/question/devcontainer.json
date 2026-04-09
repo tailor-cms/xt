@@ -1,5 +1,5 @@
 {
-  "name": "Tailor - Content Element",
+  "name": "Tailor XT — Question example",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
   "features": {
     "ghcr.io/devcontainers-extra/features/pnpm:2": {},
@@ -24,8 +24,8 @@
       "onAutoForward": "silent"
     }
   },
-  "postCreateCommand": "pnpm install --frozen-lockfile && pnpm build",
-  "postAttachCommand": "/bin/bash .devcontainer/setup.sh && pnpm dev",
+  "postCreateCommand": "pnpm install --frozen-lockfile && pnpm build && pnpm -C examples/question run build",
+  "postAttachCommand": "/bin/bash .devcontainer/setup.sh && pnpm -C examples/question run dev",
   "customizations": {
     "vscode": {
       "settings": {

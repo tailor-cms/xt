@@ -148,6 +148,124 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2
 
+  examples/question:
+    devDependencies:
+      '@tailor-cms/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint
+      '@tailor-cms/tce-boot':
+        specifier: workspace:*
+        version: link:../../packages/tce-boot
+      '@types/node':
+        specifier: ^24.12.2
+        version: 24.12.2
+      dotenv:
+        specifier: ^17.4.1
+        version: 17.4.1
+      typescript:
+        specifier: ^6.0.2
+        version: 6.0.2
+
+  examples/question/packages/display:
+    dependencies:
+      vue:
+        specifier: ^3.5.29
+        version: 3.5.32(typescript@6.0.2)
+    devDependencies:
+      '@tailor-cms/eslint-config':
+        specifier: workspace:*
+        version: link:../../../../packages/eslint
+      '@vitejs/plugin-vue':
+        specifier: ^6.0.5
+        version: 6.0.5(vite@8.0.8(@types/node@25.5.0)(esbuild@0.27.7)(jiti@2.4.2)(sass@1.99.0)(tsx@4.21.0)(yaml@2.6.1))(vue@3.5.32(typescript@6.0.2))
+      tce-question-manifest:
+        specifier: workspace:*
+        version: link:../manifest
+      typescript:
+        specifier: ^6.0.2
+        version: 6.0.2
+      vite:
+        specifier: ^8.0.0
+        version: 8.0.8(@types/node@25.5.0)(esbuild@0.27.7)(jiti@2.4.2)(sass@1.99.0)(tsx@4.21.0)(yaml@2.6.1)
+      vite-plugin-lib-inject-css:
+        specifier: ^2.2.2
+        version: 2.2.2(vite@8.0.8(@types/node@25.5.0)(esbuild@0.27.7)(jiti@2.4.2)(sass@1.99.0)(tsx@4.21.0)(yaml@2.6.1))
+      vue-tsc:
+        specifier: ^3.2.5
+        version: 3.2.6(typescript@6.0.2)
+      vuetify:
+        specifier: ^4.0.0
+        version: 4.0.5(typescript@6.0.2)(vite-plugin-vuetify@2.1.3)(vue@3.5.32(typescript@6.0.2))
+
+  examples/question/packages/edit:
+    dependencies:
+      '@tailor-cms/cek-common':
+        specifier: workspace:*
+        version: link:../../../../packages/common
+      vue:
+        specifier: ^3.5.29
+        version: 3.5.32(typescript@6.0.2)
+    devDependencies:
+      '@tailor-cms/eslint-config':
+        specifier: workspace:*
+        version: link:../../../../packages/eslint
+      '@vitejs/plugin-vue':
+        specifier: ^6.0.5
+        version: 6.0.5(vite@8.0.8(@types/node@25.5.0)(esbuild@0.27.7)(jiti@2.4.2)(sass@1.99.0)(tsx@4.21.0)(yaml@2.6.1))(vue@3.5.32(typescript@6.0.2))
+      tce-question-manifest:
+        specifier: workspace:*
+        version: link:../manifest
+      typescript:
+        specifier: ^6.0.2
+        version: 6.0.2
+      vite:
+        specifier: ^8.0.0
+        version: 8.0.8(@types/node@25.5.0)(esbuild@0.27.7)(jiti@2.4.2)(sass@1.99.0)(tsx@4.21.0)(yaml@2.6.1)
+      vite-plugin-lib-inject-css:
+        specifier: ^2.2.2
+        version: 2.2.2(vite@8.0.8(@types/node@25.5.0)(esbuild@0.27.7)(jiti@2.4.2)(sass@1.99.0)(tsx@4.21.0)(yaml@2.6.1))
+      vue-tsc:
+        specifier: ^3.2.5
+        version: 3.2.6(typescript@6.0.2)
+      vuetify:
+        specifier: ^4.0.0
+        version: 4.0.5(typescript@6.0.2)(vite-plugin-vuetify@2.1.3)(vue@3.5.32(typescript@6.0.2))
+
+  examples/question/packages/manifest:
+    dependencies:
+      '@tailor-cms/cek-common':
+        specifier: workspace:*
+        version: link:../../../../packages/common
+    devDependencies:
+      '@tailor-cms/eslint-config':
+        specifier: workspace:*
+        version: link:../../../../packages/eslint
+      tsdown:
+        specifier: ^0.21.7
+        version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(synckit@0.11.12)(typescript@6.0.2)(vue-tsc@3.2.6(typescript@6.0.2))
+      typescript:
+        specifier: ^6.0.2
+        version: 6.0.2
+
+  examples/question/packages/server:
+    dependencies:
+      '@tailor-cms/cek-common':
+        specifier: workspace:*
+        version: link:../../../../packages/common
+      tce-question-manifest:
+        specifier: workspace:*
+        version: link:../manifest
+    devDependencies:
+      '@tailor-cms/eslint-config':
+        specifier: workspace:*
+        version: link:../../../../packages/eslint
+      tsdown:
+        specifier: ^0.21.7
+        version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(synckit@0.11.12)(typescript@6.0.2)(vue-tsc@3.2.6(typescript@6.0.2))
+      typescript:
+        specifier: ^6.0.2
+        version: 6.0.2
+
   packages/common:
     dependencies:
       '@lukeed/uuid':
