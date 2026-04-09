@@ -1,6 +1,6 @@
 {
   "name": "Tailor XT — Question example",
-  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-trixie",
   "features": {
     "ghcr.io/devcontainers-extra/features/pnpm:2": {},
     "ghcr.io/devcontainers/features/github-cli:1": {}
