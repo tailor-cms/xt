@@ -32,11 +32,16 @@ installation, usage, and API reference.
 
 ```bash
 pnpm install
-pnpm start:counter
+pnpm dev
 ```
 
-This boots the bundled [counter example element](examples/counter) — a simple
-reference implementation showing how Edit, Display, and Server packages fit
-together — across all four runtimes (Edit, Display, Server, Preview),
-accessible from the Preview inspector at `localhost:8080`.
+`pnpm dev` opens an interactive picker for the bundled [examples/](examples/),
+then boots the selection across all four runtimes — accessible from the
+Preview inspector (default `localhost:8080`).
+
+To skip the picker, pass the example name directly:
+
+```bash
+pnpm dev counter
+```
 
