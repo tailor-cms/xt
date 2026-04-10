@@ -1,4 +1,3 @@
-import { filter, skip } from 'rxjs';
 import boxen from 'boxen';
 import concurrently from 'concurrently';
 import { debounce } from 'lodash-es';
@@ -69,9 +68,9 @@ const restartServerRuntime = debounce(
 
 // Skip the first "Build success" (tsdown --watch initial pass) then
 // restart the server runtime on subsequent rebuilds (actual code changes).
-serverPackage.stdout
-  .pipe(
-    filter((msg) => msg && /CJS.*Build success/.test(msg)),
-    skip(1),
-  )
-  .subscribe(() => restartServerRuntime());
+let buildCount = 0;
+serverPackage.stdout.subscribe((msg) => {
+  if (msg && /CJS.*Build success/.test(msg) && ++buildCount > 1) {
+    restartServerRuntime();
+  }
+});
