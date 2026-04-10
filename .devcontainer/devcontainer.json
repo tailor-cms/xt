@@ -9,7 +9,7 @@
   "portsAttributes": {
     "8080": {
       "label": "Content Element Kit preview",
-      "onAutoForward": "openBrowser"
+      "onAutoForward": "notify"
     },
     "8010": {
       "label": "Edit runtime",
