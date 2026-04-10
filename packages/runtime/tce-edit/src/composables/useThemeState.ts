@@ -15,7 +15,7 @@ interface CustomTheme {
 }
 
 export function useThemeState() {
-  const { computedThemes, global: globalTheme, themes } = useTheme();
+  const { change, computedThemes, themes } = useTheme();
   const activeTheme = useLocalStorage('cek-edit-theme-active', 'default');
   const customThemes = useLocalStorage<CustomTheme[]>(
     'cek-edit-custom-themes',
@@ -73,9 +73,7 @@ export function useThemeState() {
     );
   };
 
-  watch(activeTheme, (key) => (globalTheme.name.value = key), {
-    immediate: true,
-  });
+  watch(activeTheme, (key) => change(key), { immediate: true });
 
   return {
     activeTheme,

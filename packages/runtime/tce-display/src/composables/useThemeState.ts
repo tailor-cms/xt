@@ -14,19 +14,15 @@ interface CustomTheme {
   };
 }
 
-const activeTheme = useLocalStorage('cek-display-theme-active', 'default');
-const customThemes = useLocalStorage<CustomTheme[]>(
-  'cek-display-custom-themes',
-  [],
-);
-
 export function useThemeState() {
-  const { computedThemes, global: globalTheme, themes } = useTheme();
+  const { change, computedThemes, themes } = useTheme();
+  const activeTheme = useLocalStorage('cek-display-theme-active', 'default');
+  const customThemes = useLocalStorage<CustomTheme[]>(
+    'cek-display-custom-themes',
+    [],
+  );
 
   customThemes.value.forEach((t) => registerTheme(t));
-  watch(activeTheme, (key) => (globalTheme.name.value = key), {
-    immediate: true,
-  });
 
   const setTheme = (key: string) => (activeTheme.value = key);
 
@@ -73,8 +69,12 @@ export function useThemeState() {
   const getThemeColors = (key: string) => {
     const theme = computedThemes.value[key];
     if (!theme?.colors) return [];
-    return Object.keys(theme.colors).filter((c) => !c.startsWith('on-'));
+    return Object.keys(theme.colors).filter(
+      (color) => !color.startsWith('on-'),
+    );
   };
+
+  watch(activeTheme, (key) => change(key), { immediate: true });
 
   return {
     activeTheme,
