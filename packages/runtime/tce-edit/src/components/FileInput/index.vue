@@ -292,7 +292,7 @@ const onFileSelect = async (files: File | File[] | null) => {
   if (!file) return;
   uploading.value = true;
   try {
-    const data = await storageService.upload([file]);
+    const data = await storageService.upload(file);
     emit('upload', {
       key: data.key,
       name: file.name,

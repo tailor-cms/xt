@@ -17,7 +17,7 @@
 - Element linking: `@link` event, `references` prop, mock link dialog with `mocks.referencesData`.
 - Question autosave support (toggle in Settings panel).
 - `$rpc` injection for calling server-side procedures.
-- `$storageService.upload` accepts `File[]` instead of `FormData`.
+- `$storageService.upload` accepts a single `File` instead of `FormData`.
 - `TailorFileInput` global component (replaces `AssetInput`).
 - `TailorElementPlaceholder` global component.
 - ThemeDialog for testing element appearance with custom Vuetify themes.

@@ -13,9 +13,9 @@ function getUrl(assetKey: string): Promise<string> {
     .then((res) => res.url);
 }
 
-function upload(files: File[]): Promise<FileUploadResponse> {
+function upload(file: File): Promise<FileUploadResponse> {
   const form = new FormData();
-  files.forEach((file) => form.append('file', file, file.name));
+  form.append('file', file, file.name);
   return api.post('assets', { body: form }).json<FileUploadResponse>();
 }
 

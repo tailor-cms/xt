@@ -146,7 +146,7 @@ const validateAndUpload = async (target: HTMLInputElement) => {
   if (!isValid || !files[0]) return;
   uploading.value = true;
   try {
-    const data = await storageService.upload([files[0]]);
+    const data = await storageService.upload(files[0]);
     file.value = { ...data, name: files[0].name, size: files[0].size };
     urlInput.value = null;
   } finally {

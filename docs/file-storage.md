@@ -40,10 +40,8 @@ const storageService = inject('$storageService') as StorageApi;
 const props = defineProps<{ element: Element }>();
 const emit = defineEmits<{ save: [data: ElementData] }>();
 
-const upload = (e: InputFileEvent) => {
-  const files = Array.from(e.target.files || []);
-  if (!files.length) return;
-  return storageService.upload(files).then(({ key, url }) => {
+const upload = (file: File) => {
+  return storageService.upload(file).then(({ key, url }) => {
     emit('save', {
       ...props.element.data,
       assets: { backgroundUrl: url },

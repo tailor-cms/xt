@@ -137,7 +137,7 @@ elementBus.on('decrement', ({ count }: any) => console.log(count));
 const uploadImage = (e: InputFileEvent) => {
   const files = Array.from(e.target.files ?? []);
   if (!files.length) return;
-  return storageService.upload(files).then(({ key, url }) =>
+  return storageService.upload(files[0]).then(({ key, url }) =>
     emit('save', {
       ...props.element.data,
       key,

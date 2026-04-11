@@ -26,5 +26,5 @@ export interface FileUploadResponse {
  */
 export interface StorageApi {
   getUrl(key: string): Promise<string>;
-  upload(files: File[]): Promise<FileUploadResponse>;
+  upload(files: File): Promise<FileUploadResponse>;
 }

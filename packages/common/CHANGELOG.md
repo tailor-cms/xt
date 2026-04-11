@@ -19,7 +19,7 @@
 - `mocks.referencesData` field for custom mock linked element data.
 - `isEmpty` manifest function for required element validation.
 - `showFeedback` manifest field to control question feedback section visibility.
-- Storage API: `upload` accepts `File[]` instead of `FormData`; removed `createUploadForm` and `UploadFormData`.
+- Storage API: `upload` accepts a single `File` instead of `FormData`; removed `createUploadForm` and `UploadFormData`.
 
 ## 1.3.2
 
