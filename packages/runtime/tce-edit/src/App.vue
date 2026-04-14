@@ -293,6 +293,7 @@ const config = ref({
 const include = () => [
   document.querySelector('.top-toolbar'),
   document.querySelector('.side-toolbar'),
+  ...document.querySelectorAll('.v-overlay__content'),
 ];
 
 const isEmpty = computed(() => {
