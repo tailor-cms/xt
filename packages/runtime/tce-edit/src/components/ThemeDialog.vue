@@ -72,8 +72,8 @@
         />
       </VCardActions>
     </VCard>
+    <ThemeForm ref="themeForm" />
   </VDialog>
-  <ThemeForm ref="themeForm" />
 </template>
 
 <script setup lang="ts">
