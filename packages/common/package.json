@@ -26,14 +26,14 @@
   },
   "dependencies": {
     "@lukeed/uuid": "^2.0.1",
-    "ky": "^2.0.0",
+    "ky": "^2.0.1",
     "mitt": "^3.0.1"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:^",
     "@types/json-schema": "^7.0.15",
     "@types/node": "^24.12.2",
-    "tsdown": "^0.21.7",
+    "tsdown": "^0.21.8",
     "typescript": "^6.0.2"
   },
   "tsdown": {

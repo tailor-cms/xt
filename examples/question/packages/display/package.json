@@ -26,11 +26,11 @@
     "prepublish": "pnpm build"
   },
   "peerDependencies": {
-    "vue": "^3.5.29"
+    "vue": "^3.5.32"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
-    "@vitejs/plugin-vue": "^6.0.5",
+    "@vitejs/plugin-vue": "^6.0.6",
     "tce-question-manifest": "workspace:*",
     "typescript": "^6.0.2",
     "vite": "^8.0.8",
