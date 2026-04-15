@@ -3,6 +3,7 @@
     "target": "es2020",
     "module": "esnext",
     "strict": false,
+    "types": ["node"],
     "moduleResolution": "bundler",
     "skipLibCheck": true,
     "noUnusedLocals": true,
