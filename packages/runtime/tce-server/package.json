@@ -5,7 +5,7 @@
   "version": "2.0.0-beta.7",
   "type": "module",
   "scripts": {
-    "dev": "tsx ./boot.ts",
+    "dev": "tsx --watch ./boot.ts",
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
     "nuke": "pnpm dlx del-cli node_modules storage/tmp/*"

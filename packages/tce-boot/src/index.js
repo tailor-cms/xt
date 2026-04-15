@@ -70,7 +70,7 @@ const restartServerRuntime = debounce(
 // restart the server runtime on subsequent rebuilds (actual code changes).
 let buildCount = 0;
 serverPackage.stdout.subscribe((msg) => {
-  if (msg && /CJS.*Build success/.test(msg) && ++buildCount > 1) {
+  if (msg && /Build complete/.test(msg) && ++buildCount > 1) {
     restartServerRuntime();
   }
 });

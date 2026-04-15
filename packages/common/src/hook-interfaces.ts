@@ -21,15 +21,26 @@ export type ElementHook<T = Element> = (
 ) => T | Promise<T>;
 
 // Display hooks
-export type BeforeDisplayHook<T = Element> = (element: T, context: any) => any;
+export type DisplayContext = Record<string, any>;
+
+export type BeforeDisplayHook<T = Element> = (
+  element: T,
+  context: DisplayContext,
+) => DisplayContext | Promise<DisplayContext>;
+
+export interface UserInteractionResult {
+  updateDisplayState?: boolean;
+  transientState?: Record<string, any>;
+}
+
 export type OnUserInteractionHook<T = Element> = (
   element: T,
-  context: any,
-  payload: any,
-) => any;
+  context: DisplayContext,
+  payload: Record<string, any>,
+) => UserInteractionResult | Promise<UserInteractionResult>;
 
 // RPC procedure handler
-export type ProcedureHandler<P = any, R = any> = (
+export type ProcedureHandler<P = Record<string, any>, R = any> = (
   services: HookServices,
   payload: P,
 ) => R | Promise<R>;

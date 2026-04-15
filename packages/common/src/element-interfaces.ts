@@ -68,7 +68,7 @@ export type ElementReferences = Record<string, Partial<Element>[]>;
  */
 export type RpcCaller = <T = any>(
   procedure: string,
-  payload?: any,
+  payload?: Record<string, any>,
 ) => Promise<T>;
 
 export interface ElementManifest<TData = ElementData> {
