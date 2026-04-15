@@ -1,109 +1,75 @@
 <template>
-  <template v-if="useFieldInput">
-    <VTextField
-      v-if="!resolvedFileKey"
-      :density="density"
-      :label="resolvedLabel"
-      :placeholder="placeholder || 'Click to add...'"
-      :prepend-inner-icon="resolvedIcon"
-      :variant="variant"
-      append-inner-icon="mdi-upload"
-      model-value=""
-      readonly
-      @click="dialogOpen = true"
+  <VTextField
+    v-if="!resolvedFileKey"
+    :density="density"
+    :label="resolvedLabel"
+    :placeholder="placeholder || 'Click to add...'"
+    :prepend-inner-icon="resolvedIcon"
+    :variant="variant"
+    append-inner-icon="mdi-upload"
+    readonly
+    @click="dialogOpen = true"
+  />
+  <VOverlay
+    v-else
+    v-model="previewExpanded"
+    :class="{ expanded: previewExpanded }"
+    content-class="d-flex align-center justify-center h-100 w-100"
+    close-on-content-click
+  >
+    <template #activator="{ props: dialogProps }">
+      <VTextField
+        :density="density"
+        :label="resolvedLabel"
+        :model-value="resolvedFileName"
+        :variant="variant"
+        readonly
+      >
+        <template #prepend-inner>
+          <VProgressCircular v-if="isLoadingPreview" size="24" indeterminate />
+          <VImg
+            v-else-if="isPreviewEnabled && previewUrl"
+            :src="previewUrl"
+            height="24"
+            width="24"
+            cover
+          />
+          <VIcon v-else :icon="resolvedIcon" />
+        </template>
+        <template #append-inner>
+          <VBtn
+            v-if="isPreviewEnabled"
+            v-bind="dialogProps"
+            aria-label="Preview image"
+            class="mr-1"
+            size="x-small"
+            variant="tonal"
+            icon
+          >
+            <VIcon icon="mdi-magnify" size="large" />
+          </VBtn>
+          <VBtn
+            aria-label="Remove file"
+            size="x-small"
+            variant="tonal"
+            icon
+            @click.stop="onClear"
+          >
+            <VIcon icon="mdi-trash-can-outline" size="large" />
+          </VBtn>
+        </template>
+      </VTextField>
+    </template>
+    <VBtn
+      aria-label="Close preview"
+      class="position-absolute top-0 right-0 ma-4"
+      color="white"
+      icon="mdi-close"
+      variant="tonal"
+      @click="previewExpanded = false"
     />
-    <VOverlay
-      v-else
-      v-model="previewExpanded"
-      :class="{ expanded: previewExpanded }"
-      content-class="d-flex align-center justify-center h-100 w-100"
-      close-on-content-click
-    >
-      <template #activator="{ props: dialogProps }">
-        <VTextField
-          :density="density"
-          :label="resolvedLabel"
-          :model-value="resolvedFileName"
-          :variant="variant"
-          readonly
-        >
-          <template #prepend-inner>
-            <VProgressCircular
-              v-if="isLoadingPreview"
-              size="24"
-              indeterminate
-            />
-            <VImg
-              v-else-if="isPreviewEnabled && previewUrl"
-              :src="previewUrl"
-              height="24"
-              width="24"
-              cover
-            />
-            <VIcon v-else :icon="resolvedIcon" />
-          </template>
-          <template #append-inner>
-            <VBtn
-              v-if="isPreviewEnabled"
-              v-bind="dialogProps"
-              :color="dark ? 'white' : 'primary'"
-              class="mr-1"
-              size="x-small"
-              variant="tonal"
-              icon
-            >
-              <VIcon icon="mdi-magnify" size="large" />
-            </VBtn>
-            <VBtn
-              :color="dark ? 'secondary-lighten-3' : 'secondary'"
-              size="x-small"
-              variant="tonal"
-              icon
-              @click.stop="onClear"
-            >
-              <VIcon icon="mdi-trash-can-outline" size="large" />
-            </VBtn>
-          </template>
-        </VTextField>
-      </template>
-      <VBtn
-        class="position-absolute top-0 right-0 ma-4"
-        color="white"
-        icon="mdi-close"
-        variant="tonal"
-        @click="previewExpanded = false"
-      />
-      <img v-if="previewUrl" :alt="resolvedFileName" :src="previewUrl" />
-    </VOverlay>
-  </template>
-  <template v-else>
-    <VBtn
-      v-if="!resolvedFileKey"
-      :loading="uploading"
-      :prepend-icon="resolvedIcon"
-      color="primary-darken-2"
-      variant="tonal"
-      @click="dialogOpen = true"
-    >
-      {{ placeholder || emptyLabel }}
-    </VBtn>
-    <VBtn
-      v-else
-      :prepend-icon="resolvedIcon"
-      color="primary-darken-2"
-      variant="tonal"
-      @click="dialogOpen = true"
-    >
-      <span class="file-name text-truncate">{{ resolvedFileName }}</span>
-      <template #append>
-        <VIcon
-          icon="mdi-trash-can-outline"
-          size="large"
-          @click.stop="onClear"
-        />
-      </template>
-    </VBtn>
-  </template>
+    <img v-if="previewUrl" :alt="resolvedFileName" :src="previewUrl" />
+  </VOverlay>
   <VDialog v-model="dialogOpen" width="700">
     <VCard :title="dialogHeading">
       <VCardText>
@@ -167,7 +133,6 @@ interface Props {
   fileName?: string;
   allowUrlSource?: boolean;
   allowedExtensions?: string[];
-  useFieldInput?: boolean;
   showPreview?: boolean;
   publicUrl?: string | null;
   label?: string;
@@ -183,7 +148,6 @@ const props = withDefaults(defineProps<Props>(), {
   fileName: '',
   allowUrlSource: false,
   allowedExtensions: () => [],
-  useFieldInput: false,
   showPreview: false,
   publicUrl: null,
   label: '',
@@ -228,11 +192,6 @@ const resolvedIcon = computed(
     ASSET_TYPE_ICON[category.value ?? ''] ||
     ASSET_TYPE_ICON.other,
 );
-
-const emptyLabel = computed(() => {
-  const cat = category.value;
-  return cat ? `Choose ${ASSET_TYPE_LABEL[cat].toLowerCase()}` : 'Choose file';
-});
 
 const resolvedFileName = computed(() => {
   if (props.fileName) return props.fileName;
@@ -329,10 +288,6 @@ const onClear = () => {
 </script>
 
 <style lang="scss" scoped>
-.file-name {
-  max-width: 15rem;
-}
-
 .v-overlay {
   transition: all 0.3s ease;
 
