@@ -1,6 +1,6 @@
 # Changelog
 
-### v2.0.0 2025-03-12
+### v2.0.0 2026-04-17
 
 #### Breaking Changes
 - Migrated to Vuetify 4 (MD3 typography classes, updated component API,
@@ -11,6 +11,11 @@
 - Build toolchain migrated from tsup to tsdown.
 - `isolatedDeclarations` enabled — all exported symbols require explicit type
   annotations.
+- `StorageApi.upload` now takes a native `File` instead of a `FormData`
+  payload. The `UploadFormData` and `UploadFormFieldname` type exports have
+  been removed.
+- `mocks` manifest type extracted to a standalone `ElementMocks` interface;
+  `DisplayContext` relocated to `element-interfaces`.
 - TypeScript 6, Vite 8.
 
 #### Features
@@ -29,6 +34,8 @@
   components).
 - `TailorElementPlaceholder` global component.
 - `TailorFileInput` global component for file uploads in the edit runtime.
+- New `question` example element alongside `counter`; examples relocated to
+  `examples/` and `counter` is now the default boot target.
 - Expanded E2E testing utilities (`@tailor-cms/cek-e2e`) with API helpers and
   additional page object models.
 - Accessibility improvements.
