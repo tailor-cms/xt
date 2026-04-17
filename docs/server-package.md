@@ -157,8 +157,12 @@ needed for the state resolution. For content element kit this is
 mocked within the element manifest and injected into previously listed hooks.
 
 ```ts
-mocks?: {
-  displayContexts?: Array<{ name: string; data: any }>;
+// In your manifest:
+export const mocks: ElementMocks = {
+  displayContexts: [
+    { name: 'Default', data: {} },
+    { name: 'Interacted', data: { visited: true } },
+  ],
 };
 ```
 ::::tip ☝️ Note

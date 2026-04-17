@@ -1,8 +1,7 @@
-import type { AiConfig } from '@tailor-cms/cek-common';
+import type { AiConfig, ElementMocks } from '@tailor-cms/cek-common';
 
 import type {
   DataInitializer,
-  DisplayContext,
   ElementData,
   ElementManifest,
 } from './interfaces';
@@ -35,10 +34,7 @@ const ui = {
   forceFullWidth: true,
 };
 
-export const mocks: {
-  displayContexts: DisplayContext[];
-  referencesData: Record<string, Record<string, any>[]>;
-} = {
+export const mocks: ElementMocks = {
   displayContexts: [
     { name: 'Test preset 1', data: { state: 'I have a value' } },
     { name: 'Test preset 2', data: { state: 'I have a different value' } },

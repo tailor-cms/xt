@@ -60,15 +60,8 @@ export interface ElementManifest<TData = ElementData> {
   // AI tools configuration.
   // See [AI page](/ai.html) and AiConfig interface for details.
   ai?: AiConfig;
-  mocks?: {
-    // Provide end-user system context mock (used for user state hooks)
-    // See https://tailor-cms.github.io/xt/server-package.html#user-state-hooks.
-    displayContexts?: Array<{ name: string; data: any }>;
-    // Mock data for the link dialog. Keyed by reference name
-    // (e.g. 'linked'), each value is an array of data objects.
-    // The runtime wraps these into full elements for the 'references' prop.
-    // See /edit-package.html#linking-elements.
-    referencesData?: Record<string, Record<string, any>[]>;
-  };
+  // CEK development mocks (display context presets, link dialog mock data).
+  // See `ElementMocks` interface for details.
+  mocks?: ElementMocks;
 }
 ```

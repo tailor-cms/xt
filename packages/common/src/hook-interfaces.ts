@@ -1,8 +1,9 @@
 import type {
   AiConfig,
   DataInitializer,
+  DisplayContext,
   Element,
-  ElementManifest,
+  ElementMocks,
 } from './element-interfaces';
 import type { StorageService } from './storage-interfaces';
 
@@ -21,8 +22,6 @@ export type ElementHook<T = Element> = (
 ) => T | Promise<T>;
 
 // Display hooks
-export type DisplayContext = Record<string, any>;
-
 export type BeforeDisplayHook<T = Element> = (
   element: T,
   context: DisplayContext,
@@ -68,6 +67,6 @@ export interface ServerModule<T = Element> {
   afterRetrieve?: ElementHook<T>;
   onUserInteraction?: OnUserInteractionHook<T>;
   beforeDisplay?: BeforeDisplayHook<T>;
-  mocks?: ElementManifest['mocks'];
+  mocks?: ElementMocks;
   ai?: AiConfig;
 }

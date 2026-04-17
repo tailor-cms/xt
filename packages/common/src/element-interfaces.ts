@@ -159,18 +159,24 @@ export interface ElementManifest<TData = ElementData> {
     forceFullWidth: boolean;
   };
   ai?: AiConfig;
-  mocks?: {
-    /**
-     * Provide end-user system context mock (used for user state hooks)
-     * See https://tailor-cms.github.io/xt/server-package.html#user-state-hooks.
-     */
-    displayContexts?: Array<{ name: string; data: any }>;
-    /**
-     * Mock data for the link dialog. Keyed by reference name
-     * (e.g. `linked`), each value is an array of data objects.
-     * The runtime wraps these with `id`, `type`, etc. before passing
-     * to the Edit component via the `references` prop.
-     */
-    referencesData?: Record<string, Record<string, any>[]>;
-  };
+  mocks?: ElementMocks;
+}
+
+/** End-user state context passed to `beforeDisplay` and `onUserInteraction` hooks. */
+export type DisplayContext = Record<string, any>;
+
+/** CEK development mocks provided by the element manifest. */
+export interface ElementMocks {
+  /**
+   * End-user system context presets for user state hooks. Let authors
+   * preview different end-user scenarios in the CEK display runtime.
+   * See https://tailor-cms.github.io/xt/server-package.html#user-state-hooks.
+   */
+  displayContexts?: Array<{ name: string; data: DisplayContext }>;
+  /**
+   * Mock data for the link dialog, keyed by reference name (e.g. `linked`).
+   * The runtime wraps each item with `id`, `type`, etc. for the `references` prop.
+   * See https://tailor-cms.github.io/xt/edit-package.html#linking-elements.
+   */
+  referencesData?: Record<string, Record<string, any>[]>;
 }

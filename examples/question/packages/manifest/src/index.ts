@@ -1,4 +1,4 @@
-import type { AiConfig } from '@tailor-cms/cek-common';
+import type { AiConfig, ElementMocks } from '@tailor-cms/cek-common';
 
 import type {
   DataInitializer,
@@ -38,9 +38,7 @@ const ui = {
   forceFullWidth: true,
 };
 
-export const mocks: {
-  displayContexts: { name: string; data: Record<string, any> }[];
-} = {
+export const mocks: ElementMocks = {
   displayContexts: [
     { name: 'No answer', data: {} },
     {

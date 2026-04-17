@@ -1,12 +1,5 @@
 import * as common from '@tailor-cms/cek-common';
 
-export interface DisplayContext {
-  name: string;
-  data: {
-    state: string;
-  };
-}
-
 export interface ElementData extends common.ElementConfig {
   count: number;
   description: string;
