@@ -2,6 +2,7 @@
   <VTooltip
     v-model="showHint"
     :open-on-hover="false"
+    content-class="question-hint"
     location="bottom right"
     max-width="250"
     close-on-back

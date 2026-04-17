@@ -6,6 +6,7 @@ export class DisplayQuestionForm {
   readonly submitBtn: Locator;
   readonly retryBtn: Locator;
   readonly feedback: Locator;
+  readonly hintTooltip: Locator;
 
   constructor(frame: FrameLocator) {
     this.el = frame.locator('.question-form');
@@ -13,11 +14,12 @@ export class DisplayQuestionForm {
     this.submitBtn = this.el.getByRole('button', { name: 'Submit' });
     this.retryBtn = this.el.getByRole('button', { name: 'Retry' });
     this.feedback = this.el.locator('.question-feedback');
+    this.hintTooltip = frame.locator('.question-hint');
   }
 
   async showHint(): Promise<void> {
     await this.hintBtn.click();
-    await expect(this.el.locator('.v-tooltip')).toBeVisible();
+    await expect(this.hintTooltip).toBeVisible();
   }
 
   async submit(): Promise<void> {

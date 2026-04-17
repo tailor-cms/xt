@@ -3,17 +3,20 @@
     v-if="!resolvedFileKey"
     :density="density"
     :label="resolvedLabel"
+    :max-width="maxWidth"
+    :min-width="minWidth"
     :placeholder="placeholder || 'Click to add...'"
     :prepend-inner-icon="resolvedIcon"
     :variant="variant"
     append-inner-icon="mdi-upload"
+    class="file-input"
     readonly
     @click="dialogOpen = true"
   />
   <VOverlay
     v-else
     v-model="previewExpanded"
-    :class="{ expanded: previewExpanded }"
+    :class="['file-preview', { expanded: previewExpanded }]"
     content-class="d-flex align-center justify-center h-100 w-100"
     close-on-content-click
   >
@@ -21,8 +24,11 @@
       <VTextField
         :density="density"
         :label="resolvedLabel"
+        :max-width="maxWidth"
+        :min-width="minWidth"
         :model-value="resolvedFileName"
         :variant="variant"
+        class="file-input"
         readonly
       >
         <template #prepend-inner>
@@ -49,7 +55,6 @@
             <VIcon icon="mdi-magnify" size="large" />
           </VBtn>
           <VBtn
-            :color="dark ? 'white' : 'primary'"
             aria-label="Download file"
             class="mr-1"
             size="x-small"
@@ -152,6 +157,8 @@ interface Props {
   variant?: 'flat' | 'outlined' | 'tonal' | 'text';
   density?: 'default' | 'comfortable' | 'compact';
   dark?: boolean;
+  minWidth?: string | number;
+  maxWidth?: string | number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -167,6 +174,8 @@ const props = withDefaults(defineProps<Props>(), {
   variant: 'outlined',
   density: 'default',
   dark: false,
+  minWidth: '350px',
+  maxWidth: '100%',
 });
 
 const emit = defineEmits<{

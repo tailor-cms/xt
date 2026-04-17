@@ -11,7 +11,7 @@
     </template>
     <VCard>
       <VToolbar class="mb-4" title="Theme selector">
-        <VBtn icon="mdi-close" @click="isOpen = false" />
+        <VBtn aria-label="Close" icon="mdi-close" @click="isOpen = false" />
       </VToolbar>
       <VRadioGroup
         :model-value="activeTheme"

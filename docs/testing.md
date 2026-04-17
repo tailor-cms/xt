@@ -37,6 +37,7 @@ import { pom } from '@tailor-cms/cek-e2e';
 | `ThemeDialog`          | Theme selector — select, add, edit, remove themes      |
 | `EditQuestionForm`     | Edit question form — prompt, hint, feedback, save      |
 | `DisplayQuestionForm`  | Display question form — hint, submit, retry, feedback  |
+| `FileInput`            | File input — upload, URL import, download, preview     |
 
 Extend the base POMs to add element-specific locators:
 

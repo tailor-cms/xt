@@ -27,7 +27,7 @@ export class ThemeDialog {
     this.colorPreview = this.dialog.locator('.v-card-text .v-sheet');
     this.themeFormDialog = frame
       .locator('.v-dialog')
-      .filter({ hasText: 'custom theme' });
+      .filter({ hasText: /Add custom theme|Edit theme/ });
     this.themeNameInput = this.themeFormDialog.getByLabel('Theme name');
     this.themeDefinitionInput =
       this.themeFormDialog.getByLabel('Theme definition');
