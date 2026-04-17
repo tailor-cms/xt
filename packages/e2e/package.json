@@ -27,14 +27,14 @@
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:^",
     "@types/node": "^24.12.2",
-    "tsdown": "^0.21.8",
-    "typescript": "^6.0.2"
+    "tsdown": "^0.21.9",
+    "typescript": "^6.0.3"
   },
   "peerDependencies": {
-    "@playwright/test": "^1.58.2"
+    "@playwright/test": "^1.59.1"
   },
   "tsdown": {
-    "target": "node22",
+    "target": "node24",
     "format": [
       "cjs",
       "esm"

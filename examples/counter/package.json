@@ -33,6 +33,6 @@
     "@tailor-cms/tce-boot": "workspace:*",
     "@types/node": "^24.12.2",
     "dotenv": "^17.4.2",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.3"
   }
 }

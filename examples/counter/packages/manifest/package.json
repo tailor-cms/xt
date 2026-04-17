@@ -30,11 +30,11 @@
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
-    "tsdown": "^0.21.8",
-    "typescript": "^6.0.2"
+    "tsdown": "^0.21.9",
+    "typescript": "^6.0.3"
   },
   "tsdown": {
-    "target": "node22",
+    "target": "node24",
     "format": [
       "cjs",
       "esm"

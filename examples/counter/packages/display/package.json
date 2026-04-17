@@ -32,7 +32,7 @@
     "@tailor-cms/eslint-config": "workspace:*",
     "@vitejs/plugin-vue": "^6.0.6",
     "tce-counter-manifest": "workspace:*",
-    "typescript": "^6.0.2",
+    "typescript": "^6.0.3",
     "vite": "^8.0.8",
     "vite-plugin-lib-inject-css": "^2.2.2",
     "vue-tsc": "^3.2.6",
