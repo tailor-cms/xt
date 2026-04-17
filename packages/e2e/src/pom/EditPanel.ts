@@ -43,28 +43,43 @@ export class EditPanel {
   }
 
   async openSettings(): Promise<void> {
+    await expect(this.settingsMenu).not.toBeVisible();
     await this.settingsBtn.click();
     await expect(this.settingsMenu).toBeVisible();
+  }
+
+  async closeSettings(): Promise<void> {
+    await expect(this.settingsMenu).toBeVisible();
+    await this.settingsBtn.click();
+    await expect(this.settingsMenu).not.toBeVisible();
+  }
+
+  async focus(): Promise<void> {
+    await this.editor.click();
   }
 
   async setReadonly(): Promise<void> {
     await this.openSettings();
     await this.settingsMenu.getByRole('checkbox', { name: 'Readonly' }).click();
+    await this.closeSettings();
   }
 
   async setDragged(): Promise<void> {
     await this.openSettings();
     await this.settingsMenu.getByRole('checkbox', { name: 'Dragged' }).click();
+    await this.closeSettings();
   }
 
   async setGradable(): Promise<void> {
     await this.openSettings();
     await this.settingsMenu.getByRole('checkbox', { name: 'Gradable' }).click();
+    await this.closeSettings();
   }
 
   async setAutosave(): Promise<void> {
     await this.openSettings();
     await this.settingsMenu.getByRole('checkbox', { name: 'Autosave' }).click();
+    await this.closeSettings();
   }
 
   async setHalfWidth(): Promise<void> {
@@ -72,11 +87,13 @@ export class EditPanel {
     await this.settingsMenu
       .getByRole('checkbox', { name: 'Half width' })
       .click();
+    await this.closeSettings();
   }
 
   async persistFocus(): Promise<void> {
     await this.openSettings();
     await this.settingsMenu.getByRole('checkbox', { name: 'Focused' }).click();
+    await this.closeSettings();
   }
 
   async reset(): Promise<void> {
