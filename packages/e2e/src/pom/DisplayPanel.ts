@@ -5,6 +5,7 @@ import { ThemeDialog } from './ThemeDialog';
 export class DisplayPanel {
   readonly el: FrameLocator;
   readonly editor: Locator;
+  readonly placeholder: Locator;
   readonly statePresetPicker: Locator;
   readonly themeDialog: ThemeDialog;
 
@@ -14,6 +15,7 @@ export class DisplayPanel {
       .locator('.v-row')
       .filter({ hasText: 'End-user component' })
       .locator('.display-frame');
+    this.placeholder = this.el.locator('.element-placeholder');
     this.statePresetPicker = this.el.locator('[role="combobox"]', {
       hasText: 'State preset',
     });

@@ -1,6 +1,6 @@
 <template>
   <VCard
-    class="d-flex flex-column align-center justify-center"
+    class="element-placeholder d-flex flex-column align-center justify-center"
     color="primary-darken-1"
     height="250"
     variant="tonal"

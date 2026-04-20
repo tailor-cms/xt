@@ -6,12 +6,10 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
     }
   },
-  "main": "./dist/index.cjs",
-  "types": "./dist/index.d.mts",
   "files": [
     "dist"
   ],
@@ -37,11 +35,7 @@
     "typescript": "^6.0.3"
   },
   "tsdown": {
-    "target": "node24",
-    "format": [
-      "cjs",
-      "esm"
-    ]
+    "target": "node24"
   },
   "publishConfig": {
     "access": "public"

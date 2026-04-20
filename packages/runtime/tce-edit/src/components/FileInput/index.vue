@@ -55,16 +55,6 @@
             <VIcon icon="mdi-magnify" size="large" />
           </VBtn>
           <VBtn
-            aria-label="Download file"
-            class="mr-1"
-            size="x-small"
-            variant="tonal"
-            icon
-            @click.stop="onDownload"
-          >
-            <VIcon icon="mdi-download" size="large" />
-          </VBtn>
-          <VBtn
             aria-label="Remove file"
             size="x-small"
             variant="tonal"
@@ -299,19 +289,6 @@ const submitUrl = () => {
     title: urlTitle.value.trim() || undefined,
   });
   closeDialog();
-};
-
-const onDownload = async () => {
-  const key = resolvedFileKey.value;
-  if (!key) return;
-  const url = await storageService.getUrl(key);
-  const anchor = document.createElement('a');
-  Object.assign(anchor, {
-    href: url,
-    download: resolvedFileName.value || key,
-    target: '_blank',
-  });
-  anchor.click();
 };
 
 const onClear = () => {
