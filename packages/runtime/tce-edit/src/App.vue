@@ -46,7 +46,7 @@
             <VSheet class="mt-6 pa-8" color="white" elevation="2" rounded="lg">
               <div
                 v-if="isGeneratingContent"
-                class="d-flex flex-wrap justify-center py-16"
+                class="d-flex flex-column align-center py-16"
               >
                 <VProgressCircular
                   class="w-100"

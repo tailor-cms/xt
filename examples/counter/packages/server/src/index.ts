@@ -9,7 +9,10 @@ import type {
 } from '@tailor-cms/cek-common';
 import type { Element } from 'tce-counter-manifest';
 
-const userStateMock: any = {};
+// Detect if hooks are running in CEK (used for mocking end-system runtime)
+const IS_CEK = process.env.CEK_RUNTIME;
+// Don't use in production, use only when IS_CEK=true
+const USER_STATE: any = {};
 
 export const beforeSave: ElementHook<Element> = (element) => {
   if (element.data.count >= 10) element.data = { ...element.data, count: 0 };
@@ -19,15 +22,17 @@ export const beforeSave: ElementHook<Element> = (element) => {
 export const beforeDisplay: BeforeDisplayHook<Element> = (
   _element,
   context,
-) => ({ ...context, ...userStateMock });
+) => ({ ...context, ...USER_STATE });
 
 export const onUserInteraction: OnUserInteractionHook<Element> = (
   _element,
   context,
   _payload,
 ) => {
-  userStateMock.interactionTimestamp = new Date().getTime();
-  context.contextTimestamp = userStateMock.interactionTimestamp;
+  if (IS_CEK) {
+    USER_STATE.interactionTimestamp = new Date().getTime();
+    context.contextTimestamp = USER_STATE.interactionTimestamp;
+  }
   return { updateDisplayState: true };
 };
 
