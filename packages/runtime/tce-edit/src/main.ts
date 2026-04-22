@@ -1,4 +1,5 @@
 import 'vuetify/styles';
+import './reset.css';
 
 import { createApp } from 'vue';
 
