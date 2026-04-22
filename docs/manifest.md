@@ -27,7 +27,8 @@ export interface ElementManifest<TData = ElementData> {
   // type is gradable or ungradable. If both are supported, this field
   // should be omitted.
   isGradable?: boolean;
-  // Controls whether the QuestionForm renders the feedback section.
+  // Controls whether the edit runtime exposes per-answer feedback
+  // authoring fields. Display renders whatever feedback data exists.
   // Only relevant when 'isQuestion' is true. Defaults to true.
   showFeedback?: boolean;
   // Initializes the 'data' field upon Content Element creation.

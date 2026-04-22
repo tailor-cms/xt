@@ -21,7 +21,7 @@
       <VDivider class="mt-8 mb-4 mx-n4" />
       <VFadeTransition>
         <QuestionFeedback
-          v-if="showFeedback && isSubmitted"
+          v-if="isSubmitted"
           :feedback="element.data.feedback"
           :is-correct="userState.isCorrect"
           :is-graded="element.data.isGradable"
@@ -57,12 +57,9 @@ import QuestionPrompt from './QuestionPrompt.vue';
 interface Props {
   element: any;
   userState: any;
-  showFeedback?: boolean;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  showFeedback: true,
-});
+const props = defineProps<Props>();
 const emit = defineEmits(['interaction', 'retry']);
 
 const form = ref();

@@ -14,7 +14,6 @@ const {
   isEmpty = () => false,
   isQuestion = false,
   name = 'Content Element',
-  showFeedback = true,
   ui = {},
 } = element.default;
 
@@ -23,7 +22,6 @@ const app = createApp(App, {
   isEmpty,
   isQuestion,
   name,
-  showFeedback,
 });
 app.use(vuetify);
 app.component(

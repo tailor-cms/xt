@@ -50,7 +50,7 @@ export class EditPanel {
 
   async closeSettings(): Promise<void> {
     await expect(this.settingsMenu).toBeVisible();
-    await this.settingsBtn.click();
+    await this.settingsMenu.press('Escape');
     await expect(this.settingsMenu).not.toBeVisible();
   }
 

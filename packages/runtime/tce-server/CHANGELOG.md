@@ -1,19 +1,17 @@
 # @tailor-cms/tce-server-runtime
 
-## 2.0.0-beta.4
-
-### Patch Changes
-
-- Pass initConfig to initState.
-
 ## 2.0.0
 
 ### Major Changes
 
-- Upgrade to Vuetify 4, Vite 8, TypeScript 6.
+- Upgraded to Express 5.
+- Hooks typed via `@tailor-cms/cek-common` (`ElementHook`, `BeforeDisplayHook`,
+  `OnUserInteractionHook`, `ProcedureHandler`).
 - Server procedures (RPC) support.
-- `displayContexts` mock presets with dropdown selection.
-- Element refs persisted on PATCH (`data`, `meta`, `refs`).
+- PATCH endpoint accepts and persists the `refs` field for element linking.
+- `DisplayContextService` seeds mock display contexts from
+  `mocks.displayContexts` and exposes endpoints to switch between them.
+- `initConfig` passed to the element's `initState`.
 
 ## 1.3.2
 

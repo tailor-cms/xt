@@ -1,16 +1,10 @@
 # @tailor-cms/eslint-config
 
-## 2.0.0-beta.4
-
-### Patch Changes
-
-- Pass initConfig to initState.
-
 ## 2.0.0
 
 ### Major Changes
 
-- TypeScript 6 support.
+- Compatible with TypeScript 6.
 
 ## 1.1.2
 

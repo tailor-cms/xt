@@ -1,19 +1,12 @@
 # @tailor-cms/tce-preview-runtime
 
-## 2.0.0-beta.4
-
-### Patch Changes
-
-- Pass initConfig to initState.
-- Updated dependencies
-  - @tailor-cms/cek-common@2.0.0-beta.4
-
 ## 2.0.0
 
 ### Major Changes
 
-- Vuetify 4 migration with vite-plugin-vuetify.
+- Uses `vite-plugin-vuetify` for Vuetify tree-shaking in the preview shell.
 - ThemeDialog integration for edit and display panels.
+- Propagates `initConfig` through edit and display panels.
 
 ### Patch Changes
 

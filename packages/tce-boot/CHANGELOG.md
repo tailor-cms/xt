@@ -1,22 +1,10 @@
 # @tailor-cms/tce-boot
 
-## 2.0.0-beta.4
-
-### Patch Changes
-
-- Pass initConfig to initState.
-- Updated dependencies
-  - @tailor-cms/tce-display-runtime@2.0.0-beta.4
-  - @tailor-cms/tce-server-runtime@2.0.0-beta.4
-  - @tailor-cms/tce-edit-runtime@2.0.0-beta.4
-  - @tailor-cms/tce-preview-runtime@2.0.0-beta.4
-
 ## 2.0.0
 
 ### Major Changes
 
-- Upgrade to Vuetify 4, Vite 8, TypeScript 6.
-- Element linking, theme testing, question autosave, RPC procedures support.
+- Major bump to track the 2.0 runtime versions (no boot-script API changes).
 
 ### Patch Changes
 

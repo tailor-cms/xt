@@ -8,6 +8,10 @@
   need to be updated.
 - Question auto-wrap — `QuestionCard` and `QuestionContainer` are now applied
   automatically by the runtime. Elements must remove manual wrapping.
+- Question Display components must emit `user-input` instead of `interaction`.
+  The framework-provided `QuestionForm` captures `user-input`, validates on
+  submit, and forwards `interaction` to the runtime.
+- `QuestionContainer` renamed to `QuestionForm`.
 - Build toolchain migrated from tsup to tsdown.
 - `isolatedDeclarations` enabled — all exported symbols require explicit type
   annotations.
@@ -26,7 +30,8 @@
 - RPC procedures — custom server-side methods callable from Edit components
   via the injected `$rpc` function.
 - `isEmpty` manifest function for required element validation.
-- `showFeedback` manifest field to control question feedback section visibility.
+- `showFeedback` manifest field to toggle per-answer feedback authoring in
+  the edit runtime. Display renders feedback whenever it exists in data.
 - Question autosave support.
 - `mocks.referencesData` manifest field for custom mock linked element data.
 - CEK theme testing — ThemeDialog in edit and display runtimes.

@@ -38,7 +38,6 @@
                   <QuestionForm
                     v-if="isQuestion"
                     :element="element"
-                    :show-feedback="showFeedback"
                     :user-state="userState"
                     @interaction="onInteraction"
                     @retry="onRetry"
@@ -78,7 +77,6 @@ interface Props {
   isEmpty?: (data: Element['data']) => boolean;
   isQuestion?: boolean;
   name?: string;
-  showFeedback?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -86,7 +84,6 @@ const props = withDefaults(defineProps<Props>(), {
   isEmpty: () => () => false,
   isQuestion: false,
   name: 'Content Element',
-  showFeedback: true,
 });
 
 const isElementEmpty = computed(() => {
