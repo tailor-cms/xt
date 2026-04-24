@@ -92,7 +92,7 @@ const addBtnProps = computed(() => {
     color = 'primary-darken-4',
     variant = 'tonal',
   } = props.addElementOptions ?? {};
-  if (!large) return { icon, color, variant, size: 'small' };
+  if (!large) return { icon, color, variant, size: 'small', ariaLabel: label };
   return { text: label, prependIcon: icon, color, variant };
 });
 

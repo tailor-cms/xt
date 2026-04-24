@@ -38,8 +38,13 @@ export default ({ type, initState, hookMap, procedures }) => {
     return res.json(data);
   }
 
-  async function resetAuthoringState({ element }, res) {
-    await element.update({ type, data: initState(), meta: {}, refs: {} });
+  async function resetAuthoringState({ element, body }, res) {
+    await element.update({
+      type,
+      data: initState(body),
+      meta: {},
+      refs: {},
+    });
     return res.status(200).end();
   }
 

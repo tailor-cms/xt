@@ -1,6 +1,8 @@
 import mitt, { type Emitter } from 'mitt';
 import ky from 'ky';
 
+import { InitConfig } from './element-interfaces';
+
 const endpoint = {
   elementBase: 'content-element',
   rpc: (procedure: string) => `${endpoint.elementBase}/rpc/${procedure}`,
@@ -16,7 +18,7 @@ const endpoint = {
 export interface ApiClient {
   getElement: (id: string) => Promise<any>;
   updateElement: (id: string, data: any) => Promise<any>;
-  resetElement: (id: string) => Promise<any>;
+  resetElement: (id: string, config?: InitConfig) => Promise<any>;
   setState: (id: string, index: number) => Promise<any>;
   resetState: (id: string) => Promise<any>;
   getContexts: (id: string) => Promise<any>;
@@ -44,8 +46,8 @@ export const getApiClient = (
   const resetState = (id: string): Promise<any> =>
     api.post(endpoint.resetState(id));
 
-  const resetElement = (id: string): Promise<any> =>
-    api.post(endpoint.resetElement(id));
+  const resetElement = (id: string, config?: InitConfig): Promise<any> =>
+    api.post(endpoint.resetElement(id), { json: config });
 
   const getContexts = (id: string): Promise<any> =>
     api(endpoint.getContexts(id)).json();
