@@ -1,6 +1,6 @@
 # Changelog
 
-### v2.0.0 2026-04-17
+### v2.0.0 2026-04-25
 
 #### Breaking Changes
 - Migrated to Vuetify 4 (MD3 typography classes, updated component API,
