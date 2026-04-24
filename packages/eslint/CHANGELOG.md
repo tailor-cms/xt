@@ -1,5 +1,11 @@
 # @tailor-cms/eslint-config
 
+## 2.0.1
+
+### Patch Changes
+
+- Fix resetState to include prompt for isQuestion condition.
+
 ## 2.0.0
 
 ### Major Changes
