@@ -221,6 +221,7 @@ import {
   initWebSocket,
   resolveElementId,
 } from '@tailor-cms/cek-common';
+import { v4 as uuid } from '@lukeed/uuid/secure';
 
 import assetApi from './api/asset';
 import ConfirmationDialog from './components/ConfirmationDialog.vue';
@@ -398,6 +399,16 @@ const reset = async () => {
 const toggleGradable = async () => {
   settings.isGradable = !settings.isGradable;
   const data = initState();
+  const id = uuid();
+  const question = {
+    id,
+    data: { content: '' },
+    type: 'EXAMPLE',
+    position: 1,
+    embedded: true,
+  };
+  data.question = [id];
+  data.embeds = { [id]: question };
   await updateElementData({
     ...data,
     width: element.value.data.width,

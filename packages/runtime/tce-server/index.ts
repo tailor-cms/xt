@@ -18,6 +18,7 @@ function initApp({
   type,
   initState,
   aiSchema,
+  isQuestion,
   isGradable,
   hookMap,
   procedures,
@@ -31,6 +32,7 @@ function initApp({
   const contentElementRouter = contentElement.initRouter({
     type,
     initState,
+    isQuestion,
     isGradable,
     hookMap,
     procedures,
@@ -63,6 +65,7 @@ export default async function run({
   type,
   initState,
   ai: aiSchema,
+  isQuestion,
   isGradable,
   hookMap,
   procedures,
@@ -72,6 +75,7 @@ export default async function run({
   return initApp({
     type,
     initState,
+    isQuestion,
     isGradable,
     hookMap,
     procedures,

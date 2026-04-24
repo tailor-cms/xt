@@ -1,9 +1,17 @@
 import express from 'express';
+import { v4 as uuid } from '@lukeed/uuid/secure';
 
 import ContentElementService from './ContentElementService';
 import initController from './controller';
 
-function initRouter({ type, initState, isGradable, hookMap, procedures }) {
+function initRouter({
+  type,
+  initState,
+  isQuestion,
+  isGradable,
+  hookMap,
+  procedures,
+}) {
   const {
     get: getCtrl,
     getUserStateContexts,
@@ -22,7 +30,10 @@ function initRouter({ type, initState, isGradable, hookMap, procedures }) {
 
   const router = express.Router();
   router.route('/rpc/:procedure').post(rpcHandler);
-  router.param('id', getContentElementMw({ type, initState, isGradable }));
+  router.param(
+    'id',
+    getContentElementMw({ type, initState, isQuestion, isGradable }),
+  );
   router.route('/:id').get(getCtrl);
   router.route('/:id').patch(patchCtrl);
   router.route('/:id/activity').post(onUserInteraction);
@@ -34,12 +45,24 @@ function initRouter({ type, initState, isGradable, hookMap, procedures }) {
 }
 
 const getContentElementMw =
-  ({ type, initState, isGradable }) =>
+  ({ type, initState, isQuestion, isGradable }) =>
   async (req, _res, next, id) => {
     try {
       const data = initState({ isGradable });
       data.width = 12;
       const payload = { type, data };
+      if (isQuestion) {
+        const id = uuid();
+        const question = {
+          id,
+          data: { content: '' },
+          type: 'EXAMPLE',
+          position: 1,
+          embedded: true,
+        };
+        data.question = [id];
+        data.embeds = { [id]: question };
+      }
       req.element = await ContentElementService.findOrCreate(id, payload);
       return next();
     } catch (error) {

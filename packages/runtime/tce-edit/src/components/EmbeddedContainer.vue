@@ -45,7 +45,7 @@
 <script setup lang="ts">
 import { cloneDeep, sortBy } from 'lodash-es';
 import { computed, ref } from 'vue';
-import { v4 } from '@lukeed/uuid/secure';
+import { v4 as uuid } from '@lukeed/uuid/secure';
 
 import ContentElement from './ContentElement.vue';
 
@@ -97,7 +97,7 @@ const addBtnProps = computed(() => {
 });
 
 const createEmbedElement = () => ({
-  id: v4(),
+  id: uuid(),
   data: {
     content: '',
     width: 12,
