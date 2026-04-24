@@ -14,9 +14,7 @@ export class Edit extends pom.EditPanel {
   constructor(page: Page) {
     super(page);
     this.form = this.editor.locator('.question-form');
-    this.answerInputs = this.form.locator(
-      'input[placeholder="Answer..."], input[placeholder="Option..."]',
-    );
+    this.answerInputs = this.form.getByPlaceholder(/^(Answer|Option)\.\.\.$/);
     this.correctRadios = this.form.getByRole('radio');
     this.hintInput = this.form.locator('.question-hint').getByRole('textbox');
     this.feedbackSection = this.form.locator('.question-feedback');
