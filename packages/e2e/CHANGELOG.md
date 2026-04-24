@@ -1,5 +1,18 @@
 # @tailor-cms/cek-e2e
 
+## 2.0.1
+
+### Patch Changes
+
+- Fix resetState to include prompt for isQuestion condition.
+
+## 2.0.0
+
+### Major Changes
+
+- `elementClient` API helpers (get, update, reset, setState, resetState).
+- `EditQuestionForm` and `DisplayQuestionForm` Page Object Models.
+
 ## 1.3.2
 
 ### Patch Changes

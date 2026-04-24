@@ -6,6 +6,20 @@ export interface OpenAISchema {
   schema: JSONSchema7;
 }
 
+export interface AiConfig {
+  /** Prompt used to describe the response structure. */
+  getPrompt: (context: any) => string;
+  /** JSON schema for the OpenAI response formatting. */
+  Schema?: OpenAISchema;
+  /** Function for additional response processing & validation. */
+  processResponse?: (val: any) => any;
+  /**
+   * Indicates whether the AI generation tool should be used when generating
+   * content for this element.
+   */
+  useImageGenerationTool?: boolean;
+}
+
 type Meta = Record<string, unknown>;
 type Refs = Record<string, unknown>;
 
@@ -37,7 +51,25 @@ export interface Element<TData = ElementData, TRefs = Refs, TMeta = Meta> {
   deletedAt: string | null;
 }
 
-export type DataInitializer<TData = ElementData> = () => TData;
+export interface InitConfig {
+  isGradable?: boolean;
+  [key: string]: unknown;
+}
+
+export type DataInitializer<TData = ElementData> = (
+  config: InitConfig,
+) => TData;
+export type ElementReferences = Record<string, Partial<Element>[]>;
+
+/**
+ * Function injected as `$rpc` into authoring components
+ * (Edit, TopToolbar, SideToolbar). Calls a named procedure defined
+ * in the CE server package's `procedures` export.
+ */
+export type RpcCaller = <T = any>(
+  procedure: string,
+  payload?: Record<string, any>,
+) => Promise<T>;
 
 export interface ElementManifest<TData = ElementData> {
   /**
@@ -74,11 +106,25 @@ export interface ElementManifest<TData = ElementData> {
    */
   isGradable?: boolean;
   /**
+   * Controls whether the QuestionContainer renders the feedback section.
+   * Only relevant when 'isQuestion' is true. Defaults to true.
+   */
+  showFeedback?: boolean;
+  /**
    * The goal of the initState function is to properly initialize the 'data'
    * field upon the Content Element creation. The 'data' field is the Content
    * Element property storing authors input.
    */
   initState: DataInitializer<TData>;
+  /**
+   * Optional function to determine if element data is considered empty.
+   * Used by the authoring system to evaluate required content elements.
+   * When a content element is marked as required, this function is called
+   * to check if the author has provided the necessary content.
+   * Receives the current element data and should return true if the element
+   * is considered empty (i.e. content has not been provided).
+   */
+  isEmpty?: (data: TData) => boolean;
   /**
    * Edit component of the Content Element (Used for authoring purposes).
    */
@@ -112,30 +158,25 @@ export interface ElementManifest<TData = ElementData> {
      */
     forceFullWidth: boolean;
   };
-  ai?: {
-    /**
-     * Prompt used to describe the response structure.
-     */
-    getPrompt: (context: any) => string;
-    /**
-     * JSON schema for the OpenAI response formatting.
-     */
-    Schema?: OpenAISchema;
-    /**
-     * Function for additional response processing & validation.
-     */
-    processResponse?: (val: any) => any;
-    /**
-     * Indicates whether the AI generation tool should be used when generating
-     * content for this element.
-     */
-    useImageGenerationTool?: boolean;
-  };
-  mocks?: {
-    /**
-     * Provide end-user system context mock (used for user state hooks)
-     * See https://tailor-cms.github.io/xt/server-package.html#user-state-hooks.
-     */
-    displayContexts: Array<{ name: string; data: any }>;
-  };
+  ai?: AiConfig;
+  mocks?: ElementMocks;
+}
+
+/** End-user state context passed to `beforeDisplay` and `onUserInteraction` hooks. */
+export type DisplayContext = Record<string, any>;
+
+/** CEK development mocks provided by the element manifest. */
+export interface ElementMocks {
+  /**
+   * End-user system context presets for user state hooks. Let authors
+   * preview different end-user scenarios in the CEK display runtime.
+   * See https://tailor-cms.github.io/xt/server-package.html#user-state-hooks.
+   */
+  displayContexts?: Array<{ name: string; data: DisplayContext }>;
+  /**
+   * Mock data for the link dialog, keyed by reference name (e.g. `linked`).
+   * The runtime wraps each item with `id`, `type`, etc. for the `references` prop.
+   * See https://tailor-cms.github.io/xt/edit-package.html#linking-elements.
+   */
+  referencesData?: Record<string, Record<string, any>[]>;
 }

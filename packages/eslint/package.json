@@ -1,7 +1,9 @@
 {
   "name": "@tailor-cms/eslint-config",
+  "description": "Content element shared ESLint configuration",
+  "author": "Studion <info@gostudion.com>",
+  "version": "2.0.1",
   "type": "module",
-  "version": "1.1.2",
   "main": "index.js",
   "files": [
     "index.js",
@@ -14,18 +16,18 @@
     "nuke": "pnpm dlx del-cli node_modules"
   },
   "dependencies": {
-    "@eslint/js": "^9.30.1",
-    "eslint-config-prettier": "^10.1.5",
+    "@eslint/js": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-prettier": "^5.5.1",
-    "eslint-plugin-vue": "^10.3.0",
-    "eslint-plugin-vuejs-accessibility": "^2.4.1",
-    "neostandard": "^0.12.2",
-    "typescript-eslint": "^8.36.0",
-    "vue-eslint-parser": "^10.2.0"
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-vue": "^10.9.0",
+    "eslint-plugin-vuejs-accessibility": "^2.5.0",
+    "neostandard": "^0.13.0",
+    "typescript-eslint": "^8.59.0",
+    "vue-eslint-parser": "^10.4.0"
   },
   "peerDependencies": {
-    "eslint": ">=9.28.0"
+    "eslint": "^9.34.0"
   },
   "publishConfig": {
     "access": "public"

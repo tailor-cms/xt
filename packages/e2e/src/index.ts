@@ -1,9 +1,2 @@
-import { BottomPanel } from './pom/BottomPanel';
-import { DisplayPanel } from './pom/DisplayPanel';
-import { EditPanel } from './pom/EditPanel';
-
-export const pom = {
-  BottomPanel,
-  DisplayPanel,
-  EditPanel,
-};
+export * as pom from './pom';
+export { elementClient } from './api/ElementClient';

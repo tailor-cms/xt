@@ -1,8 +1,14 @@
+import 'vuetify/styles';
+import './reset.css';
+
 import { createApp } from 'vue';
 
 import App from './App.vue';
+import AssetInput from './components/AssetInput.vue';
 import ContentElement from './components/ContentElement.vue';
+import ElementPlaceholder from './components/ElementPlaceholder.vue';
 import EmbeddedContainer from './components/EmbeddedContainer.vue';
+import FileInput from './components/FileInput/index.vue';
 import NotCompositeAlert from './components/NotCompositeAlert.vue';
 import Radio from './radio';
 import vuetify from './plugins/vuetify';
@@ -12,7 +18,11 @@ const {
   ai,
   isComposite = false,
   isQuestion,
+  isEmpty,
+  initState,
   isGradable,
+  showFeedback = false,
+  mocks = {},
   name,
   ui,
 } = element.default;
@@ -23,14 +33,21 @@ const app = createApp(App, {
   isQuestion,
   isGradable,
   isAiEnabled,
+  showFeedback,
   type: name,
   icon: ui.icon,
   forceFullWidth: ui.forceFullWidth,
+  initState,
+  isEmpty,
+  mockReferences: mocks.referencesData,
 });
 const radio = Radio.getInstance();
 app.provide('$eventBus', radio);
 app.provide('$elementBus', radio.channel('app'));
 app.use(vuetify);
+app.component('TailorAssetInput', AssetInput);
+app.component('TailorFileInput', FileInput);
+app.component('TailorElementPlaceholder', ElementPlaceholder);
 app.component('TailorContentElement', ContentElement);
 app.component(
   'TailorEmbeddedContainer',

@@ -1,5 +1,54 @@
 # Changelog
 
+### v2.0.0 2026-04-25
+
+#### Breaking Changes
+- Migrated to Vuetify 4 (MD3 typography classes, updated component API,
+  theme configuration). All content element packages using Vuetify components
+  need to be updated.
+- Question auto-wrap — `QuestionCard` and `QuestionContainer` are now applied
+  automatically by the runtime. Elements must remove manual wrapping.
+- Question Display components must emit `user-input` instead of `interaction`.
+  The framework-provided `QuestionForm` captures `user-input`, validates on
+  submit, and forwards `interaction` to the runtime.
+- `QuestionContainer` renamed to `QuestionForm`.
+- Build toolchain migrated from tsup to tsdown.
+- `isolatedDeclarations` enabled — all exported symbols require explicit type
+  annotations.
+- `StorageApi.upload` now takes a native `File` instead of a `FormData`
+  payload. The `UploadFormData` and `UploadFormFieldname` type exports have
+  been removed.
+- `mocks` manifest type extracted to a standalone `ElementMocks` interface;
+  `DisplayContext` relocated to `element-interfaces`.
+- TypeScript 6, Vite 8.
+
+#### Features
+- Typed hook signatures (`ElementHook`, `BeforeDisplayHook`,
+  `OnUserInteractionHook`, `ProcedureHandler`).
+- `ServerModule` and `HookMap` types for typed server package default exports.
+- `AiConfig` type (replaces inline `OpenAISchema` casting pattern).
+- RPC procedures — custom server-side methods callable from Edit components
+  via the injected `$rpc` function.
+- `isEmpty` manifest function for required element validation.
+- `showFeedback` manifest field to toggle per-answer feedback authoring in
+  the edit runtime. Display renders feedback whenever it exists in data.
+- Question autosave support.
+- `mocks.referencesData` manifest field for custom mock linked element data.
+- CEK theme testing — ThemeDialog in edit and display runtimes.
+- `TailorAssetInput` global component (consolidated from separate upload
+  components).
+- `TailorElementPlaceholder` global component.
+- `TailorFileInput` global component for file uploads in the edit runtime.
+- New `question` example element alongside `counter`; examples relocated to
+  `examples/` and `counter` is now the default boot target.
+- Expanded E2E testing utilities (`@tailor-cms/cek-e2e`) with API helpers and
+  additional page object models.
+- Accessibility improvements.
+
+#### Other
+- `moduleResolution: "bundler"` across all tsconfigs.
+- Bumped all dependencies to the latest versions.
+
 ### v1.0.0 2024-02-07
 
 #### Changes

@@ -1,0 +1,43 @@
+{
+  "name": "tce-question-manifest",
+  "description": "Question element manifest",
+  "version": "0.0.1",
+  "author": "Studion <info@gostudion.com>",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.mts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsdown --watch",
+    "build": "tsdown",
+    "lint": "eslint .",
+    "lint:fix": "pnpm lint --fix",
+    "nuke": "pnpm dlx del-cli dist node_modules",
+    "nuke:dist": "pnpm dlx del-cli dist",
+    "prepublish": "pnpm build"
+  },
+  "dependencies": {
+    "@tailor-cms/cek-common": "workspace:*"
+  },
+  "devDependencies": {
+    "@tailor-cms/eslint-config": "workspace:*",
+    "tsdown": "^0.21.10",
+    "typescript": "^6.0.3"
+  },
+  "tsdown": {
+    "target": "node24",
+    "format": [
+      "cjs",
+      "esm"
+    ]
+  }
+}

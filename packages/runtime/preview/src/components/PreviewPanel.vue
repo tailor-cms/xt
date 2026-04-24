@@ -45,6 +45,6 @@ onMounted(() => initPanels());
 
 <style scoped>
 iframe {
-  background: #eceff1 !important;
+  background: #eceff1;
 }
 </style>

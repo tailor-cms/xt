@@ -1,5 +1,32 @@
 # @tailor-cms/tce-edit-runtime
 
+## 2.0.1
+
+### Patch Changes
+
+- Fix resetState to include prompt for isQuestion condition.
+- Updated dependencies
+  - @tailor-cms/cek-common@2.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- Question auto-wrap: QuestionCard applied automatically by the runtime.
+- Element linking: `@link` event, `references` prop, mock link dialog backed
+  by `mocks.referencesData`.
+- Question autosave toggle in the Settings panel.
+- `$rpc` injection for calling server-side procedures.
+- `$storageService.upload(file)` replaces the `FormData` signature.
+- `TailorFileInput`, `TailorElementPlaceholder` global components.
+- ThemeDialog for previewing elements under custom Vuetify themes.
+- `initConfig` propagated to the element's `initState`.
+
+### Patch Changes
+
+- Updated dependencies
+  - @tailor-cms/cek-common@2.0.0
+
 ## 1.3.2
 
 ### Patch Changes

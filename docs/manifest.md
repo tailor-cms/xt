@@ -27,10 +27,18 @@ export interface ElementManifest<TData = ElementData> {
   // type is gradable or ungradable. If both are supported, this field
   // should be omitted.
   isGradable?: boolean;
-  // The goal of the initState function is to properly initialize the
-  // 'data' field upon the Content Element creation. The 'data' field is
-  // the Content Element property storing authors input.
+  // Controls whether the edit runtime exposes per-answer feedback
+  // authoring fields. Display renders whatever feedback data exists.
+  // Only relevant when 'isQuestion' is true. Defaults to true.
+  showFeedback?: boolean;
+  // Initializes the 'data' field upon Content Element creation.
+  // Receives an optional config object with runtime-level settings
+  // (e.g. { isGradable }) that may influence the initial data shape.
   initState: DataInitializer;
+  // Optional function to determine if element data is considered empty.
+  // Used by the authoring system to evaluate required content elements.
+  // Receives current element data and returns true if empty.
+  isEmpty?: (data: TData) => boolean;
   // Edit component of the Content Element (Used for authoring purposes).
   Edit?: object;
   // TopToolbar component of the Content Element Edit component
@@ -51,21 +59,10 @@ export interface ElementManifest<TData = ElementData> {
     forceFullWidth: boolean;
   },
   // AI tools configuration.
-  ai?: {
-    // Prompt used to describe the response structure.
-    getPrompt: (context: any) => string;
-    // JSON schema for the OpenAI response formatting.
-    Schema?: OpenAISchema;
-    // Function for additional response processing & validation.
-    processResponse?: (val: any) => any;
-    // Indicates whether the AI generation tool should be used when
-    // generating.
-    useImageGenerationTool?: boolean;
-  };
-  mocks?: {
-    // Provide end-user system context mock (used for user state hooks)
-    // See https://tailor-cms.github.io/xt/server-package.html#user-state-hooks.
-    displayContexts: Array<{ name: string; data: any }>;
-  };
+  // See [AI page](/ai.html) and AiConfig interface for details.
+  ai?: AiConfig;
+  // CEK development mocks (display context presets, link dialog mock data).
+  // See `ElementMocks` interface for details.
+  mocks?: ElementMocks;
 }
 ```

@@ -1,13 +1,13 @@
 <template>
   <VApp>
     <VMain class="pa-4">
-      <VContainer>
+      <VContainer max-width="68.75rem" fluid>
         <VRow>
           <VCol>
             <VSheet class="d-flex align-end" color="transparent" height="40">
               <VChip
-                class="text-body-2 font-weight-bold"
-                color="#E0FB61"
+                class="text-body-medium font-weight-bold"
+                color="lime accent-2"
                 variant="elevated"
                 label
               >
@@ -21,21 +21,36 @@
                 item-title="name"
                 label="State preset"
                 variant="solo"
+                flat
                 hide-details
                 @update:model-value="onContextChange"
               />
+              <ThemeDialog class="ml-1" />
             </VSheet>
-            <VSheet class="mt-6 pa-8" color="white" elevation="3" rounded="lg">
-              <VRow v-if="element?.data">
+            <div class="mt-6">
+              <ElementPlaceholder
+                v-if="isElementEmpty"
+                :icon="icon"
+                :name="name"
+              />
+              <VRow v-else-if="element?.data">
                 <VCol :cols="element.data.width ?? 12" class="display-frame">
+                  <QuestionForm
+                    v-if="isQuestion"
+                    :element="element"
+                    :user-state="userState"
+                    @interaction="onInteraction"
+                    @retry="onRetry"
+                  />
                   <Display
+                    v-else
                     :element="element"
                     :user-state="userState"
                     @interaction="onInteraction"
                   />
                 </VCol>
               </VRow>
-            </VSheet>
+            </div>
           </VCol>
         </VRow>
       </VContainer>
@@ -44,14 +59,37 @@
 </template>
 
 <script setup lang="ts">
+import { computed, onMounted, ref } from 'vue';
 import {
   getApiClient,
   initWebSocket,
   resolveElementId,
 } from '@tailor-cms/cek-common';
-import { onMounted, ref } from 'vue';
 import type { Element } from '@tailor-cms/cek-common';
 import { findIndex } from 'lodash-es';
+
+import ElementPlaceholder from './components/ElementPlaceholder.vue';
+import QuestionForm from './components/QuestionForm/index.vue';
+import ThemeDialog from './components/ThemeDialog.vue';
+
+interface Props {
+  icon?: string;
+  isEmpty?: (data: Element['data']) => boolean;
+  isQuestion?: boolean;
+  name?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  icon: 'mdi-cube',
+  isEmpty: () => () => false,
+  isQuestion: false,
+  name: 'Content Element',
+});
+
+const isElementEmpty = computed(() => {
+  if (!element.value?.data) return true;
+  return props.isEmpty?.(element.value.data) ?? false;
+});
 
 const { VITE_SERVER_RUNTIME_URL } = import.meta.env;
 const serverRuntimeUrl = new URL(VITE_SERVER_RUNTIME_URL);
@@ -109,10 +147,14 @@ const onInteraction = async (data) => {
     console.log('Could not update user state', error);
   }
 };
+
+const onRetry = () => {
+  userState.value = {};
+};
 </script>
 
 <style lang="scss" scoped>
 .v-application {
-  background-color: transparent !important;
+  background: transparent;
 }
 </style>

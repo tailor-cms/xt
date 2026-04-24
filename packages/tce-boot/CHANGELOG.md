@@ -1,5 +1,30 @@
 # @tailor-cms/tce-boot
 
+## 2.0.1
+
+### Patch Changes
+
+- Fix resetState to include prompt for isQuestion condition.
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@2.0.1
+  - @tailor-cms/tce-server-runtime@2.0.1
+  - @tailor-cms/tce-edit-runtime@2.0.1
+  - @tailor-cms/tce-preview-runtime@2.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- Major bump to track the 2.0 runtime versions (no boot-script API changes).
+
+### Patch Changes
+
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@2.0.0
+  - @tailor-cms/tce-server-runtime@2.0.0
+  - @tailor-cms/tce-edit-runtime@2.0.0
+  - @tailor-cms/tce-preview-runtime@2.0.0
+
 ## 1.3.2
 
 ### Patch Changes

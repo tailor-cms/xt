@@ -5,7 +5,7 @@
         <div class="splash-loader__anim">
           <img :src="logo" alt="Logo" width="88" />
         </div>
-        <div class="splash-loader__text text-body-1">
+        <div class="splash-loader__text text-body-large">
           <div>Booting Content Element Kit....</div>
           <div class="font-weight-bold">v{{ version }}</div>
         </div>
@@ -44,9 +44,9 @@ onMounted(() => {
 $splash-color: var(--splash-color);
 
 .splash-loader {
-  flex: 1;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81,7 +81,7 @@ $splash-color: var(--splash-color);
   transition: opacity 0.3s;
 }
 
-.fade-enter,
+.fade-enter-from,
 .fade-leave-to {
   opacity: 0;
 }

@@ -1,5 +1,26 @@
 # @tailor-cms/tce-preview-runtime
 
+## 2.0.1
+
+### Patch Changes
+
+- Fix resetState to include prompt for isQuestion condition.
+- Updated dependencies
+  - @tailor-cms/cek-common@2.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- Uses `vite-plugin-vuetify` for Vuetify tree-shaking in the preview shell.
+- ThemeDialog integration for edit and display panels.
+- Propagates `initConfig` through edit and display panels.
+
+### Patch Changes
+
+- Updated dependencies
+  - @tailor-cms/cek-common@2.0.0
+
 ## 1.3.2
 
 ### Patch Changes

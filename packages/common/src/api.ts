@@ -1,8 +1,11 @@
+import mitt, { type Emitter } from 'mitt';
 import ky from 'ky';
-import mitt from 'mitt';
+
+import { InitConfig } from './element-interfaces';
 
 const endpoint = {
   elementBase: 'content-element',
+  rpc: (procedure: string) => `${endpoint.elementBase}/rpc/${procedure}`,
   element: (id: string) => `${endpoint.elementBase}/${id}`,
   resetElement: (id: string) => `${endpoint.element(id)}/reset-element`,
   setState: (id: string) => `${endpoint.element(id)}/set-state`,
@@ -12,11 +15,23 @@ const endpoint = {
   generateContent: 'ai/generate',
 };
 
+export interface ApiClient {
+  getElement: (id: string) => Promise<any>;
+  updateElement: (id: string, data: any) => Promise<any>;
+  resetElement: (id: string, config?: InitConfig) => Promise<any>;
+  setState: (id: string, index: number) => Promise<any>;
+  resetState: (id: string) => Promise<any>;
+  getContexts: (id: string) => Promise<any>;
+  reportUserActivity: (id: string, data: any) => Promise<any>;
+  rpc: (procedure: string, payload?: any) => Promise<any>;
+  generateContent: (context: string) => Promise<any>;
+}
+
 export const getApiClient = (
   url: string,
   runtime: 'authoring' | 'delivery' = 'authoring',
-) => {
-  const api = ky.create({ prefixUrl: url, timeout: false });
+): ApiClient => {
+  const api = ky.create({ prefix: url, timeout: false });
   const opts = { searchParams: { runtime } };
 
   const getElement = (id: string): Promise<any> =>
@@ -31,14 +46,17 @@ export const getApiClient = (
   const resetState = (id: string): Promise<any> =>
     api.post(endpoint.resetState(id));
 
-  const resetElement = (id: string): Promise<any> =>
-    api.post(endpoint.resetElement(id));
+  const resetElement = (id: string, config?: InitConfig): Promise<any> =>
+    api.post(endpoint.resetElement(id), { json: config });
 
   const getContexts = (id: string): Promise<any> =>
     api(endpoint.getContexts(id)).json();
 
   const reportUserActivity = (id: string, data: any): Promise<any> =>
     api.post(endpoint.reportActivity(id), { json: data });
+
+  const rpc = (procedure: string, payload?: any): Promise<any> =>
+    api.post(endpoint.rpc(procedure), { json: payload }).json();
 
   const generateContent = (context: string): Promise<any> =>
     api.post(endpoint.generateContent, { json: { context } }).json();
@@ -51,6 +69,7 @@ export const getApiClient = (
     resetState,
     getContexts,
     reportUserActivity,
+    rpc,
     generateContent,
   };
 };
@@ -67,7 +86,10 @@ const getWsRoute = (serverRuntimeUrl: URL, elementId: string) => {
   return `${wsProtocol}//${serverRuntimeUrl.host}?id=${elementId}`;
 };
 
-export const initWebSocket = (serverRuntimeUrl: URL, elementId: string) => {
+export const initWebSocket = (
+  serverRuntimeUrl: URL,
+  elementId: string,
+): Emitter<Record<string, unknown>> => {
   const ws = new WebSocket(getWsRoute(serverRuntimeUrl, elementId));
   ws.onmessage = (e) => {
     const { entityId, type, payload } = JSON.parse(e?.data) as ServerEvent;

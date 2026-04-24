@@ -1,6 +1,5 @@
 import expandPath from 'untildify';
 import { mkdirp } from 'mkdirp';
-import Promise from 'bluebird';
 import urlJoin from 'url-join';
 
 import * as fsp from 'node:fs/promises';
@@ -28,7 +27,7 @@ class FilesystemStorage {
   getFile(key, options = {}) {
     return fsp.readFile(this.path(key), options).catch((err) => {
       if (isNotFound(err)) return null;
-      return Promise.reject(err);
+      throw err;
     });
   }
 

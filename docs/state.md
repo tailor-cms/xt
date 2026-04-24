@@ -4,7 +4,7 @@
 
 Content Element `Edit` component has the ability to emit the `data` object
 that needs to be stored by the `Tailor CMS`; which is later on used to render
-`Display` component. This is achived by emitting the `save` event.
+`Display` component. This is achieved by emitting the `save` event.
 The emitted `data` is stored on the `ContentElement` entity under the
 same key. Here is a Content Element `Edit` Counter component from the Example
 section, displaying the amount of times user clicked on a button:
@@ -18,10 +18,10 @@ section, displaying the amount of times user clicked on a button:
 </template>
 
 <script setup lang="ts">
-import { Element } from 'tce-manifest';
+import { Element, ElementData } from 'tce-manifest';
 
 const props = defineProps<{ element: Element }>();
-const emit = defineEmits(['save']);
+const emit = defineEmits<{ save: [data: ElementData] }>();
 
 const increment = () => {
   const { data } = props.element;
@@ -30,6 +30,12 @@ const increment = () => {
 };
 </script>
 ```
+
+Question elements use the `@update` event instead of `@save`. The emitted data
+can be partial (only the changed fields). The `QuestionCard` merges the update
+into its local state and handles persistence based on the `autosave`
+configuration. See the [Edit package](/edit-package#question-elements) docs
+for more details.
 
 ## Initializing the state
 
@@ -94,7 +100,7 @@ specification, please visit dedicated sections within the documentation.
 
 Content Element Kit fully replicates `Tailor CMS` Content Element model to
 ensure consistency and compatibility. The same `ORM` is used to instantiate
-entities on the backend (`Sequalize.js`), and compatible mechanism is
+entities on the backend (`Sequelize.js`), and compatible mechanism is
 implemented to hydrate front-end component in case of changes.
 
 ```ts
@@ -159,4 +165,4 @@ interface ContentElement {
 ```
 
 Full Content Element entity ORM instance is available within server-side hooks.
-For more info on that. Please visit `Server package` section.
+For more info, please visit the `Server package` section.

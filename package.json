@@ -3,19 +3,23 @@
   "version": "1.0.0",
   "description": "Tailor extensions kit",
   "license": "MIT",
-  "sideEffects": false,
   "type": "module",
+  "private": true,
   "scripts": {
-    "start:example": "pnpm -r --filter=./example run dev",
-    "lint": "pnpm -r --filter=./example run lint",
-    "build": "pnpm -r --filter=!./example/packages/** run build",
-    "nuke:dist": "pnpm -r --filter=!./example/packages/** run nuke:dist",
-    "nuke": "pnpm -r --filter=!./example/packages/** run nuke && pnpm dlx del-cli node_modules"
+    "dev": "node scripts/dev.js",
+    "lint": "pnpm -r --filter=!./examples/**/packages/** run lint",
+    "build": "pnpm -r --filter=!./examples/**/packages/** run build",
+    "nuke:dist": "pnpm -r --filter=!./examples/**/packages/** run nuke:dist",
+    "nuke": "pnpm -r --filter=!./examples/**/packages/** run nuke && pnpm dlx del-cli node_modules"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.5",
-    "eslint": "^9.30.1",
-    "prettier": "^3.6.2"
+    "@changesets/cli": "^2.31.0",
+    "@inquirer/select": "^5.1.4",
+    "eslint": "^9.39.4",
+    "prettier": "^3.8.3"
   },
-  "packageManager": "pnpm@10.12.3"
+  "packageManager": "pnpm@10.12.4",
+  "engines": {
+    "node": ">=24"
+  }
 }

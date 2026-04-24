@@ -10,7 +10,7 @@
         >
           <VCardTitle class="d-flex align-center">
             <v-icon color="orange-darken-3" icon="mdi-update" size="18" start />
-            <div class="text-body-1">{{ item.raw.title }}</div>
+            <div class="text-body-large">{{ item.raw.title }}</div>
           </VCardTitle>
           <VCardText
             v-show="isExpanded(item as any) || index === 0"
@@ -32,6 +32,6 @@ defineProps<{ changes: any[] }>();
 
 <style scoped lang="scss">
 .v-card--disabled > :not(.v-card__loader) {
-  opacity: 1 !important;
+  opacity: 1;
 }
 </style>

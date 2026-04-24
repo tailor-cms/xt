@@ -1,5 +1,30 @@
 # @tailor-cms/tce-display-runtime
 
+## 2.0.1
+
+### Patch Changes
+
+- Fix resetState to include prompt for isQuestion condition.
+- Updated dependencies
+  - @tailor-cms/cek-common@2.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- Question auto-wrap: QuestionForm applied automatically by the runtime.
+  Question Display components must now emit `user-input` instead of
+  `interaction`; QuestionForm captures it, validates on submit, and forwards
+  `interaction` to the runtime.
+- `QuestionContainer` renamed to `QuestionForm`.
+- ThemeDialog for previewing elements under custom Vuetify themes.
+- `initConfig` propagated to the element's `initState`.
+
+### Patch Changes
+
+- Updated dependencies
+  - @tailor-cms/cek-common@2.0.0
+
 ## 1.3.2
 
 ### Patch Changes

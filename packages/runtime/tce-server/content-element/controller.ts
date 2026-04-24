@@ -1,11 +1,13 @@
 import { pick } from 'lodash-es';
+import { v4 as uuid } from '@lukeed/uuid/secure';
 
 import DisplayContextService from './DisplayContextService';
 import { emitter } from '../common/emitter';
 import { getTceConfig } from '../common/config';
 import initHooks from './hooks';
+import StorageService from '../storage/storage.service';
 
-export default ({ type, initState, hookMap }) => {
+export default ({ type, initState, isQuestion, hookMap, procedures }) => {
   const { applyFetchHooks, beforeDisplay, processInteraction } =
     initHooks(hookMap);
 
@@ -37,8 +39,21 @@ export default ({ type, initState, hookMap }) => {
     return res.json(data);
   }
 
-  async function resetAuthoringState({ element }, res) {
-    await element.update({ type, data: initState(), meta: {}, refs: {} });
+  async function resetAuthoringState({ element, body }, res) {
+    const data = initState(body);
+    if (isQuestion) {
+      const id = uuid();
+      const question = {
+        id,
+        data: { content: '' },
+        type: 'EXAMPLE',
+        position: 1,
+        embedded: true,
+      };
+      data.question = [id];
+      data.embeds = { [id]: question };
+    }
+    await element.update({ type, data, meta: {}, refs: {} });
     return res.status(200).end();
   }
 
@@ -67,6 +82,20 @@ export default ({ type, initState, hookMap }) => {
     return get(req, res);
   }
 
+  async function rpcHandler({ body, params }, res) {
+    const { procedure } = params;
+    const handler = procedures?.[procedure];
+    if (!handler) {
+      return res
+        .status(404)
+        .json({ error: `Procedure "${procedure}" not found` });
+    }
+    const config = { tce: getTceConfig(process.env) };
+    const services = { config, storage: StorageService };
+    const result = await handler(services, body);
+    return res.json({ data: result });
+  }
+
   return {
     get,
     getUserStateContexts,
@@ -75,5 +104,6 @@ export default ({ type, initState, hookMap }) => {
     resetAuthoringState,
     resetUserStateContext,
     setUserStateContext,
+    rpcHandler,
   };
 };

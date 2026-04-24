@@ -2,20 +2,23 @@
   <div>
     <VTabs v-model="state.selectedTab">
       <VTab :value="1">
-        <VChip append-icon="mdi-pen" class="mr-2" color="indigo" size="small">
-          {{ state.elementHistory.length }}
-        </VChip>
+        <VChip
+          :text="state.elementHistory.length"
+          append-icon="mdi-pen"
+          class="mr-2"
+          color="indigo"
+          size="small"
+        />
         Authoring history
       </VTab>
       <VTab :value="2">
         <VChip
+          :text="state.userInteractions.length"
           append-icon="mdi-account"
           class="mr-2"
           color="green"
           size="small"
-        >
-          {{ state.userInteractions.length }}
-        </VChip>
+        />
         End-User state history
       </VTab>
     </VTabs>
@@ -24,25 +27,23 @@
         <VWindowItem :value="1" class="authoring-window">
           <VBtn
             class="mb-4"
-            color="indigoDarken4"
+            color="indigo-darken-4"
+            prepend-icon="mdi-refresh"
+            text="Reset content element"
             variant="tonal"
             @click="$emit('resetElement')"
-          >
-            <VIcon class="mr-2 left">mdi-refresh</VIcon>
-            Reset content element
-          </VBtn>
+          />
           <MutationList :changes="state.elementHistory" />
         </VWindowItem>
         <VWindowItem :value="2" class="user-state-window">
           <VBtn
             class="mb-4"
-            color="indigoDarken4"
+            color="indigo-darken-4"
+            prepend-icon="mdi-refresh"
+            text="Reset state context"
             variant="tonal"
             @click="$emit('resetState')"
-          >
-            <VIcon class="mr-2 left">mdi-refresh</VIcon>
-            Reset state context
-          </VBtn>
+          />
           <MutationList :changes="state.userInteractions" />
         </VWindowItem>
       </VWindow>

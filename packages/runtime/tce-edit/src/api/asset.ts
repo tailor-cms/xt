@@ -1,34 +1,22 @@
-import type {
-  FileUploadResponse,
-  UploadFormData,
-} from '@tailor-cms/cek-common';
+import type { FileUploadResponse } from '@tailor-cms/cek-common';
+import ky from 'ky';
 
-import request from './request';
-
-const urls = {
-  base: () => '/assets',
-};
+const api = ky.create({
+  prefix: import.meta.env.VITE_SERVER_RUNTIME_URL,
+  timeout: false,
+});
 
 function getUrl(assetKey: string): Promise<string> {
-  const params = { key: assetKey };
-  return request.get(urls.base(), { params }).then((res) => res.data.url);
+  return api
+    .get('assets', { searchParams: { key: assetKey } })
+    .json<{ url: string }>()
+    .then((res) => res.url);
 }
 
-function upload(data: UploadFormData): Promise<FileUploadResponse> {
-  return request
-    .post(urls.base(), data, {
-      headers: {
-        /*
-        The default value of the Content-Type header is set to `application/json`
-        inside the `./request.js` file, which implies the provided data will be
-        serialized as JSON. Unsetting the header instructs Axios to determine
-        the header and serialization based on the type of the provided data.
-        https://github.com/axios/axios/issues/5556#issuecomment-1434668134
-        */
-        'Content-Type': undefined,
-      },
-    })
-    .then((res) => res.data);
+function upload(file: File): Promise<FileUploadResponse> {
+  const form = new FormData();
+  form.append('file', file, file.name);
+  return api.post('assets', { body: form }).json<FileUploadResponse>();
 }
 
 export default {

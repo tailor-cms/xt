@@ -7,5 +7,16 @@
   "access": "restricted",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": []
+  "ignore": [
+    "tce-counter",
+    "tce-counter-manifest",
+    "tce-counter-edit",
+    "tce-counter-display",
+    "tce-counter-server",
+    "tce-question",
+    "tce-question-manifest",
+    "tce-question-edit",
+    "tce-question-display",
+    "tce-question-server"
+  ]
 }

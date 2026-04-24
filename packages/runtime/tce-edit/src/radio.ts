@@ -24,7 +24,7 @@ export function extendedMitt<Events extends Record<EventType, unknown>>(
     instance.on(type, fn);
     instance.on(type, instance.off.bind(instance, type, fn));
   };
-  return instance as unknown as ExtendedMitt;
+  return instance;
 }
 
 class Channel {

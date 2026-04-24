@@ -1,41 +1,43 @@
 <template>
-  <VAppBar color="blue-grey-darken-4" elevation="6">
+  <VAppBar color="blue-grey-darken-4" elevation="3">
     <template #prepend>
       <VAppBarNavIcon class="ml-2">
         <img :src="logoUrl" alt="Tailor logo" width="36" />
       </VAppBarNavIcon>
     </template>
-    <VAppBarTitle class="ml-2">
-      Content Element Kit
+    <VAppBarTitle class="ml-2" text="Content Element Kit">
       <VChip
-        class="ml-3 mb-1 text-body-2"
+        :text="version"
+        class="ml-3 mb-1 text-body-medium"
         color="#23F48B"
         density="compact"
         variant="tonal"
-      >
-        {{ version }}
-      </VChip>
+      />
     </VAppBarTitle>
-    <VBtnToggle class="mr-4" density="compact">
-      <VBtn @click="showEdit">
-        <span>Authoring</span>
-        <VIcon end>mdi-pencil</VIcon>
-      </VBtn>
-      <VBtn @click="showDisplay">
-        <span>End-user</span>
-        <VIcon end>mdi-fullscreen</VIcon>
-      </VBtn>
-      <VBtn @click="showBothComponents">
-        <span>Both</span>
-        <VIcon end>mdi-math-norm-box</VIcon>
-      </VBtn>
+    <VBtnToggle
+      base-color="white"
+      class="mr-4"
+      density="compact"
+      variant="tonal"
+    >
+      <VBtn append-icon="mdi-pencil" text="Authoring" @click="showEdit" />
+      <VBtn append-icon="mdi-fullscreen" text="End-user" @click="showDisplay" />
+      <VBtn
+        append-icon="mdi-math-norm-box"
+        text="Both"
+        @click="showBothComponents"
+      />
     </VBtnToggle>
-    <VBtn href="https://github.com/tailor-cms/tce-template" icon>
-      <VIcon>mdi-github</VIcon>
-    </VBtn>
-    <VBtn href="https://tailor-cms.github.io/xt/" icon>
-      <VIcon>mdi-book-outline</VIcon>
-    </VBtn>
+    <VBtn
+      aria-label="GitHub"
+      href="https://github.com/tailor-cms/tce-template"
+      icon="mdi-github"
+    />
+    <VBtn
+      aria-label="Documentation"
+      href="https://tailor-cms.github.io/xt/"
+      icon="mdi-book-outline"
+    />
   </VAppBar>
 </template>
 

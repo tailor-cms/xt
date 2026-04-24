@@ -1,3 +1,16 @@
+<template>
+  <VApp>
+    <AppBar />
+    <MainLayout
+      :element="element"
+      :user-state="userState"
+      class="mt-14"
+      @reset-element="element && resetElement(element)"
+      @reset-state="element && api.resetState(element.uid)"
+    />
+  </VApp>
+</template>
+
 <script setup lang="ts">
 import {
   getApiClient,
@@ -33,9 +46,9 @@ async function load(id: string): Promise<any> {
   }
 }
 
-async function resetElement(id: string) {
-  await api.resetState(id);
-  return api.resetElement(id);
+async function resetElement(element: Element) {
+  await api.resetState(element.uid);
+  return api.resetElement(element.uid, { isGradable: element.data.isGradable });
 }
 
 onMounted(async () => {
@@ -48,19 +61,6 @@ onMounted(async () => {
   wsBus.on('userContext:change', (v: { index: number }) => load(elementId));
 });
 </script>
-
-<template>
-  <VApp>
-    <AppBar />
-    <MainLayout
-      :element="element"
-      :user-state="userState"
-      class="mt-14"
-      @reset-element="element && resetElement(element.uid)"
-      @reset-state="element && api.resetState(element.uid)"
-    />
-  </VApp>
-</template>
 
 <style>
 body {

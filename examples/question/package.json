@@ -1,0 +1,38 @@
+{
+  "name": "tce-question",
+  "description": "Question element example",
+  "version": "0.0.1",
+  "author": "Studion <info@gostudion.com>",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./edit": {
+      "import": "./packages/edit/dist/index.js",
+      "require": "./packages/edit/dist/index.cjs"
+    },
+    "./display": {
+      "import": "./packages/display/dist/index.js",
+      "require": "./packages/display/dist/index.cjs"
+    },
+    "./server": "./packages/server/dist/index.js"
+  },
+  "scripts": {
+    "dev": "pnpm boot:cek",
+    "boot:cek": "cd ./node_modules/@tailor-cms/tce-boot && pnpm start --default-display",
+    "build": "pnpm -r --filter=./** run build",
+    "lint": "pnpm -r --filter=./** run lint",
+    "lint:fix": "pnpm -r --filter=./** run lint --fix",
+    "nuke:dist": "pnpm -r --filter=./** run nuke:dist",
+    "nuke": "pnpm -r --filter=./** run nuke && pnpm dlx del-cli node_modules",
+    "test": "playwright test --config test/playwright.config.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@tailor-cms/cek-e2e": "workspace:*",
+    "@tailor-cms/eslint-config": "workspace:*",
+    "@tailor-cms/tce-boot": "workspace:*",
+    "@types/node": "^24.12.2",
+    "dotenv": "^17.4.2",
+    "typescript": "^6.0.3"
+  }
+}

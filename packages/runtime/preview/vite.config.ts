@@ -18,6 +18,7 @@ Object.entries(config).forEach(([k, v]) => (process.env[`VITE_${k}`] = v));
 export default defineConfig((): any => {
   return {
     root: './src',
+    publicDir: '../public',
     server: {
       // Accept connections from any host (Docker)
       host: '0.0.0.0',

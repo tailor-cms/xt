@@ -5,8 +5,8 @@ import { v4 as uuid } from '@lukeed/uuid/secure';
 import { WebSocketServer } from 'ws';
 
 import { ai as aiConfig, port } from './config';
-import ai from './ai/index';
-import contentElement from './content-element/index';
+import ai from './ai';
+import contentElement from './content-element';
 import DisplayContextService from './content-element/DisplayContextService';
 import http from 'node:http';
 import { initDb } from './db';
@@ -21,6 +21,7 @@ function initApp({
   isQuestion,
   isGradable,
   hookMap,
+  procedures,
   mocks,
 }) {
   DisplayContextService.initialize(mocks.displayContexts);
@@ -34,6 +35,7 @@ function initApp({
     isQuestion,
     isGradable,
     hookMap,
+    procedures,
   });
   app.use(contentElement.path, contentElementRouter);
   if (aiConfig.isConfigured) {
@@ -43,7 +45,7 @@ function initApp({
   app.use(storageRouter.path, storageRouter.router);
   app.use(express.static(storageConfig.storagePath));
 
-  const httpServer = http.createServer(app); // eslint-disable-line @typescript-eslint/no-misused-promises
+  const httpServer = http.createServer(app);
   httpServer.listen(port, () => {
     console.log(`Tailor content element backend listening on port ${port}`);
   });
@@ -66,6 +68,7 @@ export default async function run({
   isQuestion,
   isGradable,
   hookMap,
+  procedures,
   mocks,
 }) {
   await initDb(hookMap);
@@ -75,6 +78,7 @@ export default async function run({
     isQuestion,
     isGradable,
     hookMap,
+    procedures,
     mocks,
     aiSchema,
   });

@@ -2,7 +2,6 @@ import { defineConfig, UserConfig } from 'vite';
 import dotenv from 'dotenv';
 import { pick } from 'lodash-es';
 import vue from '@vitejs/plugin-vue';
-import vuetify from 'vite-plugin-vuetify';
 
 import { fileURLToPath } from 'url';
 import path from 'node:path';
@@ -30,14 +29,12 @@ export default defineConfig((): UserConfig => {
   const displayModulePath = path.relative(viteConfigPath, TCE_DISPLAY_DIR);
   return {
     root: './src',
+    publicDir: '../public',
     logLevel: 'warn',
     server: {
       // Accept connections from any host (Docker)
       host: '0.0.0.0',
       port: parseInt(DISPLAY_RUNTIME_PORT, 10),
-    },
-    resolve: {
-      preserveSymlinks: true,
     },
     define: {
       'import.meta.env.DISPLAY_DIR': JSON.stringify(env.TCE_DISPLAY_DIR),
@@ -45,6 +42,6 @@ export default defineConfig((): UserConfig => {
     optimizeDeps: {
       include: [displayModulePath.replace(/\/dist$/, '')],
     },
-    plugins: [vue(), vuetify({ autoImport: true })],
+    plugins: [vue()],
   };
 });

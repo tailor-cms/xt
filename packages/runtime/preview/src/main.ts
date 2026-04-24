@@ -1,5 +1,6 @@
 import '@mdi/font/css/materialdesignicons.css';
 import 'vuetify/styles';
+import './reset.css';
 
 import { createApp } from 'vue';
 import { createVuetify } from 'vuetify';
@@ -7,5 +8,10 @@ import { createVuetify } from 'vuetify';
 import App from './App.vue';
 
 createApp(App)
-  .use(createVuetify({ icons: { defaultSet: 'mdi' } }))
+  .use(
+    createVuetify({
+      theme: { defaultTheme: 'light' },
+      icons: { defaultSet: 'mdi' },
+    }),
+  )
   .mount('#app');

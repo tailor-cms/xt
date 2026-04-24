@@ -1,5 +1,29 @@
 # @tailor-cms/cek-common
 
+## 2.0.1
+
+### Patch Changes
+
+- Fix resetState to include prompt for isQuestion condition.
+
+## 2.0.0
+
+### Major Changes
+
+- Typed hook signatures: `ElementHook`, `BeforeDisplayHook`, `OnUserInteractionHook`, `ProcedureHandler`.
+- `ServerModule` and `HookMap` types for typed server package default exports.
+- `AiConfig` type for AI generation configuration.
+- `RpcCaller` type for client-side RPC injection.
+- `ElementReferences` type for element linking (`Record<string, Partial<Element>[]>`).
+- `InitConfig` type and `DataInitializer<TData>` signature change — `initState` now receives a config object (`isGradable`, plus open extension keys).
+- `ElementMocks` interface extracted as the canonical type for the `mocks` manifest field; `displayContexts` now optional.
+- `DisplayContext` relocated to `element-interfaces` so it can type the `data` field of display-context presets without circular imports.
+- `mocks.referencesData` field for custom mock linked element data.
+- `isEmpty` manifest function for required element validation.
+- `showFeedback` manifest field to toggle per-answer feedback authoring in the edit runtime.
+- Storage API: `upload` accepts a single `File` instead of `FormData`; removed `createUploadForm` and `UploadFormData`.
+- Build toolchain migrated from tsup to tsdown.
+
 ## 1.3.2
 
 ### Patch Changes

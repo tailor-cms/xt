@@ -1,13 +1,14 @@
 import '@mdi/font/css/materialdesignicons.css';
-import 'vuetify/styles';
 
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import { createVuetify } from 'vuetify';
-import { md3 } from 'vuetify/blueprints';
 
-const defaultTheme = {
+const tailorTheme = {
+  variables: {
+    'medium-emphasis-opacity': 0.75,
+  },
   colors: {
     primary: '#607D8B',
     'primary-darken-1': '#546E7A',
@@ -45,11 +46,10 @@ const defaultTheme = {
 export default createVuetify({
   components,
   directives,
-  blueprint: md3,
   theme: {
     defaultTheme: 'default',
     themes: {
-      default: defaultTheme,
+      default: tailorTheme,
     },
   },
   icons: {

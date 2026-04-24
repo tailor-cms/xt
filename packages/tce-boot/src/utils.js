@@ -22,12 +22,22 @@ export const freeUpPorts = async (ports) => {
   }
 };
 
+// Wait until nothing is listening on the given port
+const waitForPortFree = async (port, timeout = 5000) => {
+  const start = Date.now();
+  while (Date.now() - start < timeout) {
+    const pid = await getPidFromPort(port);
+    if (!pid) return;
+    await setTimeout(100);
+  }
+};
+
 // Restart command spawned by the 'concurrently' package
 export const restartCmd = async (command, port) => {
   try {
     const pid = await getPidFromPort(port);
     if (pid) await fkill(pid, { force: true });
-    await setTimeout(1000);
+    await waitForPortFree(port);
   } finally {
     command.start();
   }

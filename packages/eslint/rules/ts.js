@@ -11,11 +11,12 @@ export default config({
   rules: {
     '@typescript-eslint/dot-notation': [
       'error',
-      {
-        allowPrivateClassPropertyAccess: true,
-      },
+      { allowPrivateClassPropertyAccess: true },
     ],
-    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+    ],
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unsafe-call': 'off',
     '@typescript-eslint/no-unsafe-argument': 'off',

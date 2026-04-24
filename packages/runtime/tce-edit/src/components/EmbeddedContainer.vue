@@ -45,17 +45,16 @@
 <script setup lang="ts">
 import { cloneDeep, sortBy } from 'lodash-es';
 import { computed, ref } from 'vue';
-import { v4 } from 'uuid';
-import type { VBtn } from 'vuetify/components';
+import { v4 as uuid } from '@lukeed/uuid/secure';
 
 import ContentElement from './ContentElement.vue';
 
 interface AddElementOptions {
-  large: boolean;
-  label: string;
-  icon: string;
-  color: string;
-  variant: VBtn['variant'];
+  large?: boolean;
+  label?: string;
+  icon?: string;
+  color?: string;
+  variant?: 'elevated' | 'flat' | 'tonal' | 'outlined' | 'text' | 'plain';
 }
 
 interface Props {
@@ -92,13 +91,13 @@ const addBtnProps = computed(() => {
     icon = 'mdi-plus',
     color = 'primary-darken-4',
     variant = 'tonal',
-  } = props.addElementOptions;
-  if (!large) return { icon, color, variant, size: 'small' };
+  } = props.addElementOptions ?? {};
+  if (!large) return { icon, color, variant, size: 'small', ariaLabel: label };
   return { text: label, prependIcon: icon, color, variant };
 });
 
 const createEmbedElement = () => ({
-  id: v4(),
+  id: uuid(),
   data: {
     content: '',
     width: 12,

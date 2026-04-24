@@ -1,4 +1,4 @@
-import * as ai from './ai.js';
+import * as ai from './ai';
 
 const { SERVER_RUNTIME_PORT, SERVER_RUNTIME_URL } = process.env;
 

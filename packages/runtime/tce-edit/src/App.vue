@@ -1,114 +1,52 @@
 <template>
   <VApp>
     <VMain class="pa-4">
-      <VContainer>
+      <VContainer max-width="68.75rem" fluid>
         <VRow>
           <VCol>
             <VSheet class="d-flex align-end" color="transparent" height="40">
               <VChip
-                class="elevation-2 body-2 font-weight-bold"
-                color="primary-darken-1"
+                class="text-body-medium font-weight-bold"
+                color="primary-lighten-4"
+                variant="elevated"
                 label
               >
                 Authoring component
               </VChip>
               <VSpacer />
               <VBtn
-                v-if="isAiEnabled"
-                :disabled="isReadonly || isGeneratingContent"
+                :disabled="isEmpty"
+                class="mr-2"
+                color="teal-darken-2"
+                prepend-icon="mdi-restore"
+                text="Reset"
+                variant="tonal"
+                @click="reset"
+              />
+              <VBtn
+                v-if="config.isAiEnabled"
+                :disabled="settings.isReadonly || isGeneratingContent"
                 class="mr-2"
                 color="indigo-darken-2"
                 prepend-icon="mdi-creation"
-                size="small"
-                text="Do the magic"
+                text="Generate"
                 variant="tonal"
                 @click="doTheMagic"
               />
-              <VMenu :close-on-content-click="false" width="300" offset-y>
-                <template #activator="{ props: menuProps }">
-                  <VBtn
-                    v-bind="menuProps"
-                    color="primary-darken-2"
-                    prepend-icon="mdi-cog"
-                    size="small"
-                    text="Settings"
-                    variant="tonal"
-                  />
-                </template>
-                <VCard class="pa-4">
-                  <div class="settings-header text-overline">
-                    <VIcon icon="mdi-cog" size="small" start />
-                    Element Props
-                  </div>
-                  <VCheckbox
-                    v-model="isReadonly"
-                    color="primary"
-                    density="comfortable"
-                    label="Readonly"
-                    hide-details
-                  />
-                  <VCheckbox
-                    v-model="persistFocus"
-                    :disabled="isReadonly"
-                    color="primary"
-                    density="comfortable"
-                    label="Focused"
-                    hide-details
-                  />
-                  <VCheckbox
-                    v-model="isDragged"
-                    :disabled="isReadonly"
-                    color="primary"
-                    density="comfortable"
-                    label="Dragged"
-                    hide-details
-                  />
-                  <div class="settings-header text-overline mt-4">
-                    <VIcon icon="mdi-cube" size="small" start />
-                    Element Data
-                  </div>
-                  <VCheckbox
-                    :disabled="forceFullWidth"
-                    :false-value="12"
-                    :model-value="element.data.width"
-                    :true-value="6"
-                    color="primary"
-                    density="comfortable"
-                    label="Half width"
-                    hide-details
-                    @click.prevent="confirm(toggleHalfWidth)"
-                  />
-                  <VCheckbox
-                    v-if="isQuestion"
-                    :disabled="isToggleGradableDisabled"
-                    :model-value="isGradable"
-                    color="primary"
-                    density="comfortable"
-                    label="Gradable"
-                    hide-details
-                    @click.prevent="confirm(toggleGradable)"
-                  />
-                  <template v-if="isAiEnabled">
-                    <div class="settings-header text-overline mt-4">
-                      <VIcon icon="mdi-creation" size="small" start />
-                      AI Context
-                    </div>
-                    <VTextarea
-                      v-if="isAiEnabled"
-                      v-model="aiContext"
-                      placeholder="Enter context for AI generation..."
-                      rows="3"
-                      variant="outlined"
-                      hide-details
-                    />
-                  </template>
-                </VCard>
-              </VMenu>
+              <ElementSettings
+                v-if="element?.data"
+                v-model:settings="settings"
+                :config="config"
+                :element="element"
+                @toggle-gradable="confirm(toggleGradable)"
+                @toggle-half-width="confirm(toggleHalfWidth)"
+              />
+              <ThemeDialog class="ml-1" />
             </VSheet>
-            <VSheet class="mt-6 pa-8" color="white" elevation="3" rounded="lg">
+            <VSheet class="mt-6 pa-8" color="white" elevation="2" rounded="lg">
               <div
                 v-if="isGeneratingContent"
-                class="d-flex flex-wrap justify-center py-16"
+                class="d-flex flex-column align-center py-16"
               >
                 <VProgressCircular
                   class="w-100"
@@ -130,22 +68,25 @@
                 <VCol v-if="element?.data" :cols="element.data.width ?? 12">
                   <VSheet
                     v-click-outside="{
-                      handler: () => !persistFocus && unfocusElement(),
+                      handler: () => !settings.persistFocus && unfocusElement(),
                       include,
                     }"
                     :class="{ focused: isFocused }"
                     class="edit-frame"
-                    @click="!persistFocus && focusElement()"
+                    @click="!settings.persistFocus && focusElement()"
                   >
-                    <QuestionCard
+                    <QuestionForm
                       v-if="isQuestion"
                       v-bind="{
                         type,
                         icon,
                         element,
-                        isDragged,
-                        isReadonly,
+                        references,
+                        autosave: settings.autosave,
+                        isDragged: settings.isDragged,
+                        isReadonly: settings.isReadonly,
                         isFocused,
+                        showFeedback,
                       }"
                       @delete="onDelete"
                       @link="onLink"
@@ -155,8 +96,9 @@
                       v-else
                       v-bind="{
                         element,
-                        isDragged,
-                        isReadonly,
+                        references,
+                        isDragged: settings.isDragged,
+                        isReadonly: settings.isReadonly,
                         isFocused,
                       }"
                       @delete="onDelete"
@@ -169,11 +111,11 @@
             </VSheet>
           </VCol>
         </VRow>
-        <VRow v-if="TopToolbar">
+        <VRow v-if="TopToolbar && element?.data">
           <VCol>
             <div class="d-flex align-center">
               <VChip
-                class="elevation-2 my-3 body-2 font-weight-bold"
+                class="elevation-2 my-3 text-body-medium font-weight-bold"
                 color="grey-darken-3"
                 label
               >
@@ -182,7 +124,7 @@
             </div>
             <VSlideYTransition>
               <VSheet
-                v-if="element?.data && isFocused"
+                v-if="isFocused"
                 class="top-toolbar"
                 color="white"
                 elevation="1"
@@ -198,11 +140,11 @@
             </VSlideYTransition>
           </VCol>
         </VRow>
-        <VRow v-if="SideToolbar">
+        <VRow v-if="SideToolbar && element?.data">
           <VCol>
             <div class="d-flex align-center">
               <VChip
-                class="elevation-2 my-3 body-2 font-weight-bold"
+                class="elevation-2 my-3 text-body-medium font-weight-bold"
                 color="grey-darken-3"
                 label
               >
@@ -211,7 +153,7 @@
             </div>
             <VSlideXTransition>
               <VSheet
-                v-if="element?.data && isFocused"
+                v-if="isFocused"
                 class="side-toolbar"
                 color="primary-darken-2"
                 elevation="5"
@@ -230,13 +172,16 @@
       </VContainer>
     </VMain>
     <VDialog v-model="isLinkDialogVisible" width="500" attach persistent>
-      <VCard>
-        <VCardTitle class="text-h5">Link element dialog</VCardTitle>
-        <VCardText>
+      <VCard
+        class="text-left"
+        prepend-icon="mdi-information-variant-circle"
+        title="Link element dialog"
+      >
+        <template #text>
           In Tailor, this action will open a dialog to select a content element
-          to link to. The `refs` property is updated with mock data to reflect
-          the mocked selection.
-        </VCardText>
+          to link to. The <code>refs</code> property is updated with mock data
+          and a mock element is passed via the <code>references</code> prop.
+        </template>
         <VDivider />
         <VCardActions>
           <VSpacer />
@@ -256,24 +201,33 @@
 
 <script lang="ts" setup>
 import {
-  getApiClient,
-  initWebSocket,
-  resolveElementId,
-} from '@tailor-cms/cek-common';
-import {
+  computed,
   getCurrentInstance,
   inject,
   nextTick,
   onMounted,
   provide,
+  reactive,
   ref,
   watch,
 } from 'vue';
-import type { Element } from '@tailor-cms/cek-common';
+import type {
+  DataInitializer,
+  Element,
+  ElementReferences,
+} from '@tailor-cms/cek-common';
+import {
+  getApiClient,
+  initWebSocket,
+  resolveElementId,
+} from '@tailor-cms/cek-common';
+import { v4 as uuid } from '@lukeed/uuid/secure';
 
 import assetApi from './api/asset';
 import ConfirmationDialog from './components/ConfirmationDialog.vue';
-import QuestionCard from './components/QuestionCard.vue';
+import ElementSettings from './components/ElementSettings.vue';
+import QuestionForm from './components/QuestionForm/index.vue';
+import ThemeDialog from './components/ThemeDialog.vue';
 
 const { TopToolbar, SideToolbar } = getCurrentInstance().appContext.components;
 
@@ -282,50 +236,71 @@ const serverRuntimeUrl = new URL(VITE_SERVER_RUNTIME_URL);
 const api = getApiClient(VITE_SERVER_RUNTIME_URL);
 
 provide('$storageService', assetApi);
+provide('$rpc', (procedure: string, payload?: any) => {
+  return api.rpc(procedure, payload).then((res: any) => res.data);
+});
 
 const eventBus = inject<any>('$eventBus');
 const appChannel = eventBus.channel('app');
 
 interface Props {
+  initState: DataInitializer;
+  isEmpty: (data: Element['data']) => boolean;
   isQuestion?: boolean;
   isGradable?: boolean;
   isAiEnabled?: boolean;
+  showFeedback?: boolean;
   type?: string;
   icon?: string;
   forceFullWidth?: boolean;
+  mockReferences?: ElementReferences;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   isQuestion: false,
   isGradable: undefined,
   isAiEnabled: false,
+  showFeedback: true,
   type: 'Content Element',
   icon: 'mdi-cube',
   forceFullWidth: false,
+  mockReferences: () => ({}),
 });
 
 const emit = defineEmits(['save', 'delete']);
 
 const element = ref<Element>();
+const references = ref<ElementReferences>({});
 const isFocused = ref(false);
-const isReadonly = ref(false);
-const isDragged = ref(false);
-const persistFocus = ref(false);
-
 const isLinkDialogVisible = ref(false);
-const isGradable = ref(props.isGradable ?? true);
 const isGeneratingContent = ref(false);
 
-const aiContext = ref('');
+const settings = reactive({
+  isReadonly: false,
+  persistFocus: false,
+  isDragged: false,
+  autosave: !props.isQuestion,
+  isGradable: props.isGradable ?? true,
+  aiContext: '',
+});
 
-const isToggleGradableDisabled = ref(
-  props.isQuestion && props.isGradable !== undefined,
-);
+const config = ref({
+  isQuestion: props.isQuestion,
+  isToggleGradableDisabled: props.isQuestion && props.isGradable !== undefined,
+  forceFullWidth: props.forceFullWidth,
+  isAiEnabled: props.isAiEnabled,
+});
 
 const include = () => [
   document.querySelector('.top-toolbar'),
   document.querySelector('.side-toolbar'),
+  ...document.querySelectorAll('.v-overlay__content'),
 ];
+
+const isEmpty = computed(() => {
+  if (!element.value?.data) return false;
+  return props.isEmpty?.(element.value.data) ?? false;
+});
 
 onMounted(async () => {
   const elementId = resolveElementId();
@@ -336,14 +311,14 @@ onMounted(async () => {
 });
 
 const focusElement = () => {
-  if (!isReadonly.value) isFocused.value = true;
+  if (!settings.isReadonly) isFocused.value = true;
 };
 
 const unfocusElement = () => {
   isFocused.value = false;
 };
 
-const onSave = (data) => {
+const onSave = (data: any) => {
   updateElementData(data);
   emit('save', data);
 };
@@ -354,10 +329,10 @@ const onDelete = () => {
 
 const doTheMagic = async () => {
   isGeneratingContent.value = true;
-  persistFocus.value = false;
-  isDragged.value = false;
+  settings.persistFocus = false;
+  settings.isDragged = false;
   try {
-    const res = await api.generateContent(aiContext.value.trim());
+    const res = await api.generateContent(settings.aiContext.trim());
     const { width, isGradable } = element.value.data;
     await updateElementData({ ...res.data, width, isGradable });
   } catch (error) {
@@ -370,18 +345,22 @@ const doTheMagic = async () => {
   }
 };
 
-const onLink = () => {
+const onLink = (key = 'linked') => {
   isLinkDialogVisible.value = true;
-  const refs = {
-    linked: [
-      {
-        outlineId: 1,
-        containerId: 2,
-        id: 3,
-      },
-    ],
-  };
-  return api.updateElement(element.value.uid, { refs });
+  const dataItems = props.mockReferences?.[key] ?? [initState()];
+  const mockElements = dataItems.map((data, i) => ({
+    id: 1000 + i,
+    uid: `mock-ref-${i}`,
+    type: element.value?.type ?? 'UNKNOWN',
+    data,
+  }));
+  references.value = { ...references.value, [key]: mockElements };
+  const refs = mockElements.map((el) => ({
+    id: el.id,
+    outlineId: 1,
+    containerId: 2,
+  }));
+  api.updateElement(element.value.uid, { refs: { [key]: refs } });
 };
 
 const load = async (elementId: string) => {
@@ -389,7 +368,7 @@ const load = async (elementId: string) => {
     const response = await api.getElement(elementId);
     if (response === null) return;
     element.value = response?.element;
-    isGradable.value = element.value.data.isGradable as boolean;
+    settings.isGradable = element.value.data.isGradable as boolean;
   } catch (error) {
     console.log('Error on element get', error);
     setTimeout(() => load(elementId), 2000);
@@ -401,7 +380,7 @@ const resetState = () =>
     .resetState(element.value.uid)
     .catch((error) => console.log('Error on state reset', error));
 
-const updateElementData = async (data) => {
+const updateElementData = async (data: any) => {
   try {
     element.value = await api.updateElement(element.value.uid, { data });
   } catch (error) {
@@ -409,35 +388,43 @@ const updateElementData = async (data) => {
   }
 };
 
-const initState = async () => {
-  const { initState } = await import(
-    /* @vite-ignore */ import.meta.env.MANIFEST_DIR
-  );
-  return initState();
+const initState = () => props.initState({ isGradable: settings.isGradable });
+
+const reset = async () => {
+  const data = initState();
+  await updateElementData(data);
+  return resetState();
 };
 
 const toggleGradable = async () => {
-  const data = await initState();
-  const newGradableValue = !isGradable.value;
-  data.isGradable = newGradableValue;
-  if (!newGradableValue) delete data.correct;
+  settings.isGradable = !settings.isGradable;
+  const data = initState();
+  const id = uuid();
+  const question = {
+    id,
+    data: { content: '' },
+    type: 'EXAMPLE',
+    position: 1,
+    embedded: true,
+  };
+  data.question = [id];
+  data.embeds = { [id]: question };
   await updateElementData({
     ...data,
     width: element.value.data.width,
   });
-  isGradable.value = data.isGradable;
   return resetState();
 };
 
 const toggleHalfWidth = async () => {
-  const data = await initState();
+  const data = initState();
   const { width, isGradable } = element.value.data;
   const newWidth = width === 12 ? 6 : 12;
   await updateElementData({ ...data, width: newWidth, isGradable });
   return resetState();
 };
 
-const confirm = (action) => {
+const confirm = (action: any) => {
   return appChannel.emit('showConfirmationModal', {
     title: 'Are you sure?',
     message: 'This action will reset element data and state',
@@ -445,21 +432,27 @@ const confirm = (action) => {
   });
 };
 
-watch(persistFocus, (val) => {
-  if (val) isFocused.value = true;
-});
+watch(
+  () => settings.persistFocus,
+  (val) => {
+    if (val) isFocused.value = true;
+  },
+);
 
-watch(isReadonly, (val) => {
-  if (!val) return;
-  persistFocus.value = false;
-  isFocused.value = false;
-  isDragged.value = false;
-});
+watch(
+  () => settings.isReadonly,
+  (val) => {
+    if (!val) return;
+    settings.persistFocus = false;
+    isFocused.value = false;
+    settings.isDragged = false;
+  },
+);
 </script>
 
 <style lang="scss" scoped>
 .v-application {
-  background-color: transparent !important;
+  background: transparent;
 }
 
 .side-toolbar {
@@ -483,7 +476,7 @@ watch(isReadonly, (val) => {
       position: absolute;
       padding: 0 !important;
 
-      .v-messages {
+      .v-messages__message {
         margin-top: 0.5rem;
         border-radius: 4px;
         padding: 0.5rem 0.75rem;
@@ -517,11 +510,5 @@ watch(isReadonly, (val) => {
       inset-inline-end: 0;
     }
   }
-}
-
-.settings-header {
-  display: flex;
-  align-items: center;
-  font-weight: bold;
 }
 </style>

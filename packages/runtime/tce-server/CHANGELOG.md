@@ -1,5 +1,24 @@
 # @tailor-cms/tce-server-runtime
 
+## 2.0.1
+
+### Patch Changes
+
+- Fix resetState to include prompt for isQuestion condition.
+
+## 2.0.0
+
+### Major Changes
+
+- Upgraded to Express 5.
+- Hooks typed via `@tailor-cms/cek-common` (`ElementHook`, `BeforeDisplayHook`,
+  `OnUserInteractionHook`, `ProcedureHandler`).
+- Server procedures (RPC) support.
+- PATCH endpoint accepts and persists the `refs` field for element linking.
+- `DisplayContextService` seeds mock display contexts from
+  `mocks.displayContexts` and exposes endpoints to switch between them.
+- `initConfig` passed to the element's `initState`.
+
 ## 1.3.2
 
 ### Patch Changes

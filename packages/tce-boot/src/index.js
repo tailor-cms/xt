@@ -66,6 +66,11 @@ const restartServerRuntime = debounce(
   3000,
 );
 
+// Skip the first "Build success" (tsdown --watch initial pass) then
+// restart the server runtime on subsequent rebuilds (actual code changes).
+let buildCount = 0;
 serverPackage.stdout.subscribe((msg) => {
-  if (msg && /CJS.*Build success/.test(msg)) restartServerRuntime();
+  if (msg && /Build complete/.test(msg) && ++buildCount > 1) {
+    restartServerRuntime();
+  }
 });
