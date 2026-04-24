@@ -23,6 +23,7 @@ function initRouter({
     rpcHandler,
   } = initController({
     type,
+    isQuestion,
     initState,
     hookMap,
     procedures,

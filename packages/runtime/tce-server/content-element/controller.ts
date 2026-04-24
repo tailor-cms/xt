@@ -1,4 +1,5 @@
 import { pick } from 'lodash-es';
+import { v4 as uuid } from '@lukeed/uuid/secure';
 
 import DisplayContextService from './DisplayContextService';
 import { emitter } from '../common/emitter';
@@ -6,7 +7,7 @@ import { getTceConfig } from '../common/config';
 import initHooks from './hooks';
 import StorageService from '../storage/storage.service';
 
-export default ({ type, initState, hookMap, procedures }) => {
+export default ({ type, initState, isQuestion, hookMap, procedures }) => {
   const { applyFetchHooks, beforeDisplay, processInteraction } =
     initHooks(hookMap);
 
@@ -39,12 +40,20 @@ export default ({ type, initState, hookMap, procedures }) => {
   }
 
   async function resetAuthoringState({ element, body }, res) {
-    await element.update({
-      type,
-      data: initState(body),
-      meta: {},
-      refs: {},
-    });
+    const data = initState(body);
+    if (isQuestion) {
+      const id = uuid();
+      const question = {
+        id,
+        data: { content: '' },
+        type: 'EXAMPLE',
+        position: 1,
+        embedded: true,
+      };
+      data.question = [id];
+      data.embeds = { [id]: question };
+    }
+    await element.update({ type, data, meta: {}, refs: {} });
     return res.status(200).end();
   }
 
