@@ -36,7 +36,7 @@ export class EditPanel {
       .locator('.v-row')
       .filter({ hasText: 'Side toolbar' })
       .locator('.side-toolbar');
-    this.resetBtn = this.main.getByRole('button', { name: 'Reset' });
+    this.resetBtn = this.editor.getByRole('button', { name: 'Reset element' });
     this.generateBtn = this.main.getByRole('button', { name: 'Generate' });
     this.aiMenu = this.el.locator('.v-menu').filter({ hasText: 'AI Context' });
     this.aiContextInput = this.aiMenu.getByRole('textbox');
@@ -116,6 +116,7 @@ export class EditPanel {
 
   async reset(): Promise<void> {
     await this.resetBtn.click();
+    await this.confirmDialog();
   }
 
   async openAiMenu(): Promise<void> {

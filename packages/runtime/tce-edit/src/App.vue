@@ -9,15 +9,6 @@
                 Authoring component
               </VChip>
               <VSpacer />
-              <VBtn
-                :disabled="isEmpty"
-                class="mr-2"
-                color="warning"
-                prepend-icon="mdi-restore"
-                text="Reset"
-                variant="tonal"
-                @click="reset"
-              />
               <AiGenerateMenu
                 v-if="config.isAiEnabled"
                 v-model="settings.aiContext"
@@ -70,7 +61,9 @@
                       isReadonly: settings.isReadonly,
                     }"
                     class="edit-frame"
+                    show-reset
                     @click="!settings.persistFocus && focusElement()"
+                    @reset="confirm(reset)"
                   >
                     <QuestionForm
                       v-if="isQuestion"

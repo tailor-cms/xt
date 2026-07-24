@@ -8,8 +8,19 @@
         </span>
       </div>
       <VSpacer />
-      <div v-if="showDelete && !isReadonly" class="element-actions">
+      <div v-if="hasActions" class="element-actions">
         <VBtn
+          v-if="showReset"
+          aria-label="Reset element"
+          color="warning"
+          icon="mdi-restore"
+          rounded="lg"
+          size="x-small"
+          variant="text"
+          @click="emit('reset')"
+        />
+        <VBtn
+          v-if="showDelete"
           aria-label="Delete element"
           color="error"
           icon="mdi-trash-can-outline"
@@ -27,22 +38,30 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
+
 interface Props {
   name: string;
   icon?: string;
   isFocused?: boolean;
   isReadonly?: boolean;
+  showReset?: boolean;
   showDelete?: boolean;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   icon: 'mdi-cube-outline',
   isFocused: false,
   isReadonly: false,
+  showReset: false,
   showDelete: false,
 });
 
-const emit = defineEmits(['delete']);
+const emit = defineEmits(['delete', 'reset']);
+
+const hasActions = computed(
+  () => !props.isReadonly && (props.showReset || props.showDelete),
+);
 </script>
 
 <style lang="scss" scoped>
