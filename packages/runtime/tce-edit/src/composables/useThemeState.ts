@@ -4,6 +4,14 @@ import JSON5 from 'json5';
 import { useLocalStorage } from '@vueuse/core';
 import { useTheme } from 'vuetify';
 
+const DEFAULT_THEME = 'light';
+
+// Themes registered in `plugins/vuetify.ts`; keys must match.
+const BUILT_IN_THEMES = [
+  { value: 'light', title: 'Tailor Light' },
+  { value: 'dark', title: 'Tailor Dark' },
+];
+
 interface CustomTheme {
   name: string;
   key: string;
@@ -16,7 +24,7 @@ interface CustomTheme {
 
 export function useThemeState() {
   const { change, computedThemes, themes } = useTheme();
-  const activeTheme = useLocalStorage('cek-edit-theme-active', 'default');
+  const activeTheme = useLocalStorage('cek-edit-theme-active', DEFAULT_THEME);
   const customThemes = useLocalStorage<CustomTheme[]>(
     'cek-edit-custom-themes',
     [],
@@ -37,7 +45,7 @@ export function useThemeState() {
   const removeCustomTheme = (name: string) => {
     const key = kebabCase(name);
     customThemes.value = reject(customThemes.value, { key });
-    if (activeTheme.value === key) setTheme('default');
+    if (activeTheme.value === key) setTheme(DEFAULT_THEME);
   };
 
   const addCustomTheme = (name: string, input: string) => {
@@ -57,10 +65,10 @@ export function useThemeState() {
     find(customThemes.value, { key: kebabCase(name) });
 
   const themeItems = computed(() => [
-    { value: 'default', title: 'Tailor', removable: false },
-    ...customThemes.value.map((t) => ({
-      value: t.key,
-      title: t.name,
+    ...BUILT_IN_THEMES.map((theme) => ({ ...theme, removable: false })),
+    ...customThemes.value.map((theme) => ({
+      value: theme.key,
+      title: theme.name,
       removable: true,
     })),
   ]);

@@ -1,5 +1,16 @@
 # @tailor-cms/tce-boot
 
+## 2.0.2
+
+### Patch Changes
+
+- Bump dependencies and cleanup runtimes to match Tailor X.
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@2.0.2
+  - @tailor-cms/tce-server-runtime@2.0.2
+  - @tailor-cms/tce-edit-runtime@2.0.2
+  - @tailor-cms/tce-preview-runtime@2.0.2
+
 ## 2.0.1
 
 ### Patch Changes

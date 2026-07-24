@@ -1,7 +1,7 @@
 <template>
-  <VCard class="question-form" color="grey-lighten-5">
-    <VToolbar class="px-4" color="primary-darken-2" height="36">
-      <VIcon :icon="icon" color="secondary-lighten-2" size="18" start />
+  <VCard class="question-form" elevation="1">
+    <VToolbar class="px-4" color="surface-container" height="36">
+      <VIcon :icon="icon" color="secondary" size="18" start />
       <span class="text-title-small">{{ type }}</span>
     </VToolbar>
     <VForm

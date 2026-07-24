@@ -20,9 +20,9 @@
           class="element-actions"
         >
           <VBtn
-            color="secondary"
+            color="error"
             density="comfortable"
-            icon="mdi-delete-outline"
+            icon="mdi-trash-can-outline"
             size="small"
             variant="tonal"
             @click="requestDeleteConfirmation(element)"
@@ -62,7 +62,13 @@ const requestDeleteConfirmation = (element) => {
 
 <style lang="scss" scoped>
 .element-wrapper {
-  border: 1px solid #e1e1e1;
+  border: 1px solid rgba(var(--v-theme-outline), 0.2);
+
+  &:focus-within {
+    border: 1px dashed #1de9b6;
+    border-right-width: 2px;
+    border-right-style: solid;
+  }
 }
 
 .element-actions {

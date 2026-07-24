@@ -5,33 +5,25 @@
         <VRow>
           <VCol>
             <VSheet class="d-flex align-end" color="transparent" height="40">
-              <VChip
-                class="text-body-medium font-weight-bold"
-                color="primary-lighten-4"
-                variant="elevated"
-                label
-              >
+              <VChip class="text-body-medium font-weight-bold" rounded="lg">
                 Authoring component
               </VChip>
               <VSpacer />
               <VBtn
                 :disabled="isEmpty"
                 class="mr-2"
-                color="teal-darken-2"
+                color="warning"
                 prepend-icon="mdi-restore"
                 text="Reset"
                 variant="tonal"
                 @click="reset"
               />
-              <VBtn
+              <AiGenerateMenu
                 v-if="config.isAiEnabled"
+                v-model="settings.aiContext"
                 :disabled="settings.isReadonly || isGeneratingContent"
                 class="mr-2"
-                color="indigo-darken-2"
-                prepend-icon="mdi-creation"
-                text="Generate"
-                variant="tonal"
-                @click="doTheMagic"
+                @generate="doTheMagic"
               />
               <ElementSettings
                 v-if="element?.data"
@@ -43,7 +35,7 @@
               />
               <ThemeDialog class="ml-1" />
             </VSheet>
-            <VSheet class="mt-6 pa-8" color="white" elevation="2" rounded="lg">
+            <VSheet class="mt-6 pa-8" elevation="2" rounded="lg" theme="light">
               <div
                 v-if="isGeneratingContent"
                 class="d-flex flex-column align-center py-16"
@@ -113,12 +105,8 @@
         </VRow>
         <VRow v-if="TopToolbar && element?.data">
           <VCol>
-            <div class="d-flex align-center">
-              <VChip
-                class="elevation-2 my-3 text-body-medium font-weight-bold"
-                color="grey-darken-3"
-                label
-              >
+            <div class="d-flex align-center mb-3">
+              <VChip class="text-body-medium font-weight-bold" rounded="lg">
                 Top toolbar
               </VChip>
             </div>
@@ -126,8 +114,8 @@
               <VSheet
                 v-if="isFocused"
                 class="top-toolbar"
-                color="white"
                 elevation="1"
+                theme="light"
               >
                 <component
                   :is="TopToolbar"
@@ -142,12 +130,8 @@
         </VRow>
         <VRow v-if="SideToolbar && element?.data">
           <VCol>
-            <div class="d-flex align-center">
-              <VChip
-                class="elevation-2 my-3 text-body-medium font-weight-bold"
-                color="grey-darken-3"
-                label
-              >
+            <div class="d-flex align-center mb-3">
+              <VChip class="text-body-medium font-weight-bold" rounded="lg">
                 Side toolbar
               </VChip>
             </div>
@@ -155,8 +139,8 @@
               <VSheet
                 v-if="isFocused"
                 class="side-toolbar"
-                color="primary-darken-2"
-                elevation="5"
+                color="surface-canvas"
+                elevation="1"
               >
                 <component
                   :is="SideToolbar"
@@ -185,11 +169,7 @@
         <VDivider />
         <VCardActions>
           <VSpacer />
-          <VBtn
-            color="blue-grey-darken-2"
-            variant="text"
-            @click="isLinkDialogVisible = false"
-          >
+          <VBtn variant="text" @click="isLinkDialogVisible = false">
             Close
           </VBtn>
         </VCardActions>
@@ -223,6 +203,7 @@ import {
 } from '@tailor-cms/cek-common';
 import { v4 as uuid } from '@lukeed/uuid/secure';
 
+import AiGenerateMenu from './components/AiGenerateMenu.vue';
 import assetApi from './api/asset';
 import ConfirmationDialog from './components/ConfirmationDialog.vue';
 import ElementSettings from './components/ElementSettings.vue';
@@ -488,10 +469,10 @@ watch(
 }
 
 .edit-frame {
-  border: 1px solid #e1e1e1;
+  border: 1px solid rgba(var(--v-theme-outline), 0.2);
   padding: 0.625rem 1.25rem;
 
-  &.focused {
+  &.focused:not(:has(.element-wrapper:focus-within)) {
     border: 1px dashed #1de9b6;
     border-right-width: 2px;
     border-right-style: solid;

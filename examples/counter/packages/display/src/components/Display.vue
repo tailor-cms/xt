@@ -6,7 +6,9 @@
       </span>
       <VSpacer />
       <VSheet class="pa-4 ml-1" color="grey-darken-3" rounded="lg">
-        <span class="text-headline-large font-weight-bold text-green-accent-3">
+        <span
+          class="counter text-headline-large font-weight-bold text-green-accent-3"
+        >
           {{ elementData.count }}
         </span>
       </VSheet>

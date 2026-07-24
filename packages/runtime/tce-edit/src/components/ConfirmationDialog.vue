@@ -13,22 +13,8 @@
     >
       <VDivider />
       <VCardActions>
-        <VBtn
-          :slim="false"
-          color="primary-darken-4"
-          variant="text"
-          @click="close"
-        >
-          Cancel
-        </VBtn>
-        <VBtn
-          :slim="false"
-          color="primary-darken-2"
-          variant="tonal"
-          @click="confirm"
-        >
-          Confirm
-        </VBtn>
+        <VBtn :slim="false" text="Cancel" variant="text" @click="close" />
+        <VBtn :slim="false" text="Confirm" variant="tonal" @click="confirm" />
       </VCardActions>
     </VCard>
   </VDialog>

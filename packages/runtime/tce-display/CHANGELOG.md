@@ -1,5 +1,13 @@
 # @tailor-cms/tce-display-runtime
 
+## 2.0.2
+
+### Patch Changes
+
+- Bump dependencies and cleanup runtimes to match Tailor X.
+- Updated dependencies
+  - @tailor-cms/cek-common@2.0.2
+
 ## 2.0.1
 
 ### Patch Changes

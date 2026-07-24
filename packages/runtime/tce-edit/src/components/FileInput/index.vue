@@ -128,7 +128,6 @@
 <script lang="ts" setup>
 import { computed, inject, ref, watch } from 'vue';
 import type { StorageApi } from '@tailor-cms/cek-common';
-import { VFileUpload } from 'vuetify/labs/VFileUpload';
 
 import { ASSET_TYPE_ICON, ASSET_TYPE_LABEL, inferAssetType } from './asset';
 

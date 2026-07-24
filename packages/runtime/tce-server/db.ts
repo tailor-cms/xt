@@ -4,7 +4,7 @@ import ContentElement from './content-element/model';
 import { getTceConfig } from './common/config';
 import initHooks from './content-element/hooks';
 
-const sequelize = new Sequelize('sqlite::memory:');
+const sequelize = new Sequelize({ dialect: 'sqlite', storage: ':memory:' });
 
 async function initConnection() {
   await sequelize.authenticate();

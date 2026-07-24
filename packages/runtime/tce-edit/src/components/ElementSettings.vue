@@ -71,19 +71,6 @@
         hide-details
         @click.prevent="$emit('toggleGradable')"
       />
-      <template v-if="config.isAiEnabled">
-        <div class="settings-header text-label-medium mt-4 mb-2">
-          <VIcon icon="mdi-creation" size="small" start />
-          AI Context
-        </div>
-        <VTextarea
-          v-model="settings.aiContext"
-          placeholder="Enter context for AI generation..."
-          rows="3"
-          variant="outlined"
-          hide-details
-        />
-      </template>
     </VCard>
   </VMenu>
 </template>
@@ -105,7 +92,6 @@ interface SettingsConfig {
   isQuestion: boolean;
   isToggleGradableDisabled: boolean;
   forceFullWidth: boolean;
-  isAiEnabled: boolean;
 }
 
 interface Props {

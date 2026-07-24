@@ -11,7 +11,9 @@ test.beforeEach(async ({ page }) => {
   await page.waitForLoadState('networkidle');
 });
 
-test('Renders edit component with increment button and counter', async ({ page }) => {
+test('Renders edit component with increment button and counter', async ({
+  page,
+}) => {
   const edit = new Edit(page);
   await expect(edit.editor).toBeVisible();
   await expect(edit.incrementBtn).toBeVisible();

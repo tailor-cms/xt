@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-boot",
   "description": "Content element runtime boot script",
   "author": "Studion <info@gostudion.com>",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "type": "module",
   "scripts": {
     "start": "node src/free-ports.js && node src/index.js",
@@ -16,7 +16,7 @@
     "@tailor-cms/tce-preview-runtime": "workspace:^",
     "@tailor-cms/tce-server-runtime": "workspace:^",
     "boxen": "^8.0.1",
-    "concurrently": "^9.2.1",
+    "concurrently": "^10.0.3",
     "dotenv": "^17.4.2",
     "fkill": "^10.0.3",
     "has-flag": "^5.0.1",

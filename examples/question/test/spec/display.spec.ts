@@ -8,7 +8,16 @@ const ANSWERS = ['Zeus', 'Hera', 'Apollo', 'Athena'];
 
 test.beforeEach(async ({ page }) => {
   await elementClient.reset(ELEMENT_ID);
-  await elementClient.update(ELEMENT_ID, { answers: ANSWERS, correct: 0 });
+  await elementClient.update(ELEMENT_ID, {
+    isGradable: true,
+    question: [],
+    embeds: {},
+    answers: ANSWERS,
+    hint: '',
+    feedback: {},
+    correct: 0,
+  });
+  await elementClient.resetState(ELEMENT_ID);
   await page.goto(`/?id=${ELEMENT_ID}`);
   await page.waitForLoadState('networkidle');
 });
@@ -45,4 +54,5 @@ test('Retry clears submitted state', async ({ page }) => {
 
 test.afterAll(async () => {
   await elementClient.reset(ELEMENT_ID);
+  await elementClient.resetState(ELEMENT_ID);
 });
