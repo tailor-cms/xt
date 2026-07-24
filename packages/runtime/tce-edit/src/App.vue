@@ -58,20 +58,23 @@
               </div>
               <VRow v-else>
                 <VCol v-if="element?.data" :cols="element.data.width ?? 12">
-                  <VSheet
+                  <ElementFrame
                     v-click-outside="{
                       handler: () => !settings.persistFocus && unfocusElement(),
                       include,
                     }"
-                    :class="{ focused: isFocused }"
+                    v-bind="{
+                      icon,
+                      isFocused,
+                      name: type,
+                      isReadonly: settings.isReadonly,
+                    }"
                     class="edit-frame"
                     @click="!settings.persistFocus && focusElement()"
                   >
                     <QuestionForm
                       v-if="isQuestion"
                       v-bind="{
-                        type,
-                        icon,
                         element,
                         references,
                         autosave: settings.autosave,
@@ -97,7 +100,7 @@
                       @link="onLink"
                       @save="onSave"
                     />
-                  </VSheet>
+                  </ElementFrame>
                 </VCol>
               </VRow>
             </VSheet>
@@ -206,6 +209,7 @@ import { v4 as uuid } from '@lukeed/uuid/secure';
 import AiGenerateMenu from './components/AiGenerateMenu.vue';
 import assetApi from './api/asset';
 import ConfirmationDialog from './components/ConfirmationDialog.vue';
+import ElementFrame from './components/ElementFrame.vue';
 import ElementSettings from './components/ElementSettings.vue';
 import QuestionForm from './components/QuestionForm/index.vue';
 import ThemeDialog from './components/ThemeDialog.vue';
@@ -465,17 +469,6 @@ watch(
         color: #fff !important;
       }
     }
-  }
-}
-
-.edit-frame {
-  border: 1px solid rgba(var(--v-theme-outline), 0.2);
-  padding: 0.625rem 1.25rem;
-
-  &.focused:not(:has(.element-wrapper:focus-within)) {
-    border: 1px dashed #1de9b6;
-    border-right-width: 2px;
-    border-right-style: solid;
   }
 }
 

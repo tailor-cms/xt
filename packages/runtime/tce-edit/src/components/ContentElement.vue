@@ -1,40 +1,31 @@
 <template>
-  <div class="element-wrapper text-center position-relative px-3">
-    <VHover v-slot="{ isHovering, props: hoverProps }">
-      <div v-bind="hoverProps">
-        <VTextarea
-          :model-value="element.data.content"
-          :readonly="isReadonly"
-          bg-color="transparent"
-          placeholder="Enter your text..."
-          rows="3"
-          variant="solo"
-          auto-grow
-          flat
-          hide-details
-          @change="$emit('save', { content: $event.target.value })"
-        />
-        <div
-          v-if="!isReadonly && !parent"
-          :class="{ 'is-visible': isHovering }"
-          class="element-actions"
-        >
-          <VBtn
-            color="error"
-            density="comfortable"
-            icon="mdi-trash-can-outline"
-            size="small"
-            variant="tonal"
-            @click="requestDeleteConfirmation(element)"
-          />
-        </div>
-      </div>
-    </VHover>
-  </div>
+  <ElementFrame
+    :is-readonly="isReadonly"
+    :name="name"
+    :show-delete="!parent"
+    icon="mdi-cube-outline"
+    @delete="requestDeleteConfirmation(element)"
+  >
+    <VTextarea
+      :model-value="element.data.content"
+      :readonly="isReadonly"
+      bg-color="transparent"
+      class="text-center"
+      placeholder="Enter your text..."
+      rows="3"
+      variant="solo"
+      auto-grow
+      flat
+      hide-details
+      @change="$emit('save', { content: $event.target.value })"
+    />
+  </ElementFrame>
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue';
+import { computed, inject } from 'vue';
+
+import ElementFrame from './ElementFrame.vue';
 
 interface Props {
   element: Record<string, any>;
@@ -42,7 +33,7 @@ interface Props {
   isReadonly?: boolean;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   isReadonly: false,
   parent: null,
 });
@@ -50,6 +41,10 @@ const emit = defineEmits(['delete', 'save']);
 
 const eventBus = inject('$eventBus') as any;
 const appChannel = eventBus.channel('app');
+
+const name = computed(() =>
+  String(props.element.type ?? 'Element').replace(/_/g, ' '),
+);
 
 const requestDeleteConfirmation = (element) => {
   return appChannel.emit('showConfirmationModal', {
@@ -61,26 +56,7 @@ const requestDeleteConfirmation = (element) => {
 </script>
 
 <style lang="scss" scoped>
-.element-wrapper {
-  border: 1px solid rgba(var(--v-theme-outline), 0.2);
-
-  &:focus-within {
-    border: 1px dashed #1de9b6;
-    border-right-width: 2px;
-    border-right-style: solid;
-  }
-}
-
-.element-actions {
-  position: absolute;
-  height: 100%;
-  top: 0.125rem;
-  right: -2.25rem;
-  opacity: 0;
-  transition: opacity 0.3s linear;
-
-  &.is-visible {
-    opacity: 1;
-  }
+:deep(.card-body) {
+  padding: 0 0.5rem;
 }
 </style>

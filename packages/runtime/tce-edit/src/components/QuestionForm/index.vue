@@ -1,13 +1,9 @@
 <template>
-  <VCard class="question-form" elevation="1">
-    <VToolbar class="px-4" color="surface-container" height="36">
-      <VIcon :icon="icon" color="secondary" size="18" start />
-      <span class="text-title-small">{{ type }}</span>
-    </VToolbar>
+  <div class="question-form">
     <VForm
       ref="form"
       :validate-on="autosave ? 'input' : 'submit'"
-      class="text-left pa-6"
+      class="text-left"
     >
       <QuestionPrompt
         :element-data="editedElement.data"
@@ -53,7 +49,7 @@
         </div>
       </VFadeTransition>
     </VForm>
-  </VCard>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -66,8 +62,6 @@ import QuestionPrompt from './QuestionPrompt.vue';
 
 interface Props {
   element: any;
-  type: string;
-  icon: string;
   autosave?: boolean;
   isReadonly?: boolean;
   isFocused?: boolean;
