@@ -7,7 +7,6 @@
           v-if="!hasEmbeds"
           :text="alertMsg"
           class="mx-6 mt-4 mb-n2 text-center"
-          color="primary-darken-1"
           icon="mdi-information-outline"
           variant="tonal"
           prominent

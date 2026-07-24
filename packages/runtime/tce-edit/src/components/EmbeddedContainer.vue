@@ -29,13 +29,7 @@
         <VDivider />
         <VCardActions>
           <VSpacer />
-          <VBtn
-            color="blue-grey-darken-2"
-            variant="text"
-            @click="isDialogVisible = false"
-          >
-            Close
-          </VBtn>
+          <VBtn text="Close" variant="text" @click="isDialogVisible = false" />
         </VCardActions>
       </VCard>
     </VDialog>

@@ -5,12 +5,7 @@
         <VRow>
           <VCol>
             <VSheet class="d-flex align-end" color="transparent" height="40">
-              <VChip
-                class="text-body-medium font-weight-bold"
-                color="lime accent-2"
-                variant="elevated"
-                label
-              >
+              <VChip class="text-body-medium font-weight-bold" rounded="lg">
                 End-user component
               </VChip>
               <VSpacer />
