@@ -31,6 +31,10 @@ test('Saves answers and correct choice; persists across reload', async ({
 test('Saves per-answer feedback; persists across reload', async ({ page }) => {
   const edit = new Edit(page);
   await edit.fillAnswer(0, 'Option A');
+  await edit.fillAnswer(1, 'Option B');
+  await edit.fillAnswer(2, 'Option C');
+  await edit.fillAnswer(3, 'Option D');
+  await edit.selectCorrect(0);
   await edit.feedbackToggleBtn.click();
   const feedbackInput = edit.feedbackSection
     .getByPlaceholder('Add feedback...')
