@@ -1,9 +1,19 @@
 import { elementClient, pom } from '@tailor-cms/cek-e2e';
 import { expect, test } from '@playwright/test';
+import type { Page } from '@playwright/test';
 
 import { Display } from '../pom';
 
 const ELEMENT_ID = 'test-display-element';
+
+const seedElement = async (page: Page, data: Record<string, unknown> = {}) => {
+  await elementClient.update(ELEMENT_ID, {
+    count: 0,
+    description: 'Test counter',
+    ...data,
+  });
+  await page.reload({ waitUntil: 'networkidle' });
+};
 
 test.beforeEach(async ({ page }) => {
   await elementClient.reset(ELEMENT_ID);
@@ -11,24 +21,24 @@ test.beforeEach(async ({ page }) => {
   await page.waitForLoadState('networkidle');
 });
 
-test('Renders display component with default description and initial count', async ({ page }) => {
+test('Renders placeholder while the element is empty', async ({ page }) => {
+  const display = new Display(page);
+  await expect(display.placeholder).toBeVisible();
+  await expect(display.editor).toBeHidden();
+});
+
+test('Renders display component with description and initial count', async ({
+  page,
+}) => {
+  await seedElement(page);
   const display = new Display(page);
   await expect(display.editor).toBeVisible();
-  await expect(display.description).toContainText('Author click count');
+  await expect(display.description).toContainText('Test counter');
   await expect(display.counter).toContainText('0');
 });
 
-test('Shows description when set', async ({ page }) => {
-  await elementClient.update(ELEMENT_ID, {
-    count: 0,
-    description: 'Test counter',
-  });
-  await page.reload({ waitUntil: 'networkidle' });
-  const display = new Display(page);
-  await expect(display.description).toContainText('Test counter');
-});
-
 test('Can submit interaction', async ({ page }) => {
+  await seedElement(page);
   const display = new Display(page);
   await display.submitBtn.click();
   const bottomPanel = new pom.BottomPanel(page);
@@ -39,6 +49,7 @@ test('Can submit interaction', async ({ page }) => {
 });
 
 test('Can switch state preset', async ({ page }) => {
+  await seedElement(page);
   const display = new Display(page);
   await display.selectStatePreset('Test preset 2');
   await expect(
