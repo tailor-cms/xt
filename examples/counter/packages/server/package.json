@@ -35,7 +35,7 @@
     "typescript": "^6.0.3"
   },
   "tsdown": {
-    "target": "node24",
+    "target": "node26",
     "format": [
       "cjs",
       "esm"

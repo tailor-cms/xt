@@ -30,12 +30,12 @@
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:^",
     "@types/json-schema": "^7.0.15",
-    "@types/node": "^24.12.2",
+    "@types/node": "^26.1.1",
     "tsdown": "^0.22.14",
     "typescript": "^6.0.3"
   },
   "tsdown": {
-    "target": "node24"
+    "target": "node26"
   },
   "publishConfig": {
     "access": "public"

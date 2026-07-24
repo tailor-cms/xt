@@ -31,7 +31,7 @@
     "@tailor-cms/cek-e2e": "workspace:*",
     "@tailor-cms/eslint-config": "workspace:*",
     "@tailor-cms/tce-boot": "workspace:*",
-    "@types/node": "^24.12.2",
+    "@types/node": "^26.1.1",
     "dotenv": "^17.4.2",
     "typescript": "^6.0.3"
   }
