@@ -4,19 +4,26 @@ import { ThemeDialog } from './ThemeDialog';
 
 export class EditPanel {
   readonly el: FrameLocator;
+  readonly main: Locator;
   readonly editor: Locator;
   readonly topToolbar: Locator;
   readonly sideToolbar: Locator;
   readonly resetBtn: Locator;
   readonly generateBtn: Locator;
+  readonly aiMenu: Locator;
+  readonly aiContextInput: Locator;
+  readonly aiSubmitBtn: Locator;
+  readonly generationProgress: Locator;
   readonly settingsBtn: Locator;
   readonly settingsMenu: Locator;
   readonly confirmationDialog: Locator;
   readonly linkDialog: Locator;
+  readonly linkDialogCloseBtn: Locator;
   readonly themeDialog: ThemeDialog;
 
   constructor(page: Page) {
     this.el = page.frameLocator('#editPanel>iframe');
+    this.main = this.el.locator('.v-main');
     this.editor = this.el
       .locator('.v-row')
       .filter({ hasText: 'Authoring component' })
@@ -29,15 +36,26 @@ export class EditPanel {
       .locator('.v-row')
       .filter({ hasText: 'Side toolbar' })
       .locator('.side-toolbar');
-    this.resetBtn = this.el.getByRole('button', { name: 'Reset' });
-    this.generateBtn = this.el.getByRole('button', { name: 'Generate' });
-    this.settingsBtn = this.el.getByRole('button', { name: 'Settings' });
-    this.settingsMenu = this.el.locator('.v-menu');
+    this.resetBtn = this.main.getByRole('button', { name: 'Reset' });
+    this.generateBtn = this.main.getByRole('button', { name: 'Generate' });
+    this.aiMenu = this.el.locator('.v-menu').filter({ hasText: 'AI Context' });
+    this.aiContextInput = this.aiMenu.getByRole('textbox');
+    this.aiSubmitBtn = this.aiMenu.getByRole('button', { name: 'Generate' });
+    this.generationProgress = this.main.getByText(
+      'Content generation in progress',
+    );
+    this.settingsBtn = this.main.getByRole('button', { name: 'Settings' });
+    this.settingsMenu = this.el
+      .locator('.v-menu')
+      .filter({ hasText: 'Element Props' });
     this.confirmationDialog = this.el.locator('.v-dialog').filter({
       hasText: 'Are you sure',
     });
     this.linkDialog = this.el.locator('.v-dialog').filter({
       hasText: 'Link element dialog',
+    });
+    this.linkDialogCloseBtn = this.linkDialog.getByRole('button', {
+      name: 'Close',
     });
     this.themeDialog = new ThemeDialog(this.el);
   }
@@ -100,8 +118,23 @@ export class EditPanel {
     await this.resetBtn.click();
   }
 
-  async generate(): Promise<void> {
+  async openAiMenu(): Promise<void> {
+    await expect(this.aiMenu).not.toBeVisible();
     await this.generateBtn.click();
+    await expect(this.aiMenu).toBeVisible();
+  }
+
+  async closeAiMenu(): Promise<void> {
+    await expect(this.aiMenu).toBeVisible();
+    await this.aiMenu.press('Escape');
+    await expect(this.aiMenu).not.toBeVisible();
+  }
+
+  async generate(context?: string): Promise<void> {
+    await this.openAiMenu();
+    if (context) await this.aiContextInput.fill(context);
+    await this.aiSubmitBtn.click();
+    await expect(this.aiMenu).not.toBeVisible();
   }
 
   async confirmDialog(): Promise<void> {
