@@ -16,18 +16,18 @@
     "nuke": "pnpm dlx del-cli node_modules"
   },
   "dependencies": {
-    "@eslint/js": "^9.39.4",
+    "@eslint/js": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-prettier": "^5.5.5",
-    "eslint-plugin-vue": "^10.9.0",
+    "eslint-plugin-prettier": "^5.5.6",
+    "eslint-plugin-vue": "^10.10.0",
     "eslint-plugin-vuejs-accessibility": "^2.5.0",
     "neostandard": "^0.13.0",
-    "typescript-eslint": "^8.59.0",
-    "vue-eslint-parser": "^10.4.0"
+    "typescript-eslint": "^8.65.0",
+    "vue-eslint-parser": "^10.4.1"
   },
   "peerDependencies": {
-    "eslint": "^9.34.0"
+    "eslint": "^9.39.5"
   },
   "publishConfig": {
     "access": "public"

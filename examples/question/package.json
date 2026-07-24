@@ -27,7 +27,7 @@
     "test": "playwright test --config test/playwright.config.ts"
   },
   "devDependencies": {
-    "@playwright/test": "^1.59.1",
+    "@playwright/test": "^1.61.1",
     "@tailor-cms/cek-e2e": "workspace:*",
     "@tailor-cms/eslint-config": "workspace:*",
     "@tailor-cms/tce-boot": "workspace:*",
