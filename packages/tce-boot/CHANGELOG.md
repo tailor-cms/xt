@@ -1,5 +1,16 @@
 # @tailor-cms/tce-boot
 
+## 2.0.3
+
+### Patch Changes
+
+- Replicate Tailor X element frame.
+- Updated dependencies
+  - @tailor-cms/tce-preview-runtime@2.0.3
+  - @tailor-cms/tce-display-runtime@2.0.3
+  - @tailor-cms/tce-edit-runtime@2.0.3
+  - @tailor-cms/tce-server-runtime@2.0.3
+
 ## 2.0.2
 
 ### Patch Changes

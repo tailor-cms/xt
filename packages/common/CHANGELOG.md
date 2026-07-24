@@ -1,5 +1,11 @@
 # @tailor-cms/cek-common
 
+## 2.0.3
+
+### Patch Changes
+
+- Replicate Tailor X element frame.
+
 ## 2.0.2
 
 ### Patch Changes
