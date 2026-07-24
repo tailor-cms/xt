@@ -5,5 +5,7 @@ packages:
   - examples/*
   - examples/*/packages/*
 
-onlyBuiltDependencies:
-  - sqlite3
+allowBuilds:
+  '@parcel/watcher': false
+  esbuild: false
+  sqlite3: true
