@@ -1,35 +1,44 @@
 <template>
   <VDialog v-model="isOpen" max-width="480">
-    <VCard>
-      <VToolbar :title="editing ? 'Edit theme' : 'Add custom theme'">
-        <VBtn icon="mdi-close" @click="isOpen = false" />
-      </VToolbar>
-      <VForm ref="form" @submit.prevent="onSubmit">
-        <VCardText>
-          <VTextField
-            v-model="formName"
-            :disabled="editing"
-            :rules="[rules.required, rules.unique]"
-            class="mb-3"
-            label="Theme name"
+    <template #default="{ isActive }">
+      <VCard>
+        <VCardTitle class="d-flex justify-space-between align-center">
+          {{ editing ? 'Edit theme' : 'Add custom theme' }}
+          <VBtn
+            aria-label="Close"
+            density="comfortable"
+            icon="mdi-close"
+            variant="text"
+            @click="isActive.value = false"
           />
-          <VTextarea
-            v-model="formInput"
-            :rules="[rules.json]"
-            label="Theme definition"
-            placeholder="Paste Vuetify ThemeDefinition"
-            rows="6"
-          />
-        </VCardText>
-        <VCardActions>
-          <VSpacer />
-          <VBtn variant="text" @click="isOpen = false"> Cancel </VBtn>
-          <VBtn color="primary" type="submit" variant="tonal">
-            {{ editing ? 'Save' : 'Add theme' }}
-          </VBtn>
-        </VCardActions>
-      </VForm>
-    </VCard>
+        </VCardTitle>
+        <VForm ref="form" @submit.prevent="onSubmit">
+          <VCardText>
+            <VTextField
+              v-model="formName"
+              :disabled="editing"
+              :rules="[rules.required, rules.unique]"
+              class="mb-3"
+              label="Theme name"
+            />
+            <VTextarea
+              v-model="formInput"
+              :rules="[rules.json]"
+              label="Theme definition"
+              placeholder="Paste Vuetify ThemeDefinition"
+              rows="6"
+            />
+          </VCardText>
+          <VCardActions>
+            <VSpacer />
+            <VBtn variant="text" @click="isOpen = false"> Cancel </VBtn>
+            <VBtn color="primary" type="submit" variant="tonal">
+              {{ editing ? 'Save' : 'Add theme' }}
+            </VBtn>
+          </VCardActions>
+        </VForm>
+      </VCard>
+    </template>
   </VDialog>
 </template>
 
