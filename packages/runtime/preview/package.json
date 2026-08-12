@@ -3,6 +3,7 @@
   "description": "Preview content element client side runtime",
   "author": "Studion <info@gostudion.com>",
   "version": "2.0.3",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,17 +15,17 @@
     "@mdi/font": "^7.4.47",
     "@tailor-cms/cek-common": "workspace:^",
     "@vitejs/plugin-vue": "^6.0.8",
-    "@vueuse/core": "^14.3.0",
+    "@vueuse/core": "^14.4.0",
     "date-fns": "^4.4.0",
     "lodash-es": "^4.18.1",
-    "sass": "^1.101.6",
+    "sass": "^1.102.0",
     "split.js": "^1.6.5",
     "stringify-object": "^7.0.0",
     "typescript": "^6.0.3",
-    "vite": "^8.1.5",
+    "vite": "^8.2.1",
     "vite-plugin-vuetify": "^2.1.3",
-    "vue": "^3.5.40",
-    "vuetify": "^4.1.5"
+    "vue": "^3.5.41",
+    "vuetify": "^4.1.8"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:^",

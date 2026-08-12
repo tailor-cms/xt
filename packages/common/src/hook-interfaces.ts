@@ -45,9 +45,7 @@ export type ProcedureHandler<P = Record<string, any>, R = any> = (
 ) => R | Promise<R>;
 
 export type HookFunction<T = Element> =
-  | ElementHook<T>
-  | BeforeDisplayHook<T>
-  | OnUserInteractionHook<T>;
+  ElementHook<T> | BeforeDisplayHook<T> | OnUserInteractionHook<T>;
 
 export type HookMap<T = Element> = Map<string, HookFunction<T>>;
 
