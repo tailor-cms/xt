@@ -116,9 +116,11 @@ export interface ElementManifest<TData = ElementData> {
    * Controls whether the QuestionContainer renders the per-answer feedback
    * editors. General feedback ('data.feedback.general') is always authorable
    * for question elements, regardless of this flag.
-   * Only relevant when 'isQuestion' is true. Defaults to true.
+   * Opt in from question types exposing an enumerable 'data.answers' array;
+   * answer-less types (e.g. text or numerical response) should leave it off.
+   * Only relevant when 'isQuestion' is true. Defaults to false.
    */
-  showFeedback?: boolean;
+  showAnswerFeedback?: boolean;
   /**
    * The goal of the initState function is to properly initialize the 'data'
    * field upon the Content Element creation. The 'data' field is the Content

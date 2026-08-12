@@ -76,7 +76,7 @@
                         isDragged: settings.isDragged,
                         isReadonly: settings.isReadonly,
                         isFocused,
-                        showFeedback,
+                        showAnswerFeedback,
                       }"
                       @delete="onDelete"
                       @link="onLink"
@@ -229,7 +229,7 @@ interface Props {
   isQuestion?: boolean;
   isGradable?: boolean;
   isAiEnabled?: boolean;
-  showFeedback?: boolean;
+  showAnswerFeedback?: boolean;
   type?: string;
   icon?: string;
   forceFullWidth?: boolean;
@@ -240,7 +240,7 @@ const props = withDefaults(defineProps<Props>(), {
   isQuestion: false,
   isGradable: undefined,
   isAiEnabled: false,
-  showFeedback: true,
+  showAnswerFeedback: false,
   type: 'Content Element',
   icon: 'mdi-cube',
   forceFullWidth: false,

@@ -312,7 +312,7 @@ inside a `QuestionForm` — providing the standard question layout:
 2. **Answer UI** — the developer's Edit component (rendered in the default slot)
 3. **Hint** — optional hint text field
 4. **Feedback** — a general feedback field (always available) plus per-answer
-   feedback fields (controlled by `showFeedback` manifest field)
+   feedback fields (controlled by `showAnswerFeedback` manifest field)
 
 The developer's Edit component only needs to render the answer-specific UI.
 There is no need to import or use `QuestionForm` manually — the framework
@@ -346,16 +346,17 @@ Feedback lives in a single `data.feedback` map: numeric keys hold per-answer
 feedback indexed by answer position, and the reserved `general` key holds
 feedback shown regardless of the submitted answer.
 
-To control whether the per-answer feedback editors are rendered, set
-`showFeedback` in the manifest (defaults to `true`). The general feedback
-field remains available either way:
+To render the per-answer feedback editors, opt in via `showAnswerFeedback` in
+the manifest (defaults to `false`, so answer-less question types such as text
+or numerical response don't get editors for answers they don't have). The
+general feedback field remains available either way:
 
 ```ts
 const manifest: ElementManifest = {
   // ...
   isQuestion: true,
   isComposite: true,
-  showFeedback: false, // Hide per-answer feedback editors
+  showAnswerFeedback: true, // Show per-answer feedback editors
 };
 ```
 

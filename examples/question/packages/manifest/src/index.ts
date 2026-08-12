@@ -82,7 +82,7 @@ const manifest: ElementManifest = {
   version: '1.0',
   name,
   isQuestion: true,
-  showFeedback: true,
+  showAnswerFeedback: true,
   initState,
   isEmpty,
   ui,
