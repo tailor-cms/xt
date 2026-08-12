@@ -18,10 +18,9 @@ modes via the element settings.
 | `question` | `string[]` | Embed IDs in display order |
 | `embeds` | `Record<string, any>` | Embedded prompt content keyed by ID |
 | `hint` | `string` | Author-provided hint |
-| `feedback` | `Record<number, string>` | Per-answer feedback |
-| `generalFeedback` | `string` | Feedback shown for the question as a whole |
+| `feedback` | `QuestionFeedback` | Per-answer feedback, plus `general` for the question as a whole |
 
-`embeds`, `question`, `hint`, `feedback`, and `generalFeedback` are required by the runtime
+`embeds`, `question`, `hint`, and `feedback` are required by the runtime
 question wrapper for any element with `isQuestion: true` — even if the
 element-specific Edit doesn't render UI for them, the wrapper does.
 
