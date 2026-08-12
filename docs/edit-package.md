@@ -342,6 +342,10 @@ const emit = defineEmits<{ update: [data: Partial<ElementData>] }>();
 </script>
 ```
 
+Feedback lives in a single `data.feedback` map: numeric keys hold per-answer
+feedback indexed by answer position, and the reserved `general` key holds
+feedback shown regardless of the submitted answer.
+
 To control whether the per-answer feedback editors are rendered, set
 `showFeedback` in the manifest (defaults to `true`). The general feedback
 field remains available either way:
@@ -369,6 +373,11 @@ interface QuestionElementData {
   isGradable: boolean;
   // Correct answer data (shape varies by question type, present when isGradable)
   correct?: any;
+  // Optional hint shown on demand during delivery
+  hint: string;
+  // Per-answer feedback keyed by answer index, plus the reserved
+  // 'general' key holding answer-independent feedback
+  feedback: Record<number, string> & { general?: string };
   // ... additional type-specific fields
 }
 ```

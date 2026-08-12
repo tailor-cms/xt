@@ -28,6 +28,13 @@ export interface ElementConfig {
   isGradable?: boolean;
 }
 
+/**
+ * Feedback map for question elements ('data.feedback'). Numeric keys hold
+ * per-answer feedback, indexed by answer position. The reserved 'general'
+ * key holds feedback shown regardless of which answer was submitted.
+ */
+export type QuestionFeedback = Record<number, string> & { general?: string };
+
 interface ElementData extends ElementConfig {
   [key: string]: unknown;
 }
@@ -107,7 +114,7 @@ export interface ElementManifest<TData = ElementData> {
   isGradable?: boolean;
   /**
    * Controls whether the QuestionContainer renders the per-answer feedback
-   * editors. General feedback ('data.generalFeedback') is always authorable
+   * editors. General feedback ('data.feedback.general') is always authorable
    * for question elements, regardless of this flag.
    * Only relevant when 'isQuestion' is true. Defaults to true.
    */

@@ -18,16 +18,16 @@
           <div class="mb-4">General feedback</div>
           <VTextarea
             v-if="!isReadonly"
-            :model-value="generalFeedback"
+            :model-value="feedback?.general"
             placeholder="Add general feedback..."
             rows="2"
             variant="outlined"
             auto-grow
             hide-details
-            @update:model-value="emit('update', { generalFeedback: $event })"
+            @update:model-value="update($event, 'general')"
           />
           <template v-else>
-            <div v-if="generalFeedback" v-text="generalFeedback" />
+            <div v-if="feedback?.general" v-text="feedback.general" />
             <span v-else class="font-italic">Feedback not added.</span>
           </template>
         </div>
@@ -66,40 +66,35 @@
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue';
 import { isArray, some } from 'lodash-es';
+import type { QuestionFeedback } from '@tailor-cms/cek-common';
 
 interface Props {
   answers: string[];
   isReadonly: boolean;
   isGradable: boolean;
   showAnswerFeedback: boolean;
-  feedback?: Record<number, string>;
-  generalFeedback?: string;
+  feedback?: QuestionFeedback;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   feedback: () => ({}),
-  generalFeedback: '',
 });
 const emit = defineEmits(['update']);
 
-const isExpanded = ref(some(props.feedback) || !!props.generalFeedback);
+const isExpanded = ref(some(props.feedback));
 
 const processedAnswers = computed(() =>
   isArray(props.answers) ? props.answers : ['True', 'False'],
 );
 
-const update = (value: string, index: number) => {
-  emit('update', { feedback: { ...props.feedback, [index]: value } });
+const update = (value: string, key: number | 'general') => {
+  emit('update', { ...props.feedback, [key]: value });
 };
-
-const hasFeedback = computed(
-  () => some(props.feedback) || !!props.generalFeedback,
-);
 
 watch(
   () => props.isReadonly,
   (val) => {
-    if (!hasFeedback.value) return;
+    if (!some(props.feedback)) return;
     if (!val) isExpanded.value = true;
   },
 );

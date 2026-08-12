@@ -24,11 +24,10 @@
       <QuestionFeedback
         :answers="editedElement.data.answers"
         :feedback="editedElement.data.feedback"
-        :general-feedback="editedElement.data.generalFeedback"
         :is-gradable="editedElement.data.isGradable"
         :is-readonly="isReadonly"
         :show-answer-feedback="showFeedback"
-        @update="update"
+        @update="update({ feedback: $event })"
       />
       <VFadeTransition>
         <div

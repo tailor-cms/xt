@@ -23,7 +23,6 @@ export const initState: DataInitializer = (config): ElementData => {
     answers: ['', '', '', ''],
     hint: '',
     feedback: {},
-    generalFeedback: '',
     ...(isGradable && { correct: null }),
   };
 };
