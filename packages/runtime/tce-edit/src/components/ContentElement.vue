@@ -50,10 +50,6 @@ const emit = defineEmits(['delete', 'save']);
 const eventBus = inject('$eventBus') as any;
 const appChannel = eventBus.channel('app');
 
-const name = computed(() =>
-  String(props.element.type ?? 'Element').replace(/_/g, ' '),
-);
-
 const preview = computed(() => {
   const content = props.element.data?.content;
   return typeof content === 'string' ? content.trim() : '';
