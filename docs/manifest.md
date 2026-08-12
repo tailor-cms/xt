@@ -28,9 +28,12 @@ export interface ElementManifest<TData = ElementData> {
   // should be omitted.
   isGradable?: boolean;
   // Controls whether the edit runtime exposes per-answer feedback
-  // authoring fields. Display renders whatever feedback data exists.
-  // Only relevant when 'isQuestion' is true. Defaults to true.
-  showFeedback?: boolean;
+  // authoring fields. General feedback ('data.feedback.general') is always
+  // authorable, regardless of this flag. Display renders whatever feedback
+  // data exists. Opt in from question types exposing an enumerable
+  // 'data.answers' array. Only relevant when 'isQuestion' is true.
+  // Defaults to false.
+  showAnswerFeedback?: boolean;
   // Initializes the 'data' field upon Content Element creation.
   // Receives an optional config object with runtime-level settings
   // (e.g. { isGradable }) that may influence the initial data shape.

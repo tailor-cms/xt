@@ -1,6 +1,6 @@
 <template>
   <div class="mb-4">
-    <div class="text-title-small mb-2">Question</div>
+    <div class="text-title-small mb-2">Prompt</div>
     <VInput :model-value="elementData.question" :rules="[requiredRule]">
       <div class="question-prompt rounded w-100">
         <VAlert

@@ -159,6 +159,8 @@ Supports adding, editing, deleting, and reordering embedded elements.
 | `is-readonly` | `boolean` | `false` | Disable editing |
 | `enable-add` | `boolean` | `true` | Show add element button |
 | `add-element-options` | `object` | see below | Options for the add element button |
+| `element-variant` | `'card' \| 'field' \| 'quiet'` | `'quiet'` | Presentation of each embedded element. `card`: standard collapsible editor card. `field`: header-less body for externally-labelled slots. `quiet`: header revealed on hover/focus, always expanded |
+| `default-expanded` | `boolean` | `true` | Baseline expansion state of each embed (`card` variant only). Embeds added during the session always start expanded |
 
 Default `addElementOptions`:
 ```ts

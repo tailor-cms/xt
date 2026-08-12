@@ -60,6 +60,30 @@ All changes made by hooks are automatically propagated to the authoring
 front-end using SSE (Server Side Events).
 ::::
 
+## Server module
+
+The server package default export is the server module. Spread the element
+manifest into it, and add the hook map, procedures and hooks:
+
+```ts
+import type { ServerModule } from '@tailor-cms/cek-common';
+import type { Element } from 'tce-manifest';
+import manifest from 'tce-manifest';
+
+const serverModule: ServerModule<Element> = {
+  ...manifest,
+  hookMap,
+  procedures,
+  // ...hooks
+};
+
+export default serverModule;
+```
+
+The manifest is the single place where element metadata is declared. Spreading
+it forwards everything the server side needs — `type`, `initState`,
+`isQuestion`, `isGradable`, `ai` and `mocks`.
+
 ## Server procedures (RPC)
 
 Server procedures allow content elements to define custom server-side methods
@@ -92,8 +116,7 @@ export const procedures: Record<string, ProcedureHandler> = {
 };
 
 const serverModule: ServerModule<Element> = {
-  type,
-  initState,
+  ...manifest,
   hookMap,
   procedures,
   // ...hooks

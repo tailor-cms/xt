@@ -5,8 +5,8 @@ import type {
   OnUserInteractionHook,
   ServerModule,
 } from '@tailor-cms/cek-common';
-import { initState, mocks, type } from 'tce-question-manifest';
 import type { Element } from 'tce-question-manifest';
+import manifest from 'tce-question-manifest';
 
 // Detect if hooks are running in CEK (used for mocking end-system runtime)
 const IS_CEK = process.env.CEK_RUNTIME;
@@ -52,15 +52,14 @@ export const hookMap: HookMap<Element> = new Map(
   }),
 );
 
+// Spreading the manifest forwards element metadata (type, initState,
+// isQuestion, mocks, ai, ...) to the server runtime.
 const serverModule: ServerModule<Element> = {
-  type,
-  initState,
+  ...manifest,
   hookMap,
   afterLoaded,
   beforeDisplay,
   onUserInteraction,
-  mocks,
 };
 
 export default serverModule;
-export { type, initState, mocks };

@@ -1,4 +1,3 @@
-import { ai, initState, mocks, type } from 'tce-counter-manifest';
 import type {
   BeforeDisplayHook,
   ElementHook,
@@ -8,6 +7,7 @@ import type {
   ServerModule,
 } from '@tailor-cms/cek-common';
 import type { Element } from 'tce-counter-manifest';
+import manifest from 'tce-counter-manifest';
 
 // Detect if hooks are running in CEK (used for mocking end-system runtime)
 const IS_CEK = process.env.CEK_RUNTIME;
@@ -53,17 +53,15 @@ export const procedures: Record<string, ProcedureHandler> = {
   },
 };
 
+// Spreading the manifest forwards element metadata (type, initState, mocks,
+// ai, ...) to the server runtime.
 const serverModule: ServerModule<Element> = {
-  type,
-  initState,
+  ...manifest,
   hookMap,
   procedures,
   beforeSave,
   beforeDisplay,
   onUserInteraction,
-  mocks,
-  ai,
 };
 
 export default serverModule;
-export { type, initState, mocks, ai };

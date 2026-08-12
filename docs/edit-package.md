@@ -311,7 +311,8 @@ inside a `QuestionForm` — providing the standard question layout:
 1. **Question prompt** — embedded container for question content
 2. **Answer UI** — the developer's Edit component (rendered in the default slot)
 3. **Hint** — optional hint text field
-4. **Feedback** — per-answer feedback fields (controlled by `showFeedback` manifest field)
+4. **Feedback** — a general feedback field (always available) plus per-answer
+   feedback fields (controlled by `showAnswerFeedback` manifest field)
 
 The developer's Edit component only needs to render the answer-specific UI.
 There is no need to import or use `QuestionForm` manually — the framework
@@ -341,15 +342,21 @@ const emit = defineEmits<{ update: [data: Partial<ElementData>] }>();
 </script>
 ```
 
-To control whether the feedback section is rendered, set `showFeedback` in
-the manifest (defaults to `true`):
+Feedback lives in a single `data.feedback` map: numeric keys hold per-answer
+feedback indexed by answer position, and the reserved `general` key holds
+feedback shown regardless of the submitted answer.
+
+To render the per-answer feedback editors, opt in via `showAnswerFeedback` in
+the manifest (defaults to `false`, so answer-less question types such as text
+or numerical response don't get editors for answers they don't have). The
+general feedback field remains available either way:
 
 ```ts
 const manifest: ElementManifest = {
   // ...
   isQuestion: true,
   isComposite: true,
-  showFeedback: false, // Hide feedback section
+  showAnswerFeedback: true, // Show per-answer feedback editors
 };
 ```
 
@@ -367,6 +374,11 @@ interface QuestionElementData {
   isGradable: boolean;
   // Correct answer data (shape varies by question type, present when isGradable)
   correct?: any;
+  // Optional hint shown on demand during delivery
+  hint: string;
+  // Per-answer feedback keyed by answer index, plus the reserved
+  // 'general' key holding answer-independent feedback
+  feedback: Record<number, string> & { general?: string };
   // ... additional type-specific fields
 }
 ```

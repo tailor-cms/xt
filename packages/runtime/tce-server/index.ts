@@ -69,7 +69,7 @@ export default async function run({
   isGradable,
   hookMap,
   procedures,
-  mocks,
+  mocks = {},
 }) {
   await initDb(hookMap);
   return initApp({

@@ -12,7 +12,7 @@ export interface ElementData extends common.ElementConfig {
   // Only present when isGradable === true.
   correct?: number | null;
   hint: string;
-  feedback: Record<number, string>;
+  feedback: common.QuestionFeedback;
 }
 
 export type DataInitializer = common.DataInitializer<ElementData>;

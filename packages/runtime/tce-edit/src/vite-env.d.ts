@@ -9,3 +9,4 @@ declare module '*.vue' {
 declare module 'vuetify';
 declare module 'vuetify/components';
 declare module 'vuetify/directives';
+declare module 'vuedraggable/src/vuedraggable';

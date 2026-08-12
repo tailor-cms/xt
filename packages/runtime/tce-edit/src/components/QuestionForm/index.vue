@@ -22,11 +22,11 @@
         @update="update({ hint: $event })"
       />
       <QuestionFeedback
-        v-if="showFeedback"
         :answers="editedElement.data.answers"
         :feedback="editedElement.data.feedback"
         :is-gradable="editedElement.data.isGradable"
         :is-readonly="isReadonly"
+        :show-answer-feedback="showAnswerFeedback"
         @update="update({ feedback: $event })"
       />
       <VFadeTransition>
@@ -65,14 +65,14 @@ interface Props {
   autosave?: boolean;
   isReadonly?: boolean;
   isFocused?: boolean;
-  showFeedback?: boolean;
+  showAnswerFeedback?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   autosave: false,
   isReadonly: false,
   isFocused: false,
-  showFeedback: true,
+  showAnswerFeedback: false,
 });
 
 const emit = defineEmits([

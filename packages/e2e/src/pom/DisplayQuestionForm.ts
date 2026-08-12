@@ -6,6 +6,7 @@ export class DisplayQuestionForm {
   readonly submitBtn: Locator;
   readonly retryBtn: Locator;
   readonly feedback: Locator;
+  readonly generalFeedback: Locator;
   readonly hintTooltip: Locator;
 
   constructor(frame: FrameLocator) {
@@ -14,6 +15,7 @@ export class DisplayQuestionForm {
     this.submitBtn = this.el.getByRole('button', { name: 'Submit' });
     this.retryBtn = this.el.getByRole('button', { name: 'Retry' });
     this.feedback = this.el.locator('.question-feedback');
+    this.generalFeedback = this.feedback.locator('.question-general-feedback');
     this.hintTooltip = frame.locator('.question-hint');
   }
 

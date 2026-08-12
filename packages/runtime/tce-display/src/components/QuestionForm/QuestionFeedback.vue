@@ -6,9 +6,12 @@
         {{ alertProps.text }}
       </span>
     </div>
-    <div v-if="hasFeedback" class="d-flex flex-column ga-2 mt-4">
+    <div v-if="feedback?.general" class="question-general-feedback mt-4">
+      {{ feedback.general }}
+    </div>
+    <div v-if="hasAnswerFeedback" class="d-flex flex-column ga-2 mt-4">
       <VCard
-        v-for="(it, key) in feedback"
+        v-for="(it, key) in answerFeedback"
         :key="key"
         :text="it"
         variant="tonal"
@@ -19,15 +22,21 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { omit } from 'lodash-es';
+import type { QuestionFeedback } from '@tailor-cms/cek-common';
 
 const props = defineProps<{
-  feedback: any;
+  feedback?: QuestionFeedback;
   isGraded: boolean;
   isCorrect: any;
 }>();
 
-const hasFeedback = computed(
-  () => props.feedback && Object.keys(props.feedback).length,
+// The reserved 'general' key is rendered separately, above the per-answer
+// cards — it must not leak into the per-answer loop.
+const answerFeedback = computed(() => omit(props.feedback, 'general'));
+
+const hasAnswerFeedback = computed(
+  () => Object.keys(answerFeedback.value).length > 0,
 );
 
 const alertProps = computed(() => {

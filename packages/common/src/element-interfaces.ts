@@ -28,6 +28,13 @@ export interface ElementConfig {
   isGradable?: boolean;
 }
 
+/**
+ * Feedback map for question elements ('data.feedback'). Numeric keys hold
+ * per-answer feedback, indexed by answer position. The reserved 'general'
+ * key holds feedback shown regardless of which answer was submitted.
+ */
+export type QuestionFeedback = Record<number, string> & { general?: string };
+
 interface ElementData extends ElementConfig {
   [key: string]: unknown;
 }
@@ -106,10 +113,14 @@ export interface ElementManifest<TData = ElementData> {
    */
   isGradable?: boolean;
   /**
-   * Controls whether the QuestionContainer renders the feedback section.
-   * Only relevant when 'isQuestion' is true. Defaults to true.
+   * Controls whether the QuestionContainer renders the per-answer feedback
+   * editors. General feedback ('data.feedback.general') is always authorable
+   * for question elements, regardless of this flag.
+   * Opt in from question types exposing an enumerable 'data.answers' array;
+   * answer-less types (e.g. text or numerical response) should leave it off.
+   * Only relevant when 'isQuestion' is true. Defaults to false.
    */
-  showFeedback?: boolean;
+  showAnswerFeedback?: boolean;
   /**
    * The goal of the initState function is to properly initialize the 'data'
    * field upon the Content Element creation. The 'data' field is the Content
