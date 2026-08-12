@@ -1,9 +1,10 @@
 <template>
   <ElementFrame
-    v-bind="{ name, variant, expanded, preview, isDraggable, isReadonly }"
+    v-bind="{ variant, expanded, preview, isDraggable, isReadonly }"
     :is-empty="!preview"
     :show-delete="!parent"
-    icon="mdi-cube-outline"
+    icon="mdi-text"
+    name="Textarea"
     @delete="requestDeleteConfirmation(element)"
   >
     <VTextarea
