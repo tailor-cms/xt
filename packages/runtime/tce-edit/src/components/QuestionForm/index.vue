@@ -22,12 +22,13 @@
         @update="update({ hint: $event })"
       />
       <QuestionFeedback
-        v-if="showFeedback"
         :answers="editedElement.data.answers"
         :feedback="editedElement.data.feedback"
+        :general-feedback="editedElement.data.generalFeedback"
         :is-gradable="editedElement.data.isGradable"
         :is-readonly="isReadonly"
-        @update="update({ feedback: $event })"
+        :show-answer-feedback="showFeedback"
+        @update="update"
       />
       <VFadeTransition>
         <div

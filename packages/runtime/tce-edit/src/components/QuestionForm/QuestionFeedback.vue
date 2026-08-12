@@ -14,31 +14,50 @@
     </div>
     <VExpandTransition>
       <div v-show="isExpanded">
-        <div
-          v-for="(answer, index) in processedAnswers"
-          :key="index"
-          class="text-title-small mb-6"
-        >
-          <div class="mb-4">
-            {{ isGradable ? 'Answer' : 'Option' }}
-            {{ index + 1 }}:
-            {{ answer || 'Answer not added.' }}
-          </div>
+        <div class="question-general-feedback text-title-small mb-6">
+          <div class="mb-4">General feedback</div>
           <VTextarea
             v-if="!isReadonly"
-            :model-value="feedback?.[index]"
-            placeholder="Add feedback..."
+            :model-value="generalFeedback"
+            placeholder="Add general feedback..."
             rows="2"
             variant="outlined"
             auto-grow
             hide-details
-            @update:model-value="update($event, index)"
+            @update:model-value="emit('update', { generalFeedback: $event })"
           />
           <template v-else>
-            <div v-if="feedback?.[index]" v-text="feedback[index]" />
+            <div v-if="generalFeedback" v-text="generalFeedback" />
             <span v-else class="font-italic">Feedback not added.</span>
           </template>
         </div>
+        <template v-if="showAnswerFeedback">
+          <div
+            v-for="(answer, index) in processedAnswers"
+            :key="index"
+            class="text-title-small mb-6"
+          >
+            <div class="mb-4">
+              {{ isGradable ? 'Answer' : 'Option' }}
+              {{ index + 1 }}:
+              {{ answer || 'Answer not added.' }}
+            </div>
+            <VTextarea
+              v-if="!isReadonly"
+              :model-value="feedback?.[index]"
+              placeholder="Add feedback..."
+              rows="2"
+              variant="outlined"
+              auto-grow
+              hide-details
+              @update:model-value="update($event, index)"
+            />
+            <template v-else>
+              <div v-if="feedback?.[index]" v-text="feedback[index]" />
+              <span v-else class="font-italic">Feedback not added.</span>
+            </template>
+          </div>
+        </template>
       </div>
     </VExpandTransition>
   </div>
@@ -52,28 +71,35 @@ interface Props {
   answers: string[];
   isReadonly: boolean;
   isGradable: boolean;
+  showAnswerFeedback: boolean;
   feedback?: Record<number, string>;
+  generalFeedback?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   feedback: () => ({}),
+  generalFeedback: '',
 });
 const emit = defineEmits(['update']);
 
-const isExpanded = ref(some(props.feedback));
+const isExpanded = ref(some(props.feedback) || !!props.generalFeedback);
 
 const processedAnswers = computed(() =>
   isArray(props.answers) ? props.answers : ['True', 'False'],
 );
 
 const update = (value: string, index: number) => {
-  emit('update', { ...props.feedback, [index]: value });
+  emit('update', { feedback: { ...props.feedback, [index]: value } });
 };
+
+const hasFeedback = computed(
+  () => some(props.feedback) || !!props.generalFeedback,
+);
 
 watch(
   () => props.isReadonly,
   (val) => {
-    if (!some(props.feedback)) return;
+    if (!hasFeedback.value) return;
     if (!val) isExpanded.value = true;
   },
 );

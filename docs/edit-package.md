@@ -311,7 +311,8 @@ inside a `QuestionForm` — providing the standard question layout:
 1. **Question prompt** — embedded container for question content
 2. **Answer UI** — the developer's Edit component (rendered in the default slot)
 3. **Hint** — optional hint text field
-4. **Feedback** — per-answer feedback fields (controlled by `showFeedback` manifest field)
+4. **Feedback** — a general feedback field (always available) plus per-answer
+   feedback fields (controlled by `showFeedback` manifest field)
 
 The developer's Edit component only needs to render the answer-specific UI.
 There is no need to import or use `QuestionForm` manually — the framework
@@ -341,15 +342,16 @@ const emit = defineEmits<{ update: [data: Partial<ElementData>] }>();
 </script>
 ```
 
-To control whether the feedback section is rendered, set `showFeedback` in
-the manifest (defaults to `true`):
+To control whether the per-answer feedback editors are rendered, set
+`showFeedback` in the manifest (defaults to `true`). The general feedback
+field remains available either way:
 
 ```ts
 const manifest: ElementManifest = {
   // ...
   isQuestion: true,
   isComposite: true,
-  showFeedback: false, // Hide feedback section
+  showFeedback: false, // Hide per-answer feedback editors
 };
 ```
 

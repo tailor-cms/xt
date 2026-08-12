@@ -23,6 +23,7 @@
         <QuestionFeedback
           v-if="isSubmitted"
           :feedback="element.data.feedback"
+          :general-feedback="element.data.generalFeedback"
           :is-correct="userState.isCorrect"
           :is-graded="element.data.isGradable"
           class="mt-4"

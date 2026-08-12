@@ -6,6 +6,12 @@
         {{ alertProps.text }}
       </span>
     </div>
+    <div
+      v-if="generalFeedback"
+      class="question-general-feedback text-body-medium mt-4"
+    >
+      {{ generalFeedback }}
+    </div>
     <div v-if="hasFeedback" class="d-flex flex-column ga-2 mt-4">
       <VCard
         v-for="(it, key) in feedback"
@@ -22,6 +28,7 @@ import { computed } from 'vue';
 
 const props = defineProps<{
   feedback: any;
+  generalFeedback?: string;
   isGraded: boolean;
   isCorrect: any;
 }>();

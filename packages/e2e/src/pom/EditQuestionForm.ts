@@ -7,6 +7,7 @@ export class EditQuestionForm {
   readonly hintInput: Locator;
   readonly feedbackSection: Locator;
   readonly feedbackToggleBtn: Locator;
+  readonly generalFeedbackInput: Locator;
   readonly saveBtn: Locator;
   readonly cancelBtn: Locator;
 
@@ -21,6 +22,9 @@ export class EditQuestionForm {
     this.feedbackToggleBtn = this.feedbackSection.getByRole('button', {
       name: /show|hide/i,
     });
+    this.generalFeedbackInput = this.feedbackSection
+      .locator('.question-general-feedback')
+      .getByRole('textbox');
     this.saveBtn = this.el.getByRole('button', { name: 'Save' });
     this.cancelBtn = this.el.getByRole('button', { name: 'Cancel' });
   }

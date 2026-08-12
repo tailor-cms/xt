@@ -106,7 +106,9 @@ export interface ElementManifest<TData = ElementData> {
    */
   isGradable?: boolean;
   /**
-   * Controls whether the QuestionContainer renders the feedback section.
+   * Controls whether the QuestionContainer renders the per-answer feedback
+   * editors. General feedback ('data.generalFeedback') is always authorable
+   * for question elements, regardless of this flag.
    * Only relevant when 'isQuestion' is true. Defaults to true.
    */
   showFeedback?: boolean;
