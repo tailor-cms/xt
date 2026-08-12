@@ -1,5 +1,16 @@
 # @tailor-cms/tce-edit-runtime
 
+## 2.1.0
+
+### Minor Changes
+
+- Introduce general feedback.
+
+### Patch Changes
+
+- Updated dependencies
+  - @tailor-cms/cek-common@2.1.0
+
 ## 2.0.3
 
 ### Patch Changes

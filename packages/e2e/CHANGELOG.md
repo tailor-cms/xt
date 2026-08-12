@@ -1,5 +1,11 @@
 # @tailor-cms/cek-e2e
 
+## 2.1.0
+
+### Minor Changes
+
+- Introduce general feedback.
+
 ## 2.0.3
 
 ### Patch Changes
