@@ -1,14 +1,25 @@
 <template>
   <div class="embedded-container align-center pa-4">
-    <div v-if="!!embeds.length" class="d-flex flex-column ga-4">
-      <ContentElement
-        v-for="element in embeds"
-        :key="element.id"
-        v-bind="{ element, isReadonly }"
-        @delete="emit('delete', element)"
-        @save="save(element, 'data', $event)"
-      />
-    </div>
+    <Draggable
+      v-if="!!embeds.length"
+      :disabled="isReadonly"
+      :list="embeds"
+      class="d-flex flex-column ga-4"
+      handle=".drag-handle"
+      item-key="id"
+      @update="reorderItem"
+    >
+      <template #item="{ element }">
+        <ContentElement
+          v-bind="{ element, isReadonly }"
+          :expanded="defaultExpanded || !initialIds.includes(element.id)"
+          :is-draggable="!isReadonly"
+          :variant="elementVariant"
+          @delete="emit('delete', element)"
+          @save="save(element, 'data', $event)"
+        />
+      </template>
+    </Draggable>
     <VBtn
       v-if="!isReadonly && enableAdd"
       v-bind="addBtnProps"
@@ -39,6 +50,7 @@
 <script setup lang="ts">
 import { cloneDeep, sortBy } from 'lodash-es';
 import { computed, ref } from 'vue';
+import Draggable from 'vuedraggable/src/vuedraggable';
 import { v4 as uuid } from '@lukeed/uuid/secure';
 
 import ContentElement from './ContentElement.vue';
@@ -56,6 +68,11 @@ interface Props {
   addElementOptions?: AddElementOptions;
   isReadonly?: boolean;
   enableAdd?: boolean;
+  // Baseline expansion state of each embed (`card` variant only).
+  // Embeds added during the session always start expanded.
+  defaultExpanded?: boolean;
+  // Presentation for each embedded element (see ElementFrame `variant`).
+  elementVariant?: 'card' | 'field' | 'quiet';
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -68,10 +85,16 @@ const props = withDefaults(defineProps<Props>(), {
   }),
   isReadonly: false,
   enableAdd: true,
+  defaultExpanded: true,
+  elementVariant: 'quiet',
 });
 const emit = defineEmits(['delete', 'save']);
 
 const isDialogVisible = ref(false);
+
+const initialIds = Object.values(props.container.embeds ?? {}).map(
+  (it: any) => it.id,
+);
 
 const embeds = computed(() => {
   const items = Object.values(props.container.embeds ?? {});
@@ -97,9 +120,23 @@ const createEmbedElement = () => ({
     width: 12,
   },
   embedded: true,
-  position: embeds.value.length,
+  position: (embeds.value.at(-1)?.position ?? 0) + 1,
   type: 'EXAMPLE',
 });
+
+// Position the moved embed between its new neighbors (their `position`
+// values are still pre-drag), matching Tailor's `calculatePosition`.
+const reorderItem = ({ newIndex }: { newIndex: number }) => {
+  const items = embeds.value;
+  const { id } = items[newIndex];
+  const rest = items.filter((it: any) => it.id !== id);
+  const lower = rest[newIndex - 1]?.position ?? 0;
+  const upper = rest[newIndex]?.position;
+  const container = cloneDeep(props.container);
+  container.embeds[id].position =
+    upper === undefined ? lower + 1 : (lower + upper) / 2;
+  emit('save', container);
+};
 
 const save = (item, key, value) => {
   const container = cloneDeep(props.container);
@@ -115,3 +152,25 @@ const addItem = () => {
   emit('save', container);
 };
 </script>
+
+<style lang="scss" scoped>
+:deep(.sortable-ghost) {
+  .drag-handle {
+    display: none;
+  }
+
+  .content-element {
+    max-height: 9.375rem;
+    background: rgb(var(--v-theme-surface-container-low));
+
+    & > * {
+      visibility: hidden;
+    }
+  }
+}
+
+:deep(.sortable-drag .content-element) {
+  max-height: none;
+  background: rgb(var(--v-theme-surface-container-low));
+}
+</style>

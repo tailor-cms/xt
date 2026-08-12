@@ -1,7 +1,7 @@
 <template>
   <ElementFrame
-    :is-readonly="isReadonly"
-    :name="name"
+    v-bind="{ name, variant, expanded, preview, isDraggable, isReadonly }"
+    :is-empty="!preview"
     :show-delete="!parent"
     icon="mdi-cube-outline"
     @delete="requestDeleteConfirmation(element)"
@@ -31,11 +31,18 @@ interface Props {
   element: Record<string, any>;
   parent?: Record<string, any> | null;
   isReadonly?: boolean;
+  // Proxied expansion state (see ElementFrame `expanded`).
+  expanded?: boolean | null;
+  isDraggable?: boolean;
+  variant?: 'card' | 'field' | 'quiet';
 }
 
 const props = withDefaults(defineProps<Props>(), {
   isReadonly: false,
   parent: null,
+  expanded: null,
+  isDraggable: false,
+  variant: 'card',
 });
 const emit = defineEmits(['delete', 'save']);
 
@@ -45,6 +52,11 @@ const appChannel = eventBus.channel('app');
 const name = computed(() =>
   String(props.element.type ?? 'Element').replace(/_/g, ' '),
 );
+
+const preview = computed(() => {
+  const content = props.element.data?.content;
+  return typeof content === 'string' ? content.trim() : '';
+});
 
 const requestDeleteConfirmation = (element) => {
   return appChannel.emit('showConfirmationModal', {

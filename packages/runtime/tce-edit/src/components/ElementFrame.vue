@@ -1,66 +1,165 @@
+<!-- eslint-disable
+  vuejs-accessibility/click-events-have-key-events,
+  vuejs-accessibility/no-static-element-interactions -->
 <template>
-  <div :class="{ focused: isFocused }" class="content-element card rounded-lg">
-    <div class="card-header d-flex align-center">
-      <div class="type-label d-flex align-center flex-shrink-0">
-        <VIcon :icon="icon" color="secondary" size="x-small" start />
-        <span class="text-label-small font-weight-semibold text-uppercase">
-          {{ name }}
+  <div
+    ref="rootEl"
+    :class="[
+      isField ? 'field rounded' : 'card rounded-lg',
+      { quiet: isQuiet, focused: isFocused },
+    ]"
+    class="content-element"
+  >
+    <div
+      v-if="!isField"
+      :class="{ revealed: isHighlighted }"
+      class="header-reveal"
+    >
+      <div
+        :class="{ expanded: isExpanded }"
+        class="card-header d-flex align-center"
+        @click="toggleExpanded"
+      >
+        <span v-if="!isReadonly && isDraggable" class="drag-handle" @click.stop>
+          <span class="mdi mdi-drag-vertical"></span>
         </span>
-      </div>
-      <VSpacer />
-      <div v-if="hasActions" class="element-actions">
+        <div
+          :class="{ 'ml-2': isReadonly || !isDraggable }"
+          class="type-label d-flex align-center flex-shrink-0"
+        >
+          <VIcon :icon="icon" color="secondary" size="x-small" start />
+          <span class="text-label-small font-weight-semibold text-uppercase">
+            {{ name }}
+          </span>
+        </div>
+        <template v-if="!isExpanded">
+          <span
+            v-if="preview"
+            class="mx-3 text-medium-emphasis text-body-medium text-truncate"
+          >
+            {{ preview }}
+          </span>
+          <span
+            v-else-if="isEmpty"
+            class="mx-3 font-italic text-disabled text-body-medium"
+          >
+            Empty
+          </span>
+        </template>
+        <VSpacer />
+        <div v-if="hasActions" class="element-actions" @click.stop>
+          <VBtn
+            v-if="showReset"
+            aria-label="Reset element"
+            color="warning"
+            icon="mdi-restore"
+            rounded="lg"
+            size="x-small"
+            variant="text"
+            @click="emit('reset')"
+          />
+          <VBtn
+            v-if="showDelete"
+            aria-label="Delete element"
+            color="error"
+            icon="mdi-trash-can-outline"
+            rounded="lg"
+            size="x-small"
+            variant="text"
+            @click="emit('delete')"
+          />
+        </div>
         <VBtn
-          v-if="showReset"
-          aria-label="Reset element"
-          color="warning"
-          icon="mdi-restore"
-          rounded="lg"
-          size="x-small"
+          v-if="!isQuiet"
+          :aria-label="isExpanded ? 'Collapse element' : 'Expand element'"
+          :icon="`mdi-chevron-${isExpanded ? 'up' : 'down'}`"
+          class="ml-1 flex-shrink-0 chevron"
+          density="comfortable"
+          size="small"
           variant="text"
-          @click="emit('reset')"
-        />
-        <VBtn
-          v-if="showDelete"
-          aria-label="Delete element"
-          color="error"
-          icon="mdi-trash-can-outline"
-          rounded="lg"
-          size="x-small"
-          variant="text"
-          @click="emit('delete')"
+          @click.stop="toggleExpanded"
         />
       </div>
     </div>
-    <div class="card-body">
-      <slot></slot>
-    </div>
+    <VExpandTransition>
+      <div v-show="isExpanded">
+        <div class="card-body">
+          <slot></slot>
+        </div>
+      </div>
+    </VExpandTransition>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
+import { useElementHover, useFocusWithin } from '@vueuse/core';
 
 interface Props {
   name: string;
   icon?: string;
   isFocused?: boolean;
   isReadonly?: boolean;
+  isDraggable?: boolean;
   showReset?: boolean;
   showDelete?: boolean;
+  // Collapsed header hint; preview takes precedence over the `Empty` label.
+  preview?: string;
+  isEmpty?: boolean;
+  // Controlled card expansion; null keeps it locally managed.
+  expanded?: boolean | null;
+  // 'card': standard editor card. 'field': header-less body for
+  // externally-labelled slots. 'quiet': header hidden until hover/focus;
+  // always expanded, no chevron.
+  variant?: 'card' | 'field' | 'quiet';
 }
 
 const props = withDefaults(defineProps<Props>(), {
   icon: 'mdi-cube-outline',
   isFocused: false,
   isReadonly: false,
+  isDraggable: false,
   showReset: false,
   showDelete: false,
+  preview: '',
+  isEmpty: false,
+  expanded: null,
+  variant: 'card',
 });
 
-const emit = defineEmits(['delete', 'reset']);
+const emit = defineEmits(['delete', 'reset', 'update:expanded']);
+
+const rootEl = ref<HTMLElement | null>(null);
+const isHovered = useElementHover(rootEl);
+const { focused: isFocusWithin } = useFocusWithin(rootEl);
+
+const isField = computed(() => props.variant === 'field');
+const isQuiet = computed(() => props.variant === 'quiet');
+
+const localExpanded = ref(props.expanded ?? true);
+const isExpanded = computed(() => {
+  if (isField.value || isQuiet.value) return true;
+  return localExpanded.value;
+});
+
+const isHighlighted = computed(
+  () => props.isFocused || isHovered.value || isFocusWithin.value,
+);
 
 const hasActions = computed(
   () => !props.isReadonly && (props.showReset || props.showDelete),
+);
+
+const toggleExpanded = () => {
+  localExpanded.value = !localExpanded.value;
+  emit('update:expanded', localExpanded.value);
+};
+
+watch(
+  () => props.expanded,
+  (val) => {
+    if (val !== null) localExpanded.value = val;
+  },
 );
 </script>
 
@@ -101,10 +200,49 @@ const hasActions = computed(
   background: rgb(var(--v-theme-surface-raised));
 }
 
+.field {
+  border: 1px solid rgba(var(--v-theme-outline), 0.3);
+  padding: 1rem;
+
+  .card-body {
+    padding: 0;
+  }
+}
+
+.quiet .header-reveal {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.2s ease;
+
+  &.revealed {
+    height: 2.75rem;
+  }
+}
+
 .card-header {
   min-height: 2.75rem;
-  padding: 0.375rem 0.5rem 0.375rem 0.75rem;
-  border-bottom: 1px solid rgba(var(--v-theme-outline), 0.12);
+  padding: 0.375rem 0.5rem 0.375rem 0.25rem;
+  cursor: pointer;
+
+  &.expanded {
+    border-bottom: 1px solid rgba(var(--v-theme-outline), 0.12);
+  }
+
+  .drag-handle {
+    flex-shrink: 0;
+    width: 1.5rem;
+    cursor: grab;
+
+    .mdi {
+      color: rgba(var(--v-theme-on-surface), 0.4);
+      font-size: 1.25rem;
+    }
+  }
+
+  .chevron {
+    border-radius: 8px;
+    color: rgba(var(--v-theme-on-surface), 0.65);
+  }
 
   .type-label {
     color: rgb(var(--v-theme-on-surface));

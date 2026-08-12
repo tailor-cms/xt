@@ -56,7 +56,9 @@
                     }"
                     v-bind="{
                       icon,
+                      isEmpty,
                       isFocused,
+                      preview,
                       name: type,
                       isReadonly: settings.isReadonly,
                     }"
@@ -278,6 +280,27 @@ const include = () => [
 const isEmpty = computed(() => {
   if (!element.value?.data) return false;
   return props.isEmpty?.(element.value.data) ?? false;
+});
+
+const htmlToText = (html: string) =>
+  new DOMParser().parseFromString(html, 'text/html').body.textContent?.trim() ??
+  '';
+
+// Collapsed-header preview; mirrors the Tailor element card (question prompt
+// for question elements, `data.content` otherwise).
+const preview = computed(() => {
+  if (!element.value?.data) return '';
+  if (props.isQuestion) return questionPreview.value;
+  const content = element.value.data.content;
+  if (typeof content !== 'string') return '';
+  return htmlToText(content);
+});
+
+const questionPreview = computed(() => {
+  const { embeds, question } = element.value?.data as any;
+  if (!Array.isArray(question) || !embeds) return '';
+  const prompt = question.map((id: string) => embeds[id]).filter(Boolean);
+  return htmlToText(prompt.map((it: any) => it.data?.content ?? '').join(' '));
 });
 
 onMounted(async () => {
