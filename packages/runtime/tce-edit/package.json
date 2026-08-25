@@ -21,12 +21,12 @@
     "ky": "^2.0.2",
     "lodash-es": "^4.18.1",
     "mitt": "^3.0.1",
-    "sass": "^1.102.0",
+    "sass": "^1.103.1",
     "typescript": "^6.0.3",
-    "vite": "^8.2.1",
+    "vite": "^8.2.2",
     "vue": "^3.5.41",
     "vuedraggable": "^4.1.0",
-    "vuetify": "^4.1.8"
+    "vuetify": "^4.1.11"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:^",
