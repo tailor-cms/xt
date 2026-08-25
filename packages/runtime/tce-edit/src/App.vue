@@ -18,11 +18,12 @@
               />
               <ElementSettings
                 v-if="element?.data"
-                v-model:settings="settings"
                 :config="config"
                 :element="element"
+                :settings="settings"
                 @toggle-gradable="confirm(toggleGradable)"
                 @toggle-half-width="confirm(toggleHalfWidth)"
+                @update:settings="Object.assign(settings, $event)"
               />
               <ThemeDialog class="ml-1" />
             </VSheet>
