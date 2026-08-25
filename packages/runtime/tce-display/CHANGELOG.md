@@ -1,5 +1,13 @@
 # @tailor-cms/tce-display-runtime
 
+## 2.1.1
+
+### Patch Changes
+
+- Tweak styling on question frames.
+- Updated dependencies
+  - @tailor-cms/cek-common@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

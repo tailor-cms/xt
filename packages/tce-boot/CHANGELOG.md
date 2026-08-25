@@ -1,5 +1,16 @@
 # @tailor-cms/tce-boot
 
+## 2.1.1
+
+### Patch Changes
+
+- Tweak styling on question frames.
+- Updated dependencies
+  - @tailor-cms/tce-preview-runtime@2.1.1
+  - @tailor-cms/tce-display-runtime@2.1.1
+  - @tailor-cms/tce-edit-runtime@2.1.1
+  - @tailor-cms/tce-server-runtime@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

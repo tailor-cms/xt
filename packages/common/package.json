@@ -2,7 +2,7 @@
   "name": "@tailor-cms/cek-common",
   "description": "Content element kit shared util library",
   "author": "Studion <info@gostudion.com>",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "license": "MIT",
   "type": "module",
   "exports": {
