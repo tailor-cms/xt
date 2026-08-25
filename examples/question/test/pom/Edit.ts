@@ -17,9 +17,9 @@ export class Edit extends pom.EditPanel {
     this.answerInputs = this.form.getByPlaceholder(/^(Answer|Option)\.\.\.$/);
     this.correctRadios = this.form.getByRole('radio');
     this.hintInput = this.form.locator('.question-hint').getByRole('textbox');
-    this.feedbackSection = this.form.locator('.question-feedback');
+    this.feedbackSection = this.form.locator('.feedback-container');
     this.feedbackToggleBtn = this.feedbackSection.getByRole('button', {
-      name: /show|hide/i,
+      name: 'Feedback',
     });
     this.saveBtn = this.form.getByRole('button', { name: 'Save' });
     this.cancelBtn = this.form.getByRole('button', { name: 'Cancel' });

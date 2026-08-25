@@ -36,18 +36,16 @@ test('Saves per-answer feedback; persists across reload', async ({ page }) => {
   await edit.fillAnswer(3, 'Option D');
   await edit.selectCorrect(0);
   await edit.feedbackToggleBtn.click();
-  const feedbackInput = edit.feedbackSection
-    .getByPlaceholder('Add feedback...')
-    .first();
+  const feedbackInput = edit.feedbackSection.getByLabel(/^Answer 1/);
   await expect(feedbackInput).toBeVisible();
   await feedbackInput.fill('Nice try');
   await edit.save();
   // After reload the feedback panel auto-expands because `isExpanded =
   // some(feedback)` in QuestionFeedback.vue — no second toggle needed.
   await page.reload({ waitUntil: 'networkidle' });
-  await expect(
-    edit.feedbackSection.getByPlaceholder('Add feedback...').first(),
-  ).toHaveValue('Nice try');
+  await expect(edit.feedbackSection.getByLabel(/^Answer 1/)).toHaveValue(
+    'Nice try',
+  );
 });
 
 test('Non-gradable init removes the correct-answer radios', async ({
