@@ -1,62 +1,48 @@
 <template>
-  <div class="question-feedback">
-    <div class="mb-2">
-      <span class="text-title-small">Feedback</span>
-      <VBtn
-        class="ml-2"
-        color="primary-darken-4"
-        size="small"
-        variant="text"
-        @click="isExpanded = !isExpanded"
-      >
-        {{ isExpanded ? 'hide' : 'show' }}
-      </VBtn>
-    </div>
+  <div class="feedback-container">
+    <VBtn
+      :append-icon="isExpanded ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+      :aria-controls="contentId"
+      :aria-expanded="isExpanded"
+      class="mb-2"
+      color="secondary"
+      rounded="lg"
+      size="small"
+      text="Feedback"
+      variant="tonal"
+      @click="isExpanded = !isExpanded"
+    />
     <VExpandTransition>
-      <div v-show="isExpanded">
-        <div class="question-general-feedback text-title-small mb-6">
-          <div class="mb-4">General feedback</div>
+      <div
+        v-show="isExpanded"
+        :id="contentId"
+        class="d-flex flex-column ga-3 pt-2"
+      >
+        <VTextarea
+          :model-value="feedback?.general"
+          :readonly="isReadonly"
+          density="comfortable"
+          label="General feedback"
+          rows="1"
+          variant="outlined"
+          auto-grow
+          hide-details
+          @update:model-value="update($event, 'general')"
+        />
+        <template v-if="showAnswerFeedback">
           <VTextarea
-            v-if="!isReadonly"
-            :model-value="feedback?.general"
-            placeholder="Add general feedback..."
-            rows="2"
+            v-for="(answer, index) in processedAnswers"
+            :key="index"
+            :label="answerLabel(answer, index)"
+            :model-value="feedback?.[index]"
+            :readonly="isReadonly"
+            density="comfortable"
+            rows="1"
             variant="outlined"
             auto-grow
             hide-details
-            @update:model-value="update($event, 'general')"
+            @update:model-value="update($event, index)"
           />
-          <template v-else>
-            <div v-if="feedback?.general" v-text="feedback.general" />
-            <span v-else class="font-italic">Feedback not added.</span>
-          </template>
-        </div>
-        <template v-if="showAnswerFeedback">
-          <div
-            v-for="(answer, index) in processedAnswers"
-            :key="index"
-            class="text-title-small mb-6"
-          >
-            <div class="mb-4">
-              {{ isGradable ? 'Answer' : 'Option' }}
-              {{ index + 1 }}:
-              {{ answer || 'Answer not added.' }}
-            </div>
-            <VTextarea
-              v-if="!isReadonly"
-              :model-value="feedback?.[index]"
-              placeholder="Add feedback..."
-              rows="2"
-              variant="outlined"
-              auto-grow
-              hide-details
-              @update:model-value="update($event, index)"
-            />
-            <template v-else>
-              <div v-if="feedback?.[index]" v-text="feedback[index]" />
-              <span v-else class="font-italic">Feedback not added.</span>
-            </template>
-          </div>
         </template>
       </div>
     </VExpandTransition>
@@ -64,28 +50,38 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue';
+import { computed, ref, useId, watch } from 'vue';
 import { isArray, some } from 'lodash-es';
 import type { QuestionFeedback } from '@tailor-cms/cek-common';
 
 interface Props {
-  answers: string[];
+  answers?: string[];
   isReadonly: boolean;
   isGradable: boolean;
-  showAnswerFeedback: boolean;
+  showAnswerFeedback?: boolean;
   feedback?: QuestionFeedback;
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  answers: () => [],
   feedback: () => ({}),
+  showAnswerFeedback: false,
 });
 const emit = defineEmits(['update']);
 
+const contentId = useId();
 const isExpanded = ref(some(props.feedback));
-
+const answerType = computed(() => (props.isGradable ? 'Answer' : 'Option'));
 const processedAnswers = computed(() =>
-  isArray(props.answers) ? props.answers : ['True', 'False'],
+  isArray(props.answers) && props.answers.length
+    ? props.answers
+    : ['True', 'False'],
 );
+
+const answerLabel = (answer: string, index: number) => {
+  const prefix = `${answerType.value} ${index + 1}`;
+  return answer ? `${prefix} · ${answer}` : `${prefix} (answer not added)`;
+};
 
 const update = (value: string, key: number | 'general') => {
   emit('update', { ...props.feedback, [key]: value });

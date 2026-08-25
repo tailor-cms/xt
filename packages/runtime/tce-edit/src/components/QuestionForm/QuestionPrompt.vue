@@ -1,29 +1,38 @@
 <template>
-  <div class="mb-4">
-    <div class="text-title-small mb-2">Prompt</div>
+  <div class="my-3">
     <VInput :model-value="elementData.question" :rules="[requiredRule]">
-      <div class="question-prompt rounded w-100">
-        <VAlert
-          v-if="!hasEmbeds"
-          :text="alertMsg"
-          class="mx-6 mt-4 mb-n2 text-center"
-          icon="mdi-information-outline"
-          variant="tonal"
-          prominent
-        />
-        <EmbeddedContainer
-          :add-element-options="{
-            label: 'Add question element',
-            large: true,
-            variant: 'text',
-          }"
-          :container="elementData"
-          :is-readonly="isReadonly"
-          class="text-center"
-          @delete="deleteEmbed($event.id)"
-          @save="saveQuestion($event.embeds)"
-        />
-      </div>
+      <template #default="{ isValid }">
+        <VField
+          :error="!isValid.value"
+          class="w-100"
+          label="Prompt"
+          variant="outlined"
+          active
+        >
+          <div class="w-100 mx-2">
+            <VAlert
+              v-if="!hasEmbeds"
+              :text="alertMsg"
+              class="mx-4 mt-4 text-center"
+              icon="mdi-information-outline"
+              variant="tonal"
+              prominent
+            />
+            <EmbeddedContainer
+              :add-element-options="{
+                label: 'Add element',
+                large: true,
+                variant: 'text',
+              }"
+              :container="elementData"
+              :is-readonly="isReadonly"
+              class="text-center w-100"
+              @delete="deleteEmbed($event.id)"
+              @save="saveQuestion($event.embeds)"
+            />
+          </div>
+        </VField>
+      </template>
     </VInput>
   </div>
 </template>
@@ -71,28 +80,6 @@ const requiredRule = (val: string[]) =>
 </script>
 
 <style lang="scss" scoped>
-.question-prompt {
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    height: 100%;
-    left: 0;
-    top: 0;
-    width: 100%;
-    border: 1px solid currentColor;
-    opacity: 0.38;
-    pointer-events: none;
-    border-radius: inherit;
-    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  &:hover::after {
-    opacity: 0.87;
-  }
-}
-
 :deep(.v-input__details) {
   padding-inline: 1rem;
 }

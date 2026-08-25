@@ -1,12 +1,13 @@
 <template>
-  <div class="question-hint">
-    <div class="text-title-small mb-2">Hint</div>
+  <div class="hint-container mb-6">
     <VTextField
       :clearable="!isReadonly"
       :model-value="hint"
       :readonly="isReadonly"
-      placeholder="Optional hint..."
+      density="comfortable"
+      label="Hint"
       variant="outlined"
+      hide-details
       @update:model-value="$emit('update', $event)"
     />
   </div>

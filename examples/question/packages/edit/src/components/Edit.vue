@@ -5,7 +5,7 @@
       :model-value="elementData.correct"
       :rules="correctRule"
     >
-      <div class="text-title-small mb-2">{{ title }}</div>
+      <div class="text-title-small mb-4">{{ title }}</div>
       <VTextField
         v-for="(answer, index) in elementData.answers"
         :key="index"
@@ -13,7 +13,8 @@
         :placeholder="placeholder"
         :readonly="isReadonly"
         :rules="answerRule"
-        class="my-2 w-100"
+        class="mb-2 w-100"
+        density="comfortable"
         variant="outlined"
         @update:model-value="updateAnswer(index, $event)"
       >

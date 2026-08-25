@@ -32,13 +32,12 @@
       <VFadeTransition>
         <div
           v-if="!isReadonly && isDirty && !autosave"
-          class="d-flex justify-end"
+          class="d-flex justify-end mt-4 ga-2"
         >
           <VBtn color="primary-darken-4" variant="text" @click="resetData">
             Cancel
           </VBtn>
           <VBtn
-            class="ml-2"
             color="success"
             prepend-icon="mdi-check"
             variant="tonal"

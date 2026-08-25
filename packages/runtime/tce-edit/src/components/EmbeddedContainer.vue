@@ -23,7 +23,7 @@
     <VBtn
       v-if="!isReadonly && enableAdd"
       v-bind="addBtnProps"
-      class="flex-grow-0 my-4"
+      class="flex-grow-0 mt-4 mb-2"
       @click="addItem"
     />
     <VDialog v-model="isDialogVisible" width="500" attach persistent>
