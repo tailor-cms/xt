@@ -1,6 +1,17 @@
 <template>
+  <FileDropzone
+    v-if="isDropzone && !resolvedFileKey"
+    :allow-url-source="allowUrlSource"
+    :disabled="readonly"
+    :extensions="allowedExtensions"
+    :icon="resolvedIcon"
+    :is-uploading="uploading"
+    :title="dropzoneTitle"
+    @open="openDialog"
+    @select="onFileSelect"
+  />
   <VTextField
-    v-if="!resolvedFileKey"
+    v-else-if="!resolvedFileKey"
     :density="density"
     :label="resolvedLabel"
     :max-width="maxWidth"
@@ -11,8 +22,50 @@
     append-inner-icon="mdi-upload"
     class="file-input"
     readonly
-    @click="dialogOpen = true"
+    @click="!readonly && openDialog()"
   />
+  <div v-else-if="isDropzone && $slots.default" class="file-input-media">
+    <slot
+      :file-name="resolvedFileName"
+      :is-loading="isLoadingPreview"
+      :url="previewUrl"
+    ></slot>
+    <!-- Editor-only file row below the media; sticks to the scroller
+      bottom so tall media keeps the actions in reach -->
+    <VExpandTransition>
+      <div
+        v-if="showActions && !readonly"
+        class="position-sticky bottom-0 pa-3 mb-n3 bg-surface-raised"
+      >
+        <div class="d-flex align-center ga-2">
+          <VIcon :icon="resolvedIcon" size="small" />
+          <span class="text-body-small text-medium-emphasis text-truncate">
+            {{ resolvedFileName }}
+          </span>
+          <VSpacer />
+          <div class="d-flex align-center mr-n3">
+            <slot :remove="onClear" :replace="openDialog" name="actions">
+              <VBtn
+                prepend-icon="mdi-swap-horizontal"
+                size="small"
+                text="Replace"
+                variant="text"
+                @click="openDialog()"
+              />
+              <VBtn
+                color="error"
+                prepend-icon="mdi-trash-can-outline"
+                size="small"
+                text="Remove"
+                variant="text"
+                @click="onClear"
+              />
+            </slot>
+          </div>
+        </div>
+      </div>
+    </VExpandTransition>
+  </div>
   <VOverlay
     v-else
     v-model="previewExpanded"
@@ -55,6 +108,7 @@
             <VIcon icon="mdi-magnify" size="large" />
           </VBtn>
           <VBtn
+            v-if="!readonly"
             aria-label="Remove file"
             size="x-small"
             variant="tonal"
@@ -76,7 +130,7 @@
     />
     <img v-if="previewUrl" :alt="resolvedFileName" :src="previewUrl" />
   </VOverlay>
-  <VDialog v-model="dialogOpen" width="700">
+  <VDialog v-model="dialogOpen" :theme="$vuetify.theme.global.name" width="700">
     <VCard :title="dialogHeading">
       <VCardText>
         <VTabs v-model="activeTab" class="mb-6" grow>
@@ -129,13 +183,25 @@
 import { computed, inject, ref, watch } from 'vue';
 import type { StorageApi } from '@tailor-cms/cek-common';
 
-import { ASSET_TYPE_ICON, ASSET_TYPE_LABEL, inferAssetType } from './asset';
+import {
+  ASSET_TYPE_DROPZONE_TITLE,
+  ASSET_TYPE_ICON,
+  ASSET_TYPE_LABEL,
+  inferAssetType,
+} from './asset';
+import FileDropzone from './FileDropzone.vue';
 
 defineOptions({ inheritAttrs: false });
 
 interface Props {
+  // 'field': a form control. 'dropzone': in-card media composer whose filled
+  // state renders the default slot with a file row beneath it.
+  mode?: 'field' | 'dropzone';
   fileKey?: string;
   fileName?: string;
+  // Dropzone mode: show the file row below the media
+  showActions?: boolean;
+  readonly?: boolean;
   allowUrlSource?: boolean;
   allowedExtensions?: string[];
   showPreview?: boolean;
@@ -151,8 +217,11 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  mode: 'field',
   fileKey: '',
   fileName: '',
+  showActions: true,
+  readonly: false,
   allowUrlSource: false,
   allowedExtensions: () => [],
   showPreview: false,
@@ -182,7 +251,18 @@ const urlTitle = ref('');
 const urlError = ref('');
 const previewExpanded = ref(false);
 
+const isDropzone = computed(() => props.mode === 'dropzone');
 const category = computed(() => inferAssetType(props.allowedExtensions));
+const dropzoneTitle = computed(
+  () =>
+    ASSET_TYPE_DROPZONE_TITLE[category.value ?? ''] ||
+    ASSET_TYPE_DROPZONE_TITLE.other,
+);
+
+const openDialog = (tab: 'upload' | 'url' = 'upload') => {
+  activeTab.value = tab;
+  dialogOpen.value = true;
+};
 
 const resolvedFileKey = computed(
   () => props.fileKey?.replace(/^storage:\/\//, '') || '',
