@@ -28,7 +28,7 @@
       <VSheet
         v-if="element.data.key"
         class="upload-details d-flex flex-column ga-4 pa-4"
-        color="primary-lighten-5"
+        color="surface-container"
         tag="ul"
         rounded
       >
