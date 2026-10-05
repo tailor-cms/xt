@@ -19,7 +19,6 @@
         :class="{ expanded: isExpanded }"
         class="card-header d-flex align-center"
         color="surface-container-low"
-        @click="toggleExpanded"
       >
         <span v-if="!isReadonly && isDraggable" class="drag-handle" @click.stop>
           <span class="mdi mdi-drag-vertical"></span>
@@ -82,6 +81,16 @@
         />
       </VSheet>
     </div>
+    <!-- Mirrors Tailor: the element's top toolbar renders inside the card,
+      stuck to the top of the scroller while a long element is edited -->
+    <VSheet
+      v-if="$slots.toolbar && showToolbar"
+      border="b"
+      class="card-toolbar d-flex align-center justify-center pa-2"
+      color="surface-raised"
+    >
+      <slot name="toolbar"></slot>
+    </VSheet>
     <VExpandTransition>
       <div v-show="isExpanded">
         <div class="card-body">
@@ -149,6 +158,10 @@ const isHighlighted = computed(
 
 const hasActions = computed(
   () => !props.isReadonly && (props.showReset || props.showDelete),
+);
+
+const showToolbar = computed(
+  () => props.isFocused && !props.isReadonly && isExpanded.value,
 );
 
 const toggleExpanded = () => {
@@ -223,7 +236,6 @@ watch(
 .card-header {
   min-height: 2.75rem;
   padding: 0.375rem 0.5rem 0.375rem 0.25rem;
-  cursor: pointer;
   border-radius: 7px 7px 0 0;
 
   &.expanded {
@@ -254,6 +266,22 @@ watch(
 
 .card-body {
   padding: 0.625rem 1.25rem 1rem;
+}
+
+.card-toolbar {
+  z-index: 2;
+  text-align: left;
+  position: sticky;
+  top: 0;
+
+  :deep(.v-btn-group--density-compact.v-btn-group) {
+    height: unset;
+  }
+}
+
+// The field frame supplies the padding; bleed the strip to its edge
+.field > .card-toolbar {
+  margin: -1rem -1rem 1rem;
 }
 
 .element-actions {
