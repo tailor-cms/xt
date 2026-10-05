@@ -1,5 +1,12 @@
 # @tailor-cms/cek-e2e
 
+## 2.2.0
+
+### Minor Changes
+
+- Expand file input component with dropzone mode, move toolbar to element expose
+  Tailor Dialog global component.
+
 ## 2.1.1
 
 ### Patch Changes

@@ -1,5 +1,20 @@
 # @tailor-cms/tce-boot
 
+## 2.2.0
+
+### Minor Changes
+
+- Expand file input component with dropzone mode, move toolbar to element expose
+  Tailor Dialog global component.
+
+### Patch Changes
+
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@2.2.0
+  - @tailor-cms/tce-edit-runtime@2.2.0
+  - @tailor-cms/tce-preview-runtime@2.2.0
+  - @tailor-cms/tce-server-runtime@2.2.0
+
 ## 2.1.1
 
 ### Patch Changes
