@@ -18,80 +18,120 @@ TopToolbar, and SideToolbar components.
 
 ### TailorFileInput
 
-File picker component with upload dialog (drag & drop) and optional URL
-import tab. Auto-detects asset type from extensions to resolve icon, label,
-and button text. Handles file upload via `$storageService`.
+File picker with a dialog for uploading (drag & drop), choosing from the
+asset library, and optionally importing from a URL. Auto-detects the asset
+type from the accepted extensions to resolve the icon, label, and dropzone
+title. Handles the upload via `$storageService`.
+
+It has two modes:
+
+- **`field`** (default): a form control. Empty, it is a click-to-add text
+  field; filled, it is a compact file card with preview, download, replace,
+  and remove. Use it in side toolbars and forms.
+- **`dropzone`**: a media composer for the element body. Empty, it renders a
+  placeholder-style zone with Upload, Library and, when enabled, From URL,
+  plus drag & drop with inline progress. Filled, it renders your media from
+  the default slot and, while `show-actions` is true, a sticky row beneath it
+  with the file name, Replace and Remove.
 
 ```vue
 <template>
   <TailorFileInput
     :allowed-extensions="['.png', '.jpg', '.jpeg']"
-    :file-key="element.data.assets?.backgroundUrl"
+    :file-key="element.data.assets?.url || element.data.url"
+    :public-url="element.data.url"
+    :readonly="isReadonly"
+    :show-actions="isFocused"
+    mode="dropzone"
     allow-url-source
-    @upload="onUpload"
-    @input="onInput"
     @delete="onDelete"
-  />
+    @input="save"
+    @upload="save"
+  >
+    <VImg :alt="element.data.alt" :src="element.data.url ?? ''" />
+  </TailorFileInput>
 </template>
 
 <script setup lang="ts">
 import type { Element, ElementData } from 'tce-manifest';
 
-const props = defineProps<{ element: Element }>();
+const props = defineProps<{
+  element: Element;
+  isFocused: boolean;
+  isReadonly: boolean;
+}>();
 const emit = defineEmits<{ save: [data: ElementData] }>();
 
-const onUpload = ({ url, publicUrl }: Record<string, any>) => {
-  const assets = { backgroundUrl: url };
-  emit('save', { ...props.element.data, backgroundUrl: publicUrl, assets });
-};
-
-const onInput = (payload: Record<string, any> | null) => {
+// `@input` also fires with `null` on remove; `@delete` covers that case
+const save = (payload: Record<string, any> | null) => {
   if (!payload) return;
-  emit('save', { ...props.element.data, backgroundUrl: payload.publicUrl });
+  const { url, publicUrl } = payload;
+  emit('save', { ...props.element.data, url: publicUrl ?? url, assets: { url } });
 };
 
 const onDelete = () => {
-  emit('save', {
-    ...props.element.data,
-    backgroundUrl: undefined,
-    assets: undefined,
-  });
+  emit('save', { ...props.element.data, url: null, assets: {} });
 };
 </script>
 ```
+
+Keep the editor honest: render what learners will see in the default slot,
+and leave editing chrome (replace, remove, file facts) to the row the
+component adds.
+
+::: tip Info
+The kit has no asset library, so its runtime offers Upload and From URL
+only; the Library source appears in Tailor.
+:::
 
 #### Props
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `file-key` | `string` | `''` | Storage key or `storage://` URI of the current file |
+| `mode` | `'field' \| 'dropzone'` | `'field'` | Form control, or in-card media composer (see above) |
+| `file-key` | `string` | `''` | Storage key, `storage://` URI, or external `http(s)` URL of the current file |
 | `file-name` | `string` | `''` | Display name; falls back to parsing from `fileKey` |
-| `allow-url-source` | `boolean` | `false` | Show URL import tab in the picker dialog |
-| `allowed-extensions` | `string[]` | `[]` | Accepted extensions with dot prefix (e.g. `['.jpg', '.png']`); drives icon/label auto-detection |
-| `use-field-input` | `boolean` | `false` | Use field input + card rendering instead of default button mode |
-| `show-preview` | `boolean` | `false` | Enable image thumbnail + overlay on the file card; auto-enabled for image extensions |
-| `public-url` | `string \| null` | `null` | Pre-resolved public URL; skips async fetch when present |
-| `label` | `string` | `''` | Override auto-inferred label (derived from extensions) |
-| `placeholder` | `string` | `''` | Override button text (e.g. `'Upload image'`) |
-| `icon` | `string` | `''` | Override auto-inferred icon (derived from extensions) |
-| `variant` | `VTextField['variant']` | `'outlined'` | Vuetify variant for the text field (field input mode) |
-| `density` | `VTextField['density']` | `'default'` | Vuetify density for the text field (field input mode) |
-| `dark` | `boolean` | `false` | Dark theme variant for the file preview card |
+| `show-actions` | `boolean` | `true` | Dropzone mode: show the file row below the media; bind to the element's focus state |
+| `allow-url-source` | `boolean` | `false` | Show the URL tab in the picker dialog and the From URL button in the dropzone |
+| `allowed-extensions` | `string[]` | `[]` | Accepted extensions with dot prefix (e.g. `['.jpg', '.png']`); drives type detection, the formats hint, and library filtering |
+| `show-preview` | `boolean` | `false` | Image thumbnail + overlay on the file card; auto-enabled for image extensions |
+| `public-url` | `string \| null` | `null` | Pre-resolved public URL; skips the async fetch when present |
+| `readonly` | `boolean` | `false` | Disables all interactions |
+| `label` | `string` | `''` | Override the auto-inferred label (derived from extensions) |
+| `placeholder` | `string` | `''` | Field mode: text field placeholder; also the base of the dialog heading |
+| `icon` | `string` | `''` | Override the auto-inferred icon (derived from extensions) |
+| `variant` | `VTextField['variant']` | `'outlined'` | Vuetify variant for the text field (field mode) |
+| `density` | `VTextField['density']` | `'default'` | Vuetify density for the text field (field mode) |
+| `dark` | `boolean` | `false` | Dark theme variant for the file card (field mode) |
+
+#### Slots (dropzone mode)
+
+| Slot | Props | Description |
+|---|---|---|
+| default | `{ url, fileName, isLoading }` | The media to render once a file is set |
+| `actions` | `{ replace, remove }` | Replaces the Replace / Remove buttons in the file row |
 
 #### Events
 
 | Event | Payload | Description |
 |---|---|---|
-| `@upload` | `{ key, name, url, publicUrl }` | File uploaded via drag & drop or file picker |
-| `@input` | `{ url, publicUrl, title? } \| null` | URL imported (from URL tab), or `null` on clear |
-| `@delete` | — | File cleared by the user |
+| `@upload` | `{ key, name, url, publicUrl }` | File uploaded via drag & drop or the file picker |
+| `@input` | `{ key, name, url, publicUrl }` \| `{ url, title? }` \| `null` | Asset picked from the library, URL imported, or `null` on remove |
+| `@delete` | — | File removed by the user |
 
-Auto-inferred values from `allowedExtensions`:
-- Image extensions → icon `mdi-image-outline`, label `Image`, button `Choose image`
-- Video → `mdi-video-outline` / `Video` / `Choose video`
-- Audio → `mdi-volume-medium` / `Audio` / `Choose audio`
-- Document → `mdi-file-document-outline` / `Document` / `Choose document`
-- Fallback → `mdi-file` / `File` / `Choose file`
+#### Values inferred from `allowed-extensions`
+
+| Type | Icon | Label | Dropzone title |
+|---|---|---|---|
+| Image | `mdi-image-outline` | Image | Add an image |
+| Video | `mdi-video-outline` | Video | Add a video |
+| Audio | `mdi-volume-medium` | Audio | Add audio |
+| Document | `mdi-file-document-outline` | Document | Add a document |
+| Fallback | `mdi-file-outline` | File | Add a file |
+
+The type is inferred only when every accepted extension belongs to one
+group; mixed or empty lists fall back to File. `label` and `icon` override
+the inferred values.
 
 ### TailorAssetInput (legacy)
 
@@ -134,6 +174,63 @@ instructions that change based on focus state.
 | `dense` | `boolean` | `false` | Compact variant (smaller icon/text) |
 | `is-focused` | `boolean` | `false` | Focus state |
 | `is-disabled` | `boolean` | `false` | Disabled state (greys out icon and text) |
+
+### TailorDialog
+
+Themed dialog with the Tailor card chrome: an icon and title header,
+optional subheader, body and actions slots, and an optional close button.
+Use it for element-level dialogs, for example changing a source URL while
+the current embed stays in view. It follows the app theme even when opened
+from inside the always-light element sheet.
+
+```vue
+<template>
+  <TailorDialog
+    v-model="isOpen"
+    header-icon="mdi-application-brackets"
+    title="Change the embed"
+    width="500"
+  >
+    <template #body>
+      <VTextField v-model="url" label="URL" variant="outlined" />
+    </template>
+    <template #actions>
+      <VBtn text="Cancel" variant="text" @click="isOpen = false" />
+      <VBtn color="primary" text="Save" variant="flat" @click="save" />
+    </template>
+  </TailorDialog>
+</template>
+```
+
+#### Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `model-value` | `boolean` | — | Open state (`v-model`) |
+| `title` | `string` | `''` | Header title |
+| `header-icon` | `string` | `'mdi-alert'` | Header icon |
+| `color` | `string` | `'primary'` | Header icon color |
+| `width` | `number \| string` | `500` | Dialog width |
+| `closeable` | `boolean` | `false` | Show a close button in the header |
+| `theme` | `string` | app theme | Override the theme the dialog renders in |
+
+Any other attribute (e.g. `persistent`) is passed to the underlying `VDialog`.
+
+#### Slots
+
+| Slot | Description |
+|---|---|
+| `activator` | Trigger element; receives the `VDialog` activator props |
+| `subheader` | Content between the header and the body (e.g. tabs) |
+| `body` | Dialog content |
+| `actions` | Buttons in the card actions row |
+
+#### Events
+
+| Event | Description |
+|---|---|
+| `@open` / `@close` | Open state changed |
+| `@submit` | Listening for it wraps the card in a form; fires on Enter and submit buttons |
 
 ### TailorEmbeddedContainer
 
