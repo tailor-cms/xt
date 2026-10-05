@@ -6,14 +6,8 @@
   "type": "module",
   "private": true,
   "exports": {
-    "./edit": {
-      "import": "./packages/edit/dist/index.js",
-      "require": "./packages/edit/dist/index.cjs"
-    },
-    "./display": {
-      "import": "./packages/display/dist/index.js",
-      "require": "./packages/display/dist/index.cjs"
-    },
+    "./edit": "./packages/edit/dist/index.js",
+    "./display": "./packages/display/dist/index.js",
     "./server": "./packages/server/dist/index.js"
   },
   "scripts": {

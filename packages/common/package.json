@@ -7,8 +7,8 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.mts",
-      "import": "./dist/index.mjs"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
   "files": [
@@ -36,7 +36,8 @@
     "typescript": "^6.0.3"
   },
   "tsdown": {
-    "target": "node26"
+    "target": "node26",
+    "fixedExtension": false
   },
   "publishConfig": {
     "access": "public"
