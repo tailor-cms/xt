@@ -15,6 +15,7 @@
     :scrim="false"
     class="file-dropzone-upload"
     color="transparent"
+    hide-details="auto"
     icon=""
     rounded="lg"
     @update:model-value="onSelect"
