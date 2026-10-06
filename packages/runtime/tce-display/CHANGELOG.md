@@ -1,5 +1,13 @@
 # @tailor-cms/tce-display-runtime
 
+## 2.2.1
+
+### Patch Changes
+
+- Swapped legacy colors and updated changed tailor components.
+- Updated dependencies
+  - @tailor-cms/cek-common@2.2.1
+
 ## 2.2.0
 
 ### Minor Changes

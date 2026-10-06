@@ -1,5 +1,16 @@
 # @tailor-cms/tce-boot
 
+## 2.2.1
+
+### Patch Changes
+
+- Swapped legacy colors and updated changed tailor components.
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@2.2.1
+  - @tailor-cms/tce-edit-runtime@2.2.1
+  - @tailor-cms/tce-preview-runtime@2.2.1
+  - @tailor-cms/tce-server-runtime@2.2.1
+
 ## 2.2.0
 
 ### Minor Changes

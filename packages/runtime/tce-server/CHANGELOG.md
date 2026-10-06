@@ -1,5 +1,11 @@
 # @tailor-cms/tce-server-runtime
 
+## 2.2.1
+
+### Patch Changes
+
+- Swapped legacy colors and updated changed tailor components.
+
 ## 2.2.0
 
 ### Minor Changes
