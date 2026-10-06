@@ -1,7 +1,16 @@
 <template>
+  <VAlert
+    v-if="errorMessage"
+    :text="errorMessage"
+    class="mb-3"
+    density="compact"
+    type="error"
+    variant="tonal"
+  />
   <VFileUpload
     :disabled="disabled"
     :filter-by-type="accept"
+    :model-value="[]"
     :readonly="isUploading"
     :scrim="false"
     class="file-dropzone-upload"
@@ -69,6 +78,7 @@ interface Props {
   allowUrlSource?: boolean;
   disabled?: boolean;
   isUploading?: boolean;
+  errorMessage?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -76,6 +86,7 @@ const props = withDefaults(defineProps<Props>(), {
   allowUrlSource: false,
   disabled: false,
   isUploading: false,
+  errorMessage: '',
 });
 
 const emit = defineEmits<{

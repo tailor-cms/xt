@@ -3,6 +3,7 @@
     v-if="isDropzone && !resolvedFileKey"
     :allow-url-source="allowUrlSource"
     :disabled="readonly"
+    :error-message="uploadError"
     :extensions="allowedExtensions"
     :icon="resolvedIcon"
     :is-uploading="uploading"
@@ -244,6 +245,7 @@ const emit = defineEmits<{
 
 const storageService = inject('$storageService') as StorageApi;
 const uploading = ref(false);
+const uploadError = ref('');
 const dialogOpen = ref(false);
 const activeTab = ref('upload');
 const urlInput = ref('');
@@ -339,6 +341,7 @@ const onFileSelect = async (files: File | File[] | null) => {
   const file = Array.isArray(files) ? files[0] : files;
   if (!file) return;
   uploading.value = true;
+  uploadError.value = '';
   try {
     const data = await storageService.upload(file);
     emit('upload', {
@@ -347,6 +350,8 @@ const onFileSelect = async (files: File | File[] | null) => {
       url: data.url,
       publicUrl: data.publicUrl,
     });
+  } catch {
+    uploadError.value = 'Upload failed. Please try again.';
   } finally {
     uploading.value = false;
     closeDialog();

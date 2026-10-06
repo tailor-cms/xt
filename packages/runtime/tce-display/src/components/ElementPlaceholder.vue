@@ -1,7 +1,7 @@
 <template>
   <VCard
     class="element-placeholder d-flex flex-column align-center justify-center"
-    color="primary-darken-1"
+    color="primary"
     height="250"
     variant="tonal"
   >

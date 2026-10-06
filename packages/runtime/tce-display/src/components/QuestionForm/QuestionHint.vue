@@ -14,7 +14,7 @@
         v-bind="tooltipProps"
         :active="isActive"
         :prepend-icon="`mdi-lightbulb-${isActive ? 'on' : 'outline'}`"
-        color="primary-darken-1"
+        color="primary"
         size="small"
         text="Hint"
         variant="tonal"

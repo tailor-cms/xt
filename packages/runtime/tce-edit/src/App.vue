@@ -32,19 +32,14 @@
                 v-if="isGeneratingContent"
                 class="d-flex flex-column align-center py-16"
               >
-                <VProgressCircular
-                  class="w-100"
-                  color="primary-darken-2"
-                  size="68"
-                  indeterminate
-                >
+                <VProgressCircular class="w-100" size="68" indeterminate>
                   <img
                     alt="Tailor logo"
                     src="https://avatars.githubusercontent.com/u/142484057"
                     width="32"
                   />
                 </VProgressCircular>
-                <div class="mt-8 text-primary-darken-4 font-weight-bold">
+                <div class="mt-8 font-weight-bold">
                   <span>Content generation in progress...</span>
                 </div>
               </div>

@@ -37,7 +37,6 @@
           <VSpacer />
           <VBtn
             v-if="!isReadonly"
-            color="primary-darken-2"
             icon="mdi-close"
             size="x-small"
             variant="tonal"

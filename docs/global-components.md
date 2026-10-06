@@ -152,11 +152,11 @@ instructions that change based on focus state.
   <TailorElementPlaceholder
     v-if="!element.data.url"
     :icon="manifest.ui.icon"
-    :is-disabled="isReadonly"
     :is-focused="isFocused"
+    :is-readonly="isReadonly"
     :name="`${manifest.name} component`"
     active-icon="mdi-arrow-up"
-    active-placeholder="Use toolbar to enter the url"
+    active-placeholder="Use the toolbar above to enter the url"
   />
 </template>
 ```
@@ -167,13 +167,12 @@ instructions that change based on focus state.
 |---|---|---|---|
 | `icon` | `string` | required | MDI icon name |
 | `name` | `string` | required | Element display name |
+| `color` | `string` | `undefined` | Avatar color (tonal); inherits text color when unset |
 | `placeholder` | `string` | `'Select to edit'` | Text shown when unfocused |
-| `active-placeholder` | `string` | `'Use toolbar to edit'` | Text shown when focused |
+| `active-placeholder` | `string` | `'Use the toolbar above to edit'` | Text shown when focused |
 | `active-icon` | `string \| null` | `null` | Icon shown next to active placeholder |
-| `active-color` | `string` | `'#fff'` | Icon color when focused |
-| `dense` | `boolean` | `false` | Compact variant (smaller icon/text) |
-| `is-focused` | `boolean` | `false` | Focus state |
-| `is-disabled` | `boolean` | `false` | Disabled state (greys out icon and text) |
+| `is-focused` | `boolean` | `false` | Focus state (enlarges the icon, shows active placeholder) |
+| `is-readonly` | `boolean` | `false` | Hides the placeholder instructions |
 
 ### TailorDialog
 
@@ -265,7 +264,6 @@ Default `addElementOptions`:
   large: false,
   label: 'Add content',
   icon: 'mdi-plus',
-  color: 'primary-darken-4',
   variant: 'tonal',
 }
 ```
