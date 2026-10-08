@@ -1,5 +1,11 @@
 # @tailor-cms/eslint-config
 
+## 2.3.0
+
+### Minor Changes
+
+- Align `TailorFileInput` with Tailor: upload progress, replace in field mode, and URL imports emit `name` instead of `title`.
+
 ## 2.2.1
 
 ### Patch Changes

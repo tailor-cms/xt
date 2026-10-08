@@ -10,7 +10,6 @@ export class FileInput {
   // Field mode
   readonly field: Locator;
   readonly previewBtn: Locator;
-  readonly downloadBtn: Locator;
   readonly removeBtn: Locator;
   readonly previewOverlay: Locator;
   readonly closePreviewBtn: Locator;
@@ -37,9 +36,6 @@ export class FileInput {
   constructor(frame: FrameLocator) {
     this.field = frame.locator('.file-input');
     this.previewBtn = this.field.getByRole('button', { name: 'Preview image' });
-    this.downloadBtn = this.field.getByRole('button', {
-      name: 'Download file',
-    });
     this.removeBtn = this.field.getByRole('button', {
       name: 'Remove file',
       exact: true,
@@ -80,10 +76,6 @@ export class FileInput {
   async open(): Promise<void> {
     await this.field.click();
     await expect(this.dialog).toBeVisible();
-  }
-
-  async download(): Promise<void> {
-    await this.downloadBtn.click();
   }
 
   async remove(): Promise<void> {

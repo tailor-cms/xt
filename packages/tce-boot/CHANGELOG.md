@@ -1,5 +1,19 @@
 # @tailor-cms/tce-boot
 
+## 2.3.0
+
+### Minor Changes
+
+- Align `TailorFileInput` with Tailor: upload progress, replace in field mode, and URL imports emit `name` instead of `title`.
+
+### Patch Changes
+
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@2.3.0
+  - @tailor-cms/tce-edit-runtime@2.3.0
+  - @tailor-cms/tce-preview-runtime@2.3.0
+  - @tailor-cms/tce-server-runtime@2.3.0
+
 ## 2.2.1
 
 ### Patch Changes

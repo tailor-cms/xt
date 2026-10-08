@@ -7,6 +7,7 @@
     :extensions="allowedExtensions"
     :icon="resolvedIcon"
     :is-uploading="uploading"
+    :progress="progress"
     :title="dropzoneTitle"
     @open="openDialog"
     @select="onFileSelect"
@@ -75,7 +76,9 @@
     close-on-content-click
   >
     <template #activator="{ props: dialogProps }">
+      <!-- Clicking the filled field replaces the file -->
       <VTextField
+        :class="{ 'cursor-pointer': !readonly }"
         :density="density"
         :label="resolvedLabel"
         :max-width="maxWidth"
@@ -84,6 +87,7 @@
         :variant="variant"
         class="file-input"
         readonly
+        @click="!readonly && openDialog()"
       >
         <template #prepend-inner>
           <VProgressCircular v-if="isLoadingPreview" size="24" indeterminate />
@@ -105,12 +109,14 @@
             size="x-small"
             variant="tonal"
             icon
+            @click.stop
           >
             <VIcon icon="mdi-magnify" size="large" />
           </VBtn>
           <VBtn
             v-if="!readonly"
             aria-label="Remove file"
+            color="error"
             size="x-small"
             variant="tonal"
             icon
@@ -145,12 +151,27 @@
         </VTabs>
         <VWindow v-model="activeTab">
           <VWindowItem value="upload">
-            <VFileUpload
-              :filter-by-type="acceptedFileTypes"
-              color="transparent"
-              hide-details
-              @update:model-value="onFileSelect"
+            <UploadProgress
+              v-if="uploading"
+              :file-name="uploadingFileName"
+              :progress="progress"
             />
+            <template v-else>
+              <VAlert
+                v-if="uploadError"
+                :text="uploadError"
+                class="mb-3"
+                density="compact"
+                type="error"
+                variant="tonal"
+              />
+              <VFileUpload
+                :filter-by-type="acceptedFileTypes"
+                color="transparent"
+                hide-details
+                @update:model-value="onFileSelect"
+              />
+            </template>
           </VWindowItem>
           <VWindowItem v-if="allowUrlSource" value="url">
             <VTextField
@@ -188,9 +209,11 @@ import {
   ASSET_TYPE_DROPZONE_TITLE,
   ASSET_TYPE_ICON,
   ASSET_TYPE_LABEL,
+  fileNameFromUrl,
   inferAssetType,
 } from './asset';
 import FileDropzone from './FileDropzone.vue';
+import UploadProgress from './UploadProgress.vue';
 
 defineOptions({ inheritAttrs: false });
 
@@ -245,6 +268,9 @@ const emit = defineEmits<{
 
 const storageService = inject('$storageService') as StorageApi;
 const uploading = ref(false);
+// Percent complete, or null until the upload reports progress
+const progress = ref<number | null>(null);
+const uploadingFileName = ref('');
 const uploadError = ref('');
 const dialogOpen = ref(false);
 const activeTab = ref('upload');
@@ -252,6 +278,11 @@ const urlInput = ref('');
 const urlTitle = ref('');
 const urlError = ref('');
 const previewExpanded = ref(false);
+
+// Floor the visible upload time so the progress panel doesn't flash on fast
+// (small-file / localhost) uploads
+const MIN_LOADING_MS = 800;
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const isDropzone = computed(() => props.mode === 'dropzone');
 const category = computed(() => inferAssetType(props.allowedExtensions));
@@ -263,6 +294,7 @@ const dropzoneTitle = computed(
 
 const openDialog = (tab: 'upload' | 'url' = 'upload') => {
   activeTab.value = tab;
+  uploadError.value = '';
   dialogOpen.value = true;
 };
 
@@ -341,20 +373,28 @@ const onFileSelect = async (files: File | File[] | null) => {
   const file = Array.isArray(files) ? files[0] : files;
   if (!file) return;
   uploading.value = true;
+  progress.value = null;
+  uploadingFileName.value = file.name;
   uploadError.value = '';
   try {
-    const data = await storageService.upload(file);
+    const [data] = await Promise.all([
+      storageService.upload(file, {
+        onProgress: (percent) => (progress.value = percent),
+      }),
+      delay(MIN_LOADING_MS),
+    ]);
     emit('upload', {
       key: data.key,
       name: file.name,
       url: data.url,
       publicUrl: data.publicUrl,
     });
+    closeDialog();
   } catch {
+    // Dialog stays open so the error shows next to a retry
     uploadError.value = 'Upload failed. Please try again.';
   } finally {
     uploading.value = false;
-    closeDialog();
   }
 };
 
@@ -367,11 +407,10 @@ const submitUrl = () => {
     urlError.value = 'Please enter a valid URL';
     return;
   }
-  emit('input', {
-    url: urlInput.value.trim(),
-    publicUrl: urlInput.value.trim(),
-    title: urlTitle.value.trim() || undefined,
-  });
+  const url = urlInput.value.trim();
+  // Same `name` key as uploads and library picks; the title is optional
+  const name = urlTitle.value.trim() || fileNameFromUrl(url) || undefined;
+  emit('input', { url, publicUrl: url, name });
   closeDialog();
 };
 

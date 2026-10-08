@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-preview-runtime",
   "description": "Preview content element client side runtime",
   "author": "Studion <info@gostudion.com>",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "license": "MIT",
   "type": "module",
   "scripts": {

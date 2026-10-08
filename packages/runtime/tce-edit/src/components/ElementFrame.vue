@@ -265,7 +265,7 @@ watch(
 }
 
 .card-body {
-  padding: 0.625rem 1.25rem 1rem;
+  padding: 1rem 1.25rem;
 }
 
 .card-toolbar {

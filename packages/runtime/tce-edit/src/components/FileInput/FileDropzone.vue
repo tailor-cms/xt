@@ -1,68 +1,63 @@
 <template>
-  <VAlert
-    v-if="errorMessage"
-    :text="errorMessage"
-    class="mb-3"
-    density="compact"
-    type="error"
-    variant="tonal"
+  <UploadProgress
+    v-if="isUploading"
+    :file-name="fileName"
+    :progress="progress"
   />
-  <VFileUpload
-    :disabled="disabled"
-    :filter-by-type="accept"
-    :model-value="[]"
-    :readonly="isUploading"
-    :scrim="false"
-    class="file-dropzone-upload"
-    color="transparent"
-    hide-details="auto"
-    icon=""
-    rounded="lg"
-    @update:model-value="onSelect"
-  >
-    <template #title>
-      <VAvatar size="x-large" variant="tonal">
-        <VIcon :icon="icon" size="28" />
-      </VAvatar>
-      <div class="mt-4 mb-1 font-weight-medium text-title-large">
-        {{ isUploading ? `Uploading ${fileName}` : title }}
-      </div>
-      <div class="text-body-medium text-medium-emphasis">
-        <template v-if="isUploading">Sending to storage…</template>
-        <template v-else>
+  <template v-else>
+    <VAlert
+      v-if="errorMessage"
+      :text="errorMessage"
+      class="mb-3"
+      density="compact"
+      type="error"
+      variant="tonal"
+    />
+    <VFileUpload
+      :disabled="disabled"
+      :filter-by-type="accept"
+      :model-value="[]"
+      :scrim="false"
+      class="file-dropzone-upload"
+      color="transparent"
+      hide-details="auto"
+      icon=""
+      rounded="lg"
+      @update:model-value="onSelect"
+    >
+      <template #title>
+        <VAvatar size="x-large" variant="tonal">
+          <VIcon :icon="icon" size="28" />
+        </VAvatar>
+        <div class="mt-4 mb-1 font-weight-medium text-title-large">
+          {{ title }}
+        </div>
+        <div class="text-body-medium text-medium-emphasis">
           Drag & drop anywhere in this block
           <template v-if="formats"> · {{ formats }}</template>
-        </template>
-      </div>
-    </template>
-    <template #browse="{ props: browseProps }">
-      <VProgressLinear
-        v-if="isUploading"
-        class="mt-4"
-        color="primary"
-        height="6"
-        indeterminate
-        rounded
-      />
-      <div v-else class="d-flex flex-wrap justify-center ga-2 mt-4">
-        <VBtn
-          v-bind="browseProps"
-          color="primary"
-          prepend-icon="mdi-upload"
-          size="default"
-          text="Upload"
-          variant="tonal"
-        />
-        <VBtn
-          v-if="allowUrlSource"
-          size="default"
-          text="From URL"
-          variant="tonal"
-          @click.stop="emit('open', 'url')"
-        />
-      </div>
-    </template>
-  </VFileUpload>
+        </div>
+      </template>
+      <template #browse="{ props: browseProps }">
+        <div class="d-flex flex-wrap justify-center ga-2 mt-4">
+          <VBtn
+            v-bind="browseProps"
+            color="secondary"
+            prepend-icon="mdi-upload"
+            size="default"
+            text="Upload"
+            variant="tonal"
+          />
+          <VBtn
+            v-if="allowUrlSource"
+            size="default"
+            text="From URL"
+            variant="tonal"
+            @click.stop="emit('open', 'url')"
+          />
+        </div>
+      </template>
+    </VFileUpload>
+  </template>
 </template>
 
 <script lang="ts" setup>
@@ -70,6 +65,8 @@
 // the sources are upload and URL only.
 import { computed, ref } from 'vue';
 import { uniq } from 'lodash-es';
+
+import UploadProgress from './UploadProgress.vue';
 
 interface Props {
   title: string;
@@ -79,6 +76,8 @@ interface Props {
   allowUrlSource?: boolean;
   disabled?: boolean;
   isUploading?: boolean;
+  // Upload percent complete; null renders an indeterminate bar
+  progress?: number | null;
   errorMessage?: string;
 }
 
@@ -87,6 +86,7 @@ const props = withDefaults(defineProps<Props>(), {
   allowUrlSource: false,
   disabled: false,
   isUploading: false,
+  progress: null,
   errorMessage: '',
 });
 

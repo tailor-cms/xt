@@ -21,10 +21,18 @@ export interface FileUploadResponse {
 }
 
 /**
+ * Options for StorageApi.upload.
+ */
+export interface UploadOptions {
+  // Called with the completion percentage (0..100) as bytes are sent
+  onProgress?: (percent: number) => void;
+}
+
+/**
  * API exposed by the $storageService (injected into the authoring
  * package components).
  */
 export interface StorageApi {
   getUrl(key: string): Promise<string>;
-  upload(files: File): Promise<FileUploadResponse>;
+  upload(file: File, options?: UploadOptions): Promise<FileUploadResponse>;
 }

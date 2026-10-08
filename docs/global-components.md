@@ -26,8 +26,8 @@ title. Handles the upload via `$storageService`.
 It has two modes:
 
 - **`field`** (default): a form control. Empty, it is a click-to-add text
-  field; filled, it is a compact file card with preview, download, replace,
-  and remove. Use it in side toolbars and forms.
+  field; filled, it is a compact file card with preview, replace, and
+  remove. Use it in side toolbars and forms.
 - **`dropzone`**: a media composer for the element body. Empty, it renders a
   placeholder-style zone with Upload, Library and, when enabled, From URL,
   plus drag & drop with inline progress. Filled, it renders your media from
@@ -116,7 +116,7 @@ only; the Library source appears in Tailor.
 | Event | Payload | Description |
 |---|---|---|
 | `@upload` | `{ key, name, url, publicUrl }` | File uploaded via drag & drop or the file picker |
-| `@input` | `{ key, name, url, publicUrl }` \| `{ url, title? }` \| `null` | Asset picked from the library, URL imported, or `null` on remove |
+| `@input` | `{ key, name, url, publicUrl }` \| `{ url, publicUrl, name }` \| `null` | Asset picked from the library, URL imported, or `null` on remove. For a URL import, `name` is the entered title, or the last segment of the URL |
 | `@delete` | — | File removed by the user |
 
 #### Values inferred from `allowed-extensions`
