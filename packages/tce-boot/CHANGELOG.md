@@ -1,5 +1,16 @@
 # @tailor-cms/tce-boot
 
+## 2.3.1
+
+### Patch Changes
+
+- df127cb: Fix file uploads in the edit runtime; the CEK no longer reports upload progress (shows an indeterminate bar).
+- Updated dependencies [df127cb]
+  - @tailor-cms/tce-display-runtime@2.3.1
+  - @tailor-cms/tce-edit-runtime@2.3.1
+  - @tailor-cms/tce-preview-runtime@2.3.1
+  - @tailor-cms/tce-server-runtime@2.3.1
+
 ## 2.3.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @tailor-cms/eslint-config
 
+## 2.3.1
+
+### Patch Changes
+
+- df127cb: Fix file uploads in the edit runtime; the CEK no longer reports upload progress (shows an indeterminate bar).
+
 ## 2.3.0
 
 ### Minor Changes
