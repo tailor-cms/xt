@@ -7,12 +7,11 @@
   "private": true,
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
-  "main": "./dist/index.cjs",
-  "types": "./dist/index.d.mts",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -31,14 +30,11 @@
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
-    "tsdown": "^0.22.14",
+    "tsdown": "^0.23.0",
     "typescript": "^6.0.3"
   },
   "tsdown": {
     "target": "node26",
-    "format": [
-      "cjs",
-      "esm"
-    ]
+    "fixedExtension": false
   }
 }

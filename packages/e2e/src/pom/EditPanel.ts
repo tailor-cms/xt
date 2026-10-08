@@ -28,10 +28,7 @@ export class EditPanel {
       .locator('.v-row')
       .filter({ hasText: 'Authoring component' })
       .locator('.edit-frame');
-    this.topToolbar = this.el
-      .locator('.v-row')
-      .filter({ hasText: 'Top toolbar' })
-      .locator('.top-toolbar');
+    this.topToolbar = this.editor.locator('.card-toolbar');
     this.sideToolbar = this.el
       .locator('.v-row')
       .filter({ hasText: 'Side toolbar' })
@@ -73,7 +70,7 @@ export class EditPanel {
   }
 
   async focus(): Promise<void> {
-    await this.editor.click();
+    await this.editor.locator('.card-header').click();
   }
 
   async setReadonly(): Promise<void> {

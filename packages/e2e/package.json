@@ -2,13 +2,13 @@
   "name": "@tailor-cms/cek-e2e",
   "description": "Content element E2E testing utilities",
   "author": "Studion <info@gostudion.com>",
-  "version": "2.1.1",
+  "version": "2.3.0",
   "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.mts",
-      "import": "./dist/index.mjs"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
   "files": [
@@ -25,15 +25,16 @@
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:^",
-    "@types/node": "^26.2.0",
-    "tsdown": "^0.22.14",
+    "@types/node": "^26.6.4",
+    "tsdown": "^0.23.0",
     "typescript": "^6.0.3"
   },
   "peerDependencies": {
-    "@playwright/test": "^1.61.1"
+    "@playwright/test": "^1.63.0"
   },
   "tsdown": {
-    "target": "node26"
+    "target": "node26",
+    "fixedExtension": false
   },
   "publishConfig": {
     "access": "public"

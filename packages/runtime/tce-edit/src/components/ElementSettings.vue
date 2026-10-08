@@ -3,7 +3,6 @@
     <template #activator="{ props: menuProps }">
       <VBtn
         v-bind="menuProps"
-        color="primary-darken-2"
         prepend-icon="mdi-cog"
         text="Settings"
         variant="tonal"

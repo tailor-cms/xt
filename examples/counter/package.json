@@ -6,14 +6,8 @@
   "type": "module",
   "private": true,
   "exports": {
-    "./edit": {
-      "import": "./packages/edit/dist/index.js",
-      "require": "./packages/edit/dist/index.cjs"
-    },
-    "./display": {
-      "import": "./packages/display/dist/index.js",
-      "require": "./packages/display/dist/index.cjs"
-    },
+    "./edit": "./packages/edit/dist/index.js",
+    "./display": "./packages/display/dist/index.js",
     "./server": "./packages/server/dist/index.js"
   },
   "scripts": {
@@ -27,12 +21,12 @@
     "test": "playwright test --config test/playwright.config.ts"
   },
   "devDependencies": {
-    "@playwright/test": "^1.62.1",
+    "@playwright/test": "^1.63.0",
     "@tailor-cms/cek-e2e": "workspace:*",
     "@tailor-cms/eslint-config": "workspace:*",
     "@tailor-cms/tce-boot": "workspace:*",
-    "@types/node": "^26.2.0",
-    "dotenv": "^17.4.2",
+    "@types/node": "^26.6.4",
+    "dotenv": "^18.0.6",
     "typescript": "^6.0.3"
   }
 }

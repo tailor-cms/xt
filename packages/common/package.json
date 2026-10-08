@@ -2,13 +2,13 @@
   "name": "@tailor-cms/cek-common",
   "description": "Content element kit shared util library",
   "author": "Studion <info@gostudion.com>",
-  "version": "2.1.1",
+  "version": "2.3.0",
   "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.mts",
-      "import": "./dist/index.mjs"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
   "files": [
@@ -25,18 +25,19 @@
   },
   "dependencies": {
     "@lukeed/uuid": "^2.0.1",
-    "ky": "^2.0.2",
+    "ky": "^2.1.0",
     "mitt": "^3.0.1"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:^",
     "@types/json-schema": "^7.0.15",
-    "@types/node": "^26.2.0",
-    "tsdown": "^0.22.14",
+    "@types/node": "^26.6.4",
+    "tsdown": "^0.23.0",
     "typescript": "^6.0.3"
   },
   "tsdown": {
-    "target": "node26"
+    "target": "node26",
+    "fixedExtension": false
   },
   "publishConfig": {
     "access": "public"

@@ -7,14 +7,15 @@ components. It is used by the Content Element authors to create a Content
 Element. It consists of three main components:
 
 - Edit component; main authoring component, required
-- Top Toolbar component; exposing Content Element controls within
-  the Tailor CMS top toolbar slot; optional
+- Top Toolbar component; exposing Content Element controls in a strip
+  inside the element card, above the Edit component; optional
 - Side Toolbar component; exposing Content Element controls within
   the Tailor CMS side toolbar slot; optional
 
 In the example image below, you can see a WYSIWYG editor Edit component
 (displaying 'Edit component' text) and its Top Toolbar; exposing
-various editor controls (mounted below the main application heading). Side
+various editor controls (mounted inside the element card, under its header,
+while the element is focused). Side
 Toolbar is not exposed for this Content Element; in case if it was, it would be
 visible upon element selection instead of Browse sidebar (note that element
 tab in the bottom left corner is greyed out).

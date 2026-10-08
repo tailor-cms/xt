@@ -1,4 +1,4 @@
-import type { FileUploadResponse } from '@tailor-cms/cek-common';
+import type { FileUploadResponse, UploadOptions } from '@tailor-cms/cek-common';
 import ky from 'ky';
 
 const api = ky.create({
@@ -13,10 +13,20 @@ function getUrl(assetKey: string): Promise<string> {
     .then((res) => res.url);
 }
 
-function upload(file: File): Promise<FileUploadResponse> {
+function upload(
+  file: File,
+  { onProgress }: UploadOptions = {},
+): Promise<FileUploadResponse> {
   const form = new FormData();
   form.append('file', file, file.name);
-  return api.post('assets', { body: form }).json<FileUploadResponse>();
+  return api
+    .post('assets', {
+      body: form,
+      onUploadProgress: onProgress
+        ? ({ percent }) => onProgress(Math.round(percent * 100))
+        : undefined,
+    })
+    .json<FileUploadResponse>();
 }
 
 export default {

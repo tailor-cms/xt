@@ -1,6 +1,19 @@
 <template>
+  <FileDropzone
+    v-if="isDropzone && !resolvedFileKey"
+    :allow-url-source="allowUrlSource"
+    :disabled="readonly"
+    :error-message="uploadError"
+    :extensions="allowedExtensions"
+    :icon="resolvedIcon"
+    :is-uploading="uploading"
+    :progress="progress"
+    :title="dropzoneTitle"
+    @open="openDialog"
+    @select="onFileSelect"
+  />
   <VTextField
-    v-if="!resolvedFileKey"
+    v-else-if="!resolvedFileKey"
     :density="density"
     :label="resolvedLabel"
     :max-width="maxWidth"
@@ -11,8 +24,50 @@
     append-inner-icon="mdi-upload"
     class="file-input"
     readonly
-    @click="dialogOpen = true"
+    @click="!readonly && openDialog()"
   />
+  <div v-else-if="isDropzone && $slots.default" class="file-input-media">
+    <slot
+      :file-name="resolvedFileName"
+      :is-loading="isLoadingPreview"
+      :url="previewUrl"
+    ></slot>
+    <!-- Editor-only file row below the media; sticks to the scroller
+      bottom so tall media keeps the actions in reach -->
+    <VExpandTransition>
+      <div
+        v-if="showActions && !readonly"
+        class="position-sticky bottom-0 pa-3 mb-n3 bg-surface-raised"
+      >
+        <div class="d-flex align-center ga-2">
+          <VIcon :icon="resolvedIcon" size="small" />
+          <span class="text-body-small text-medium-emphasis text-truncate">
+            {{ resolvedFileName }}
+          </span>
+          <VSpacer />
+          <div class="d-flex align-center mr-n3">
+            <slot :remove="onClear" :replace="openDialog" name="actions">
+              <VBtn
+                prepend-icon="mdi-swap-horizontal"
+                size="small"
+                text="Replace"
+                variant="text"
+                @click="openDialog()"
+              />
+              <VBtn
+                color="error"
+                prepend-icon="mdi-trash-can-outline"
+                size="small"
+                text="Remove"
+                variant="text"
+                @click="onClear"
+              />
+            </slot>
+          </div>
+        </div>
+      </div>
+    </VExpandTransition>
+  </div>
   <VOverlay
     v-else
     v-model="previewExpanded"
@@ -21,7 +76,9 @@
     close-on-content-click
   >
     <template #activator="{ props: dialogProps }">
+      <!-- Clicking the filled field replaces the file -->
       <VTextField
+        :class="{ 'cursor-pointer': !readonly }"
         :density="density"
         :label="resolvedLabel"
         :max-width="maxWidth"
@@ -30,6 +87,7 @@
         :variant="variant"
         class="file-input"
         readonly
+        @click="!readonly && openDialog()"
       >
         <template #prepend-inner>
           <VProgressCircular v-if="isLoadingPreview" size="24" indeterminate />
@@ -51,11 +109,14 @@
             size="x-small"
             variant="tonal"
             icon
+            @click.stop
           >
             <VIcon icon="mdi-magnify" size="large" />
           </VBtn>
           <VBtn
+            v-if="!readonly"
             aria-label="Remove file"
+            color="error"
             size="x-small"
             variant="tonal"
             icon
@@ -76,7 +137,7 @@
     />
     <img v-if="previewUrl" :alt="resolvedFileName" :src="previewUrl" />
   </VOverlay>
-  <VDialog v-model="dialogOpen" width="700">
+  <VDialog v-model="dialogOpen" :theme="$vuetify.theme.global.name" width="700">
     <VCard :title="dialogHeading">
       <VCardText>
         <VTabs v-model="activeTab" class="mb-6" grow>
@@ -90,12 +151,27 @@
         </VTabs>
         <VWindow v-model="activeTab">
           <VWindowItem value="upload">
-            <VFileUpload
-              :filter-by-type="acceptedFileTypes"
-              color="transparent"
-              hide-details
-              @update:model-value="onFileSelect"
+            <UploadProgress
+              v-if="uploading"
+              :file-name="uploadingFileName"
+              :progress="progress"
             />
+            <template v-else>
+              <VAlert
+                v-if="uploadError"
+                :text="uploadError"
+                class="mb-3"
+                density="compact"
+                type="error"
+                variant="tonal"
+              />
+              <VFileUpload
+                :filter-by-type="acceptedFileTypes"
+                color="transparent"
+                hide-details
+                @update:model-value="onFileSelect"
+              />
+            </template>
           </VWindowItem>
           <VWindowItem v-if="allowUrlSource" value="url">
             <VTextField
@@ -129,13 +205,27 @@
 import { computed, inject, ref, watch } from 'vue';
 import type { StorageApi } from '@tailor-cms/cek-common';
 
-import { ASSET_TYPE_ICON, ASSET_TYPE_LABEL, inferAssetType } from './asset';
+import {
+  ASSET_TYPE_DROPZONE_TITLE,
+  ASSET_TYPE_ICON,
+  ASSET_TYPE_LABEL,
+  fileNameFromUrl,
+  inferAssetType,
+} from './asset';
+import FileDropzone from './FileDropzone.vue';
+import UploadProgress from './UploadProgress.vue';
 
 defineOptions({ inheritAttrs: false });
 
 interface Props {
+  // 'field': a form control. 'dropzone': in-card media composer whose filled
+  // state renders the default slot with a file row beneath it.
+  mode?: 'field' | 'dropzone';
   fileKey?: string;
   fileName?: string;
+  // Dropzone mode: show the file row below the media
+  showActions?: boolean;
+  readonly?: boolean;
   allowUrlSource?: boolean;
   allowedExtensions?: string[];
   showPreview?: boolean;
@@ -151,8 +241,11 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  mode: 'field',
   fileKey: '',
   fileName: '',
+  showActions: true,
+  readonly: false,
   allowUrlSource: false,
   allowedExtensions: () => [],
   showPreview: false,
@@ -175,6 +268,10 @@ const emit = defineEmits<{
 
 const storageService = inject('$storageService') as StorageApi;
 const uploading = ref(false);
+// Percent complete, or null until the upload reports progress
+const progress = ref<number | null>(null);
+const uploadingFileName = ref('');
+const uploadError = ref('');
 const dialogOpen = ref(false);
 const activeTab = ref('upload');
 const urlInput = ref('');
@@ -182,7 +279,24 @@ const urlTitle = ref('');
 const urlError = ref('');
 const previewExpanded = ref(false);
 
+// Floor the visible upload time so the progress panel doesn't flash on fast
+// (small-file / localhost) uploads
+const MIN_LOADING_MS = 800;
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const isDropzone = computed(() => props.mode === 'dropzone');
 const category = computed(() => inferAssetType(props.allowedExtensions));
+const dropzoneTitle = computed(
+  () =>
+    ASSET_TYPE_DROPZONE_TITLE[category.value ?? ''] ||
+    ASSET_TYPE_DROPZONE_TITLE.other,
+);
+
+const openDialog = (tab: 'upload' | 'url' = 'upload') => {
+  activeTab.value = tab;
+  uploadError.value = '';
+  dialogOpen.value = true;
+};
 
 const resolvedFileKey = computed(
   () => props.fileKey?.replace(/^storage:\/\//, '') || '',
@@ -259,17 +373,28 @@ const onFileSelect = async (files: File | File[] | null) => {
   const file = Array.isArray(files) ? files[0] : files;
   if (!file) return;
   uploading.value = true;
+  progress.value = null;
+  uploadingFileName.value = file.name;
+  uploadError.value = '';
   try {
-    const data = await storageService.upload(file);
+    const [data] = await Promise.all([
+      storageService.upload(file, {
+        onProgress: (percent) => (progress.value = percent),
+      }),
+      delay(MIN_LOADING_MS),
+    ]);
     emit('upload', {
       key: data.key,
       name: file.name,
       url: data.url,
       publicUrl: data.publicUrl,
     });
+    closeDialog();
+  } catch {
+    // Dialog stays open so the error shows next to a retry
+    uploadError.value = 'Upload failed. Please try again.';
   } finally {
     uploading.value = false;
-    closeDialog();
   }
 };
 
@@ -282,11 +407,10 @@ const submitUrl = () => {
     urlError.value = 'Please enter a valid URL';
     return;
   }
-  emit('input', {
-    url: urlInput.value.trim(),
-    publicUrl: urlInput.value.trim(),
-    title: urlTitle.value.trim() || undefined,
-  });
+  const url = urlInput.value.trim();
+  // Same `name` key as uploads and library picks; the title is optional
+  const name = urlTitle.value.trim() || fileNameFromUrl(url) || undefined;
+  emit('input', { url, publicUrl: url, name });
   closeDialog();
 };
 
