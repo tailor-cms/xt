@@ -1,5 +1,11 @@
 # @tailor-cms/cek-common
 
+## 2.3.2
+
+### Patch Changes
+
+- Align `StorageService` types with the storage providers: type the optional `options` argument of `saveFile` (`SaveFileOptions` with `ContentType`), which hosts already forward to the provider, and type `getFile` as resolving to `null` when there's no file under the key.
+
 ## 2.3.1
 
 ### Patch Changes

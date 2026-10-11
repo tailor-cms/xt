@@ -94,13 +94,23 @@ export const afterSave: ElementHook<Element> = async (element, services) => {
 Available storage methods:
 
 ```ts
-getFile(key: string): Promise<Buffer>
+getFile(key: string): Promise<Buffer | null>
 ```
+
+Resolves to `null` if there's no file under the key.
 
 ```ts
 getFileUrl(key: string): Promise<string>
 ```
 
 ```ts
-saveFile(key: string, data: string | Buffer | DataView): Promise<void>
+saveFile(
+  key: string,
+  data: string | Buffer | DataView,
+  options?: { ContentType?: string },
+): Promise<void>
 ```
+
+Pass `ContentType` when overwriting a file that is served to the browser
+(e.g. `text/html`). S3-backed hosts store it as the object's content type and
+don't infer it from the key; the filesystem provider ignores it.
