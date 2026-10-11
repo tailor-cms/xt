@@ -1,10 +1,10 @@
 export default {
   'sort-imports': ['error', { allowSeparatedGroups: true, ignoreCase: true }],
-  'import/order': [
+  'import-x/order': [
     'error',
     { groups: ['external', 'internal'], 'newlines-between': 'always' },
   ],
-  'import/no-extraneous-dependencies': [
+  'import-x/no-extraneous-dependencies': [
     'error',
     { optionalDependencies: false },
   ],

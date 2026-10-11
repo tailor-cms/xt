@@ -29,12 +29,12 @@
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:*",
-    "@vitejs/plugin-vue": "^6.0.9",
+    "@vitejs/plugin-vue": "^6.0.10",
     "tce-question-manifest": "workspace:*",
     "typescript": "^6.0.3",
-    "vite": "^8.3.3",
+    "vite": "^8.3.4",
     "vite-plugin-lib-inject-css": "^2.2.2",
-    "vue-tsc": "^3.3.12",
+    "vue-tsc": "^3.3.13",
     "vuetify": "^4.2.4"
   }
 }

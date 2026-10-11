@@ -1,5 +1,15 @@
 # @tailor-cms/eslint-config
 
+## 3.0.0
+
+### Major Changes
+
+- Upgrade to ESLint 10. Requires `eslint@^10` as a peer dependency.
+
+  - Replace unmaintained `eslint-plugin-import` with `eslint-plugin-import-x`; rules are now prefixed `import-x/` (update any `eslint-disable` comments referencing `import/*`)
+  - Bump `neostandard` to 0.14 and `@eslint/js` to 10
+  - Keep neostandard rules applied to `.ts`, `.tsx` and `.vue` files (0.14 scopes them to JS files by default)
+
 ## 2.3.1
 
 ### Patch Changes
