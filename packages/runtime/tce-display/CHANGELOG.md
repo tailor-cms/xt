@@ -1,5 +1,16 @@
 # @tailor-cms/tce-display-runtime
 
+## 3.0.0
+
+### Major Changes
+
+- Align with `@tailor-cms/eslint-config` 3.0.0 (ESLint 10). Dependencies bumped.
+
+### Patch Changes
+
+- Updated dependencies
+  - @tailor-cms/cek-common@3.0.0
+
 ## 2.3.1
 
 ### Patch Changes
