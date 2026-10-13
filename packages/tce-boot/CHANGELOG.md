@@ -1,5 +1,16 @@
 # @tailor-cms/tce-boot
 
+## 3.0.1
+
+### Patch Changes
+
+- │ Updated dropzone to pass title, drop formats.
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@3.0.1
+  - @tailor-cms/tce-edit-runtime@3.0.1
+  - @tailor-cms/tce-preview-runtime@3.0.1
+  - @tailor-cms/tce-server-runtime@3.0.1
+
 ## 3.0.0
 
 ### Major Changes

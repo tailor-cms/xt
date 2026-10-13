@@ -1,5 +1,13 @@
 # @tailor-cms/tce-preview-runtime
 
+## 3.0.1
+
+### Patch Changes
+
+- │ Updated dropzone to pass title, drop formats.
+- Updated dependencies
+  - @tailor-cms/cek-common@3.0.1
+
 ## 3.0.0
 
 ### Major Changes

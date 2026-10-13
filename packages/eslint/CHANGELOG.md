@@ -1,5 +1,11 @@
 # @tailor-cms/eslint-config
 
+## 3.0.1
+
+### Patch Changes
+
+- │ Updated dropzone to pass title, drop formats.
+
 ## 3.0.0
 
 ### Major Changes
