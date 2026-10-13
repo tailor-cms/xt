@@ -11,6 +11,7 @@ import EmbeddedContainer from './components/EmbeddedContainer.vue';
 import FileInput from './components/FileInput/index.vue';
 import NotCompositeAlert from './components/NotCompositeAlert.vue';
 import Radio from './radio';
+import TailorDialog from './components/TailorDialog.vue';
 import vuetify from './plugins/vuetify';
 
 const element = await import(/* @vite-ignore */ import.meta.env.EDIT_DIR);
@@ -45,6 +46,7 @@ const radio = Radio.getInstance();
 app.provide('$eventBus', radio);
 app.provide('$elementBus', radio.channel('app'));
 app.use(vuetify);
+app.component('TailorDialog', TailorDialog);
 app.component('TailorAssetInput', AssetInput);
 app.component('TailorFileInput', FileInput);
 app.component('TailorElementPlaceholder', ElementPlaceholder);

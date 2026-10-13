@@ -1,5 +1,48 @@
 # @tailor-cms/cek-common
 
+## 3.0.1
+
+### Patch Changes
+
+- │ Updated dropzone to pass title, drop formats.
+
+## 3.0.0
+
+### Major Changes
+
+- Align with `@tailor-cms/eslint-config` 3.0.0 (ESLint 10). Dependencies bumped.
+
+## 2.3.2
+
+### Patch Changes
+
+- Align `StorageService` types with the storage providers: type the optional `options` argument of `saveFile` (`SaveFileOptions` with `ContentType`), which hosts already forward to the provider, and type `getFile` as resolving to `null` when there's no file under the key.
+
+## 2.3.1
+
+### Patch Changes
+
+- df127cb: Fix file uploads in the edit runtime; the CEK no longer reports upload progress (shows an indeterminate bar).
+
+## 2.3.0
+
+### Minor Changes
+
+- Align `TailorFileInput` with Tailor: upload progress, replace in field mode, and URL imports emit `name` instead of `title`.
+
+## 2.2.1
+
+### Patch Changes
+
+- Swapped legacy colors and updated changed tailor components.
+
+## 2.2.0
+
+### Minor Changes
+
+- Expand file input component with dropzone mode, move toolbar to element expose
+  Tailor Dialog global component.
+
 ## 2.1.1
 
 ### Patch Changes

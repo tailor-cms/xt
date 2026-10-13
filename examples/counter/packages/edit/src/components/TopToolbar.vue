@@ -1,9 +1,7 @@
 <template>
-  <VToolbarItems>
-    <VBtn prepend-icon="mdi-minus" size="large" @click="decrement">
-      Decrement
-    </VBtn>
-  </VToolbarItems>
+  <VBtn prepend-icon="mdi-minus" variant="text" @click="decrement">
+    Decrement
+  </VBtn>
 </template>
 
 <script setup lang="ts">

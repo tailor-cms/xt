@@ -1,0 +1,107 @@
+<template>
+  <VDialog
+    :theme="resolvedTheme"
+    :width="width"
+    v-bind="$attrs"
+    @update:model-value="onModelUpdate"
+  >
+    <template v-if="$slots.activator" #activator="activatorProps">
+      <slot v-bind="activatorProps" name="activator"></slot>
+    </template>
+    <template #default="defaultProps">
+      <slot v-if="$slots.default" v-bind="defaultProps"></slot>
+      <DefineCard>
+        <VCard
+          :data-testid="dataTestid"
+          color="surface-raised"
+          elevation="5"
+          rounded="xl"
+        >
+          <VCardItem class="px-5 py-4">
+            <template #prepend>
+              <VIcon :color="color" :icon="headerIcon" />
+            </template>
+            <VCardTitle class="dialog-title">{{ title }}</VCardTitle>
+            <template v-if="closeable" #append>
+              <VBtn
+                data-testid="tailorDialogClose"
+                density="comfortable"
+                icon="mdi-close"
+                title="Close"
+                variant="text"
+                @click="defaultProps.isActive.value = false"
+              />
+            </template>
+          </VCardItem>
+          <div v-if="$slots.subheader" class="dialog-subheader">
+            <slot name="subheader"></slot>
+          </div>
+          <VCardText class="py-2 px-4">
+            <slot name="body"></slot>
+          </VCardText>
+          <VCardActions v-if="$slots.actions" class="px-4 pb-3">
+            <VDefaultsProvider :defaults="{ VBtn: { slim: false } }">
+              <slot name="actions"></slot>
+            </VDefaultsProvider>
+          </VCardActions>
+        </VCard>
+      </DefineCard>
+      <form v-if="isForm" novalidate @submit.prevent="emit('submit', $event)">
+        <ReuseCard />
+      </form>
+      <ReuseCard v-else />
+    </template>
+  </VDialog>
+</template>
+
+<script lang="ts" setup>
+// Mirrors @tailor-cms/core-components TailorDialog so elements behave the
+// same in the kit as in Tailor.
+import { computed, getCurrentInstance } from 'vue';
+import { createReusableTemplate } from '@vueuse/core';
+import { useTheme } from 'vuetify';
+
+const [DefineCard, ReuseCard] = createReusableTemplate();
+
+export interface Props {
+  title?: string;
+  headerIcon?: string;
+  width?: number | string;
+  dataTestid?: string;
+  color?: string;
+  closeable?: boolean;
+  // A dialog is app chrome: it follows the app theme even when opened from
+  // a region with its own theme (e.g. the always-light element sheet).
+  theme?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  title: '',
+  headerIcon: 'mdi-alert',
+  color: 'primary',
+  width: 500,
+  dataTestid: 'tailorDialog',
+  closeable: false,
+  theme: undefined,
+});
+
+const emit = defineEmits(['open', 'close', 'submit']);
+
+const instance = getCurrentInstance();
+const isForm = computed(() => !!instance?.vnode.props?.onSubmit);
+
+const globalTheme = useTheme();
+const resolvedTheme = computed(
+  () => props.theme ?? globalTheme.global.name.value,
+);
+
+const onModelUpdate = (val: boolean) => {
+  emit(val ? 'open' : 'close');
+};
+</script>
+
+<style lang="scss" scoped>
+.dialog-title {
+  font-weight: 600;
+}
+</style>

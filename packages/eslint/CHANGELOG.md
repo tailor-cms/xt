@@ -1,5 +1,46 @@
 # @tailor-cms/eslint-config
 
+## 3.0.1
+
+### Patch Changes
+
+- │ Updated dropzone to pass title, drop formats.
+
+## 3.0.0
+
+### Major Changes
+
+- Upgrade to ESLint 10. Requires `eslint@^10` as a peer dependency.
+
+  - Replace unmaintained `eslint-plugin-import` with `eslint-plugin-import-x`; rules are now prefixed `import-x/` (update any `eslint-disable` comments referencing `import/*`)
+  - Bump `neostandard` to 0.14 and `@eslint/js` to 10
+  - Keep neostandard rules applied to `.ts`, `.tsx` and `.vue` files (0.14 scopes them to JS files by default)
+
+## 2.3.1
+
+### Patch Changes
+
+- df127cb: Fix file uploads in the edit runtime; the CEK no longer reports upload progress (shows an indeterminate bar).
+
+## 2.3.0
+
+### Minor Changes
+
+- Align `TailorFileInput` with Tailor: upload progress, replace in field mode, and URL imports emit `name` instead of `title`.
+
+## 2.2.1
+
+### Patch Changes
+
+- Swapped legacy colors and updated changed tailor components.
+
+## 2.2.0
+
+### Minor Changes
+
+- Expand file input component with dropzone mode, move toolbar to element expose
+  Tailor Dialog global component.
+
 ## 2.1.1
 
 ### Patch Changes

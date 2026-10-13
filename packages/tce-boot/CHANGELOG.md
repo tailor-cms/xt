@@ -1,5 +1,81 @@
 # @tailor-cms/tce-boot
 
+## 3.0.1
+
+### Patch Changes
+
+- │ Updated dropzone to pass title, drop formats.
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@3.0.1
+  - @tailor-cms/tce-edit-runtime@3.0.1
+  - @tailor-cms/tce-preview-runtime@3.0.1
+  - @tailor-cms/tce-server-runtime@3.0.1
+
+## 3.0.0
+
+### Major Changes
+
+- Align with `@tailor-cms/eslint-config` 3.0.0 (ESLint 10). Dependencies bumped.
+
+### Patch Changes
+
+- Updated dependencies
+  - @tailor-cms/tce-preview-runtime@3.0.0
+  - @tailor-cms/tce-display-runtime@3.0.0
+  - @tailor-cms/tce-edit-runtime@3.0.0
+  - @tailor-cms/tce-server-runtime@3.0.0
+
+## 2.3.1
+
+### Patch Changes
+
+- df127cb: Fix file uploads in the edit runtime; the CEK no longer reports upload progress (shows an indeterminate bar).
+- Updated dependencies [df127cb]
+  - @tailor-cms/tce-display-runtime@2.3.1
+  - @tailor-cms/tce-edit-runtime@2.3.1
+  - @tailor-cms/tce-preview-runtime@2.3.1
+  - @tailor-cms/tce-server-runtime@2.3.1
+
+## 2.3.0
+
+### Minor Changes
+
+- Align `TailorFileInput` with Tailor: upload progress, replace in field mode, and URL imports emit `name` instead of `title`.
+
+### Patch Changes
+
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@2.3.0
+  - @tailor-cms/tce-edit-runtime@2.3.0
+  - @tailor-cms/tce-preview-runtime@2.3.0
+  - @tailor-cms/tce-server-runtime@2.3.0
+
+## 2.2.1
+
+### Patch Changes
+
+- Swapped legacy colors and updated changed tailor components.
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@2.2.1
+  - @tailor-cms/tce-edit-runtime@2.2.1
+  - @tailor-cms/tce-preview-runtime@2.2.1
+  - @tailor-cms/tce-server-runtime@2.2.1
+
+## 2.2.0
+
+### Minor Changes
+
+- Expand file input component with dropzone mode, move toolbar to element expose
+  Tailor Dialog global component.
+
+### Patch Changes
+
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@2.2.0
+  - @tailor-cms/tce-edit-runtime@2.2.0
+  - @tailor-cms/tce-preview-runtime@2.2.0
+  - @tailor-cms/tce-server-runtime@2.2.0
+
 ## 2.1.1
 
 ### Patch Changes

@@ -24,14 +24,14 @@
             :error="isValid.value === false"
             :model-value="elementData.correct === index"
             :readonly="isReadonly"
-            color="primary"
+            color="secondary"
             hide-details
-            @click="emit('update', { correct: index })"
+            @click="!isReadonly && emit('update', { correct: index })"
           />
           <VAvatar
             v-else
             class="font-weight-bold ma-1"
-            color="primary-darken-3"
+            color="secondary"
             size="small"
           >
             {{ index + 1 }}

@@ -32,19 +32,14 @@
                 v-if="isGeneratingContent"
                 class="d-flex flex-column align-center py-16"
               >
-                <VProgressCircular
-                  class="w-100"
-                  color="primary-darken-2"
-                  size="68"
-                  indeterminate
-                >
+                <VProgressCircular class="w-100" size="68" indeterminate>
                   <img
                     alt="Tailor logo"
                     src="https://avatars.githubusercontent.com/u/142484057"
                     width="32"
                   />
                 </VProgressCircular>
-                <div class="mt-8 text-primary-darken-4 font-weight-bold">
+                <div class="mt-8 font-weight-bold">
                   <span>Content generation in progress...</span>
                 </div>
               </div>
@@ -68,6 +63,15 @@
                     @click="!settings.persistFocus && focusElement()"
                     @reset="confirm(reset)"
                   >
+                    <template v-if="TopToolbar" #toolbar>
+                      <component
+                        :is="TopToolbar"
+                        :key="isGradable"
+                        :element="element"
+                        @delete="onDelete"
+                        @save="onSave"
+                      />
+                    </template>
                     <QuestionForm
                       v-if="isQuestion"
                       v-bind="{
@@ -100,31 +104,6 @@
                 </VCol>
               </VRow>
             </VSheet>
-          </VCol>
-        </VRow>
-        <VRow v-if="TopToolbar && element?.data">
-          <VCol>
-            <div class="d-flex align-center mb-3">
-              <VChip class="text-body-medium font-weight-bold" rounded="lg">
-                Top toolbar
-              </VChip>
-            </div>
-            <VSlideYTransition>
-              <VSheet
-                v-if="isFocused"
-                class="top-toolbar"
-                elevation="1"
-                theme="light"
-              >
-                <component
-                  :is="TopToolbar"
-                  :key="isGradable"
-                  :element="element"
-                  @delete="onDelete"
-                  @save="onSave"
-                />
-              </VSheet>
-            </VSlideYTransition>
           </VCol>
         </VRow>
         <VRow v-if="SideToolbar && element?.data">
@@ -460,33 +439,6 @@ watch(
 .side-toolbar {
   padding: 1.75rem 0.875rem 1.5rem;
   max-width: 30rem;
-}
-
-.top-toolbar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 5.5rem;
-  padding: 0.5rem 2rem;
-  border-bottom: 4px solid #cfd8dc;
-
-  :deep(.v-input) {
-    position: relative;
-
-    .v-input__details {
-      position: absolute;
-      padding: 0 !important;
-
-      .v-messages__message {
-        margin-top: 0.5rem;
-        border-radius: 4px;
-        padding: 0.5rem 0.75rem;
-        background-color: #424242;
-        color: #fff !important;
-      }
-    }
-  }
 }
 
 :deep(.v-input.required) {

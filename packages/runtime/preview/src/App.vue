@@ -58,7 +58,7 @@ onMounted(async () => {
   const wsBus = initWebSocket(serverRuntimeUrl, elementId);
   wsBus.on('element:update', (v: Element) => (element.value = v));
   wsBus.on('userState:update', (v: any) => (userState.value = v));
-  wsBus.on('userContext:change', (v: { index: number }) => load(elementId));
+  wsBus.on('userContext:change', () => load(elementId));
 });
 </script>
 

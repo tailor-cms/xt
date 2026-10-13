@@ -34,9 +34,7 @@
           v-if="!isReadonly && isDirty && !autosave"
           class="d-flex justify-end mt-4 ga-2"
         >
-          <VBtn color="primary-darken-4" variant="text" @click="resetData">
-            Cancel
-          </VBtn>
+          <VBtn variant="text" @click="resetData">Cancel</VBtn>
           <VBtn
             color="success"
             prepend-icon="mdi-check"

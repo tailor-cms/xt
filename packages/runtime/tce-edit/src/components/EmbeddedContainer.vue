@@ -80,7 +80,6 @@ const props = withDefaults(defineProps<Props>(), {
     large: false,
     label: 'Add content',
     icon: 'mdi-plus',
-    color: 'primary-darken-4',
     variant: 'tonal',
   }),
   isReadonly: false,
@@ -106,11 +105,10 @@ const addBtnProps = computed(() => {
     large = false,
     label = 'Add content',
     icon = 'mdi-plus',
-    color = 'primary-darken-4',
     variant = 'tonal',
   } = props.addElementOptions ?? {};
-  if (!large) return { icon, color, variant, size: 'small', ariaLabel: label };
-  return { text: label, prependIcon: icon, color, variant };
+  if (!large) return { icon, variant, size: 'small', ariaLabel: label };
+  return { text: label, prependIcon: icon, variant };
 });
 
 const createEmbedElement = () => ({

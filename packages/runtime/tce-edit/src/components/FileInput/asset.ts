@@ -50,3 +50,22 @@ export const ASSET_TYPE_LABEL: Record<string, string> = {
   document: 'Document',
   other: 'File',
 };
+
+// Whole sentences per type; grammar (articles, mass nouns) lives here
+export const ASSET_TYPE_DROPZONE_TITLE: Record<string, string> = {
+  image: 'Add an image',
+  video: 'Add a video',
+  audio: 'Add audio',
+  document: 'Add a document',
+  other: 'Add a file',
+};
+
+// File name from a URL's last path segment, without query or hash
+export function fileNameFromUrl(url: string): string | null {
+  try {
+    const segment = new URL(url).pathname.split('/').pop();
+    return segment ? decodeURIComponent(segment) : null;
+  } catch {
+    return null;
+  }
+}

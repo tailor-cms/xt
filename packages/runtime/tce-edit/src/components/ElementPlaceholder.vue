@@ -1,72 +1,37 @@
 <template>
-  <VSheet
-    :class="dense ? 'pt-3' : 'pa-12'"
-    class="text-center text-grey"
-    color="transparent"
-  >
-    <VAvatar
-      :color="isDisabled ? 'primary-darken-3' : 'primary-darken-4'"
-      :size="dense ? 40 : 60"
-    >
-      <VIcon
-        :color="isFocused ? activeColor : 'white'"
-        :icon="icon"
-        :size="iconSize"
-      />
+  <VSheet class="text-center pa-8" color="transparent">
+    <VAvatar :color="color" size="x-large" variant="tonal">
+      <VIcon :icon="icon" :size="isFocused ? 34 : 28" />
     </VAvatar>
-    <div
-      :class="[
-        isDisabled ? 'text-grey-darken-3' : 'text-grey-darken-4',
-        dense ? 'my-2 text-title-small' : 'my-4 text-headline-small',
-      ]"
-    >
-      {{ name }}
-    </div>
-    <div
-      v-if="!dense && !isDisabled"
-      class="text-grey-darken-2 text-title-medium"
-    >
+    <div class="mt-4 mb-2 font-weight-medium text-title-large">{{ name }}</div>
+    <div v-if="!isReadonly" class="text-body-medium">
       <template v-if="!isFocused">{{ placeholder }}</template>
       <template v-else>
         {{ activePlaceholder }}
-        <VIcon
-          v-if="activeIcon"
-          :icon="activeIcon"
-          color="primary-darken-4"
-          size="20"
-        />
+        <VIcon v-if="activeIcon" :icon="activeIcon" size="20" />
       </template>
     </div>
   </VSheet>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
-
 interface Props {
   icon: string;
   name: string;
+  color?: string;
   placeholder?: string;
   activePlaceholder?: string;
   activeIcon?: string | null;
-  activeColor?: string;
-  dense?: boolean;
   isFocused?: boolean;
-  isDisabled?: boolean;
+  isReadonly?: boolean;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
+  color: undefined,
   placeholder: 'Select to edit',
-  activePlaceholder: 'Use toolbar to edit',
+  activePlaceholder: 'Use the toolbar above to edit',
   activeIcon: null,
-  activeColor: '#fff',
-  dense: false,
   isFocused: false,
-  isDisabled: false,
-});
-
-const iconSize = computed(() => {
-  if (props.dense) return props.isFocused ? 24 : 20;
-  return props.isFocused ? 38 : 30;
+  isReadonly: false,
 });
 </script>
