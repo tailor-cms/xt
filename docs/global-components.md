@@ -93,13 +93,14 @@ only; the Library source appears in Tailor.
 | `file-name` | `string` | `''` | Display name; falls back to parsing from `fileKey` |
 | `show-actions` | `boolean` | `true` | Dropzone mode: show the file row below the media; bind to the element's focus state |
 | `allow-url-source` | `boolean` | `false` | Show the URL tab in the picker dialog and the From URL button in the dropzone |
-| `allowed-extensions` | `string[]` | `[]` | Accepted extensions with dot prefix (e.g. `['.jpg', '.png']`); drives type detection, the formats hint, and library filtering |
+| `allowed-extensions` | `string[]` | `[]` | Accepted extensions with dot prefix (e.g. `['.jpg', '.png']`); drives type detection, the native picker filter, and library filtering |
 | `show-preview` | `boolean` | `false` | Image thumbnail + overlay on the file card; auto-enabled for image extensions |
 | `public-url` | `string \| null` | `null` | Pre-resolved public URL; skips the async fetch when present |
 | `readonly` | `boolean` | `false` | Disables all interactions |
 | `label` | `string` | `''` | Override the auto-inferred label (derived from extensions) |
 | `placeholder` | `string` | `''` | Field mode: text field placeholder; also the base of the dialog heading |
 | `icon` | `string` | `''` | Override the auto-inferred icon (derived from extensions) |
+| `title` | `string` | `''` | Dropzone mode: override the heading inferred from the asset type (e.g. `Add a PDF` instead of `Add a document`) |
 | `variant` | `VTextField['variant']` | `'outlined'` | Vuetify variant for the text field (field mode) |
 | `density` | `VTextField['density']` | `'default'` | Vuetify density for the text field (field mode) |
 | `dark` | `boolean` | `false` | Dark theme variant for the file card (field mode) |

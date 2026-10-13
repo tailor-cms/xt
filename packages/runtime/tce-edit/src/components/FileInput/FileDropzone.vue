@@ -34,7 +34,6 @@
         </div>
         <div class="text-body-medium text-medium-emphasis">
           Drag & drop anywhere in this block
-          <template v-if="formats"> · {{ formats }}</template>
         </div>
       </template>
       <template #browse="{ props: browseProps }">
@@ -64,7 +63,6 @@
 // Mirrors the core-components dropzone; the kit has no asset library, so
 // the sources are upload and URL only.
 import { computed, ref } from 'vue';
-import { uniq } from 'lodash-es';
 
 import UploadProgress from './UploadProgress.vue';
 
@@ -98,14 +96,6 @@ const emit = defineEmits<{
 const fileName = ref('');
 
 const accept = computed(() => props.extensions.join(','));
-
-const listFormat = new Intl.ListFormat('en', { type: 'disjunction' });
-const formats = computed(() => {
-  const names = props.extensions.map((it) =>
-    it.replace(/^\./, '').toUpperCase(),
-  );
-  return listFormat.format(uniq(names));
-});
 
 const onSelect = (files: File | File[] | null) => {
   if (!files) return;

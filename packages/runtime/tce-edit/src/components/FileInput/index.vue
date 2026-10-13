@@ -233,6 +233,8 @@ interface Props {
   label?: string;
   placeholder?: string;
   icon?: string;
+  // Dropzone mode: override the heading inferred from the asset type
+  title?: string;
   variant?: 'flat' | 'outlined' | 'tonal' | 'text';
   density?: 'default' | 'comfortable' | 'compact';
   dark?: boolean;
@@ -253,6 +255,7 @@ const props = withDefaults(defineProps<Props>(), {
   label: '',
   placeholder: '',
   icon: '',
+  title: '',
   variant: 'outlined',
   density: 'default',
   dark: false,
@@ -288,6 +291,7 @@ const isDropzone = computed(() => props.mode === 'dropzone');
 const category = computed(() => inferAssetType(props.allowedExtensions));
 const dropzoneTitle = computed(
   () =>
+    props.title ||
     ASSET_TYPE_DROPZONE_TITLE[category.value ?? ''] ||
     ASSET_TYPE_DROPZONE_TITLE.other,
 );
