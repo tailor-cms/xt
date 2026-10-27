@@ -1,71 +1,79 @@
 <template>
-  <VDialog
+  <TailorDialog
+    :header-icon="icon || resolvedIcon"
     :model-value="modelValue"
-    :theme="$vuetify.theme.global.name"
+    :title="heading || resolvedLabel"
     width="700"
-    @update:model-value="emit('update:modelValue', $event)"
+    @close="close"
   >
-    <VCard :prepend-icon="icon || undefined" :title="heading || resolvedLabel">
-      <VCardText>
-        <VTabs v-model="activeTab" class="mb-6" grow>
-          <VTab prepend-icon="mdi-upload" text="Upload" value="upload" />
-          <VTab
-            v-if="allowUrlSource"
-            prepend-icon="mdi-link-variant"
-            text="URL"
-            value="url"
-          />
-        </VTabs>
-        <VWindow v-model="activeTab">
-          <VWindowItem value="upload">
-            <UploadProgress
-              v-if="uploading"
-              :file-name="fileName"
-              :progress="progress"
-            />
-            <template v-else>
-              <VAlert
-                v-if="error"
-                :text="error"
-                class="mb-3"
-                density="compact"
-                type="error"
-                variant="tonal"
-              />
-              <VFileUpload
-                :filter-by-type="acceptedFileTypes"
-                color="transparent"
-                hide-details
-                @update:model-value="onFileSelect"
-              />
-            </template>
-          </VWindowItem>
-          <VWindowItem v-if="allowUrlSource" value="url">
-            <VTextField
-              v-model="urlInput"
-              :error-messages="urlError"
-              hide-details="auto"
-              label="File URL"
-              @keydown.enter="submitUrl"
-            />
-            <VTextField
-              v-model="urlTitle"
-              class="mt-3"
-              label="Title"
-              hide-details
-            />
-          </VWindowItem>
-        </VWindow>
-      </VCardText>
+    <template #subheader>
+      <!-- The md3 blueprint's primary slider skips the icon; span the tab -->
+      <VTabs v-model="activeTab" slider-variant="secondary" grow>
+        <VTab
+          class="font-weight-medium"
+          prepend-icon="mdi-upload"
+          text="Upload"
+          value="upload"
+        />
+        <VTab
+          v-if="allowUrlSource"
+          class="font-weight-medium"
+          prepend-icon="mdi-link-variant"
+          text="URL"
+          value="url"
+        />
+      </VTabs>
       <VDivider />
-      <VCardActions class="px-4 pb-3 flex-end">
-        <VBtn @click="close"> Cancel </VBtn>
-        <VBtn v-if="activeTab === 'url'" variant="tonal" @click="submitUrl">
-          Import
-        </VBtn>
-      </VCardActions>
-    </VCard>
-  </VDialog>
+    </template>
+    <template #body>
+      <VWindow v-model="activeTab" class="pt-4">
+        <VWindowItem value="upload">
+          <UploadProgress
+            v-if="uploading"
+            :file-name="fileName"
+            :progress="progress"
+          />
+          <template v-else>
+            <VAlert
+              v-if="error"
+              :text="error"
+              class="mb-3"
+              density="compact"
+              type="error"
+              variant="tonal"
+            />
+            <VFileUpload
+              :filter-by-type="acceptedFileTypes"
+              hide-details
+              @update:model-value="onFileSelect"
+            />
+          </template>
+        </VWindowItem>
+        <VWindowItem v-if="allowUrlSource" value="url">
+          <VTextField
+            v-model="urlInput"
+            :error-messages="urlError"
+            hide-details="auto"
+            label="File URL"
+            @keydown.enter="submitUrl"
+          />
+          <VTextField
+            v-model="urlTitle"
+            class="mt-3"
+            label="Title"
+            hide-details
+          />
+        </VWindowItem>
+      </VWindow>
+    </template>
+    <template #actions>
+      <VSpacer />
+      <VBtn @click="close"> Cancel </VBtn>
+      <VBtn v-if="activeTab === 'url'" variant="tonal" @click="submitUrl">
+        Import
+      </VBtn>
+    </template>
+  </TailorDialog>
 </template>
 
 <script lang="ts" setup>
@@ -74,10 +82,12 @@
 import { computed, ref, watch } from 'vue';
 
 import {
+  ASSET_TYPE_ICON,
   ASSET_TYPE_LABEL,
   fileNameFromUrl,
   inferAssetType,
 } from '../utils/asset';
+import TailorDialog from './TailorDialog.vue';
 import UploadProgress from './UploadProgress.vue';
 import { useUpload } from '../composables/useUpload';
 
@@ -128,10 +138,15 @@ const urlInput = ref('');
 const urlTitle = ref('');
 const urlError = ref('');
 
-const resolvedLabel = computed(() => {
-  const category = inferAssetType(props.allowedExtensions);
-  return ASSET_TYPE_LABEL[category ?? ''] || ASSET_TYPE_LABEL.other;
-});
+const category = computed(
+  () => inferAssetType(props.allowedExtensions) ?? 'other',
+);
+const resolvedLabel = computed(
+  () => ASSET_TYPE_LABEL[category.value] || ASSET_TYPE_LABEL.other,
+);
+const resolvedIcon = computed(
+  () => ASSET_TYPE_ICON[category.value] || ASSET_TYPE_ICON.other,
+);
 
 const acceptedFileTypes = computed(() => props.allowedExtensions.join(','));
 
