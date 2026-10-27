@@ -1,5 +1,13 @@
 # @tailor-cms/tce-display-runtime
 
+## 3.0.2
+
+### Patch Changes
+
+- Extract AssetPicker as separate component.
+- Updated dependencies
+  - @tailor-cms/cek-common@3.0.2
+
 ## 3.0.1
 
 ### Patch Changes

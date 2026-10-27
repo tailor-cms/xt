@@ -1,5 +1,16 @@
 # @tailor-cms/tce-boot
 
+## 3.0.2
+
+### Patch Changes
+
+- Extract AssetPicker as separate component.
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@3.0.2
+  - @tailor-cms/tce-edit-runtime@3.0.2
+  - @tailor-cms/tce-preview-runtime@3.0.2
+  - @tailor-cms/tce-server-runtime@3.0.2
+
 ## 3.0.1
 
 ### Patch Changes

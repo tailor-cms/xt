@@ -1,5 +1,11 @@
 # @tailor-cms/tce-server-runtime
 
+## 3.0.2
+
+### Patch Changes
+
+- Extract AssetPicker as separate component.
+
 ## 3.0.1
 
 ### Patch Changes
