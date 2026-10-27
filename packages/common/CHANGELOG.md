@@ -1,5 +1,11 @@
 # @tailor-cms/cek-common
 
+## 3.0.3
+
+### Patch Changes
+
+- Add helpers for library images inside element HTML: `collectImageAssets`, `resolveImages`, `createImageHtml`, `createImageAssetId` and `getImageDataPath`.
+
 ## 3.0.2
 
 ### Patch Changes

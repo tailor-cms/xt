@@ -1,5 +1,16 @@
 # @tailor-cms/tce-boot
 
+## 3.0.3
+
+### Patch Changes
+
+- Add helpers for library images inside element HTML: `collectImageAssets`, `resolveImages`, `createImageHtml`, `createImageAssetId` and `getImageDataPath`.
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@3.0.3
+  - @tailor-cms/tce-edit-runtime@3.0.3
+  - @tailor-cms/tce-preview-runtime@3.0.3
+  - @tailor-cms/tce-server-runtime@3.0.3
+
 ## 3.0.2
 
 ### Patch Changes
