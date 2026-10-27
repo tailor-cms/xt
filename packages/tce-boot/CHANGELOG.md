@@ -1,5 +1,16 @@
 # @tailor-cms/tce-boot
 
+## 3.0.4
+
+### Patch Changes
+
+- Tweak Asset Picker component.
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@3.0.4
+  - @tailor-cms/tce-edit-runtime@3.0.4
+  - @tailor-cms/tce-preview-runtime@3.0.4
+  - @tailor-cms/tce-server-runtime@3.0.4
+
 ## 3.0.3
 
 ### Patch Changes

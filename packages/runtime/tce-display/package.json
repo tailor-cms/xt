@@ -2,7 +2,7 @@
   "name": "@tailor-cms/tce-display-runtime",
   "description": "Display content element client side runtime",
   "author": "Studion <info@gostudion.com>",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "license": "MIT",
   "type": "module",
   "scripts": {

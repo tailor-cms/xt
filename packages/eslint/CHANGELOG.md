@@ -1,5 +1,11 @@
 # @tailor-cms/eslint-config
 
+## 3.0.4
+
+### Patch Changes
+
+- Tweak Asset Picker component.
+
 ## 3.0.3
 
 ### Patch Changes
