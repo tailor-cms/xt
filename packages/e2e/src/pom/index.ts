@@ -1,3 +1,4 @@
+export { AssetPicker } from './AssetPicker';
 export { BottomPanel } from './BottomPanel';
 export { DisplayPanel } from './DisplayPanel';
 export { DisplayQuestionForm } from './DisplayQuestionForm';
