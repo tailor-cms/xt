@@ -85,13 +85,13 @@ other asset:
 {
   content: '<p>Revenue grew 12%.</p><img data-asset-id="4f8e2c1a-…" src="storage://repository/5/assets/6b90c9e1__chart.png" alt="chart.png">',
   assets: {
-    'images.4f8e2c1a-…': 'storage://repository/5/assets/6b90c9e1__chart.png'
+    'imageUrls.4f8e2c1a-…': 'storage://repository/5/assets/6b90c9e1__chart.png'
   }
 }
 ```
 
 On read, the runtime signs each entry and writes it to the path in its key,
-so the element receives `data.images['4f8e2c1a-…']` with a signed URL. The
+so the element receives `data.imageUrls['4f8e2c1a-…']` with a signed URL. The
 HTML itself never contains a signed URL, so nothing that expires is saved.
 
 `@tailor-cms/cek-common` provides the helpers. Those that read or write HTML
@@ -101,9 +101,9 @@ use the DOM and run in the browser only.
 |---|---|
 | `createImageAssetId()` | A new id for a library image |
 | `createImageHtml({ url, name, assetId })` | `<img>` markup for a picked image, with `data-asset-id` when an id is given |
-| `collectImageAssets(html)` | `data.assets` for the HTML: `images.<id>` to `storage://` URL |
-| `resolveImages(html, images)` | The HTML with each library image pointing at its signed URL, for display only |
-| `isStorageUrl(url)`, `getImageAssetPath(id)` | The `storage://` check and the `images.<id>` key |
+| `collectImageAssets(html)` | `data.assets` for the HTML: `imageUrls.<id>` to `storage://` URL |
+| `resolveImages(html, imageUrls)` | The HTML with each library image pointing at its signed URL, for display only |
+| `isStorageUrl(url)`, `getImageDataPath(id)` | The `storage://` check and the `imageUrls.<id>` key |
 | `STORAGE_PROTOCOL`, `ASSET_ID_ATTRIBUTE` | `'storage://'` and `'data-asset-id'` |
 
 Insert images with [`TailorAssetPicker`](/global-components#tailorassetpicker),
@@ -143,15 +143,15 @@ const insert = (asset: { url: string; name?: string }) => {
   const assetId = isStorageUrl(asset.url) ? createImageAssetId() : null;
   const img = createImageHtml({ ...asset, assetId });
   const content = props.element.data.content + img;
-  // `images` only holds signed URLs from the last read; never save it
-  const data = omit(props.element.data, 'images');
+  // `imageUrls` only holds signed URLs from the last read; never save it
+  const data = omit(props.element.data, 'imageUrls');
   emit('save', { ...data, content, assets: collectImageAssets(content) });
 };
 </script>
 ```
 
 Rebuilding `assets` on every save keeps it in step with the HTML: a deleted
-image drops out, and a pasted one is picked up. Leave `images` out of the
+image drops out, and a pasted one is picked up. Leave `imageUrls` out of the
 saved data. The runtime only strips paths that are still listed in
 `assets`, so the signed URL of a deleted image would otherwise be stored.
 
@@ -171,7 +171,7 @@ import type { Element } from 'tce-manifest';
 const props = defineProps<{ element: Element }>();
 
 const html = computed(() =>
-  resolveImages(props.element.data.content, props.element.data.images),
+  resolveImages(props.element.data.content, props.element.data.imageUrls),
 );
 </script>
 ```

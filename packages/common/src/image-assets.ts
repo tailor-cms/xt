@@ -1,8 +1,8 @@
 import { v4 as uuid } from '@lukeed/uuid/secure';
 
 // Library images in element HTML keep a storage:// src and an id; the
-// element lists them in data.assets as `images.<id>`, and runtimes resolve
-// each entry to a signed URL at data.images[<id>]. The helpers that read or
+// element lists them in data.assets as `imageUrls.<id>`, and runtimes
+// resolve each entry to a signed URL at data.imageUrls[<id>]. The helpers that read or
 // write HTML use the DOM, so they run in the browser only.
 
 export const STORAGE_PROTOCOL = 'storage://';
@@ -22,10 +22,10 @@ export const isStorageUrl = (url?: string | null): boolean =>
   !!url?.startsWith(STORAGE_PROTOCOL);
 
 // Id for a new library image; dashes keep it from being read as an
-// array index in the `images.<id>` path
+// array index in the `imageUrls.<id>` path
 export const createImageAssetId = (): string => uuid();
 
-export const getImageAssetPath = (id: string): string => `images.${id}`;
+export const getImageDataPath = (id: string): string => `imageUrls.${id}`;
 
 const parse = (html: string) =>
   new DOMParser().parseFromString(html, 'text/html');
@@ -42,7 +42,7 @@ export const collectImageAssets = (html: string): Record<string, string> => {
     .forEach((img) => {
       const src = img.getAttribute('src');
       if (!isStorageUrl(src)) return;
-      assets[getImageAssetPath(img.getAttribute(ASSET_ID_ATTRIBUTE))] = src;
+      assets[getImageDataPath(img.getAttribute(ASSET_ID_ATTRIBUTE))] = src;
     });
   return assets;
 };
@@ -53,12 +53,12 @@ export const collectImageAssets = (html: string): Record<string, string> => {
  */
 export const resolveImages = (
   html: string,
-  images: Record<string, string> = {},
+  imageUrls: Record<string, string> = {},
 ): string => {
   if (!html.includes(ASSET_ID_ATTRIBUTE)) return html;
   const doc = parse(html);
   doc.querySelectorAll<HTMLImageElement>(IMAGE_SELECTOR).forEach((img) => {
-    const url = images[img.getAttribute(ASSET_ID_ATTRIBUTE)];
+    const url = imageUrls[img.getAttribute(ASSET_ID_ATTRIBUTE)];
     if (url) img.src = url;
   });
   return doc.body.innerHTML;
