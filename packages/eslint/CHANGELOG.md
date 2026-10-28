@@ -1,5 +1,29 @@
 # @tailor-cms/eslint-config
 
+## 3.0.5
+
+### Patch Changes
+
+- Rename the HTML image helpers so they cover any library asset
+
+## 3.0.4
+
+### Patch Changes
+
+- Tweak Asset Picker component.
+
+## 3.0.3
+
+### Patch Changes
+
+- Add helpers for library images inside element HTML: `collectImageAssets`, `resolveImages`, `createImageHtml`, `createImageAssetId` and `getImageDataPath`.
+
+## 3.0.2
+
+### Patch Changes
+
+- Extract AssetPicker as separate component.
+
 ## 3.0.1
 
 ### Patch Changes

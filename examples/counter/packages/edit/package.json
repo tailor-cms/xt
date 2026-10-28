@@ -32,9 +32,9 @@
     "@vitejs/plugin-vue": "^6.0.10",
     "tce-counter-manifest": "workspace:*",
     "typescript": "^6.0.3",
-    "vite": "^8.3.4",
+    "vite": "^8.3.5",
     "vite-plugin-lib-inject-css": "^2.2.2",
     "vue-tsc": "^3.3.13",
-    "vuetify": "^4.2.4"
+    "vuetify": "^4.3.1"
   }
 }

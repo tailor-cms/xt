@@ -5,6 +5,7 @@ import { createApp } from 'vue';
 
 import App from './App.vue';
 import AssetInput from './components/AssetInput.vue';
+import AssetPicker from './components/AssetPicker.vue';
 import ContentElement from './components/ContentElement.vue';
 import ElementPlaceholder from './components/ElementPlaceholder.vue';
 import EmbeddedContainer from './components/EmbeddedContainer.vue';
@@ -49,6 +50,7 @@ app.use(vuetify);
 app.component('TailorDialog', TailorDialog);
 app.component('TailorAssetInput', AssetInput);
 app.component('TailorFileInput', FileInput);
+app.component('TailorAssetPicker', AssetPicker);
 app.component('TailorElementPlaceholder', ElementPlaceholder);
 app.component('TailorContentElement', ContentElement);
 app.component(

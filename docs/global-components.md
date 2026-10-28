@@ -134,6 +134,59 @@ The type is inferred only when every accepted extension belongs to one
 group; mixed or empty lists fall back to File. `label` and `icon` override
 the inferred values.
 
+### TailorAssetPicker
+
+The picker dialog on its own, without a current value: Upload, Library and,
+when enabled, URL. Use it for one-off actions such as inserting an image
+into text; use `TailorFileInput` when the element holds a single file.
+`TailorFileInput` opens this same dialog.
+
+```vue
+<template>
+  <VBtn text="Insert image" @click="isPickerOpen = true" />
+  <TailorAssetPicker
+    v-model="isPickerOpen"
+    :allowed-extensions="['.png', '.jpg', '.jpeg']"
+    heading="Insert image"
+    allow-url-source
+    @select="insert"
+    @upload="insert"
+  />
+</template>
+```
+
+Listen to both events when the source doesn't matter. The dialog closes
+itself after a successful upload or pick, and stays open with the error if
+an upload fails. See [Assets inside HTML](/file-storage#assets-inside-html)
+for storing what it returns.
+
+::: tip Info
+The kit has no asset library, so its runtime offers Upload and URL only;
+the Library tab appears in Tailor.
+:::
+
+#### Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `model-value` | `boolean` | — | Open state (`v-model`) |
+| `allowed-extensions` | `string[]` | `[]` | Accepted extensions with dot prefix; filters the native picker and the library |
+| `allow-url-source` | `boolean` | `false` | Show the URL tab |
+| `heading` | `string` | inferred label | Dialog title; defaults to the type label inferred from the extensions (e.g. `Image`) |
+| `icon` | `string` | inferred icon | Header icon |
+| `initial-tab` | `'upload' \| 'library' \| 'url'` | `'upload'` | Tab shown when the dialog opens (`'library'` is Tailor only) |
+
+#### Events
+
+| Event | Payload | Description |
+|---|---|---|
+| `@upload` | `{ key, name, url, publicUrl }` | File uploaded from the Upload tab |
+| `@select` | `{ key, name, url, publicUrl }` \| `{ url, name }` | Asset picked from the library, or URL imported. For a URL, `url` is the external URL as entered (the kit also sets `publicUrl` to it) |
+| `@update:model-value` | `boolean` | Open state changed |
+
+`url` is the `storage://` URI for uploads and library assets; `publicUrl` is
+a signed URL for showing the file right away and must not be saved.
+
 ### TailorAssetInput (legacy)
 
 The previous asset input component with inline edit/save/cancel state.

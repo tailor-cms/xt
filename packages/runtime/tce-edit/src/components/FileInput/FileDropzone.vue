@@ -64,7 +64,7 @@
 // the sources are upload and URL only.
 import { computed, ref } from 'vue';
 
-import UploadProgress from './UploadProgress.vue';
+import UploadProgress from '../UploadProgress.vue';
 
 interface Props {
   title: string;

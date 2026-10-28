@@ -74,6 +74,119 @@ target location within the `element.data` property. As an example,
 declaring `x.y` key will result with the resolved url assigned to the
 `data.x.y` (it is possible to target nested values).
 
+## Assets inside HTML
+
+Elements that store HTML, such as a rich text editor, can hold any number of
+library assets: images, video or audio, and links to files. Each one keeps
+its permanent `storage://` URL in the HTML (`src`, or `href` for links) and
+gets an id, so the element can declare it in `data.assets` like any other
+asset:
+
+```js
+{
+  content: '<p>Revenue grew 12%.</p><img data-asset-id="4f8e2c1a-…" src="storage://repository/5/assets/6b90c9e1__chart.png" alt="chart.png">',
+  assets: {
+    'assetUrls.4f8e2c1a-…': 'storage://repository/5/assets/6b90c9e1__chart.png'
+  }
+}
+```
+
+On read, the runtime signs each entry and writes it to the path in its key,
+so the element receives `data.assetUrls['4f8e2c1a-…']` with a signed URL. The
+HTML itself never contains a signed URL, so nothing that expires is saved.
+
+`@tailor-cms/cek-common` provides the helpers. Those that read or write HTML
+use the DOM and run in the browser only.
+
+| Helper | Use |
+|---|---|
+| `createAssetId()` | A new id for a library asset |
+| `collectHtmlAssets(html)` | `data.assets` for the HTML: `assetUrls.<id>` to `storage://` URL, for every element with a `data-asset-id` |
+| `resolveHtmlAssets(html, assetUrls)` | The HTML with each library asset pointing at its signed URL, for display only |
+| `isStorageUrl(url)`, `getAssetDataPath(id)` | The `storage://` check and the `assetUrls.<id>` key |
+| `STORAGE_PROTOCOL` | `'storage://'` |
+
+The markup is up to the element. Mark each library asset with a
+`data-asset-id` from `createAssetId()`, and put its `storage://` URL in `src`,
+or in `href` for links; that's the shape the helpers above read.
+
+Insert images with [`TailorAssetPicker`](/global-components#tailorassetpicker),
+and rebuild `assets` from the HTML on every save:
+
+```vue
+<template>
+  <VBtn text="Insert image" @click="isPickerOpen = true" />
+  <TailorAssetPicker
+    v-model="isPickerOpen"
+    :allowed-extensions="['.png', '.jpg', '.jpeg']"
+    heading="Insert image"
+    allow-url-source
+    @select="insert"
+    @upload="insert"
+  />
+</template>
+
+<script setup lang="ts">
+import {
+  collectHtmlAssets,
+  createAssetId,
+  isStorageUrl,
+} from '@tailor-cms/cek-common';
+import { omit } from 'lodash-es';
+import { ref } from 'vue';
+import type { Element, ElementData } from 'tce-manifest';
+
+const props = defineProps<{ element: Element }>();
+const emit = defineEmits<{ save: [data: ElementData] }>();
+
+const isPickerOpen = ref(false);
+
+// Appends for brevity; an editor would insert at the cursor
+const insert = (asset: { url: string; name?: string }) => {
+  const img = document.createElement('img');
+  if (isStorageUrl(asset.url)) {
+    img.setAttribute('data-asset-id', createAssetId());
+  }
+  img.src = asset.url;
+  img.alt = asset.name ?? '';
+  const content = props.element.data.content + img.outerHTML;
+  // `assetUrls` only holds signed URLs from the last read; never save it
+  const data = omit(props.element.data, 'assetUrls');
+  emit('save', { ...data, content, assets: collectHtmlAssets(content) });
+};
+</script>
+```
+
+Rebuilding `assets` on every save keeps it in step with the HTML: a deleted
+asset drops out, and a pasted one is picked up. Leave `assetUrls` out of the
+saved data. The runtime only strips paths that are still listed in
+`assets`, so the signed URL of a deleted image would otherwise be stored.
+
+In the Display package, and in any editor preview, swap the signed URLs in
+before rendering:
+
+```vue
+<template>
+  <div v-html="html" />
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue';
+import { resolveHtmlAssets } from '@tailor-cms/cek-common';
+import type { Element } from 'tce-manifest';
+
+const props = defineProps<{ element: Element }>();
+
+const html = computed(() =>
+  resolveHtmlAssets(props.element.data.content, props.element.data.assetUrls),
+);
+</script>
+```
+
+A `storage://` URL without a `data-asset-id`, for example in hand-written
+HTML, is not listed in `assets` and is never signed. Insert library assets
+through the helpers so they always get an id.
+
 ## Server hooks
 
 Server hooks have the `storage` service injected, exposing the ability to access

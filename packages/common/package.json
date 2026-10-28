@@ -2,7 +2,7 @@
   "name": "@tailor-cms/cek-common",
   "description": "Content element kit shared util library",
   "author": "Studion <info@gostudion.com>",
-  "version": "3.0.1",
+  "version": "3.0.5",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -32,7 +32,7 @@
     "@tailor-cms/eslint-config": "workspace:^",
     "@types/json-schema": "^7.0.15",
     "@types/node": "^26.6.5",
-    "tsdown": "^0.23.1",
+    "tsdown": "^0.23.2",
     "typescript": "^6.0.3"
   },
   "tsdown": {

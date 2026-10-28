@@ -1,5 +1,38 @@
 # @tailor-cms/tce-preview-runtime
 
+## 3.0.5
+
+### Patch Changes
+
+- Rename the HTML image helpers so they cover any library asset
+- Updated dependencies [4bed9f7]
+- Updated dependencies
+  - @tailor-cms/cek-common@3.0.5
+
+## 3.0.4
+
+### Patch Changes
+
+- Tweak Asset Picker component.
+- Updated dependencies
+  - @tailor-cms/cek-common@3.0.4
+
+## 3.0.3
+
+### Patch Changes
+
+- Add helpers for library images inside element HTML: `collectImageAssets`, `resolveImages`, `createImageHtml`, `createImageAssetId` and `getImageDataPath`.
+- Updated dependencies
+  - @tailor-cms/cek-common@3.0.3
+
+## 3.0.2
+
+### Patch Changes
+
+- Extract AssetPicker as separate component.
+- Updated dependencies
+  - @tailor-cms/cek-common@3.0.2
+
 ## 3.0.1
 
 ### Patch Changes
