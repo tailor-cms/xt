@@ -157,7 +157,7 @@ into text; use `TailorFileInput` when the element holds a single file.
 
 Listen to both events when the source doesn't matter. The dialog closes
 itself after a successful upload or pick, and stays open with the error if
-an upload fails. See [Images inside HTML](/file-storage#images-inside-html)
+an upload fails. See [Assets inside HTML](/file-storage#assets-inside-html)
 for storing what it returns.
 
 ::: tip Info
