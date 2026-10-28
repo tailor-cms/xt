@@ -26,7 +26,7 @@
     "vite": "^8.3.5",
     "vue": "^3.5.44",
     "vuedraggable": "^4.1.0",
-    "vuetify": "^4.3.0"
+    "vuetify": "^4.3.1"
   },
   "devDependencies": {
     "@tailor-cms/eslint-config": "workspace:^",
