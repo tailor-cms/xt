@@ -1,5 +1,12 @@
 # @tailor-cms/cek-common
 
+## 3.0.5
+
+### Patch Changes
+
+- 4bed9f7: Rename the HTML image helpers so they cover any library asset: `collectImageAssets` → `collectHtmlAssets`, `resolveImages` → `resolveHtmlAssets`, `createImageAssetId` → `createAssetId`, `getImageDataPath` → `getAssetDataPath`, and `data.imageUrls` → `data.assetUrls`. They now handle every element with a `data-asset-id`, reading `href` on links and `src` elsewhere.
+- Rename the HTML image helpers so they cover any library asset
+
 ## 3.0.4
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @tailor-cms/tce-boot
 
+## 3.0.5
+
+### Patch Changes
+
+- Rename the HTML image helpers so they cover any library asset
+- Updated dependencies
+  - @tailor-cms/tce-display-runtime@3.0.5
+  - @tailor-cms/tce-edit-runtime@3.0.5
+  - @tailor-cms/tce-preview-runtime@3.0.5
+  - @tailor-cms/tce-server-runtime@3.0.5
+
 ## 3.0.4
 
 ### Patch Changes

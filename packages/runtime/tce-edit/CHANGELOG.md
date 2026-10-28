@@ -1,5 +1,14 @@
 # @tailor-cms/tce-edit-runtime
 
+## 3.0.5
+
+### Patch Changes
+
+- Rename the HTML image helpers so they cover any library asset
+- Updated dependencies [4bed9f7]
+- Updated dependencies
+  - @tailor-cms/cek-common@3.0.5
+
 ## 3.0.4
 
 ### Patch Changes

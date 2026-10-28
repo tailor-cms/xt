@@ -1,5 +1,11 @@
 # @tailor-cms/tce-server-runtime
 
+## 3.0.5
+
+### Patch Changes
+
+- Rename the HTML image helpers so they cover any library asset
+
 ## 3.0.4
 
 ### Patch Changes
